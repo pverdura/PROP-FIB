@@ -25,6 +25,6 @@ public class Main {
         System.out.println(p.getFirst()+" "+p.getSecond());
 
         CercaBooleana c = new CercaBooleana();
-        c.cercaDoc("holaa");
+        System.out.println(c.cercaDoc(2));
     }
 }

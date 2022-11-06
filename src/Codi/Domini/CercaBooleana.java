@@ -8,12 +8,9 @@ import java.util.ArrayList;
 public class CercaBooleana implements Cerca {
 
     @Override
-    public ArrayList<Pair<String, String>> cercaDoc() {
-        return null;
-    }
+    public void cercaDoc() {}
 
-    public ArrayList<Pair<String, String>> cercaDoc(String test) {
-
-        return null;
+    public int cercaDoc(int a) {
+        return a;
     }
 }
