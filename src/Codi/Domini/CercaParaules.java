@@ -8,6 +8,8 @@ import java.util.HashMap;
 
 public class CercaParaules implements Cerca {
 
+    public CercaParaules() {}
+
     @Override
     public void cercaDoc() {}
 
