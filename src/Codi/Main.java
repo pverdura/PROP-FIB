@@ -1,5 +1,4 @@
 package Codi;
-import Codi.Domini.Cerca;
 import Codi.Domini.CercaBooleana;
 import Codi.Util.Pair;
 
