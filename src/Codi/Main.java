@@ -1,4 +1,6 @@
 package Codi;
+import Codi.Domini.Cerca;
+import Codi.Domini.CercaBooleana;
 import Codi.Util.Pair;
 
 import java.util.Scanner;
@@ -22,5 +24,8 @@ public class Main {
         p.setSecond(4);
 
         System.out.println(p.getFirst()+" "+p.getSecond());
+
+        CercaBooleana c = new CercaBooleana();
+        c.cercaDoc("holaa");
     }
 }
