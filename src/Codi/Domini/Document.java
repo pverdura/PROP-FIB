@@ -6,48 +6,67 @@ import java.util.HashMap;
 public class Document {
     String titol, autor, path, contingut;
 
+    static String stopWords;
+
     TipusExtensio tipusExtensio;
 
     int pes;    //quantitat de caràcters
 
     HashMap<String, Integer> aparicions;
-    public Document () {}
+    public Document () {
+        aparicions = new HashMap<String, Integer>();
+    }
 
     public Document (String titol, String autor) {
         this.titol = titol; this.autor = autor;
-    }
+        aparicions = new HashMap<String, Integer>();
 
+        setContingut("");
+    }
     public Document (String titol, String autor, String path, String contingut, TipusExtensio tipusExtensio) {
         this.titol = titol; this.autor = autor; this.path = path;
         this.tipusExtensio = tipusExtensio;
+        aparicions = new HashMap<String, Integer>();
 
         this.setContingut(contingut);
     }
     void comptarAparicions () {
         //comptar aparicions
         //filtrar stopwords
+
+
     }
     void setContingut (String s) {
         this.contingut = s;
         this.pes = this.contingut.length();
-        comptarAparicions();
-    }
-    String getContingut () {return this.contingut;}
 
+        this.comptarAparicions();
+    }
+
+    public static void setStopWords (String s) {
+        Document.stopWords = s;
+    }
+
+    public static String getStopWords () {
+        return Document.stopWords;
+    }
+    String getContingut () {
+        return this.contingut;
+    }
     public String getTitol() {
-        return titol;
+        return this.titol;
     }
     public String getAutor() {
-        return autor;
+        return this.autor;
     }
     public String getPath() {
-        return path;
+        return this.path;
     }
-    public TipusExtensio getTipusExtensio() {
-        return tipusExtensio;
+    public TipusExtensio getExtensio() {
+        return this.tipusExtensio;
     }
     public int getPes() {
-        return pes;
+        return this.pes;
     }
     public void setTitol(String titol) {
         this.titol = titol;
@@ -58,7 +77,7 @@ public class Document {
     public void setPath(String path) {
         this.path = path;
     }
-    public void setTipusExtensio(TipusExtensio tipusExtensio) {
+    public void setExtensio(TipusExtensio tipusExtensio) {
         this.tipusExtensio = tipusExtensio;
     }
     public HashMap<String, Integer> getAparicions() {
