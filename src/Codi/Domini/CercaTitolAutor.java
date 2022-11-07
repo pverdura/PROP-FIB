@@ -8,7 +8,9 @@ import java.util.HashMap;
 public class CercaTitolAutor implements Cerca{
     @Override
     public void cercaDoc() {}
-    public Document cercaDoc (String titol, String autor, HashMap<String, ArrayList<String>> documents) {
-        return null;
+    public Document cercaDoc (String titol, String autor,HashMap<Pair<String, String>, Document> documents) {
+        Pair<String, String> id = new Pair<String, String>(titol, autor);
+
+        return documents.get(id);
     }
 }
