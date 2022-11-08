@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class CtrlDomini {
 
     ///////////////////////////////////////////////////////////
-    ///                      ATRIBUTS                       ///
+    ///                     ESTRUCTURES                     ///
     ///////////////////////////////////////////////////////////
     private HashMap<Pair<String,String>,Document> Documents; // Estructura on es guarden els documents
     private Trie<String> Autors; // Estructura on es guarden els autors (serveix per trobar el prefix)
@@ -20,6 +20,11 @@ public class CtrlDomini {
     private HashMap<String,ArrayList<String>> TitolAutors; // Estructura on es guarden els autors que han creat un document amb un títol
     private HashMap<String,ArrayList<Pair<String,String>>> Paraules; // Estructura on es guarden els documents que contenen la paraula
     private ArrayList<ExpressioBooleana> ExpressionsBooleanes; // Estructura on es guarden totes les expression booleanes
+
+
+    ///////////////////////////////////////////////////////////
+    ///                     AGREGACIONS                     ///
+    ///////////////////////////////////////////////////////////
 
     private CtrlDominiExprBool CDeb;    // Agregació del controlador d'expressió booleana
 
@@ -102,7 +107,7 @@ public class CtrlDomini {
 
     /* Modifica el contingut del document identificat per {títol, autor}
      * Pre: Els String títol i autor no són buits
-     * Post: True si s'ha modificat el contingut del document, false si si no s'ha modificat
+     * Post: True si s'ha modificat el contingut del document, false si no s'ha modificat
      */
     public Boolean setContingut(String titol, String autor, String contingut) {
         CDdoc.setContingut(titol,autor,contingut,Documents);
@@ -119,7 +124,7 @@ public class CtrlDomini {
 
     /* Modifica el path del document identificat per {títol, autor}
      * Pre: Els String títol i autor no són buits, i el path existeix
-     * Post: True si s'ha modificat el path del document, false si si no s'ha modificat
+     * Post: True si s'ha modificat el path del document, false si no s'ha modificat
      */
     public Boolean setPath(String titol, String autor, String path) {
         CDdoc.setPath(titol,autor,path,Documents);
@@ -136,7 +141,7 @@ public class CtrlDomini {
 
     /* Modifica l'extensió del document identificat per {títol, autor}
      * Pre: Els String títol i autor no són buits
-     * Post: True si s'ha modificat l'extensió del document, false si si no s'ha modificat
+     * Post: True si s'ha modificat l'extensió del document, false si no s'ha modificat
      */
     public Boolean setExtensio(String titol, String autor, TipusExtensio ext) {
         CDdoc.setExtensio(titol,autor,ext,Documents);
@@ -161,7 +166,7 @@ public class CtrlDomini {
 
     /* Elimina el document identificat per {títol, autor} del sistema
      * Pre: Els String títol i autor no són buits
-     * Post: True si s'ha eliminat el document, false si si no s'ha eliminat
+     * Post: True si s'ha eliminat el document, false si no s'ha eliminat
      */
     public Boolean eliminaDocument(String titol, String autor) {
         CDdoc.eliminaDocument(titol,autor,Documents);
@@ -180,5 +185,31 @@ public class CtrlDomini {
     ///           FUNCIONS CTRL_DOMINI_EXPR.BOOL.           ///
     ///////////////////////////////////////////////////////////
 
-    //
+    /* Crea una expressió booleana formada per l'expressió expr
+     * Pre: El String expr no és buit
+     * Post: True si s'ha creat l'expressió, false si no s'ha creat
+     */
+    public Boolean creaExpressioBool(String expr) {
+        CDeb.creaExpressioBool(expr,ExpressionsBooleanes);
+        return true;
+    }
+
+    /* Elimina l'expressió booleana formada per l'expressió expr
+     * Pre: El String expr no és buit
+     * Post: True si s'ha eliminat el document, false si no s'ha eliminat
+     */
+    public Boolean eliminaExpressioBool(String expr) {
+        CDeb.eliminaExpressioBool(expr,ExpressionsBooleanes);
+        return true;
+    }
+
+    /* Modifica l'expressió booleana formada per l'expressió exprAnt
+     * Pre: Els String exprAnt i exprNova no són buits
+     * Post: True si la expressió passa a ser exprNova, false si la expressió continua sent exprAnt
+     */
+    public Boolean modificaExpressioBool(String exprAnt, String exprNova) {
+        CDeb.modificaExpressioBool(exprAnt,exprNova,ExpressionsBooleanes);
+        return true;
+    }
+
 }
