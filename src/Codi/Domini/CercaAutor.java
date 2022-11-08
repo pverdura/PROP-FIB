@@ -7,8 +7,8 @@ import java.util.HashMap;
 
 public class CercaAutor implements Cerca{
 
-    @Override
-    public void cercaDoc() {}
+    //@Override
+    //public void cercaDoc() {}
 
     public static ArrayList<Pair<String , String >> cercaDoc(String autor,  HashMap<String, ArrayList<String>> Autors){
 

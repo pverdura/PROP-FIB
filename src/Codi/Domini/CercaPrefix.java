@@ -8,8 +8,8 @@ import java.util.HashMap;
 
 public class CercaPrefix implements Cerca{
 
-    @Override
-    public void cercaDoc() {}
+    //@Override
+    //public void cercaDoc() {}
 
     public static ArrayList<String> cercaDoc(String prefix, Trie<String> autors){
 
