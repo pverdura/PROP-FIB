@@ -46,7 +46,7 @@ public class CtrlDomini {
 
 
     ///////////////////////////////////////////////////////////
-    ///                       GETTERS                       ///
+    ///             FUNCIONS DE LES ESTRUCTURES             ///
     ///////////////////////////////////////////////////////////
 
     /* Pre: -
@@ -178,8 +178,53 @@ public class CtrlDomini {
     ///             FUNCIONS CTRL_DOMINI_CERCA              ///
     ///////////////////////////////////////////////////////////
 
-    //...
+    /* Llista els documents (títol,autor) creats per l'autor "autor"
+     * Pre:
+     * Post:
+     */
+    public ArrayList<Pair<String,String>> cercaAutor(String autor) {
+        return CDcer.cercaAutor(autor,DocumentsAutor);
+    }
 
+    /* Llista els documents que tenen com a títol "titol"
+     * Pre:
+     * Post:
+     */
+    public ArrayList<Pair<String,String>> cercaTitol(String titol) {
+        return CDcer.cercaTitol(titol,TitolAutors);
+    }
+
+    /* Obté el document identificat per titol, autor
+     * Pre:
+     * Post:
+     */
+    public Document cercaTitolAutor(String titol, String autor) {
+        return CDcer.cercaTitolAutor(titol,autor,Documents);
+    }
+
+    /* Llista els autors que contenen el prefix "prefix"
+     * Pre:
+     * Post:
+     */
+    public ArrayList<String> cercaPrefix(String prefix) {
+        return CDcer.cercaPrefix(prefix,Autors);
+    }
+
+    /* Llista els k documents més semblants al document D
+     * Pre: El Document D no té contingut buit, k > 0
+     * Post: Un arraylist de longitud k amb els identificadors dels documents més semblants a D
+     */
+    public ArrayList<Pair<String,String>> cercaSemblant(Document D, Integer k, Boolean tipus) {
+        return CDcer.cercaSemblant(D,k,Documents,tipus);
+    }
+
+    /* Llista els k documents més rellevants segons l'array de paraules
+     * Pre: L'array no és buit, k > 0
+     * Post: Un arraylist de longitud k amb els identificadors dels documents més rellevants a l'array paraules
+     */
+    public ArrayList<Pair<String,String>> cercaParaules(ArrayList<String> paraules, Integer k, Boolean tipus) {
+        return cercaParaules(paraules,k,Paraules,Documents,tipus);
+    }
 
     ///////////////////////////////////////////////////////////
     ///           FUNCIONS CTRL_DOMINI_EXPR.BOOL.           ///
