@@ -11,7 +11,7 @@ public class CercaPrefix implements Cerca{
     @Override
     public void cercaDoc() {}
 
-    public ArrayList<String> cercaDoc(String prefix, Trie<String> autors){
+    public static ArrayList<String> cercaDoc(String prefix, Trie<String> autors){
 
         ArrayList<String> resultat = new ArrayList<String>();
 
