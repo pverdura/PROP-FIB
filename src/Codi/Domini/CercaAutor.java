@@ -10,7 +10,7 @@ public class CercaAutor implements Cerca{
     @Override
     public void cercaDoc() {}
 
-    public ArrayList<Pair<String , String >> cercaDoc(String autor,  HashMap<String, ArrayList<String>> Autors){
+    public static ArrayList<Pair<String , String >> cercaDoc(String autor,  HashMap<String, ArrayList<String>> Autors){
 
         ArrayList<Pair<String, String>> resultat = new ArrayList<Pair<String, String>>();
 
