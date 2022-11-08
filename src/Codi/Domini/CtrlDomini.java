@@ -3,6 +3,7 @@
 package Codi.Domini;
 
 import Codi.Util.Pair;
+import Codi.Util.TipusExtensio;
 import Codi.Util.Trie;
 
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class CtrlDomini {
     /* Pre: -
      * Post: Retorna un llistat dels autors que han creat cada títol
      */
-    public HashMap<String,ArrayList<String>> getTítolAutors() {
+    public HashMap<String,ArrayList<String>> getTitolAutors() {
         return TitolAutors;
     }
 
@@ -91,29 +92,82 @@ public class CtrlDomini {
     ///////////////////////////////////////////////////////////
 
     /* Afegeix un nou document amb paràmetres (títol, autor)
-     * Pre: Els String titol i autor no són buits
-     * Post: True si s'ha creat el document, false si el document identificat per {titol,autor} ja existeix en el sistema
+     * Pre: Els String títol i autor no són buits
+     * Post: True si s'ha creat el document, false si el document identificat per {títol,autor} ja existeix en el sistema
      */
     public Boolean creaDocument(String titol, String autor) {
         CDdoc.creaDocument(titol,autor,Documents);
         return true;
     }
 
+    /* Modifica el contingut del document identificat per {títol, autor}
+     * Pre: Els String títol i autor no són buits
+     * Post: True si s'ha modificat el contingut del document, false si si no s'ha modificat
+     */
     public Boolean setContingut(String titol, String autor, String contingut) {
         CDdoc.setContingut(titol,autor,contingut,Documents);
         return true;
     }
 
+    /* Obté el contingut del document identificat per {títol, autor}
+     * Pre: Els String títol i autor no són buits
+     * Post: El contingut del document identificat per {títol, autor}
+     */
     public String getContingut(String titol, String autor) {
         return CDdoc.getContingut(titol,autor,Documents);
     }
 
+    /* Modifica el path del document identificat per {títol, autor}
+     * Pre: Els String títol i autor no són buits, i el path existeix
+     * Post: True si s'ha modificat el path del document, false si si no s'ha modificat
+     */
     public Boolean setPath(String titol, String autor, String path) {
         CDdoc.setPath(titol,autor,path,Documents);
         return true;
     }
 
-    //public Boolean getPath(String)
+    /* Obté el path del document identificat per {títol, autor}
+     * Pre: Els String títol i autor no són buits
+     * Post: El path del document identificat per {títol, autor}
+     */
+    public String getPath(String titol, String autor) {
+        return CDdoc.getPath(titol,autor,Documents);
+    }
+
+    /* Modifica l'extensió del document identificat per {títol, autor}
+     * Pre: Els String títol i autor no són buits
+     * Post: True si s'ha modificat l'extensió del document, false si si no s'ha modificat
+     */
+    public Boolean setExtensio(String titol, String autor, TipusExtensio ext) {
+        CDdoc.setExtensio(titol,autor,ext,Documents);
+        return true;
+    }
+
+    /* Obté l'extensió del document identificat per {títol, autor}
+     * Pre: Els String títol i autor no són buits
+     * Post: L'extensió del document
+     */
+    public TipusExtensio getExtensio(String titol, String autor) {
+        return CDdoc.getExtensio(titol,autor,Documents);
+    }
+
+    /* Obté el pes del document identificat per {títol, autor}
+     * Pre: Els String títol i autor no són buits
+     * Post: El pes del document
+     */
+    public Integer getPes(String titol, String autor) {
+        return CDdoc.getPes(titol,autor,Documents);
+    }
+
+    /* Elimina el document identificat per {títol, autor} del sistema
+     * Pre: Els String títol i autor no són buits
+     * Post: True si s'ha eliminat el document, false si si no s'ha eliminat
+     */
+    public Boolean eliminaDocument(String titol, String autor) {
+        CDdoc.eliminaDocument(titol,autor,Documents);
+        return true;
+    }
+
 
     ///////////////////////////////////////////////////////////
     ///             FUNCIONS CTRL_DOMINI_CERCA              ///
