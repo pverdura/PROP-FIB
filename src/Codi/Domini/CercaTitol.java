@@ -6,12 +6,11 @@ import Codi.Util.Pair;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CercaTitol implements Cerca{
+public class CercaTitol implements Cerca {
 
     @Override
     public void cercaDoc() {}
-    public ArrayList<Pair<String, String>> cercaDoc (String titol,  HashMap<String, ArrayList<String>> titolAutors,
-                                                     HashMap<String, ArrayList<String>> documents) {
+    public ArrayList<Pair<String, String>> cercaDoc (String titol,  HashMap<String, ArrayList<String>> titolAutors) {
         ArrayList<Pair<String, String>> resultat = new ArrayList<Pair<String, String>>();
 
         ArrayList<String> llistaAutors = titolAutors.get(titol);
