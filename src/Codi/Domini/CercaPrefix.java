@@ -12,7 +12,9 @@ public class CercaPrefix implements Cerca{
 
     public ArrayList<String> cercaDoc(String prefix){
 
+        ArrayList<String> resultat = new ArrayList<String>();
 
+        return resultat;
     }
 
 }
