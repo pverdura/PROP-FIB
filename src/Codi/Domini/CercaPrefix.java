@@ -1,4 +1,4 @@
 package Codi.Domini;
 
-public class CercaPrefix {
+public class CercaPrefix implements Cerca{
 }

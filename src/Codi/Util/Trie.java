@@ -1,4 +1,4 @@
 package Codi.Util;
 
-public class Trie {
+public class Trie<T> {
 }
