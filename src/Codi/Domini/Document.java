@@ -10,7 +10,10 @@ public class Document {
     String titol, autor, path, contingut;
 
     static ArrayList<String> stopWords;
-    static String signesDePuntuacio = ",.;:-_!\"$%&/()=|@#~€¬?¿¡'";
+    static String signesDePuntuacio = "-_!\"$%&/()=|@#~€¬?¿¡'[]";
+
+    static String[] extres = {"l'", "d'", "m'", "n'", "t'", "s'", "'l", "'ls", "'m", "'n", "'t", "'s",
+                                "-ho","-ne","-me","-te","-se","-los","-les", "-lo","-hi","-li"};
 
     TipusExtensio tipusExtensio;
 
@@ -36,22 +39,30 @@ public class Document {
         this.setContingut(contingut);
     }
 
-    void esborrarSignesPuntuacio (String s) {
-        int n = Document.signesDePuntuacio.length();
+    String tractar (String s) {
+        int n = extres.length;
+
+        for (int i = 0; i < n; ++i) {
+            s = s.replace(extres[i], "");
+        }
+
+        n = Document.signesDePuntuacio.length();
+        //eliminar signes de puntuació
         for (int i = 0; i < n; ++i) {
             s = s.replace(Character.toString(Document.signesDePuntuacio.charAt(i)), "");
         }
+        return s;
     }
     void comptarAparicions () {
         //comptar aparicions de les paraules
         //filtrar stopword
         //esborrar signes de puntuació
-        String[] aux = this.contingut.toLowerCase().split(" ");
+        String[] aux = this.contingut.toLowerCase().split("[, \n\t.;:]+");
         ArrayList<String> senseEspais = new ArrayList<String>(Arrays.asList(aux));
 
         for (int i = 0; i < senseEspais.size(); ++i) {
             String paraula = senseEspais.get(i);
-            System.out.println(paraula);
+            paraula = tractar(paraula);
             //esborrar signes de puntuació
             if (!Document.stopWords.contains(paraula)) {
                 aparicions.merge(paraula, 1, Integer::sum);
