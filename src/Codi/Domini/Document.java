@@ -7,6 +7,7 @@ public class Document {
     String titol, autor, path, contingut;
 
     static String stopWords;
+    static String signesDePuntuacio = ",.;:-_!\"$%&/()=|@#~€¬?¿¡'";
 
     TipusExtensio tipusExtensio;
 
@@ -30,11 +31,28 @@ public class Document {
 
         this.setContingut(contingut);
     }
+
+    void esborrarSignesPuntuacio (String s) {
+        int n = Document.signesDePuntuacio.length();
+        for (int i = 0; i < n; ++i) {
+            s = s.replace(Character.toString(Document.signesDePuntuacio.charAt(i)), "");
+        }
+    }
     void comptarAparicions () {
-        //comptar aparicions
-        //filtrar stopwords
-
-
+        //comptar aparicions de les paraules
+        //filtrar stopword
+        //esborrar signes de puntuació
+        String[] senseEspais = this.contingut.toLowerCase().split("");
+        for (String paraula : senseEspais) {
+            //esborrar signes de puntuació
+            if (!Document.stopWords.contains(paraula)) {
+                if (this.aparicions.containsKey(paraula)) {
+                    aparicions.put(paraula, 1);
+                } else {
+                    aparicions.merge(paraula, 1, Integer::sum):
+                }
+            }
+        }
     }
     void setContingut (String s) {
         this.contingut = s;
