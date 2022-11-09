@@ -214,17 +214,26 @@ public class CtrlDomini {
      * Pre: El Document D no té contingut buit, k > 0
      * Post: Un arraylist de longitud k amb els identificadors dels documents més semblants a D
      */
-    public ArrayList<Pair<String,String>> cercaSemblant(Document D, Integer k, Boolean tipus) {
-        return CDcer.cercaSemblant(D,k,Documents,tipus);
+    public ArrayList<Pair<String,String>> cercaSemblant(Document D, Integer k) {
+        return CDcer.cercaSemblant(D,k,Paraules,Documents);
     }
 
     /* Llista els k documents més rellevants segons l'array de paraules
      * Pre: L'array no és buit, k > 0
      * Post: Un arraylist de longitud k amb els identificadors dels documents més rellevants a l'array paraules
      */
-    public ArrayList<Pair<String,String>> cercaParaules(ArrayList<String> paraules, Integer k, Boolean tipus) {
-        return cercaParaules(paraules,k,Paraules,Documents,tipus);
+    public ArrayList<Pair<String,String>> cercaParaules(ArrayList<String> paraules, Integer k) {
+        return CDcer.cercaParaules(paraules,k,Paraules,Documents);
     }
+
+    /* Llista els documents que compleixen la condició booleana expr
+     * Pre: ??? expr no és buida
+     * Post: Els documents que compleixen l'expressió expr
+     */
+    public Integer cercaBooleana(int expr) {
+        return CDcer.cercaBooleana(expr);
+    }
+
 
     ///////////////////////////////////////////////////////////
     ///           FUNCIONS CTRL_DOMINI_EXPR.BOOL.           ///
