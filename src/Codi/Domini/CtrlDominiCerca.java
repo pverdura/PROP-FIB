@@ -28,12 +28,14 @@ public class CtrlDominiCerca {
         return CercaPrefix.cercaDoc(prefix, autors);
     }
 
-    public ArrayList<Pair<String , String >> cercaSemblant(Document document, int k){
-        return CercaSemblant.cercaDoc(document, k);
+    public ArrayList<Pair<String , String >> cercaSemblant(Document document, int k, HashMap<String,ArrayList<Pair<String,String>>> paraulesDocuments,
+                                                           HashMap<Pair<String,String>, Document> documents){
+        return CercaSemblant.cercaDoc(document, k, paraulesDocuments, documents);
     }
 
-    public ArrayList<Pair<String , String >> cercaParaules(ArrayList<String> paraules, int k){
-        return CercaParaules.cercaDoc(paraules, k);
+    public ArrayList<Pair<String , String >> cercaParaules(ArrayList<String> paraules, int k, HashMap<String,ArrayList<Pair<String,String>>> paraulesDocuments,
+                                                           HashMap<Pair<String,String>,Document> documents){
+        return CercaParaules.cercaDoc(paraules, k, paraulesDocuments, documents);
     }
 
     public int cercaBooleana(int a){
