@@ -5,6 +5,7 @@ package Codi.Domini;
 import Codi.Util.Pair;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class CercaSemblant implements Cerca {
 
@@ -26,6 +27,7 @@ public class CercaSemblant implements Cerca {
      */
     public static ArrayList<Pair<String,String>> cercaDoc(Document D, int k,  HashMap<String,ArrayList<Pair<String,String>>> DocumentsParaules,
                                                    HashMap<Pair<String,String>, Document> Documents) {
+
         // Array on es posaran els identificadors dels documents que cerquem
         ArrayList<Pair<String,String>> docs = new ArrayList<Pair<String,String>>();
 
@@ -41,14 +43,39 @@ public class CercaSemblant implements Cerca {
             paraulesIDF.add(elem);
         }
 
-        for(Pair<String,String> idConsulta : Documents.keySet()) {  // Iterem tots els Documents del sistema
-            Document Dcons = Documents.get(idConsulta); // Obtenim el document X
+        // Guardem els documents i el seu TF-IDF (NUM MAX DE POSICIONS: K)
+        ArrayList<Pair<Pair<String,String>,Double>> semblants = new ArrayList<Pair<Pair<String,String>,Double>>();
+        boolean primera = true;
 
-            // Mirem que el Document que iterem no sigui el que estiguem utilitzant per fer la cerca
-            if(!idConsulta.getFirst().equals(D.getTitol()) || !idConsulta.getSecond().equals(D.getAutor())) {
-                Double calc = EspaiVec.calculaTF_IDF(paraulesIDF, Dcons); // Calculem el ft-idf del document X
+        for (Pair<String,String> idDocument : Documents.keySet()) {     // Iterem tots els Documents del sistema
+            Document DCons = Documents.get(idDocument);                 // Obtenim el document X
+            double sembl = EspaiVec.calculaTF_IDF(paraulesIDF, DCons);   // Calculem el ft-idf del document X
+            Pair<Pair<String,String>,Double> elem = new Pair<Pair<String,String>,Double>(idDocument,sembl);
 
+            if (primera) {
+                semblants.add(elem);
+                primera = false;
             }
+            else {
+                int n = semblants.size()-1;
+                int idx = 0;
+
+                // Mirem que la posició que mirem estigui en l'array i que l'element de la posició idx tingui
+                // una semblança major al document iterat
+                while (idx < n && semblants.get(idx).getSecond() > sembl) {
+                    ++idx;
+                }
+                if (idx < n) { // Si la posició idx està en l'array, afegim l'element en aquest
+                    semblants.add(idx,elem);
+                    if(semblants.size() > k) {  // Si el tamany de l'array és més gran que k, treiem elements
+                        semblants.remove(k);
+                    }
+                }
+            }
+        }
+
+        for (Pair<Pair<String,String>,Double> p : semblants) {
+            docs.add(p.getFirst());
         }
 
         return docs;
