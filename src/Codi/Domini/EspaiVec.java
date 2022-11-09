@@ -1,3 +1,4 @@
+//Calcula el tf_idf del document DocCerca
 package Codi.Domini;
 
 import Codi.Util.Pair;
@@ -8,7 +9,7 @@ import java.util.HashMap;
 public class EspaiVec {
 
     /* Calcula el tf-idf del DocCerca respecte l'array de paraules
-     * Pre: L'array de paraules no és buit, els Integer i N no poden ser negatius
+     * Pre: L'array de paraules no és buit, els Integer no poden ser negatius
      * Post: El tf-idf del DocCerca
      */
     public static Double calculaTF_IDF(ArrayList<Pair<String,Double>> paraulesIDF, Document DocCerca) {
@@ -21,13 +22,11 @@ public class EspaiVec {
         }
 
         for (Pair<String,Double> p : paraulesIDF) {     // Calculem el tf_idf de les paraules
-            double tf = 0;      // Per defecte posem que el document no conté la paraula i el seu tf és 0
-
-            if(paraulesDoc.containsKey(p.getFirst())) { // Si el document conté la paraula p calculem el tf
-                tf = (double) paraulesDoc.get(p.getFirst())/numParaulesDoc;    // Calculem (AparicionsP/numParaulesDoc)
+            if(paraulesDoc.containsKey(p.getFirst())) { // Si el document conté la paraula p calculem el tf i la sumem
+                double tf = (double) paraulesDoc.get(p.getFirst())/numParaulesDoc;    // Calculem (AparicionsPDoc/numParaulesDoc)
+                tf_idf += tf*p.getSecond(); // Calculem SUMATORI(tf * idf)
             }
-
-            tf_idf += tf*p.getSecond(); // Calculem SUMATORI(tf * idf)
+            // Si no conté la paraula no cal sumar-ho ja que es sumaria 0 (0*x = 0)
         }
         return tf_idf;
     }
