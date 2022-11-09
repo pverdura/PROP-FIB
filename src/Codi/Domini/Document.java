@@ -1,12 +1,15 @@
 package Codi.Domini;
 
 import Codi.Util.TipusExtensio;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Document {
     String titol, autor, path, contingut;
 
-    static String stopWords;
+    static ArrayList<String> stopWords;
     static String signesDePuntuacio = ",.;:-_!\"$%&/()=|@#~€¬?¿¡'";
 
     TipusExtensio tipusExtensio;
@@ -16,6 +19,7 @@ public class Document {
     HashMap<String, Integer> aparicions;
     public Document () {
         aparicions = new HashMap<String, Integer>();
+        if (Document.stopWords == null) Document.stopWords = new ArrayList<String>();
     }
 
     public Document (String titol, String autor) {
@@ -42,14 +46,18 @@ public class Document {
         //comptar aparicions de les paraules
         //filtrar stopword
         //esborrar signes de puntuació
-        String[] senseEspais = this.contingut.toLowerCase().split("");
-        for (String paraula : senseEspais) {
+        String[] aux = this.contingut.toLowerCase().split("");
+        ArrayList<String> senseEspais = new ArrayList<String>(Arrays.asList(aux));
+
+        for (int i = 0; i < senseEspais.size(); ++i) {
+            String paraula = senseEspais.get(i);
+            System.out.println(paraula);
             //esborrar signes de puntuació
             if (!Document.stopWords.contains(paraula)) {
                 if (this.aparicions.containsKey(paraula)) {
                     aparicions.put(paraula, 1);
                 } else {
-                    aparicions.merge(paraula, 1, Integer::sum):
+                    aparicions.merge(paraula, 1, Integer::sum);
                 }
             }
         }
@@ -61,11 +69,11 @@ public class Document {
         this.comptarAparicions();
     }
 
-    public static void setStopWords (String s) {
+    public static void setStopWords (ArrayList<String> s) {
         Document.stopWords = s;
     }
 
-    public static String getStopWords () {
+    public static ArrayList<String> getStopWords () {
         return Document.stopWords;
     }
     String getContingut () {
