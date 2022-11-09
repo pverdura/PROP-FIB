@@ -46,7 +46,7 @@ public class Document {
         //comptar aparicions de les paraules
         //filtrar stopword
         //esborrar signes de puntuació
-        String[] aux = this.contingut.toLowerCase().split("");
+        String[] aux = this.contingut.toLowerCase().split(" ");
         ArrayList<String> senseEspais = new ArrayList<String>(Arrays.asList(aux));
 
         for (int i = 0; i < senseEspais.size(); ++i) {
@@ -54,17 +54,14 @@ public class Document {
             System.out.println(paraula);
             //esborrar signes de puntuació
             if (!Document.stopWords.contains(paraula)) {
-                if (this.aparicions.containsKey(paraula)) {
-                    aparicions.put(paraula, 1);
-                } else {
-                    aparicions.merge(paraula, 1, Integer::sum);
-                }
+                aparicions.merge(paraula, 1, Integer::sum);
             }
         }
     }
-    void setContingut (String s) {
+    public void setContingut (String s) {
         this.contingut = s;
         this.pes = this.contingut.length();
+        aparicions.clear();
 
         this.comptarAparicions();
     }
@@ -76,7 +73,7 @@ public class Document {
     public static ArrayList<String> getStopWords () {
         return Document.stopWords;
     }
-    String getContingut () {
+    public String getContingut () {
         return this.contingut;
     }
     public String getTitol() {
