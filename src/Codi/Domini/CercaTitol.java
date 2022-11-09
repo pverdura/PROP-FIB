@@ -8,9 +8,9 @@ import java.util.HashMap;
 
 public class CercaTitol implements Cerca {
 
-    @Override
-    public void cercaDoc() {}
-    public ArrayList<Pair<String, String>> cercaDoc (String titol,  HashMap<String, ArrayList<String>> titolAutors) {
+    //@Override
+    //public static void cercaDoc() {}
+    public static ArrayList<Pair<String, String>> cercaDoc (String titol,  HashMap<String, ArrayList<String>> titolAutors) {
         ArrayList<Pair<String, String>> resultat = new ArrayList<Pair<String, String>>();
 
         ArrayList<String> llistaAutors = titolAutors.get(titol);

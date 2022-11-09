@@ -3,5 +3,7 @@ import Codi.Util.Pair;
 import java.util.ArrayList;
 
 public interface Cerca {
-    void cercaDoc();
+    static void cercaDoc() {
+        return;
+    }
 }
