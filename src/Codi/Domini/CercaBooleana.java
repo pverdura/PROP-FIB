@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 public class CercaBooleana implements Cerca {
 
-    @Override
-    public void cercaDoc() {}
+    //@Override
+    //public void cercaDoc() {}
 
-    public int cercaDoc(int a) {
+    public static int cercaDoc(int a) {
         return a;
     }
 }
