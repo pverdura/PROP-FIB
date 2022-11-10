@@ -12,12 +12,11 @@ public class CercaAutor implements Cerca{
 
     public static ArrayList<Pair<String , String >> cercaDoc(String autor,  HashMap<String, ArrayList<String>> Autors){
 
-        ArrayList<Pair<String, String>> resultat = new ArrayList<Pair<String, String>>();
+        ArrayList<Pair<String, String>> resultat = new ArrayList<>();
 
         ArrayList<String> llistaTitols = Autors.get(autor);
-        int n = llistaTitols.size();
-        for (int i = 0; i < n; ++i) {
-            Pair<String, String> aux = new Pair<String, String>(llistaTitols.get(i), autor);
+        for (String t : llistaTitols) {
+            Pair<String, String> aux = new Pair<>(t, autor);
             resultat.add(aux);
         }
 
