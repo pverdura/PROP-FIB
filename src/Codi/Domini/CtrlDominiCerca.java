@@ -8,6 +8,8 @@ import Codi.Util.Trie;
 import javax.lang.model.util.SimpleElementVisitor6;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class CtrlDominiCerca {
@@ -47,42 +49,79 @@ public class CtrlDominiCerca {
     }
 
 
-    /*
-    public ArrayList<SimpleEntry<String, String>> ordenarCerca(ArrayList<SimpleEntry<String, String>> cerca, TipusOrdenacio tipus){
-        if (tipus == TipusOrdenacio.ALFABETIC_ASCENDENT){ cerca.sort(cerca);}
+
+    public void ordenarCerca(ArrayList<SimpleEntry<String, String>> cerca, TipusOrdenacio tipus){
+        if (tipus == TipusOrdenacio.ALFABETIC_ASCENDENT){ ordreAlfAscendent(cerca);}
         else if (tipus == TipusOrdenacio.ALFABETIC_DESCENDENT) { ordreAlfDescendent(cerca); }
         else if (tipus == TipusOrdenacio.PES_ASCENDENT){ ordrePesAscendent(cerca);}
         else ordrePesDescendent(cerca);
     }
 
-    public ArrayList<String> ordenarCercaAutors(ArrayList<String> cerca, TipusOrdenacio tipus){
+    public void ordenarCercaAutors(ArrayList<String> cerca, TipusOrdenacio tipus){
         if (tipus == TipusOrdenacio.ALFABETIC_ASCENDENT){ ordreAscendent(cerca);}
         else if (tipus == TipusOrdenacio.ALFABETIC_DESCENDENT) { ordreDescendent(cerca); }
     }
 
-    private ArrayList<SimpleEntry<String, String>> ordreAlfAscendent(ArrayList<SimpleEntry<String, String>> cerca){
+    private void ordreAlfAscendent(ArrayList<SimpleEntry<String, String>> cerca){
+        Collections.sort(cerca, new Comparator<SimpleEntry<String,String>>() {
+            @Override
+            public int compare(final SimpleEntry<String, String > p1, final SimpleEntry<String, String> p2) {
+                if (p1.getKey().compareTo(p2.getKey()) < 0) return -1;
+                else if (p1.getKey().compareTo(p2.getKey()) > 0) return 1;
+                else {
+                    if (p1.getValue().compareTo(p2.getValue()) < 0) return -1;
+                    else if (p1.getValue().compareTo(p2.getValue()) > 0) return 1;
+                    else return 0;
+                }
+            }
+        });
 
     }
 
-    private ArrayList<SimpleEntry<String, String>> ordreAlfDescendent(ArrayList<SimpleEntry<String, String>> cerca){
+    private void ordreAlfDescendent(ArrayList<SimpleEntry<String, String>> cerca){
+        Collections.sort(cerca, new Comparator<SimpleEntry<String,String>>() {
+            @Override
+            public int compare(final SimpleEntry<String, String > p1, final SimpleEntry<String, String> p2) {
+                if (p1.getKey().compareTo(p2.getKey()) < 0) return 1;
+                else if (p1.getKey().compareTo(p2.getKey()) > 0) return -1;
+                else {
+                    if (p1.getValue().compareTo(p2.getValue()) < 0) return 1;
+                    else if (p1.getValue().compareTo(p2.getValue()) > 0) return -1;
+                    else return 0;
+                }
+            }
+        });
+    }
+
+    private void ordrePesAscendent(ArrayList<SimpleEntry<String, String>> cerca){
 
     }
 
-    private ArrayList<SimpleEntry<String, String>> ordrePesAscendent(ArrayList<SimpleEntry<String, String>> cerca){
+    private void ordrePesDescendent(ArrayList<SimpleEntry<String, String>> cerca){
 
     }
 
-    private ArrayList<SimpleEntry<String, String>> ordrePesDescendent(ArrayList<SimpleEntry<String, String>> cerca){
-
+    private void ordreAscendent(ArrayList<String> cerca){
+        Collections.sort(cerca, new Comparator<String>() {
+            @Override
+            public int compare(final String s1, final String s2) {
+                if (s1.compareTo(s2) < 0) return -1;
+                else if (s1.compareTo(s2) > 0) return 1;
+                else { return 0;  }
+            }
+        });
     }
 
-    private ArrayList<String> ordreAscendent(ArrayList<String> cerca){
-
+    private void ordreDescendent(ArrayList<String> cerca){
+        Collections.sort(cerca, new Comparator<String>() {
+            @Override
+            public int compare(final String s1, final String s2) {
+                if (s1.compareTo(s2) < 0) return 1;
+                else if (s1.compareTo(s2) > 0) return -1;
+                else { return 0;  }
+            }
+        });
     }
 
-    private ArrayList<String> ordreDescendent(ArrayList<String> cerca){
 
-    }
-
-     */
 }
