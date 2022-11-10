@@ -1,16 +1,14 @@
 package Codi.Domini;
 
-import Codi.Util.Pair;
-
-import java.util.ArrayList;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 
 public class CercaTitolAutor implements Cerca{
     //@Override
     //public static void cercaDoc() {}
-    public static Document cercaDoc (String titol, String autor,HashMap<Pair<String, String>, Document> documents) {
-        Pair<String, String> id = new Pair<String, String>(titol, autor);
-
+    public static Document cercaDoc (String titol, String autor, HashMap<SimpleEntry<String, String>, Document> documents) {
+        SimpleEntry<String, String> id = new SimpleEntry<>(titol, autor);
+        //System.out.println(documents.get(id).getAutor());
         return documents.get(id);
     }
 }
