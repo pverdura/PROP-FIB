@@ -14,6 +14,7 @@ public class CercaPrefix implements Cerca{
     public static ArrayList<String> cercaDoc(String prefix, Trie<String> autors){
 
         ArrayList<String> resultat = new ArrayList<String>();
+        resultat = autors.getParaules(prefix);
 
         return resultat;
     }
