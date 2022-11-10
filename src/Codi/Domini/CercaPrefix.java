@@ -1,10 +1,9 @@
 package Codi.Domini;
 
-import Codi.Util.Pair;
+
 import Codi.Util.Trie;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class CercaPrefix implements Cerca{
 
@@ -12,11 +11,7 @@ public class CercaPrefix implements Cerca{
     //public void cercaDoc() {}
 
     public static ArrayList<String> cercaDoc(String prefix, Trie<String> autors){
-
-        ArrayList<String> resultat = new ArrayList<String>();
-        resultat = autors.getParaules(prefix);
-
-        return resultat;
+        return autors.getParaules(prefix);
     }
 
 }
