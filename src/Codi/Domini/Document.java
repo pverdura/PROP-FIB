@@ -6,39 +6,30 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class Document {
-    String titol, autor, path, contingut;
-
+public class Document {    String titol, autor, path, contingut;
     static ArrayList<String> stopWords;
     static String signesDePuntuacio = "-_!\"$%&/()=|@#~€¬?¿¡'[]";
-
     static String[] extres = {"l'", "d'", "m'", "n'", "t'", "s'", "'l", "'ls", "'m", "'n", "'t", "'s",
                                 "-ho","-ne","-me","-te","-se","-los","-les", "-lo","-hi","-li"};
-
     TipusExtensio tipusExtensio;
-
     int pes;    //quantitat de caràcters
-
     HashMap<String, Integer> aparicions;
     public Document () {
-        aparicions = new HashMap<String, Integer>();
-        if (Document.stopWords == null) Document.stopWords = new ArrayList<String>();
+        this.aparicions = new HashMap<>();
+        this.setContingut("");
+        if (Document.stopWords == null) Document.stopWords = new ArrayList<>();
     }
 
     public Document (String titol, String autor) {
+        this();
         this.titol = titol; this.autor = autor;
-        aparicions = new HashMap<String, Integer>();
-
-        setContingut("");
     }
     public Document (String titol, String autor, String path, String contingut, TipusExtensio tipusExtensio) {
-        this.titol = titol; this.autor = autor; this.path = path;
-        this.tipusExtensio = tipusExtensio;
-        aparicions = new HashMap<String, Integer>();
+        this(titol, autor);
+        this.path = path; this.tipusExtensio = tipusExtensio;
 
         this.setContingut(contingut);
     }
-
     String tractar (String s) {
         int n = extres.length;
 
@@ -54,18 +45,14 @@ public class Document {
         return s;
     }
     void comptarAparicions () {
-        //comptar aparicions de les paraules
-        //filtrar stopword
-        //esborrar signes de puntuació
         String[] aux = this.contingut.toLowerCase().split("[, \n\t.;:]+");
-        ArrayList<String> senseEspais = new ArrayList<String>(Arrays.asList(aux));
+        ArrayList<String> senseEspais = new ArrayList<>(Arrays.asList(aux));
 
-        for (int i = 0; i < senseEspais.size(); ++i) {
-            String paraula = senseEspais.get(i);
+        for (String paraula : senseEspais) {
             paraula = tractar(paraula);
-            //esborrar signes de puntuació
+
             if (!Document.stopWords.contains(paraula)) {
-                aparicions.merge(paraula, 1, Integer::sum);
+                this.aparicions.merge(paraula, 1, Integer::sum);
             }
         }
     }
@@ -76,7 +63,9 @@ public class Document {
 
         this.comptarAparicions();
     }
-
+    public String getContingut () {
+        return this.contingut;
+    }
     public static void setStopWords (ArrayList<String> s) {
         Document.stopWords = s;
     }
@@ -84,37 +73,34 @@ public class Document {
     public static ArrayList<String> getStopWords () {
         return Document.stopWords;
     }
-    public String getContingut () {
-        return this.contingut;
-    }
-    public String getTitol() {
-        return this.titol;
-    }
-    public String getAutor() {
-        return this.autor;
-    }
-    public String getPath() {
-        return this.path;
-    }
-    public TipusExtensio getExtensio() {
-        return this.tipusExtensio;
-    }
-    public int getPes() {
-        return this.pes;
-    }
-    public void setTitol(String titol) {
+    public void setTitol (String titol) {
         this.titol = titol;
     }
-    public void setAutor(String autor) {
+    public String getTitol () {
+        return this.titol;
+    }
+    public void setAutor (String autor) {
         this.autor = autor;
     }
-    public void setPath(String path) {
+    public String getAutor () {
+        return this.autor;
+    }
+    public void setPath (String path) {
         this.path = path;
     }
-    public void setExtensio(TipusExtensio tipusExtensio) {
+    public String getPath () {
+        return this.path;
+    }
+    public void setExtensio (TipusExtensio tipusExtensio) {
         this.tipusExtensio = tipusExtensio;
     }
-    public HashMap<String, Integer> getAparicions() {
+    public TipusExtensio getExtensio () {
+        return this.tipusExtensio;
+    }
+    public int getPes () {
+        return this.pes;
+    }
+    public HashMap<String, Integer> getAparicions () {
         return this.aparicions;
     }
 }
