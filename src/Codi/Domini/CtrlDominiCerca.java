@@ -1,11 +1,9 @@
 package Codi.Domini;
 
-import Codi.Util.Pair;
 import Codi.Util.TipusExtensio;
 import Codi.Util.TipusOrdenacio;
 import Codi.Util.Trie;
 
-import javax.lang.model.util.SimpleElementVisitor6;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Collections;
