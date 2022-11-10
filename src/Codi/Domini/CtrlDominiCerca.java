@@ -32,13 +32,13 @@ public class CtrlDominiCerca {
         return CercaPrefix.cercaDoc(prefix, autors);
     }
 
-    public ArrayList<SimpleEntry<String, String>> cercaSemblant(Document document, int k, HashMap<String,ArrayList<Pair<String,String>>> paraulesDocuments,
-                                                           HashMap<Pair<String,String>, Document> documents){
+    public ArrayList<SimpleEntry<String, String>> cercaSemblant(Document document, int k, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraulesDocuments,
+                                                           HashMap<SimpleEntry<String, String>, Document> documents){
         return CercaSemblant.cercaDoc(document, k, paraulesDocuments, documents);
     }
 
-    public ArrayList<SimpleEntry<String, String>> cercaParaules(ArrayList<String> paraules, int k, HashMap<String,ArrayList<Pair<String,String>>> paraulesDocuments,
-                                                           HashMap<Pair<String,String>,Document> documents){
+    public ArrayList<SimpleEntry<String, String>> cercaParaules(ArrayList<String> paraules, int k, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraulesDocuments,
+                                                           HashMap<SimpleEntry<String, String>,Document> documents){
         return CercaParaules.cercaDoc(paraules, k, paraulesDocuments, documents);
     }
 
@@ -48,7 +48,7 @@ public class CtrlDominiCerca {
 
 
     /*
-    public ArrayList<Pair<String,String>> ordenarCerca(ArrayList<Pair<String,String>> cerca, TipusOrdenacio tipus){
+    public ArrayList<SimpleEntry<String, String>> ordenarCerca(ArrayList<SimpleEntry<String, String>> cerca, TipusOrdenacio tipus){
         if (tipus == TipusOrdenacio.ALFABETIC_ASCENDENT){ cerca.sort(cerca);}
         else if (tipus == TipusOrdenacio.ALFABETIC_DESCENDENT) { ordreAlfDescendent(cerca); }
         else if (tipus == TipusOrdenacio.PES_ASCENDENT){ ordrePesAscendent(cerca);}
@@ -60,19 +60,19 @@ public class CtrlDominiCerca {
         else if (tipus == TipusOrdenacio.ALFABETIC_DESCENDENT) { ordreDescendent(cerca); }
     }
 
-    private ArrayList<Pair<String,String>> ordreAlfAscendent(ArrayList<Pair<String,String>> cerca){
+    private ArrayList<SimpleEntry<String, String>> ordreAlfAscendent(ArrayList<SimpleEntry<String, String>> cerca){
 
     }
 
-    private ArrayList<Pair<String,String>> ordreAlfDescendent(ArrayList<Pair<String,String>> cerca){
+    private ArrayList<SimpleEntry<String, String>> ordreAlfDescendent(ArrayList<SimpleEntry<String, String>> cerca){
 
     }
 
-    private ArrayList<Pair<String,String>> ordrePesAscendent(ArrayList<Pair<String,String>> cerca){
+    private ArrayList<SimpleEntry<String, String>> ordrePesAscendent(ArrayList<SimpleEntry<String, String>> cerca){
 
     }
 
-    private ArrayList<Pair<String,String>> ordrePesDescendent(ArrayList<Pair<String,String>> cerca){
+    private ArrayList<SimpleEntry<String, String>> ordrePesDescendent(ArrayList<SimpleEntry<String, String>> cerca){
 
     }
 
