@@ -2,8 +2,7 @@
 
 package Codi.Domini;
 
-import Codi.Util.TipusExtensio;
-import Codi.Util.Trie;
+import Codi.Util.*;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
@@ -100,7 +99,7 @@ public class CtrlDomini {
      * Pre: Els String títol i autor no són buits
      * Post: True si s'ha creat el document, false si el document identificat per {títol,autor} ja existeix en el sistema
      */
-    public Boolean creaDocument(String titol, String autor) {
+    public Boolean creaDocument(String titol, String autor) throws DocumentJaExisteixException {
         CDdoc.creaDocument(titol,autor,Documents);
         return true;
     }
