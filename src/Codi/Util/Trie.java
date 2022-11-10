@@ -32,8 +32,8 @@ public class Trie<T> {
         actual.fi_paraula = true;
     }
 
-    public boolean esborra(String paraula) {
-        return esborra(arrel, paraula, 0);
+    public boolean esborrar(String paraula) {
+        return esborrar(arrel, paraula, 0);
     }
 
     public boolean conteParaula(String paraula) {
@@ -88,7 +88,7 @@ public class Trie<T> {
         }
     }
 
-    private boolean esborra(TrieNode actual, String paraula, int index) {
+    private boolean esborrar(TrieNode actual, String paraula, int index) {
         if (index == paraula.length()) {
             if (!actual.fi_paraula) {
                 return false;
@@ -101,7 +101,7 @@ public class Trie<T> {
         if (node == null) {
             return false;
         }
-        boolean es_pot_borrar = esborra(node, paraula, index + 1) && !node.fi_paraula;
+        boolean es_pot_borrar = esborrar(node, paraula, index + 1) && !node.fi_paraula;
 
         if (es_pot_borrar) {
             actual.fills.remove(ch);
