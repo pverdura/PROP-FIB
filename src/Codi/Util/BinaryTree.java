@@ -53,14 +53,18 @@ public class BinaryTree {
         while (i >= 0) {
             char c = expressio.charAt(i);
 
-            if (c == ')') {
-                int suma_par = 1;
-                i--;
-                while (suma_par != 0) {
-                    if (expressio.charAt(i) == ')') suma_par++;
-                    else if (expressio.charAt(i) == '(') suma_par--;
-                    i--;
-                }
+            if (c == ')' || c == '"' || c ==  '}') {
+               switch (c) {
+                   case ')':
+                       i = ignorar_seq(')', '(', i, expressio);
+                       break;
+                   case '"':
+                       i = ignorar_seq('"', '"', i, expressio);
+                       break;
+                   case '}':
+                       i = ignorar_seq('}', '{', i, expressio);
+                       break;
+               }
             }
 
             if (i >= 0) c = expressio.charAt(i);
@@ -83,4 +87,17 @@ public class BinaryTree {
         }
         return false;
     }
+
+    private int ignorar_seq(char cAbrir, char cCerrar, int i, String expressio) {
+        int suma = 1;
+        i--;
+        while (suma != 0) {
+            if (expressio.charAt(i) == cCerrar) suma--;
+            else if (expressio.charAt(i) == cAbrir) suma++;
+            i--;
+        }
+        return i;
+    }
+
+
 }
