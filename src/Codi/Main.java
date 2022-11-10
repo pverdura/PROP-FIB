@@ -28,7 +28,7 @@ public class Main {
         CercaBooleana c = new CercaBooleana();
         System.out.println(c.cercaDoc(2));
 
-        BinaryTree parseTree = new BinaryTree("!(joan)");
+        BinaryTree parseTree = new BinaryTree("\"hola adeu\" | !(pau & hola)");
         System.out.println("fin");
     }
 }

@@ -61,8 +61,11 @@ public class BinaryTree {
                     else if (expressio.charAt(i) == '(') suma_par--;
                     i--;
                 }
+            }
 
-            }  if (c == op) {
+            if (i >= 0) c = expressio.charAt(i);
+
+            if (c == op) {
                 node.value = String.valueOf(op);
 
                 if (i + suma_substring < l) {
