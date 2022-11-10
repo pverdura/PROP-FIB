@@ -21,6 +21,46 @@ public class BinaryTree {
         insertar(this.root, expressio);
     }
 
+    public boolean cerca(String contingut) {
+        return cercaRec(this.root, contingut);
+    }
+
+    public boolean cercaRec(Node node, String contingut) {
+
+        //CAS FULLA
+        if (node.left == null && node.right == null) {
+            char c = node.value.charAt(0);
+
+            switch (c) {
+                case '"':
+                    return contingut.contains(node.value.substring(1, node.value.length()-1));
+
+                case '{':
+                    String[] subconjunt = node.value.substring(1, node.value.length()-1).split(" ");
+                    for (String x : subconjunt)
+                        if (!contingut.contains(x)) return false;
+
+                    return  true;
+
+                default:
+                    return contingut.contains(node.value);
+            }
+
+        }
+
+        //CAS RESTANT (!, &, |)
+        switch (node.value) {
+            case "&":
+                return cercaRec(node.left, contingut) && cercaRec(node.right, contingut);
+
+            case "|":
+                return cercaRec(node.left, contingut) || cercaRec(node.right, contingut);
+
+            default:
+                return !cercaRec(node.right, contingut);
+        }
+    }
+
     private void insertar(Node node, String expressio) {
 
         boolean op_asignado = insertarOP_i_dividir('|', node, expressio);
