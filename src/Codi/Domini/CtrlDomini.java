@@ -2,10 +2,10 @@
 
 package Codi.Domini;
 
-import Codi.Util.Pair;
 import Codi.Util.TipusExtensio;
 import Codi.Util.Trie;
 
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -14,11 +14,11 @@ public class CtrlDomini {
     ///////////////////////////////////////////////////////////
     ///                     ESTRUCTURES                     ///
     ///////////////////////////////////////////////////////////
-    private HashMap<Pair<String,String>,Document> Documents; // Estructura on es guarden els documents
+    private HashMap<SimpleEntry<String,String>,Document> Documents; // Estructura on es guarden els documents
     private Trie<String> Autors; // Estructura on es guarden els autors (serveix per trobar el prefix)
     private HashMap<String,ArrayList<String>> DocumentsAutor; // Estructura on es guarden els títols dels documents creats per un autor
     private HashMap<String,ArrayList<String>> TitolAutors; // Estructura on es guarden els autors que han creat un document amb un títol
-    private HashMap<String,ArrayList<Pair<String,String>>> Paraules; // Estructura on es guarden els documents que contenen la paraula
+    private HashMap<String,ArrayList<SimpleEntry<String,String>>> Paraules; // Estructura on es guarden els documents que contenen la paraula
     private ArrayList<ExpressioBooleana> ExpressionsBooleanes; // Estructura on es guarden totes les expression booleanes
 
 
@@ -52,7 +52,7 @@ public class CtrlDomini {
     /* Pre: -
      * Post: Retorna un llistat de tots els Documents del sistema
      */
-    public HashMap<Pair<String,String>,Document> getDocuments() {
+    public HashMap<SimpleEntry<String,String>,Document> getDocuments() {
         return Documents;
     }
 
@@ -80,7 +80,7 @@ public class CtrlDomini {
     /* Pre: -
      * Post: Retorna les paraules de tots els documents i on apareix
      */
-    public HashMap<String,ArrayList<Pair<String,String>>> getParaules() {
+    public HashMap<String,ArrayList<SimpleEntry<String,String>>> getParaules() {
         return Paraules;
     }
 
@@ -182,7 +182,7 @@ public class CtrlDomini {
      * Pre:
      * Post:
      */
-    public ArrayList<Pair<String,String>> cercaAutor(String autor) {
+    public ArrayList<SimpleEntry<String,String>> cercaAutor(String autor) {
         return CDcer.cercaAutor(autor,DocumentsAutor);
     }
 
@@ -190,7 +190,7 @@ public class CtrlDomini {
      * Pre:
      * Post:
      */
-    public ArrayList<Pair<String,String>> cercaTitol(String titol) {
+    public ArrayList<SimpleEntry<String,String>> cercaTitol(String titol) {
         return CDcer.cercaTitol(titol,TitolAutors);
     }
 
@@ -214,7 +214,7 @@ public class CtrlDomini {
      * Pre: El Document D no té contingut buit, k > 0
      * Post: Un arraylist de longitud k amb els identificadors dels documents més semblants a D
      */
-    public ArrayList<Pair<String,String>> cercaSemblant(Document D, Integer k) {
+    public ArrayList<SimpleEntry<String,String>> cercaSemblant(Document D, Integer k) {
         return CDcer.cercaSemblant(D,k,Paraules,Documents);
     }
 
@@ -222,7 +222,7 @@ public class CtrlDomini {
      * Pre: L'array no és buit, k > 0
      * Post: Un arraylist de longitud k amb els identificadors dels documents més rellevants a l'array paraules
      */
-    public ArrayList<Pair<String,String>> cercaParaules(ArrayList<String> paraules, Integer k) {
+    public ArrayList<SimpleEntry<String,String>> cercaParaules(ArrayList<String> paraules, Integer k) {
         return CDcer.cercaParaules(paraules,k,Paraules,Documents);
     }
 
