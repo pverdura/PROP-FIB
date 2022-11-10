@@ -88,10 +88,6 @@ public class Trie<T> {
         }
     }
 
-    boolean isEmpty() {
-        return arrel == null;
-    }
-
     private boolean esborra(TrieNode actual, String paraula, int index) {
         if (index == paraula.length()) {
             if (!actual.fi_paraula) {
