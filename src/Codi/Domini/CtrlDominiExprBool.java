@@ -20,4 +20,8 @@ public class CtrlDominiExprBool {
             expressions.remove(anticValor);
             expressions.put(nouValor, new ExpressioBooleana(nouValor));
     }
+
+    int getNombreExpressionsBooleanes(HashMap<String, ExpressioBooleana> expressions) {
+        return expressions.size();
+    }
 }
