@@ -186,6 +186,7 @@ public class Driver {
                     cd.setContingut(nom, autor, contingutNou);
                 } catch (Exception e) {
                     System.out.println(e.toString());
+                    e.printStackTrace();
                 }
                 break;
             case 4:
