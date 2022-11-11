@@ -1,5 +1,6 @@
 package Codi.Domini;
 
+import Codi.Excepcions.DocumentInexistentException;
 import Codi.Util.TipusExtensio;
 import Codi.Util.TipusOrdenacio;
 import Codi.Util.Trie;
@@ -22,7 +23,7 @@ public class CtrlDominiCerca {
         return ordenarCerca(CercaTitol.cercaDoc(titol, titolsAutors), ordre, documents);
     }
 
-    public Document cercaTitolAutor(String titol, String autor, HashMap<SimpleEntry<String,String>, Document> documents){
+    public Document cercaTitolAutor(String titol, String autor, HashMap<SimpleEntry<String,String>, Document> documents) throws DocumentInexistentException {
         return CercaTitolAutor.cercaDoc(titol, autor, documents);
     }
 
@@ -30,14 +31,18 @@ public class CtrlDominiCerca {
         return ordenarCercaSimple(CercaPrefix.cercaDoc(prefix, autors), ordre);
     }
 
-    public ArrayList<SimpleEntry<String, String>> cercaSemblant(Document document, int k, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraulesDocuments,
-                                                           HashMap<SimpleEntry<String, String>, Document> documents, TipusOrdenacio ordre){
-        return ordenarCerca(CercaSemblant.cercaDoc(document, k, paraulesDocuments, documents),ordre, documents);
+    public ArrayList<SimpleEntry<String, String>> cercaSemblant(String titol,, String autor, int k, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraulesDocuments,
+                                                           HashMap<SimpleEntry<String, String>, Document> documents, TipusOrdenacio ordre) throws DocumentInexistentException{
+        SimpleEntry<String, String> id = new SimpleEntry<>(titol, autor);
+        if (!documents.containsKey(id)) throw new DocumentInexistentException(titol, autor);
+        return ordenarCerca(CercaSemblant.cercaDoc(documents.get(id), k, paraulesDocuments, documents),ordre, documents);
     }
 
-    public ArrayList<SimpleEntry<String, String>> cercaParaules(ArrayList<String> paraules, int k, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraulesDocuments,
+    public ArrayList<SimpleEntry<String, String>> cercaParaules(String paraules, int k, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraulesDocuments,
                                                            HashMap<SimpleEntry<String, String>,Document> documents, TipusOrdenacio ordre){
-        return ordenarCerca(CercaParaules.cercaDoc(paraules, k, paraulesDocuments, documents), ordre, documents);
+        String[] aux = paraules.split(" ");
+        ArrayList<String> llistaParaules = new ArrayList<>(Arrays.asList(aux));
+        return ordenarCerca(CercaParaules.cercaDoc(llistaParaules, k, paraulesDocuments, documents), ordre, documents);
     }
 
     public ArrayList<SimpleEntry<String, String>> cercaBooleana(ExpressioBooleana expressio,
