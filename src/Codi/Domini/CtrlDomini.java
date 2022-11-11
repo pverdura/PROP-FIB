@@ -14,6 +14,7 @@ public class CtrlDomini {
     ///////////////////////////////////////////////////////////
     ///                     ESTRUCTURES                     ///
     ///////////////////////////////////////////////////////////
+
     private HashMap<SimpleEntry<String,String>,Document> Documents; // Estructura on es guarden els documents
     private Trie<String> Autors; // Estructura on es guarden els autors (serveix per trobar el prefix)
     private HashMap<String,ArrayList<String>> DocumentsAutor; // Estructura on es guarden els títols dels documents creats per un autor
@@ -21,15 +22,16 @@ public class CtrlDomini {
     private HashMap<String,ArrayList<SimpleEntry<String,String>>> Paraules; // Estructura on es guarden els documents que contenen la paraula
     private HashMap<String,ExpressioBooleana> ExpressionsBooleanes; // Estructura on es guarden totes les expression booleanes
 
+    private HashMap<String,ArrayList<SimpleEntry<String,String>>> ListgetParaules() {
+        return Paraules;
+    }
 
     ///////////////////////////////////////////////////////////
     ///                     AGREGACIONS                     ///
     ///////////////////////////////////////////////////////////
 
     private CtrlDominiExprBool CDeb;    // Agregació del controlador d'expressió booleana
-
     private CtrlDominiDocument CDdoc;   // Agregació del controlador de document
-
     private CtrlDominiCerca CDcer;      // Agregació del controlador de cerca
 
 
