@@ -124,6 +124,10 @@ public class CtrlDominiDocument {
     public void setStopWords (ArrayList<String> s) {
         Document.setStopWords(s);
     }
+
+    public int getNombreDocuments (HashMap<SimpleEntry<String, String>, Document> documents) {
+        return documents.size();
+    }
 }
 
 
