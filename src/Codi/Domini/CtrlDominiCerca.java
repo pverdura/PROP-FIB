@@ -4,6 +4,7 @@ import Codi.Util.TipusExtensio;
 import Codi.Util.TipusOrdenacio;
 import Codi.Util.Trie;
 
+import javax.print.Doc;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,11 +49,14 @@ public class CtrlDominiCerca {
 
 
 
-    public void ordenarCerca(ArrayList<SimpleEntry<String, String>> cerca, TipusOrdenacio tipus){
+    public ArrayList<SimpleEntry<String,String>> ordenarCerca(ArrayList<SimpleEntry<String, String>> cerca, TipusOrdenacio tipus, HashMap<SimpleEntry<String,String>, Document> documents){
         if (tipus == TipusOrdenacio.ALFABETIC_ASCENDENT){ ordreAlfAscendent(cerca);}
         else if (tipus == TipusOrdenacio.ALFABETIC_DESCENDENT) { ordreAlfDescendent(cerca); }
-        else if (tipus == TipusOrdenacio.PES_ASCENDENT){ ordrePesAscendent(cerca);}
-        else ordrePesDescendent(cerca);
+        else if (tipus == TipusOrdenacio.PES_ASCENDENT){
+            cerca = ordrePesAscendent(cerca, documents);
+        }
+        else cerca = ordrePesDescendent(cerca, documents);
+        return cerca;
     }
 
     public void ordenarCercaAutors(ArrayList<String> cerca, TipusOrdenacio tipus){
@@ -91,34 +95,68 @@ public class CtrlDominiCerca {
         });
     }
 
-    private void ordrePesAscendent(ArrayList<SimpleEntry<String, String>> cerca){
+    private ArrayList<SimpleEntry<String, String>> ordrePesAscendent(ArrayList<SimpleEntry<String, String>> cerca, HashMap<SimpleEntry<String,String>, Document> documents){
+        ArrayList<SimpleEntry<SimpleEntry<String,String>, Integer>> docs = new ArrayList<>();
+        for (SimpleEntry<String,String> c : cerca){
+            Document d = CercaTitolAutor.cercaDoc(c.getKey(),c.getValue(),documents);
+            SimpleEntry<SimpleEntry<String,String>, Integer> aux = new SimpleEntry<>(c,d.getPes());
+            docs.add(aux);
+        }
 
+        Collections.sort(docs, new Comparator<SimpleEntry<SimpleEntry<String, String>, Integer>>() {
+            @Override
+            public int compare(SimpleEntry<SimpleEntry<String, String>, Integer> p1, SimpleEntry<SimpleEntry<String, String>, Integer> p2) {
+                if (p1.getValue() < p2.getValue()) return -1;
+                else if (p1.getValue()> p2.getValue()) return 1;
+                else return 0;
+            }
+        });
+
+        ArrayList<SimpleEntry<String,String>> cerca2 = new ArrayList<>();
+        for(SimpleEntry<SimpleEntry<String,String>, Integer> d : docs){
+            cerca2.add(d.getKey());
+        }
+
+        for (SimpleEntry<String,String> s : cerca2){
+            System.out.println(s);
+        }
+        return cerca2;
     }
 
-    private void ordrePesDescendent(ArrayList<SimpleEntry<String, String>> cerca){
+    private ArrayList<SimpleEntry<String, String>> ordrePesDescendent(ArrayList<SimpleEntry<String, String>> cerca, HashMap<SimpleEntry<String,String>, Document> documents){
+        ArrayList<SimpleEntry<SimpleEntry<String,String>, Integer>> docs = new ArrayList<>();
+        for (SimpleEntry<String,String> c : cerca){
+            Document d = CercaTitolAutor.cercaDoc(c.getKey(),c.getValue(),documents);
+            SimpleEntry<SimpleEntry<String,String>, Integer> aux = new SimpleEntry<>(c,d.getPes());
+            docs.add(aux);
+        }
 
+        Collections.sort(docs, new Comparator<SimpleEntry<SimpleEntry<String, String>, Integer>>() {
+            @Override
+            public int compare(SimpleEntry<SimpleEntry<String, String>, Integer> p1, SimpleEntry<SimpleEntry<String, String>, Integer> p2) {
+                if (p1.getValue() < p2.getValue()) return 1;
+                else if (p1.getValue()> p2.getValue()) return -1;
+                else return 0;
+            }
+        });
+
+        ArrayList<SimpleEntry<String,String>> cerca2 = new ArrayList<>();
+        for(SimpleEntry<SimpleEntry<String,String>, Integer> d : docs){
+            cerca2.add(d.getKey());
+        }
+
+        for (SimpleEntry<String,String> s : cerca2){
+            System.out.println(s);
+        }
+        return cerca2;
     }
 
     private void ordreAscendent(ArrayList<String> cerca){
-        cerca.sort(new Comparator<String>() {
-            @Override
-            public int compare(String s1, String s2) {
-                if (s1.compareTo(s2) < 0) return -1;
-                else if (s1.compareTo(s2) > 0) return 1;
-                else { return 0;  }
-            }
-        });
+        cerca.sort(Comparator.naturalOrder());
     }
 
     private void ordreDescendent(ArrayList<String> cerca){
-        cerca.sort(new Comparator<String>() {
-            @Override
-            public int compare(String s1, String s2) {
-                if (s1.compareTo(s2) < 0) return 1;
-                else if (s1.compareTo(s2) > 0) return -1;
-                else { return 0;  }
-            }
-        });
+        cerca.sort(Comparator.reverseOrder());
     }
 
 
