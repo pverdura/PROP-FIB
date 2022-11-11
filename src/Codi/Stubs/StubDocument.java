@@ -1,11 +1,14 @@
-package stubs;
+package Codi.Stubs;
+
+import Codi.Domini.*;
 
 import java.util.*;
 
-public class StubDocument {
+public class StubDocument extends Document {
 
-    public static HashMap<String, Integer> getAparicions() {
-        //System.out.println("Crida al metode getAparicions() amb paràmetres")
+    @Override
+    public HashMap<String, Integer> getAparicions() {
+        System.out.println("Crida al metode getAparicions() sense paràmetres");
 
         HashMap<String, Integer> aux = new HashMap<String, Integer>();
         aux.put("hola",1);
