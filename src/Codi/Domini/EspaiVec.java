@@ -1,7 +1,7 @@
 //Calcula el tf_idf del document DocCerca
 package Codi.Domini;
 
-import Codi.Util.ArrayDeParaulesBuitException;
+import Codi.Excepcions.ArrayDeParaulesBuitException;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
