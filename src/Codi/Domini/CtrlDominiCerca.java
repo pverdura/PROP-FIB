@@ -61,9 +61,9 @@ public class CtrlDominiCerca {
     }
 
     private void ordreAlfAscendent(ArrayList<SimpleEntry<String, String>> cerca){
-        Collections.sort(cerca, new Comparator<SimpleEntry<String,String>>() {
+        cerca.sort(new Comparator<SimpleEntry<String,String>>() {
             @Override
-            public int compare(final SimpleEntry<String, String > p1, final SimpleEntry<String, String> p2) {
+            public int compare(SimpleEntry<String, String > p1, SimpleEntry<String, String> p2) {
                 if (p1.getKey().compareTo(p2.getKey()) < 0) return -1;
                 else if (p1.getKey().compareTo(p2.getKey()) > 0) return 1;
                 else {
@@ -77,9 +77,9 @@ public class CtrlDominiCerca {
     }
 
     private void ordreAlfDescendent(ArrayList<SimpleEntry<String, String>> cerca){
-        Collections.sort(cerca, new Comparator<SimpleEntry<String,String>>() {
+        cerca.sort(new Comparator<SimpleEntry<String,String>>() {
             @Override
-            public int compare(final SimpleEntry<String, String > p1, final SimpleEntry<String, String> p2) {
+            public int compare(SimpleEntry<String, String > p1, SimpleEntry<String, String> p2) {
                 if (p1.getKey().compareTo(p2.getKey()) < 0) return 1;
                 else if (p1.getKey().compareTo(p2.getKey()) > 0) return -1;
                 else {
@@ -100,9 +100,9 @@ public class CtrlDominiCerca {
     }
 
     private void ordreAscendent(ArrayList<String> cerca){
-        Collections.sort(cerca, new Comparator<String>() {
+        cerca.sort(new Comparator<String>() {
             @Override
-            public int compare(final String s1, final String s2) {
+            public int compare(String s1, String s2) {
                 if (s1.compareTo(s2) < 0) return -1;
                 else if (s1.compareTo(s2) > 0) return 1;
                 else { return 0;  }
@@ -111,9 +111,9 @@ public class CtrlDominiCerca {
     }
 
     private void ordreDescendent(ArrayList<String> cerca){
-        Collections.sort(cerca, new Comparator<String>() {
+        cerca.sort(new Comparator<String>() {
             @Override
-            public int compare(final String s1, final String s2) {
+            public int compare(String s1, String s2) {
                 if (s1.compareTo(s2) < 0) return 1;
                 else if (s1.compareTo(s2) > 0) return -1;
                 else { return 0;  }
