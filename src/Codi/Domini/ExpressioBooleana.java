@@ -10,12 +10,11 @@ public class ExpressioBooleana {
     private BinaryTree treeExpressio;
 
     public ExpressioBooleana(String expressio) {
-        //this.expressio = expressio;
         this.treeExpressio = new BinaryTree(expressio);
     }
 
-    public boolean cumpleixCerca(String contingut) {
-        return treeExpressio.cerca(contingut);
+    public boolean compleixCerca(String contingut) {
+        return this.treeExpressio.cerca(contingut);
     }
 
 }
