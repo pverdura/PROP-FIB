@@ -1,4 +1,4 @@
-package Codi.Util;
+package Codi.Excepcions;
 
 public class DocumentInexistentException extends NullPointerException {
     String titol, autor;
