@@ -1,5 +1,6 @@
 package Codi.Domini;
 
+import Codi.Excepcions.ArrayDeParaulesBuitException;
 import Codi.Excepcions.DocumentInexistentException;
 import Codi.Util.TipusOrdenacio;
 import Codi.Util.Trie;
@@ -30,14 +31,14 @@ public class CtrlDominiCerca {
     }
 
     public ArrayList<SimpleEntry<String, String>> cercaSemblant(String titol, String autor, int k, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraulesDocuments,
-                                                           HashMap<SimpleEntry<String, String>, Document> documents, TipusOrdenacio ordre) throws DocumentInexistentException{
+                                                           HashMap<SimpleEntry<String, String>, Document> documents, TipusOrdenacio ordre) throws DocumentInexistentException, ArrayDeParaulesBuitException {
         SimpleEntry<String, String> id = new SimpleEntry<>(titol, autor);
         if (!documents.containsKey(id)) throw new DocumentInexistentException(titol, autor);
         return ordenarCerca(CercaSemblant.cercaDoc(documents.get(id), k, paraulesDocuments, documents),ordre, documents);
     }
 
     public ArrayList<SimpleEntry<String, String>> cercaParaules(String paraules, int k, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraulesDocuments,
-                                                           HashMap<SimpleEntry<String, String>,Document> documents, TipusOrdenacio ordre){
+                                                           HashMap<SimpleEntry<String, String>,Document> documents, TipusOrdenacio ordre) throws ArrayDeParaulesBuitException{
         String[] aux = paraules.split(" ");
         ArrayList<String> llistaParaules = new ArrayList<>(Arrays.asList(aux));
         return ordenarCerca(CercaParaules.cercaDoc(llistaParaules, k, paraulesDocuments, documents), ordre, documents);
