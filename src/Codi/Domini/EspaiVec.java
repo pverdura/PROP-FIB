@@ -1,6 +1,8 @@
 //Calcula el tf_idf del document DocCerca
 package Codi.Domini;
 
+import Codi.Util.ArrayDeParaulesBuitException;
+
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +13,7 @@ public class EspaiVec {
      * Pre: L'array de paraules no és buit, els Integer no poden ser negatius
      * Post: El tf-idf del DocCerca
      */
-    public static Double calculaTF_IDF(ArrayList<SimpleEntry<String,Double>> paraulesIDF, Document DocCerca) {
+    public static Double calculaTF_IDF(ArrayList<SimpleEntry<String,Double>> paraulesIDF, Document DocCerca) throws ArrayDeParaulesBuitException {
         HashMap<String, Integer> paraulesDoc = DocCerca.getAparicions(); // Obtenim les paraules del document DocCerca
         double tf_idf = 0;
         int numParaulesDoc = 0; // Nombre de paraules del document DocCerca

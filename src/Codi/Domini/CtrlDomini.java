@@ -38,6 +38,13 @@ public class CtrlDomini {
 
     // Crea i inicialitza els altres controladors
     public CtrlDomini() {
+        Documents = new HashMap<SimpleEntry<String,String>,Document>();
+        Autors = new Trie<String>();
+        DocumentsAutor = new HashMap<String,ArrayList<String>>();
+        TitolAutors = new HashMap<String,ArrayList<String>>();
+        Paraules = new HashMap<String,ArrayList<SimpleEntry<String,String>>>();
+        ExpressionsBooleanes = new ArrayList<ExpressioBooleana>();
+
         CDeb = new CtrlDominiExprBool();
         CDdoc = new CtrlDominiDocument();
         CDcer = new CtrlDominiCerca();
@@ -188,6 +195,10 @@ public class CtrlDomini {
 
     public void setStopWords(ArrayList<String> StopWords) {
         CDdoc.setStopWords(StopWords);
+    }
+
+    public Integer getNombreDocuments() {
+        return CDdoc.getNombreDocuments(Documents);
     }
 
 
