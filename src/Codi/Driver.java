@@ -155,9 +155,9 @@ public class Driver {
         System.out.println("5. Extensió");
 
         int op = sc.nextInt();
-        sc.nextLine();
         switch (op) {
             case 1:
+                sc.nextLine();
                 System.out.println("Nou títol del document:\t");
                 String nomNou = sc.nextLine();
 
@@ -168,6 +168,7 @@ public class Driver {
                 }
                 break;
             case 2:
+                sc.nextLine();
                 System.out.println("Nou autor del document:\t");
                 String autorNou = sc.nextLine();
 
@@ -178,6 +179,7 @@ public class Driver {
                 }
                 break;
             case 3:
+                sc.nextLine();
                 System.out.println("Nou contingut del document:\t");
                 String contingutNou = sc.nextLine();
 
@@ -188,6 +190,7 @@ public class Driver {
                 }
                 break;
             case 4:
+                sc.nextLine();
                 System.out.println("Nova path del document:\t");
                 String novaPath = sc.nextLine();
 
@@ -198,6 +201,7 @@ public class Driver {
                 }
                 break;
             case 5:
+                sc.nextLine();
                 System.out.println("Nova extensió del document:\t");
                 System.out.println("1. TXT");
                 System.out.println("2. XML");
@@ -241,7 +245,7 @@ public class Driver {
         ArrayList<SimpleEntry<String, String>> docs = cd.cercaAllDocuments(TipusOrdenacio.ALFABETIC_ASCENDENT);
 
         for (SimpleEntry<String, String> se : docs) {
-            System.out.println(se.getKey() + " " + se.getValue());
+            System.out.println(se.getKey() + "\t" + se.getValue());
         }
     }
     void testCercaDocuments () {
