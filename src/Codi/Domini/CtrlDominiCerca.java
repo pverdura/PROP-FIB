@@ -45,7 +45,7 @@ public class CtrlDominiCerca {
 
     public ArrayList<SimpleEntry<String, String>> cercaBooleana(ExpressioBooleana expressio,
                                                                 HashMap<SimpleEntry<String,String>,Document> documents){
-        return CercaBooleana.cercaDoc(expressio, documents;
+        return CercaBooleana.cercaDoc(expressio, documents);
     }
 
 
