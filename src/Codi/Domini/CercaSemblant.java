@@ -28,9 +28,9 @@ public class CercaSemblant implements Cerca {
      */
     public static ArrayList<SimpleEntry<String,String>> cercaDoc(Document D, int k,  HashMap<String,ArrayList<SimpleEntry<String,String>>> DocumentsParaules,
                                                    HashMap<SimpleEntry<String,String>, Document> Documents) throws ArrayDeParaulesBuitException {
-        if (k <= 0) {
-            //throw new NombreMassaPetitDeDocumentsError(k);
-        }
+        /*if (k <= 0) {
+            throw new NombreMassaPetitDocumentsError(k);
+        }*/
 
         // Array on es posaran els identificadors dels documents que cerquem
         ArrayList<SimpleEntry<String,String>> docs = new ArrayList<SimpleEntry<String,String>>();
@@ -41,7 +41,7 @@ public class CercaSemblant implements Cerca {
         int N = Documents.size();   // Nombre de documents
 
         for (String p : D.getAparicions().keySet()) {   // Afegim en l'array les paraules i el seu idf
-            int aparicions = DocumentsParaules.get(p).size();
+            int aparicions = DocumentsParaules.get(p).size()+1; // Se li suma 1 per si no apareix en cap a part del document D (no es pot dividir per 0)
             double idf = Math.log((double) N/aparicions)/Math.log(2);   // Calculem log2(#Docs/#DocsApareix)
             SimpleEntry<String,Double> elem = new SimpleEntry<String,Double>(p,idf);
             paraulesIDF.add(elem);

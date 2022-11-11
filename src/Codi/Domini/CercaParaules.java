@@ -36,9 +36,15 @@ public class CercaParaules implements Cerca {
         int N = Documents.size();   // Nombre de documents
 
         for (String p : paraules) {   // Afegim en l'array les paraules i el seu idf
-            int aparicions = DocumentsParaules.get(p).size();
-            double idf = Math.log((double) N/aparicions)/Math.log(2);   // Calculem log2(#Docs/#DocsApareix)
-            SimpleEntry<String,Double> elem = new SimpleEntry<String,Double>(p,idf);
+            int aparicions;
+            if (DocumentsParaules.containsKey(p)) {
+                aparicions = DocumentsParaules.get(p).size();
+            }
+            else {
+                aparicions = 0;
+            }
+            double idf = Math.log((double) N / (aparicions+1)) / Math.log(2);   // Calculem log2(#Docs/#DocsApareix)
+            SimpleEntry<String, Double> elem = new SimpleEntry<String, Double>(p, idf);
             paraulesIDF.add(elem);
         }
 
