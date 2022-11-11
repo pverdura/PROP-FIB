@@ -1,26 +1,23 @@
 package Codi.Domini;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CtrlDominiExprBool {
 
     public CtrlDominiExprBool() {}
 
-    public void creaExpressioBool (String valor, ArrayList<ExpressioBooleana> expressions) {
-        expressions.add(new ExpressioBooleana(valor));
+    public void creaExpressioBool (String expressio, HashMap<String,ExpressioBooleana> expressions) {
+        expressions.put(expressio, new ExpressioBooleana(expressio));
     }
 
-    public void eliminaExpressioBool (String valor, ArrayList<ExpressioBooleana> expressions) {
-        expressions.remove(new ExpressioBooleana(valor));
+    public void eliminaExpressioBool (String valor, HashMap<String,ExpressioBooleana> expressions) {
+        expressions.remove(valor);
     }
 
     void modificaExpressioBool(String anticValor, String nouValor,
-                               ArrayList<ExpressioBooleana> expressions) {
+                               HashMap<String,ExpressioBooleana> expressions) {
 
-        //Si no troba l'expressio retorna -1
-        int index = expressions.indexOf(new ExpressioBooleana(anticValor));
-
-        if (index != -1) {
-            expressions.get(index).setExpressio(nouValor);
-        }
+            expressions.remove(anticValor);
+            expressions.put(nouValor, new ExpressioBooleana(nouValor));
     }
 }

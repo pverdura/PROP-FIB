@@ -1,27 +1,21 @@
 package Codi.Domini;
 
+import Codi.Util.BinaryTree;
+
 import java.util.Objects;
 
 public class ExpressioBooleana {
 
-    private String expressio;
+    //private String expressio;
+    private BinaryTree treeExpressio;
 
-    public ExpressioBooleana() { this.expressio = null; }
-    public ExpressioBooleana(String expressio) { this.expressio = expressio; }
-
-    public String getExpressio() { return this.expressio; }
-    public void setExpressio(String valor) { this.expressio = valor; }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ExpressioBooleana that = (ExpressioBooleana) o;
-        return Objects.equals(expressio, that.expressio);
+    public ExpressioBooleana(String expressio) {
+        //this.expressio = expressio;
+        this.treeExpressio = new BinaryTree(expressio);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(expressio);
+    public boolean cumpleixCerca(String contingut) {
+        return treeExpressio.cerca(contingut);
     }
+
 }
