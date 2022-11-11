@@ -14,47 +14,47 @@ public class CtrlDominiCerca {
     }
 
     //Retorna
-    public ArrayList<SimpleEntry<String,String>> cercaAutor(String autor, HashMap<String, ArrayList<String>> autorsTitols){
-        return CercaAutor.cercaDoc(autor, autorsTitols);
+    public ArrayList<SimpleEntry<String,String>> cercaAutor(String autor, HashMap<String, ArrayList<String>> autorsTitols, TipusOrdenacio ordre, HashMap<SimpleEntry<String,String>, Document> documents){
+        return ordenarCerca(CercaAutor.cercaDoc(autor, autorsTitols),ordre, documents);
     }
 
-    public ArrayList<SimpleEntry<String, String>> cercaTitol(String titol,  HashMap<String, ArrayList<String>> titolsAutors){
-        return CercaTitol.cercaDoc(titol, titolsAutors);
+    public ArrayList<SimpleEntry<String, String>> cercaTitol(String titol,  HashMap<String, ArrayList<String>> titolsAutors, TipusOrdenacio ordre, HashMap<SimpleEntry<String,String>, Document> documents){
+        return ordenarCerca(CercaTitol.cercaDoc(titol, titolsAutors), ordre, documents);
     }
 
     public Document cercaTitolAutor(String titol, String autor, HashMap<SimpleEntry<String,String>, Document> documents){
         return CercaTitolAutor.cercaDoc(titol, autor, documents);
     }
 
-    public ArrayList<String> cercaPrefix(String prefix, Trie<String> autors){
-        return CercaPrefix.cercaDoc(prefix, autors);
+    public ArrayList<String> cercaPrefix(String prefix, Trie<String> autors, TipusOrdenacio ordre){
+        return ordenarCercaSimple(CercaPrefix.cercaDoc(prefix, autors), ordre);
     }
 
     public ArrayList<SimpleEntry<String, String>> cercaSemblant(Document document, int k, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraulesDocuments,
-                                                           HashMap<SimpleEntry<String, String>, Document> documents){
-        return CercaSemblant.cercaDoc(document, k, paraulesDocuments, documents);
+                                                           HashMap<SimpleEntry<String, String>, Document> documents, TipusOrdenacio ordre){
+        return ordenarCerca(CercaSemblant.cercaDoc(document, k, paraulesDocuments, documents),ordre, documents);
     }
 
     public ArrayList<SimpleEntry<String, String>> cercaParaules(ArrayList<String> paraules, int k, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraulesDocuments,
-                                                           HashMap<SimpleEntry<String, String>,Document> documents){
-        return CercaParaules.cercaDoc(paraules, k, paraulesDocuments, documents);
+                                                           HashMap<SimpleEntry<String, String>,Document> documents, TipusOrdenacio ordre){
+        return ordenarCerca(CercaParaules.cercaDoc(paraules, k, paraulesDocuments, documents), ordre, documents);
     }
 
     public ArrayList<SimpleEntry<String, String>> cercaBooleana(ExpressioBooleana expressio,
-                                                                HashMap<SimpleEntry<String,String>,Document> documents){
-        return CercaBooleana.cercaDoc(expressio, documents);
+                                                                HashMap<SimpleEntry<String,String>,Document> documents, TipusOrdenacio ordre){
+        return ordenarCerca(CercaBooleana.cercaDoc(expressio, documents), ordre, documents);
     }
 
 
-    public ArrayList<SimpleEntry<String,String>> cercaAllDocuments (HashMap<AbstractMap.SimpleEntry<String, String>, Document> documents){
-        return CercaAllDocuments.cercaDoc(documents);
+    public ArrayList<SimpleEntry<String,String>> cercaAllDocuments (HashMap<AbstractMap.SimpleEntry<String, String>, Document> documents, TipusOrdenacio ordre){
+        return ordenarCerca(CercaAllDocuments.cercaDoc(documents), ordre, documents);
     }
 
-    public ArrayList<String> cercaAllExpressionsBool (ArrayList<ExpressioBooleana> ExpressionsBooleanes){
-        return CercaAllExpressionsBool.cercaBool(ExpressionsBooleanes);
+    public ArrayList<String> cercaAllExpressionsBool (ArrayList<ExpressioBooleana> ExpressionsBooleanes, TipusOrdenacio ordre){
+        return ordenarCercaSimple(CercaAllExpressionsBool.cercaBool(ExpressionsBooleanes), ordre);
     }
 
-    public ArrayList<SimpleEntry<String,String>> ordenarCerca(ArrayList<SimpleEntry<String, String>> cerca, TipusOrdenacio tipus, HashMap<SimpleEntry<String,String>, Document> documents){
+    private ArrayList<SimpleEntry<String,String>> ordenarCerca(ArrayList<SimpleEntry<String, String>> cerca, TipusOrdenacio tipus, HashMap<SimpleEntry<String,String>, Document> documents){
         if (tipus == TipusOrdenacio.ALFABETIC_ASCENDENT){ ordreAlfAscendent(cerca);}
         else if (tipus == TipusOrdenacio.ALFABETIC_DESCENDENT) { ordreAlfDescendent(cerca); }
         else if (tipus == TipusOrdenacio.PES_ASCENDENT){
@@ -64,9 +64,10 @@ public class CtrlDominiCerca {
         return cerca;
     }
 
-    public void ordenarCercaAutors(ArrayList<String> cerca, TipusOrdenacio tipus){
+    private ArrayList<String> ordenarCercaSimple(ArrayList<String> cerca, TipusOrdenacio tipus){
         if (tipus == TipusOrdenacio.ALFABETIC_ASCENDENT){ ordreAscendent(cerca);}
         else if (tipus == TipusOrdenacio.ALFABETIC_DESCENDENT) { ordreDescendent(cerca); }
+        return cerca;
     }
 
     private void ordreAlfAscendent(ArrayList<SimpleEntry<String, String>> cerca){
