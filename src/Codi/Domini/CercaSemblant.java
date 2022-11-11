@@ -69,11 +69,10 @@ public class CercaSemblant implements Cerca {
                 while (idx < n && semblants.get(idx).getValue() > sembl) {
                     ++idx;
                 }
-                if (idx < n) { // Si la posició idx està en l'array, afegim l'element en aquest
-                    semblants.add(idx,elem);
-                    if(semblants.size() > k) {  // Si el tamany de l'array és més gran que k, treiem elements
-                        semblants.remove(k);
-                    }
+                semblants.add(idx,elem);
+                if(semblants.size() > k) {  // Si el tamany de l'array és més gran que k, treiem elements
+                    semblants.remove(k);
+
                 }
             }
         }
