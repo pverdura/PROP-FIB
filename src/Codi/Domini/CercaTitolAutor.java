@@ -8,8 +8,6 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 
 public class CercaTitolAutor implements Cerca {
-    //@Override
-    //public static void cercaDoc() {}
     public static Document cercaDoc (String titol, String autor, HashMap<SimpleEntry<String, String>, Document> documents) throws DocumentInexistentException {
         SimpleEntry<String, String> id = new SimpleEntry<>(titol, autor);
         if (!documents.containsKey(id)) throw new DocumentInexistentException(titol, autor);
