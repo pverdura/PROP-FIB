@@ -14,7 +14,7 @@ public class CercaBooleana implements Cerca {
 
         for (Map.Entry<SimpleEntry<String,String>,Document> doc : docs.entrySet()) {
 
-            if (expressio.cumpleixCerca(doc.getValue().getContingut())) {
+            if (expressio.compleixCerca(doc.getValue().getContingut())) {
                 docs_valids.add(
                         new SimpleEntry<String, String>(doc.getValue().getAutor(), doc.getValue().getTitol()));
             }
