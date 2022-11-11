@@ -5,11 +5,8 @@ import Codi.Util.TipusOrdenacio;
 import Codi.Util.Trie;
 
 import javax.print.Doc;
+import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
 
 public class CtrlDominiCerca {
 
@@ -49,6 +46,13 @@ public class CtrlDominiCerca {
     }
 
 
+    public ArrayList<SimpleEntry<String,String>> cercaAllDocuments (HashMap<AbstractMap.SimpleEntry<String, String>, Document> documents){
+        return CercaAllDocuments.cercaDoc(documents);
+    }
+
+    public ArrayList<String > cercaAllExpressionsBool (ArrayList<ExpressioBooleana> ExpressionsBooleanes){
+        return CercaAllExpressionsBool.cercaBool(ExpressionsBooleanes);
+    }
 
     public ArrayList<SimpleEntry<String,String>> ordenarCerca(ArrayList<SimpleEntry<String, String>> cerca, TipusOrdenacio tipus, HashMap<SimpleEntry<String,String>, Document> documents){
         if (tipus == TipusOrdenacio.ALFABETIC_ASCENDENT){ ordreAlfAscendent(cerca);}
@@ -113,15 +117,11 @@ public class CtrlDominiCerca {
             }
         });
 
-        ArrayList<SimpleEntry<String,String>> cerca2 = new ArrayList<>();
+        ArrayList<SimpleEntry<String,String>> cercaOrd = new ArrayList<>();
         for(SimpleEntry<SimpleEntry<String,String>, Integer> d : docs){
-            cerca2.add(d.getKey());
+            cercaOrd.add(d.getKey());
         }
-
-        for (SimpleEntry<String,String> s : cerca2){
-            System.out.println(s);
-        }
-        return cerca2;
+        return cercaOrd;
     }
 
     private ArrayList<SimpleEntry<String, String>> ordrePesDescendent(ArrayList<SimpleEntry<String, String>> cerca, HashMap<SimpleEntry<String,String>, Document> documents){
@@ -141,15 +141,11 @@ public class CtrlDominiCerca {
             }
         });
 
-        ArrayList<SimpleEntry<String,String>> cerca2 = new ArrayList<>();
+        ArrayList<SimpleEntry<String,String>> cercaOrd = new ArrayList<>();
         for(SimpleEntry<SimpleEntry<String,String>, Integer> d : docs){
-            cerca2.add(d.getKey());
+            cercaOrd.add(d.getKey());
         }
-
-        for (SimpleEntry<String,String> s : cerca2){
-            System.out.println(s);
-        }
-        return cerca2;
+        return cercaOrd;
     }
 
     private void ordreAscendent(ArrayList<String> cerca){
