@@ -5,6 +5,7 @@ import Codi.Util.DocumentJaExisteixException;
 import Codi.Util.TipusExtensio;
 import java.util.AbstractMap.SimpleEntry;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CtrlDominiDocument {
@@ -115,11 +116,14 @@ public class CtrlDominiDocument {
         documents.remove(id);
     }
 
-    //COSES SOBRE PERSISTÈNCIA
-    /*
-        void exportaDocument (String, String, HashMap<SimpleEntry<String, String>, Document>): ??????
-        void importaDocument (String, String, HashMap<SimpleEntry<String, String>, Document>):
-     */
+    //Obté les stop words.
+    public ArrayList<String> getStopWords () {
+        return Document.getStopWords();
+    }
+
+    public void setStopWords (ArrayList<String> s) {
+        Document.setStopWords(s);
+    }
 }
 
 
