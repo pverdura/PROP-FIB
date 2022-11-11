@@ -167,7 +167,7 @@ public class CtrlDomini {
      * Post:
      */
     public ArrayList<SimpleEntry<String,String>> cercaAutor(String autor, TipusOrdenacio ord) {
-        return CDcer.cercaAutor(autor,TitolAutors,ord,Documents);
+        return CDcer.cercaAutor(autor,DocumentsAutor,ord,Documents);
     }
 
     /* Llista els documents que tenen com a títol "titol"
