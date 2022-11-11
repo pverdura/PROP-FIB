@@ -14,6 +14,9 @@ public class EspaiVec {
      * Post: El tf-idf del DocCerca
      */
     public static Double calculaTF_IDF(ArrayList<SimpleEntry<String,Double>> paraulesIDF, Document DocCerca) throws ArrayDeParaulesBuitException {
+        if (paraulesIDF.isEmpty()) {
+            throw new ArrayDeParaulesBuitException();
+        }
         HashMap<String, Integer> paraulesDoc = DocCerca.getAparicions(); // Obtenim les paraules del document DocCerca
         double tf_idf = 0;
         int numParaulesDoc = 0; // Nombre de paraules del document DocCerca

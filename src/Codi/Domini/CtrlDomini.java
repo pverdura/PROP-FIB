@@ -203,16 +203,16 @@ public class CtrlDomini {
      * Pre: El Document D no té contingut buit, k > 0
      * Post: Un arraylist de longitud k amb els identificadors dels documents més semblants a D
      */
-    public ArrayList<SimpleEntry<String,String>> cercaSemblant(String titol, String autor, Integer k, TipusOrdenacio ord) throws ArrayDeParaulesBuitException {
-        return CDcer.cercaSemblant(titol,autor,k,Paraules,Documents,ord);
+    public ArrayList<SimpleEntry<String,String>> cercaSemblant(String titol, String autor, Integer k) throws ArrayDeParaulesBuitException {
+        return CDcer.cercaSemblant(titol,autor,k,Paraules,Documents);
     }
 
     /* Llista els k documents més rellevants segons l'array de paraules
      * Pre: L'array no és buit, k > 0
      * Post: Un arraylist de longitud k amb els identificadors dels documents més rellevants a l'array paraules
      */
-    public ArrayList<SimpleEntry<String,String>> cercaParaules(String paraules, Integer k, TipusOrdenacio ord) throws ArrayDeParaulesBuitException {
-        return CDcer.cercaParaules(paraules,k,Paraules,Documents,ord);
+    public ArrayList<SimpleEntry<String,String>> cercaParaules(String paraules, Integer k) throws ArrayDeParaulesBuitException {
+        return CDcer.cercaParaules(paraules,k,Paraules,Documents);
     }
 
     /* Llista els documents que compleixen la condició booleana expr
