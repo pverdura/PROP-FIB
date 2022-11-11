@@ -1,5 +1,6 @@
 package Codi.Domini;
 
+import Codi.Excepcions.DocumentInexistentException;
 import Codi.Util.Pair;
 
 import java.util.AbstractMap.SimpleEntry;
@@ -11,8 +12,9 @@ public class CercaAutor implements Cerca{
     //@Override
     //public void cercaDoc() {}
 
-    public static ArrayList<SimpleEntry<String,String>> cercaDoc(String autor, HashMap<String, ArrayList<String>> Autors){
+    public static ArrayList<SimpleEntry<String,String>> cercaDoc(String autor, HashMap<String, ArrayList<String>> Autors) throws DocumentInexistentException {
 
+        if (!Autors.containsKey(autor)) throw new DocumentInexistentException("[QUALSEVOL]", autor);
         ArrayList<SimpleEntry<String,String>> resultat = new ArrayList<>();
 
         ArrayList<String> llistaTitols = Autors.get(autor);

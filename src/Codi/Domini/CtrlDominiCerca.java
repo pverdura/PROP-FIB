@@ -15,11 +15,11 @@ public class CtrlDominiCerca {
     }
 
     //Retorna
-    public ArrayList<SimpleEntry<String,String>> cercaAutor(String autor, HashMap<String, ArrayList<String>> autorsTitols, TipusOrdenacio ordre, HashMap<SimpleEntry<String,String>, Document> documents){
+    public ArrayList<SimpleEntry<String,String>> cercaAutor(String autor, HashMap<String, ArrayList<String>> autorsTitols, TipusOrdenacio ordre, HashMap<SimpleEntry<String,String>, Document> documents) throws DocumentInexistentException{
         return ordenarCerca(CercaAutor.cercaDoc(autor, autorsTitols),ordre, documents);
     }
 
-    public ArrayList<SimpleEntry<String, String>> cercaTitol(String titol,  HashMap<String, ArrayList<String>> titolsAutors, TipusOrdenacio ordre, HashMap<SimpleEntry<String,String>, Document> documents){
+    public ArrayList<SimpleEntry<String, String>> cercaTitol(String titol,  HashMap<String, ArrayList<String>> titolsAutors, TipusOrdenacio ordre, HashMap<SimpleEntry<String,String>, Document> documents) throws DocumentInexistentException{
         return ordenarCerca(CercaTitol.cercaDoc(titol, titolsAutors), ordre, documents);
     }
 
@@ -118,8 +118,8 @@ public class CtrlDominiCerca {
         Collections.sort(docs, new Comparator<SimpleEntry<SimpleEntry<String, String>, Integer>>() {
             @Override
             public int compare(SimpleEntry<SimpleEntry<String, String>, Integer> p1, SimpleEntry<SimpleEntry<String, String>, Integer> p2) {
-                if (p1.getValue() < p2.getValue()) return -1;
-                else if (p1.getValue()> p2.getValue()) return 1;
+                if (p1.getValue() < p2.getValue()) return 1;
+                else if (p1.getValue()> p2.getValue()) return -1;
                 else return 0;
             }
         });
@@ -142,8 +142,8 @@ public class CtrlDominiCerca {
         Collections.sort(docs, new Comparator<SimpleEntry<SimpleEntry<String, String>, Integer>>() {
             @Override
             public int compare(SimpleEntry<SimpleEntry<String, String>, Integer> p1, SimpleEntry<SimpleEntry<String, String>, Integer> p2) {
-                if (p1.getValue() < p2.getValue()) return 1;
-                else if (p1.getValue()> p2.getValue()) return -1;
+                if (p1.getValue() < p2.getValue()) return -1;
+                else if (p1.getValue()> p2.getValue()) return 1;
                 else return 0;
             }
         });
