@@ -182,6 +182,15 @@ public class CtrlDomini {
     }
 
 
+    public ArrayList<String> getStopWords() {
+        return CDdoc.getStopWords();
+    }
+
+    public void setStopWords(ArrayList<String> StopWords) {
+        CDdoc.setStopWords(StopWords);
+    }
+
+
     ///////////////////////////////////////////////////////////
     ///             FUNCIONS CTRL_DOMINI_CERCA              ///
     ///////////////////////////////////////////////////////////
