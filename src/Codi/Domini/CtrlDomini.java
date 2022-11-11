@@ -2,10 +2,9 @@
 
 package Codi.Domini;
 
-import Codi.Util.Pair;
-import Codi.Util.TipusExtensio;
-import Codi.Util.Trie;
+import Codi.Util.*;
 
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -14,11 +13,11 @@ public class CtrlDomini {
     ///////////////////////////////////////////////////////////
     ///                     ESTRUCTURES                     ///
     ///////////////////////////////////////////////////////////
-    private HashMap<Pair<String,String>,Document> Documents; // Estructura on es guarden els documents
+    private HashMap<SimpleEntry<String,String>,Document> Documents; // Estructura on es guarden els documents
     private Trie<String> Autors; // Estructura on es guarden els autors (serveix per trobar el prefix)
     private HashMap<String,ArrayList<String>> DocumentsAutor; // Estructura on es guarden els títols dels documents creats per un autor
     private HashMap<String,ArrayList<String>> TitolAutors; // Estructura on es guarden els autors que han creat un document amb un títol
-    private HashMap<String,ArrayList<Pair<String,String>>> Paraules; // Estructura on es guarden els documents que contenen la paraula
+    private HashMap<String,ArrayList<SimpleEntry<String,String>>> Paraules; // Estructura on es guarden els documents que contenen la paraula
     private ArrayList<ExpressioBooleana> ExpressionsBooleanes; // Estructura on es guarden totes les expression booleanes
 
 
@@ -52,7 +51,7 @@ public class CtrlDomini {
     /* Pre: -
      * Post: Retorna un llistat de tots els Documents del sistema
      */
-    public HashMap<Pair<String,String>,Document> getDocuments() {
+    public HashMap<SimpleEntry<String,String>,Document> getDocuments() {
         return Documents;
     }
 
@@ -80,7 +79,7 @@ public class CtrlDomini {
     /* Pre: -
      * Post: Retorna les paraules de tots els documents i on apareix
      */
-    public HashMap<String,ArrayList<Pair<String,String>>> getParaules() {
+    public HashMap<String,ArrayList<SimpleEntry<String,String>>> getParaules() {
         return Paraules;
     }
 
@@ -98,18 +97,27 @@ public class CtrlDomini {
 
     /* Afegeix un nou document amb paràmetres (títol, autor)
      * Pre: Els String títol i autor no són buits
-     * Post: True si s'ha creat el document, false si el document identificat per {títol,autor} ja existeix en el sistema
+     * Post: S'ha creat el document identificat per (titol,autor)
      */
-    public Boolean creaDocument(String titol, String autor) {
+    public void creaDocument(String titol, String autor) throws DocumentJaExisteixException {
         CDdoc.creaDocument(titol,autor,Documents);
-        return true;
+    }
+
+
+    public void setTitol(String titolVell, String autor, String titolNou) throws DocumentJaExisteixException, DocumentInexistentException {
+        CDdoc.setTitol(titolVell,autor,titolNou,Documents);
+    }
+
+
+    public void setAutor(String titol, String autorVell, String autorNou) throws DocumentJaExisteixException, DocumentInexistentException  {
+        CDdoc.setAutor(titol,autorVell,autorNou,Documents);
     }
 
     /* Modifica el contingut del document identificat per {títol, autor}
      * Pre: Els String títol i autor no són buits
      * Post: True si s'ha modificat el contingut del document, false si no s'ha modificat
      */
-    public Boolean setContingut(String titol, String autor, String contingut) {
+    public Boolean setContingut(String titol, String autor, String contingut) throws DocumentInexistentException {
         CDdoc.setContingut(titol,autor,contingut,Documents);
         return true;
     }
@@ -118,7 +126,7 @@ public class CtrlDomini {
      * Pre: Els String títol i autor no són buits
      * Post: El contingut del document identificat per {títol, autor}
      */
-    public String getContingut(String titol, String autor) {
+    public String getContingut(String titol, String autor) throws DocumentInexistentException {
         return CDdoc.getContingut(titol,autor,Documents);
     }
 
@@ -126,7 +134,7 @@ public class CtrlDomini {
      * Pre: Els String títol i autor no són buits, i el path existeix
      * Post: True si s'ha modificat el path del document, false si no s'ha modificat
      */
-    public Boolean setPath(String titol, String autor, String path) {
+    public Boolean setPath(String titol, String autor, String path) throws DocumentInexistentException {
         CDdoc.setPath(titol,autor,path,Documents);
         return true;
     }
@@ -135,7 +143,7 @@ public class CtrlDomini {
      * Pre: Els String títol i autor no són buits
      * Post: El path del document identificat per {títol, autor}
      */
-    public String getPath(String titol, String autor) {
+    public String getPath(String titol, String autor) throws DocumentInexistentException {
         return CDdoc.getPath(titol,autor,Documents);
     }
 
@@ -143,7 +151,7 @@ public class CtrlDomini {
      * Pre: Els String títol i autor no són buits
      * Post: True si s'ha modificat l'extensió del document, false si no s'ha modificat
      */
-    public Boolean setExtensio(String titol, String autor, TipusExtensio ext) {
+    public Boolean setExtensio(String titol, String autor, TipusExtensio ext) throws DocumentInexistentException {
         CDdoc.setExtensio(titol,autor,ext,Documents);
         return true;
     }
@@ -152,7 +160,7 @@ public class CtrlDomini {
      * Pre: Els String títol i autor no són buits
      * Post: L'extensió del document
      */
-    public TipusExtensio getExtensio(String titol, String autor) {
+    public TipusExtensio getExtensio(String titol, String autor) throws DocumentInexistentException {
         return CDdoc.getExtensio(titol,autor,Documents);
     }
 
@@ -160,7 +168,7 @@ public class CtrlDomini {
      * Pre: Els String títol i autor no són buits
      * Post: El pes del document
      */
-    public Integer getPes(String titol, String autor) {
+    public Integer getPes(String titol, String autor) throws DocumentInexistentException {
         return CDdoc.getPes(titol,autor,Documents);
     }
 
@@ -174,6 +182,15 @@ public class CtrlDomini {
     }
 
 
+    public ArrayList<String> getStopWords() {
+        return CDdoc.getStopWords();
+    }
+
+    public void setStopWords(ArrayList<String> StopWords) {
+        CDdoc.setStopWords(StopWords);
+    }
+
+
     ///////////////////////////////////////////////////////////
     ///             FUNCIONS CTRL_DOMINI_CERCA              ///
     ///////////////////////////////////////////////////////////
@@ -182,7 +199,7 @@ public class CtrlDomini {
      * Pre:
      * Post:
      */
-    public ArrayList<Pair<String,String>> cercaAutor(String autor) {
+    public ArrayList<SimpleEntry<String,String>> cercaAutor(String autor) {
         return CDcer.cercaAutor(autor,DocumentsAutor);
     }
 
@@ -190,7 +207,7 @@ public class CtrlDomini {
      * Pre:
      * Post:
      */
-    public ArrayList<Pair<String,String>> cercaTitol(String titol) {
+    public ArrayList<SimpleEntry<String,String>> cercaTitol(String titol) {
         return CDcer.cercaTitol(titol,TitolAutors);
     }
 
@@ -214,7 +231,7 @@ public class CtrlDomini {
      * Pre: El Document D no té contingut buit, k > 0
      * Post: Un arraylist de longitud k amb els identificadors dels documents més semblants a D
      */
-    public ArrayList<Pair<String,String>> cercaSemblant(Document D, Integer k) {
+    public ArrayList<SimpleEntry<String,String>> cercaSemblant(Document D, Integer k) {
         return CDcer.cercaSemblant(D,k,Paraules,Documents);
     }
 
@@ -222,7 +239,7 @@ public class CtrlDomini {
      * Pre: L'array no és buit, k > 0
      * Post: Un arraylist de longitud k amb els identificadors dels documents més rellevants a l'array paraules
      */
-    public ArrayList<Pair<String,String>> cercaParaules(ArrayList<String> paraules, Integer k) {
+    public ArrayList<SimpleEntry<String,String>> cercaParaules(ArrayList<String> paraules, Integer k) {
         return CDcer.cercaParaules(paraules,k,Paraules,Documents);
     }
 

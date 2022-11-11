@@ -5,6 +5,7 @@ import Codi.Util.TipusExtensio;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Document {    String titol, autor, path, contingut;
     static ArrayList<String> stopWords;
@@ -16,8 +17,8 @@ public class Document {    String titol, autor, path, contingut;
     HashMap<String, Integer> aparicions;
     public Document () {
         this.aparicions = new HashMap<>();
+        if (Objects.isNull(Document.stopWords)) Document.stopWords = new ArrayList<>();
         this.setContingut("");
-        if (Document.stopWords == null) Document.stopWords = new ArrayList<>();
     }
 
     public Document (String titol, String autor) {

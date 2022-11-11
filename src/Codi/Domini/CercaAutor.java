@@ -2,6 +2,7 @@ package Codi.Domini;
 
 import Codi.Util.Pair;
 
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,14 +11,13 @@ public class CercaAutor implements Cerca{
     //@Override
     //public void cercaDoc() {}
 
-    public static ArrayList<Pair<String , String >> cercaDoc(String autor,  HashMap<String, ArrayList<String>> Autors){
+    public static ArrayList<SimpleEntry<String,String>> cercaDoc(String autor, HashMap<String, ArrayList<String>> Autors){
 
-        ArrayList<Pair<String, String>> resultat = new ArrayList<Pair<String, String>>();
+        ArrayList<SimpleEntry<String,String>> resultat = new ArrayList<>();
 
         ArrayList<String> llistaTitols = Autors.get(autor);
-        int n = llistaTitols.size();
-        for (int i = 0; i < n; ++i) {
-            Pair<String, String> aux = new Pair<String, String>(llistaTitols.get(i), autor);
+        for (String t : llistaTitols) {
+            SimpleEntry<String, String> aux = new SimpleEntry<>(t,autor);
             resultat.add(aux);
         }
 
