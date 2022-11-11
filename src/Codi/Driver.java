@@ -379,7 +379,7 @@ public class Driver {
     }
 
     void testVeureParaules () {
-        HashMap<String,ArrayList<SimpleEntry<String,String>>> p = cd.getParaules();
+        HashMap<String, ArrayList<SimpleEntry<String, String>>> p =  cd.ListgetParaules();
 
         for (String s : p.keySet()) {
             System.out.println(s+": ");
