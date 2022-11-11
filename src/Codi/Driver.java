@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Driver {
@@ -20,12 +21,11 @@ public class Driver {
 
         dv.llegirStopWords();
 
-        dv.menu();
-        int op = sc.nextInt();
-
         boolean running = true;
 
         while (running) {
+            dv.menu();
+            int op = sc.nextInt();
             switch (op) {
                 case 1:
                     dv.testCrearDocument();
@@ -61,6 +61,9 @@ public class Driver {
                     dv.testEliminarExpressioBooleana();
                     break;
                 case 12:
+                    dv.testVeureParaules();
+                    break;
+                case 13:
                     running = false;
                     break;
                 default:
@@ -83,7 +86,8 @@ public class Driver {
         System.out.println("9. Crear expressió booleana");
         System.out.println("10. Modificar expressió booleana");
         System.out.println("11. Eliminar expressió booleana");
-        System.out.println("12. Sortir");
+        System.out.println("12. Veure documents on apareixen les paraules");
+        System.out.println("13. Sortir");
     }
 
     void llegirStopWords () {
@@ -152,6 +156,7 @@ public class Driver {
         System.out.println("5. Extensió");
 
         int op = sc.nextInt();
+        sc.nextLine();
         switch (op) {
             case 1:
                 System.out.println("Nou títol del document:\t");
@@ -234,7 +239,7 @@ public class Driver {
         }
     }
     void testResumDocuments () {
-        ArrayList<SimpleEntry<String, String>> docs = cd.getDocuments();
+        ArrayList<SimpleEntry<String, String>> docs = cd.cercaAllDocuments(TipusOrdenacio.ALFABETIC_ASCENDENT);
 
         for (SimpleEntry<String, String> se : docs) {
             System.out.println(se.getKey() + " " + se.getValue());
@@ -288,13 +293,18 @@ public class Driver {
                 s = sc.nextLine();
                 System.out.println("Nombre de documents:\t");
                 int k = sc.nextInt();
-                res = cd.cercaParaules(s, k, tipusOrdenacio);
+
+                try {
+                    res = cd.cercaParaules(s, k);
+                } catch (Exception e) {System.out.println(e.toString());}
 
                 break;
             case 4:
                 System.out.println("Expressió booleana:\t");
                 s = sc.next();
-                res = cd.cercaBooleana(s, tipusOrdenacio);
+                try {
+                    res = cd.cercaBooleana(s, tipusOrdenacio);
+                } catch (Exception e) {System.out.println(e.toString());}
 
                 break;
             case 5:
@@ -305,7 +315,9 @@ public class Driver {
                 System.out.println("Nombre de documents:\t");
                 k = sc.nextInt();
 
-                res = cd.cercaSemblant(nom, autor, k, tipusOrdenacio);
+                try {
+                    res = cd.cercaSemblant(nom, autor, k);
+                } catch (Exception e) {System.out.println(e.toString());}
 
                 break;
             case 6:
@@ -313,7 +325,6 @@ public class Driver {
                 s = sc.next();
                 res = cd.cercaAutor(s, tipusOrdenacio);
 
-                break;
                 break;
             default:
                 System.out.println("Error: opció no vàlida.");
@@ -325,7 +336,7 @@ public class Driver {
         }
     }
     void testVeureExpressionsBooleanes () {
-        ArrayList<String> exprs = cd.getExpressionsBooleanes();
+        ArrayList<String> exprs = cd.cercaAllExpressionsBool(TipusOrdenacio.ALFABETIC_ASCENDENT);
 
         for (String se : exprs) {
             System.out.println(se);
@@ -364,6 +375,17 @@ public class Driver {
             cd.eliminaExpressioBool(expr);
         } catch (Exception e) {
             System.out.println(e.toString());
+        }
+    }
+
+    void testVeureParaules () {
+        HashMap<String,ArrayList<SimpleEntry<String,String>>> p = cd.getParaules();
+
+        for (String s : p.keySet()) {
+            System.out.println(s+": ");
+            for (SimpleEntry<String, String> doc : p.get(s)) {
+                System.out.println(doc.getKey()+" "+doc.getValue());
+            }
         }
     }
 }
