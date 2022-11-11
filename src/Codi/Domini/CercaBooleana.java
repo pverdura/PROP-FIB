@@ -1,16 +1,25 @@
 package Codi.Domini;
 
-
-import Codi.Util.Pair;
-
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Map;
 
 public class CercaBooleana implements Cerca {
 
-    //@Override
-    //public void cercaDoc() {}
+    public static ArrayList<SimpleEntry<String,String>> cercaDoc(ExpressioBooleana expressio,
+                                                          HashMap<SimpleEntry<String,String>,Document> docs) {
 
-    public static int cercaDoc(int a) {
-        return a;
+        ArrayList <SimpleEntry<String,String>> docs_valids = new ArrayList<>();
+
+        for (Map.Entry<SimpleEntry<String,String>,Document> doc : docs.entrySet()) {
+
+            if (expressio.cumpleixCerca(doc.getValue().getContingut())) {
+                docs_valids.add(
+                        new SimpleEntry<String, String>(doc.getValue().getAutor(), doc.getValue().getTitol()));
+            }
+        }
+
+        return docs_valids;
     }
 }

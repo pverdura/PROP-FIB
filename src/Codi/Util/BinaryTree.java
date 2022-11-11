@@ -45,7 +45,6 @@ public class BinaryTree {
                 default:
                     return contingut.contains(node.value);
             }
-
         }
 
         //CAS RESTANT (!, &, |)
@@ -138,6 +137,4 @@ public class BinaryTree {
         }
         return i;
     }
-
-
 }
