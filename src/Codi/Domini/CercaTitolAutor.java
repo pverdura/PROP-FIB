@@ -1,6 +1,8 @@
 package Codi.Domini;
 
-import Codi.Util.DocumentInexistentException;
+
+
+import Codi.Excepcions.DocumentInexistentException;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
