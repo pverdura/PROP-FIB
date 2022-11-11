@@ -12,12 +12,13 @@ public class CercaAutor implements Cerca{
     //@Override
     //public void cercaDoc() {}
 
-    public static ArrayList<SimpleEntry<String,String>> cercaDoc(String autor, HashMap<String, ArrayList<String>> Autors) throws DocumentInexistentException {
+    public static ArrayList<SimpleEntry<String,String>> cercaDoc(String autor, HashMap<String, ArrayList<String>> autorTitols) throws DocumentInexistentException {
 
-        if (!Autors.containsKey(autor)) throw new DocumentInexistentException("[QUALSEVOL]", autor);
         ArrayList<SimpleEntry<String,String>> resultat = new ArrayList<>();
 
-        ArrayList<String> llistaTitols = Autors.get(autor);
+        if (!autorTitols.containsKey(autor)) throw new DocumentInexistentException("[QUALSEVOL]", autor);
+
+        ArrayList<String> llistaTitols = autorTitols.get(autor);
         for (String t : llistaTitols) {
             SimpleEntry<String, String> aux = new SimpleEntry<>(t,autor);
             resultat.add(aux);

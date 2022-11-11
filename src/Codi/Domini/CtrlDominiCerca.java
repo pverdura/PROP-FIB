@@ -63,9 +63,7 @@ public class CtrlDominiCerca {
     private ArrayList<SimpleEntry<String,String>> ordenarCerca(ArrayList<SimpleEntry<String, String>> cerca, TipusOrdenacio tipus, HashMap<SimpleEntry<String,String>, Document> documents){
         if (tipus == TipusOrdenacio.ALFABETIC_ASCENDENT){ ordreAlfAscendent(cerca);}
         else if (tipus == TipusOrdenacio.ALFABETIC_DESCENDENT) { ordreAlfDescendent(cerca); }
-        else if (tipus == TipusOrdenacio.PES_ASCENDENT){
-            cerca = ordrePesAscendent(cerca, documents);
-        }
+        else if (tipus == TipusOrdenacio.PES_ASCENDENT){ cerca = ordrePesAscendent(cerca, documents); }
         else cerca = ordrePesDescendent(cerca, documents);
         return cerca;
     }
