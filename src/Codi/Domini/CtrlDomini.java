@@ -97,18 +97,27 @@ public class CtrlDomini {
 
     /* Afegeix un nou document amb paràmetres (títol, autor)
      * Pre: Els String títol i autor no són buits
-     * Post: True si s'ha creat el document, false si el document identificat per {títol,autor} ja existeix en el sistema
+     * Post: S'ha creat el document identificat per (titol,autor)
      */
-    public Boolean creaDocument(String titol, String autor) throws DocumentJaExisteixException {
+    public void creaDocument(String titol, String autor) throws DocumentJaExisteixException {
         CDdoc.creaDocument(titol,autor,Documents);
-        return true;
+    }
+
+
+    public void setTitol(String titolVell, String autor, String titolNou) throws DocumentJaExisteixException, DocumentInexistentException {
+        CDdoc.setTitol(titolVell,autor,titolNou,Documents);
+    }
+
+
+    public void setAutor(String titol, String autorVell, String autorNou) throws DocumentJaExisteixException, DocumentInexistentException  {
+        CDdoc.setAutor(titol,autorVell,autorNou,Documents);
     }
 
     /* Modifica el contingut del document identificat per {títol, autor}
      * Pre: Els String títol i autor no són buits
      * Post: True si s'ha modificat el contingut del document, false si no s'ha modificat
      */
-    public Boolean setContingut(String titol, String autor, String contingut) {
+    public Boolean setContingut(String titol, String autor, String contingut) throws DocumentInexistentException {
         CDdoc.setContingut(titol,autor,contingut,Documents);
         return true;
     }
@@ -117,7 +126,7 @@ public class CtrlDomini {
      * Pre: Els String títol i autor no són buits
      * Post: El contingut del document identificat per {títol, autor}
      */
-    public String getContingut(String titol, String autor) {
+    public String getContingut(String titol, String autor) throws DocumentInexistentException {
         return CDdoc.getContingut(titol,autor,Documents);
     }
 
@@ -125,7 +134,7 @@ public class CtrlDomini {
      * Pre: Els String títol i autor no són buits, i el path existeix
      * Post: True si s'ha modificat el path del document, false si no s'ha modificat
      */
-    public Boolean setPath(String titol, String autor, String path) {
+    public Boolean setPath(String titol, String autor, String path) throws DocumentInexistentException {
         CDdoc.setPath(titol,autor,path,Documents);
         return true;
     }
@@ -134,7 +143,7 @@ public class CtrlDomini {
      * Pre: Els String títol i autor no són buits
      * Post: El path del document identificat per {títol, autor}
      */
-    public String getPath(String titol, String autor) {
+    public String getPath(String titol, String autor) throws DocumentInexistentException {
         return CDdoc.getPath(titol,autor,Documents);
     }
 
@@ -142,7 +151,7 @@ public class CtrlDomini {
      * Pre: Els String títol i autor no són buits
      * Post: True si s'ha modificat l'extensió del document, false si no s'ha modificat
      */
-    public Boolean setExtensio(String titol, String autor, TipusExtensio ext) {
+    public Boolean setExtensio(String titol, String autor, TipusExtensio ext) throws DocumentInexistentException {
         CDdoc.setExtensio(titol,autor,ext,Documents);
         return true;
     }
@@ -151,7 +160,7 @@ public class CtrlDomini {
      * Pre: Els String títol i autor no són buits
      * Post: L'extensió del document
      */
-    public TipusExtensio getExtensio(String titol, String autor) {
+    public TipusExtensio getExtensio(String titol, String autor) throws DocumentInexistentException {
         return CDdoc.getExtensio(titol,autor,Documents);
     }
 
@@ -159,7 +168,7 @@ public class CtrlDomini {
      * Pre: Els String títol i autor no són buits
      * Post: El pes del document
      */
-    public Integer getPes(String titol, String autor) {
+    public Integer getPes(String titol, String autor) throws DocumentInexistentException {
         return CDdoc.getPes(titol,autor,Documents);
     }
 
