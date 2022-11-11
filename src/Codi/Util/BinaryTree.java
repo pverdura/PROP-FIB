@@ -25,7 +25,7 @@ public class BinaryTree {
         return cercaRec(this.root, contingut);
     }
 
-    public boolean cercaRec(Node node, String contingut) {
+    private boolean cercaRec(Node node, String contingut) {
 
         //CAS FULLA
         if (node.left == null && node.right == null) {
