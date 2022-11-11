@@ -231,7 +231,7 @@ public class CtrlDomini {
      * Pre: El String expr no és buit
      * Post: True si s'ha creat l'expressió, false si no s'ha creat
      */
-    public Boolean creaExpressioBool(String expr) {
+    public Boolean creaExpressioBool(String expr) throws ExpressioBooleanaJaExistentException {
         CDeb.creaExpressioBool(expr,ExpressionsBooleanes);
         return true;
     }
@@ -240,7 +240,7 @@ public class CtrlDomini {
      * Pre: El String expr no és buit
      * Post: True si s'ha eliminat el document, false si no s'ha eliminat
      */
-    public Boolean eliminaExpressioBool(String expr) {
+    public Boolean eliminaExpressioBool(String expr) throws ExpressioBooleanaInexistentException {
         CDeb.eliminaExpressioBool(expr,ExpressionsBooleanes);
         return true;
     }
@@ -249,7 +249,7 @@ public class CtrlDomini {
      * Pre: Els String exprAnt i exprNova no són buits
      * Post: True si la expressió passa a ser exprNova, false si la expressió continua sent exprAnt
      */
-    public Boolean modificaExpressioBool(String exprAnt, String exprNova) {
+    public Boolean modificaExpressioBool(String exprAnt, String exprNova) throws ExpressioBooleanaInexistentException, ExpressioBooleanaJaExistentException {
         CDeb.modificaExpressioBool(exprAnt,exprNova,ExpressionsBooleanes);
         return true;
     }
