@@ -3,10 +3,10 @@ package Codi.Excepcions;
 public class ArrayDeParaulesBuitException extends Exception {
 
     public ArrayDeParaulesBuitException() {
-        super ("Error en calcular la semblança d'un conjunt buit.");
+        super ("Error en intentar calcular la semblança d'un array buit.");
     }
 
-    public void String toString () {
-        return "Error: en calcular la semblança d'un conjunt buit.";
+    public String toString () {
+        return ("Error: en intentar calcular la semblança d'un array buit.");
     }
 }
