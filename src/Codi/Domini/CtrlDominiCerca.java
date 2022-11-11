@@ -50,7 +50,7 @@ public class CtrlDominiCerca {
         return CercaAllDocuments.cercaDoc(documents);
     }
 
-    public ArrayList<String > cercaAllExpressionsBool (ArrayList<ExpressioBooleana> ExpressionsBooleanes){
+    public ArrayList<String> cercaAllExpressionsBool (ArrayList<ExpressioBooleana> ExpressionsBooleanes){
         return CercaAllExpressionsBool.cercaBool(ExpressionsBooleanes);
     }
 
