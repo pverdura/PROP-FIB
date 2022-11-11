@@ -55,11 +55,6 @@ public class CtrlDomini {
 
 
     ///////////////////////////////////////////////////////////
-    ///             FUNCIONS DE LES ESTRUCTURES             ///
-    ///////////////////////////////////////////////////////////
-
-
-    ///////////////////////////////////////////////////////////
     ///            FUNCIONS CTRL_DOMINI_DOCUMENT            ///
     ///////////////////////////////////////////////////////////
 
@@ -81,12 +76,12 @@ public class CtrlDomini {
     }
 
     public void setTitol(String titolVell, String autor, String titolNou) throws DocumentJaExisteixException, DocumentInexistentException {
-        CDdoc.setTitol(titolVell,autor,titolNou,Documents);
+        CDdoc.setTitol(titolVell,autor,titolNou,Documents,DocumentsAutor,TitolAutors,Paraules);
     }
 
 
     public void setAutor(String titol, String autorVell, String autorNou) throws DocumentJaExisteixException, DocumentInexistentException  {
-        CDdoc.setAutor(titol,autorVell,autorNou,Documents);
+        CDdoc.setAutor(titol,autorVell,autorNou,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
     }
 
     /* Modifica el contingut del document identificat per {títol, autor}
