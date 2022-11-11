@@ -28,6 +28,9 @@ public class CercaSemblant implements Cerca {
      */
     public static ArrayList<SimpleEntry<String,String>> cercaDoc(Document D, int k,  HashMap<String,ArrayList<SimpleEntry<String,String>>> DocumentsParaules,
                                                    HashMap<SimpleEntry<String,String>, Document> Documents) throws ArrayDeParaulesBuitException {
+        if (k <= 0) {
+            //throw new NombreMassaPetitDeDocumentsError(k);
+        }
 
         // Array on es posaran els identificadors dels documents que cerquem
         ArrayList<SimpleEntry<String,String>> docs = new ArrayList<SimpleEntry<String,String>>();

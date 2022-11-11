@@ -68,9 +68,17 @@ public class CtrlDomini {
      * Post: S'ha creat el document identificat per (titol,autor)
      */
     public void creaDocument(String titol, String autor) throws DocumentJaExisteixException {
-        CDdoc.creaDocument(titol,autor,Documents);
+        CDdoc.creaDocument(titol,autor,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
     }
 
+    /* Elimina el document identificat per {títol, autor} del sistema
+     * Pre: Els String títol i autor no són buits
+     * Post: True si s'ha eliminat el document, false si no s'ha eliminat
+     */
+    public Boolean eliminaDocument(String titol, String autor) {
+        CDdoc.eliminaDocument(titol,autor,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
+        return true;
+    }
 
     public void setTitol(String titolVell, String autor, String titolNou) throws DocumentJaExisteixException, DocumentInexistentException {
         CDdoc.setTitol(titolVell,autor,titolNou,Documents);
@@ -140,14 +148,6 @@ public class CtrlDomini {
         return CDdoc.getPes(titol,autor,Documents);
     }
 
-    /* Elimina el document identificat per {títol, autor} del sistema
-     * Pre: Els String títol i autor no són buits
-     * Post: True si s'ha eliminat el document, false si no s'ha eliminat
-     */
-    public Boolean eliminaDocument(String titol, String autor) {
-        CDdoc.eliminaDocument(titol,autor,Documents);
-        return true;
-    }
 
 
     public ArrayList<String> getStopWords() {

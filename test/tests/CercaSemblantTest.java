@@ -1,4 +1,4 @@
-package domini;
+package tests;
 
 public class CercaSemblantTest {
 }
