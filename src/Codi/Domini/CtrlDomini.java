@@ -5,8 +5,6 @@ package Codi.Domini;
 import Codi.Util.*;
 import Codi.Excepcions.*;
 
-import javax.print.Doc;
-import java.util.AbstractMap;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -89,7 +87,7 @@ public class CtrlDomini {
      * Post: True si s'ha modificat el contingut del document, false si no s'ha modificat
      */
     public Boolean setContingut(String titol, String autor, String contingut) throws DocumentInexistentException {
-        CDdoc.setContingut(titol,autor,contingut,Documents);
+        CDdoc.setContingut(titol,autor,contingut,Documents,Paraules);
         return true;
     }
 
