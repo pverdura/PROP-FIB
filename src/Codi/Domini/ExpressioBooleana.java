@@ -2,11 +2,8 @@ package Codi.Domini;
 
 import Codi.Util.BinaryTree;
 
-import java.util.Objects;
-
 public class ExpressioBooleana {
 
-    //private String expressio;
     private BinaryTree treeExpressio;
 
     public ExpressioBooleana(String expressio) {
