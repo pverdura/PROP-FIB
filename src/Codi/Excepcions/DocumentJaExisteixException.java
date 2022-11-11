@@ -1,4 +1,4 @@
-package Codi.Util;
+package Codi.Excepcions;
 
 public class DocumentJaExisteixException extends Exception {
     String titol, autor;
