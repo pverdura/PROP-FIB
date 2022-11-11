@@ -2,6 +2,7 @@ package Codi.Domini;
 
 import Codi.Excepcions.ArrayDeParaulesBuitException;
 import Codi.Excepcions.DocumentInexistentException;
+import Codi.Excepcions.ExpressioBooleanaInexistentException;
 import Codi.Util.TipusOrdenacio;
 import Codi.Util.Trie;
 
@@ -44,9 +45,10 @@ public class CtrlDominiCerca {
         return ordenarCerca(CercaParaules.cercaDoc(llistaParaules, k, paraulesDocuments, documents), ordre, documents);
     }
 
-    public ArrayList<SimpleEntry<String, String>> cercaBooleana(ExpressioBooleana expressio,
-                                                                HashMap<SimpleEntry<String,String>,Document> documents, TipusOrdenacio ordre){
-        return ordenarCerca(CercaBooleana.cercaDoc(expressio, documents), ordre, documents);
+    public ArrayList<SimpleEntry<String, String>> cercaBooleana(String expressio,
+                                                                HashMap<SimpleEntry<String,String>,Document> documents,HashMap<String,ExpressioBooleana> ExpressionsBooleanes ,TipusOrdenacio ordre) throws ExpressioBooleanaInexistentException {
+        if (!ExpressionsBooleanes.containsKey(expressio)) throw new ExpressioBooleanaInexistentException(expressio);
+        return ordenarCerca(CercaBooleana.cercaDoc(ExpressionsBooleanes.get(expressio), documents), ordre, documents);
     }
 
 
