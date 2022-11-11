@@ -1,11 +1,9 @@
 package Codi.Domini;
 
 import Codi.Excepcions.DocumentInexistentException;
-import Codi.Util.TipusExtensio;
 import Codi.Util.TipusOrdenacio;
 import Codi.Util.Trie;
 
-import javax.print.Doc;
 import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
 
