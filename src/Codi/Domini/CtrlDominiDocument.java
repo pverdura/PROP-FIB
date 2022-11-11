@@ -120,6 +120,10 @@ public class CtrlDominiDocument {
     public ArrayList<String> getStopWords () {
         return Document.getStopWords();
     }
+
+    public void setStopWords (ArrayList<String> s) {
+        Document.setStopWords(s);
+    }
 }
 
 
