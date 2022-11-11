@@ -92,7 +92,6 @@ public class Driver {
 
     void llegirStopWords () {
         ArrayList<String> s = new ArrayList<>();
-        String basePath = new File("").getAbsolutePath();
         String path = new File("src/codi/stop_words.txt").getAbsolutePath();
 
         try {
