@@ -32,17 +32,17 @@ public class CtrlDominiCerca {
     }
 
     public ArrayList<SimpleEntry<String, String>> cercaSemblant(String titol, String autor, int k, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraulesDocuments,
-                                                           HashMap<SimpleEntry<String, String>, Document> documents, TipusOrdenacio ordre) throws DocumentInexistentException, ArrayDeParaulesBuitException {
+                                                           HashMap<SimpleEntry<String, String>, Document> documents) throws DocumentInexistentException, ArrayDeParaulesBuitException {
         SimpleEntry<String, String> id = new SimpleEntry<>(titol, autor);
         if (!documents.containsKey(id)) throw new DocumentInexistentException(titol, autor);
-        return ordenarCerca(CercaSemblant.cercaDoc(documents.get(id), k, paraulesDocuments, documents),ordre, documents);
+        return CercaSemblant.cercaDoc(documents.get(id), k, paraulesDocuments, documents);
     }
 
     public ArrayList<SimpleEntry<String, String>> cercaParaules(String paraules, int k, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraulesDocuments,
-                                                           HashMap<SimpleEntry<String, String>,Document> documents, TipusOrdenacio ordre) throws ArrayDeParaulesBuitException{
+                                                           HashMap<SimpleEntry<String, String>,Document> documents) throws ArrayDeParaulesBuitException{
         String[] aux = paraules.split(" ");
         ArrayList<String> llistaParaules = new ArrayList<>(Arrays.asList(aux));
-        return ordenarCerca(CercaParaules.cercaDoc(llistaParaules, k, paraulesDocuments, documents), ordre, documents);
+        return CercaParaules.cercaDoc(llistaParaules, k, paraulesDocuments, documents);
     }
 
     public ArrayList<SimpleEntry<String, String>> cercaBooleana(String expressio,
