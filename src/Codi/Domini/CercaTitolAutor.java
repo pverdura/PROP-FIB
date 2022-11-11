@@ -5,7 +5,7 @@ import Codi.Util.DocumentInexistentException;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 
-public class CercaTitolAutor implements Cerca{
+public class CercaTitolAutor implements Cerca {
     //@Override
     //public static void cercaDoc() {}
     public static Document cercaDoc (String titol, String autor, HashMap<SimpleEntry<String, String>, Document> documents) throws DocumentInexistentException {
