@@ -5,6 +5,7 @@ package Codi.Domini;
 import Codi.Util.*;
 import Codi.Excepcions.*;
 
+import javax.print.Doc;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -169,23 +170,23 @@ public class CtrlDomini {
      * Pre:
      * Post:
      */
-    public ArrayList<SimpleEntry<String,String>> cercaAutor(String autor) {
-        return CDcer.cercaAutor(autor,DocumentsAutor);
+    public ArrayList<SimpleEntry<String,String>> cercaAutor(String autor, TipusOrdenacio ord) {
+        return CDcer.cercaAutor(autor,TitolAutors,ord,Documents);
     }
 
     /* Llista els documents que tenen com a títol "titol"
      * Pre:
      * Post:
      */
-    public ArrayList<SimpleEntry<String,String>> cercaTitol(String titol) {
-        return CDcer.cercaTitol(titol,TitolAutors);
+    public ArrayList<SimpleEntry<String,String>> cercaTitol(String titol, TipusOrdenacio ord) {
+        return CDcer.cercaTitol(titol,TitolAutors,ord,Documents);
     }
 
     /* Obté el document identificat per titol, autor
      * Pre:
      * Post:
      */
-    public Document cercaTitolAutor(String titol, String autor) {
+    public Document cercaTitolAutor(String titol, String autor) throws DocumentInexistentException {
         return CDcer.cercaTitolAutor(titol,autor,Documents);
     }
 
@@ -193,32 +194,32 @@ public class CtrlDomini {
      * Pre:
      * Post:
      */
-    public ArrayList<String> cercaPrefix(String prefix) {
-        return CDcer.cercaPrefix(prefix,Autors);
+    public ArrayList<String> cercaPrefix(String prefix, TipusOrdenacio ord) {
+        return CDcer.cercaPrefix(prefix,Autors,ord);
     }
 
     /* Llista els k documents més semblants al document D
      * Pre: El Document D no té contingut buit, k > 0
      * Post: Un arraylist de longitud k amb els identificadors dels documents més semblants a D
      */
-    public ArrayList<SimpleEntry<String,String>> cercaSemblant(Document D, Integer k) {
-        return CDcer.cercaSemblant(D,k,Paraules,Documents);
+    public ArrayList<SimpleEntry<String,String>> cercaSemblant(String titol, String autor, Integer k, TipusOrdenacio ord) {
+        return CDcer.cercaSemblant(titol,autor,k,Paraules,Documents,ord);
     }
 
     /* Llista els k documents més rellevants segons l'array de paraules
      * Pre: L'array no és buit, k > 0
      * Post: Un arraylist de longitud k amb els identificadors dels documents més rellevants a l'array paraules
      */
-    public ArrayList<SimpleEntry<String,String>> cercaParaules(ArrayList<String> paraules, Integer k) {
-        return CDcer.cercaParaules(paraules,k,Paraules,Documents);
+    public ArrayList<SimpleEntry<String,String>> cercaParaules(String paraules, Integer k, TipusOrdenacio ord) {
+        return CDcer.cercaParaules(paraules,k,Paraules,Documents,ord);
     }
 
     /* Llista els documents que compleixen la condició booleana expr
      * Pre: ??? expr no és buida
      * Post: Els documents que compleixen l'expressió expr
      */
-    public Integer cercaBooleana(int expr) {
-        return CDcer.cercaBooleana(expr);
+    public ArrayList<SimpleEntry<String,String>> cercaBooleana(ExpressioBooleana expr, TipusOrdenacio ord) {
+        return CDcer.cercaBooleana(expr,Documents,ord);
     }
 
 
