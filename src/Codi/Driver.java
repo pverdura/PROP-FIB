@@ -185,7 +185,6 @@ public class Driver {
                     cd.setContingut(nom, autor, contingutNou);
                 } catch (Exception e) {
                     System.out.println(e.toString());
-                    e.printStackTrace();
                 }
                 break;
             case 4:
@@ -262,8 +261,9 @@ public class Driver {
         System.out.println("1. Alfabèticament ascendent");
         System.out.println("2. Alfabèticament descendent");
         System.out.println("3. Per pes ascendent");
-        System.out.println("4. Per pes ascendent");
+        System.out.println("4. Per pes descendent");
         int ord = sc.nextInt();
+        sc.nextLine();
         TipusOrdenacio tipusOrdenacio;
         if (ord == 1) tipusOrdenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
         else if (ord == 2) tipusOrdenacio = TipusOrdenacio.ALFABETIC_DESCENDENT;
@@ -276,13 +276,15 @@ public class Driver {
         switch (op) {
             case 1:
                 System.out.println("Títol:\t");
-                s = sc.next();
-                res = cd.cercaTitol(s, tipusOrdenacio);
+                s = sc.nextLine();
+                try {
+                    res = cd.cercaTitol(s, tipusOrdenacio);
+                } catch (Exception e) {System.out.println(e.toString());}
 
                 break;
             case 2:
                 System.out.println("Prefix d'autor:\t");
-                s = sc.next();
+                s = sc.nextLine();
                 ArrayList<String> res2 = cd.cercaPrefix(s, tipusOrdenacio);
                 for (String se : res2) {
                     System.out.println(se);
@@ -294,14 +296,16 @@ public class Driver {
                 System.out.println("Nombre de documents:\t");
                 int k = sc.nextInt();
 
+                sc.nextLine();
+
                 try {
                     res = cd.cercaParaules(s, k);
-                } catch (Exception e) {System.out.println(e.toString());}
+                } catch (Exception e) {System.out.println(e.toString()); e.printStackTrace();}
 
                 break;
             case 4:
                 System.out.println("Expressió booleana:\t");
-                s = sc.next();
+                s = sc.nextLine();
                 try {
                     res = cd.cercaBooleana(s, tipusOrdenacio);
                 } catch (Exception e) {System.out.println(e.toString());}
@@ -309,9 +313,9 @@ public class Driver {
                 break;
             case 5:
                 System.out.println("Títol document:\t");
-                String nom = sc.next();
+                String nom = sc.nextLine();
                 System.out.println("Autor document:\t");
-                String autor = sc.next();
+                String autor = sc.nextLine();
                 System.out.println("Nombre de documents:\t");
                 k = sc.nextInt();
 
@@ -322,7 +326,7 @@ public class Driver {
                 break;
             case 6:
                 System.out.println("Autor:\t");
-                s = sc.next();
+                s = sc.nextLine();
                 res = cd.cercaAutor(s, tipusOrdenacio);
 
                 break;
