@@ -31,7 +31,7 @@ public class CtrlDominiCerca {
         return ordenarCercaSimple(CercaPrefix.cercaDoc(prefix, autors), ordre);
     }
 
-    public ArrayList<SimpleEntry<String, String>> cercaSemblant(String titol,, String autor, int k, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraulesDocuments,
+    public ArrayList<SimpleEntry<String, String>> cercaSemblant(String titol, String autor, int k, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraulesDocuments,
                                                            HashMap<SimpleEntry<String, String>, Document> documents, TipusOrdenacio ordre) throws DocumentInexistentException{
         SimpleEntry<String, String> id = new SimpleEntry<>(titol, autor);
         if (!documents.containsKey(id)) throw new DocumentInexistentException(titol, autor);
