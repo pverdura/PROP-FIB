@@ -104,4 +104,8 @@ public class Document {    String titol, autor, path, contingut;
     public HashMap<String, Integer> getAparicions () {
         return this.aparicions;
     }
+
+    public ArrayList<String> getParaules () {
+        return new ArrayList<String>(this.aparicions.keySet());
+    }
 }
