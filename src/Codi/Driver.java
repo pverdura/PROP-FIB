@@ -264,8 +264,11 @@ public class Driver {
         System.out.println("Com ho vols ordenar?");
         System.out.println("1. Alfabèticament ascendent");
         System.out.println("2. Alfabèticament descendent");
-        System.out.println("3. Per pes ascendent");
-        System.out.println("4. Per pes descendent");
+        if (op != 2) {
+            System.out.println("3. Per pes ascendent");
+            System.out.println("4. Per pes descendent");
+        }
+
         int ord = sc.nextInt();
         sc.nextLine();
         TipusOrdenacio tipusOrdenacio;
