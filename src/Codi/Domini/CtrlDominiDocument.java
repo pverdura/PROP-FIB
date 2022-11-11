@@ -1,7 +1,7 @@
 package Codi.Domini;
 
-import Codi.Util.DocumentInexistentException;
-import Codi.Util.DocumentJaExisteixException;
+import Codi.Excepcions.DocumentInexistentException;
+import Codi.Excepcions.DocumentJaExisteixException;
 import Codi.Util.TipusExtensio;
 import java.util.AbstractMap.SimpleEntry;
 
