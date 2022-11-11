@@ -1,14 +1,11 @@
 package Codi.Domini;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CercaAllExpressionsBool {
-    public static ArrayList<String> cercaBool (ArrayList<ExpressioBooleana> ExpressionsBooleanes) {
-        ArrayList<String> resultat = new ArrayList<String>();
-
-        for(ExpressioBooleana eb : ExpressionsBooleanes) {
-            resultat.add(eb.getExpressio());
-        }
+    public static ArrayList<String> cercaBool (HashMap<String,ExpressioBooleana> ExpressionsBooleanes) {
+        ArrayList<String> resultat = new ArrayList<String>(ExpressionsBooleanes.keySet());
 
         return resultat;
     }

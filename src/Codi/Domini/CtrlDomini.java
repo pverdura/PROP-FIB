@@ -3,6 +3,7 @@
 package Codi.Domini;
 
 import Codi.Util.*;
+import Codi.Excepcions.*;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class CtrlDomini {
     private HashMap<String,ArrayList<String>> DocumentsAutor; // Estructura on es guarden els títols dels documents creats per un autor
     private HashMap<String,ArrayList<String>> TitolAutors; // Estructura on es guarden els autors que han creat un document amb un títol
     private HashMap<String,ArrayList<SimpleEntry<String,String>>> Paraules; // Estructura on es guarden els documents que contenen la paraula
-    private ArrayList<ExpressioBooleana> ExpressionsBooleanes; // Estructura on es guarden totes les expression booleanes
+    private HashMap<String,ExpressioBooleana> ExpressionsBooleanes; // Estructura on es guarden totes les expression booleanes
 
 
     ///////////////////////////////////////////////////////////
@@ -38,6 +39,13 @@ public class CtrlDomini {
 
     // Crea i inicialitza els altres controladors
     public CtrlDomini() {
+        Documents = new HashMap<SimpleEntry<String,String>,Document>();
+        Autors = new Trie<String>();
+        DocumentsAutor = new HashMap<String,ArrayList<String>>();
+        TitolAutors = new HashMap<String,ArrayList<String>>();
+        Paraules = new HashMap<String,ArrayList<SimpleEntry<String,String>>>();
+        ExpressionsBooleanes = new HashMap<String,ExpressioBooleana>();
+
         CDeb = new CtrlDominiExprBool();
         CDdoc = new CtrlDominiDocument();
         CDcer = new CtrlDominiCerca();
@@ -47,48 +55,6 @@ public class CtrlDomini {
     ///////////////////////////////////////////////////////////
     ///             FUNCIONS DE LES ESTRUCTURES             ///
     ///////////////////////////////////////////////////////////
-
-    /* Pre: -
-     * Post: Retorna un llistat de tots els Documents del sistema
-     */
-    public HashMap<SimpleEntry<String,String>,Document> getDocuments() {
-        return Documents;
-    }
-
-    /* Pre: -
-     * Post: Retorna un Arbre amb tots els autors del sistema
-     */
-    public Trie<String> getAutors() {
-        return Autors;
-    }
-
-    /* Pre: -
-     * Post: Retorna un llistat dels títols de cada autor
-     */
-    public HashMap<String,ArrayList<String>> getDocumentsAutor() {
-        return DocumentsAutor;
-    }
-
-    /* Pre: -
-     * Post: Retorna un llistat dels autors que han creat cada títol
-     */
-    public HashMap<String,ArrayList<String>> getTitolAutors() {
-        return TitolAutors;
-    }
-
-    /* Pre: -
-     * Post: Retorna les paraules de tots els documents i on apareix
-     */
-    public HashMap<String,ArrayList<SimpleEntry<String,String>>> getParaules() {
-        return Paraules;
-    }
-
-    /* Pre: -
-     * Post: Retorna totes les expressions booleanes del sistema
-     */
-    public ArrayList<ExpressioBooleana> getExpressionsBooleanes() {
-        return ExpressionsBooleanes;
-    }
 
 
     ///////////////////////////////////////////////////////////
@@ -188,6 +154,10 @@ public class CtrlDomini {
 
     public void setStopWords(ArrayList<String> StopWords) {
         CDdoc.setStopWords(StopWords);
+    }
+
+    public Integer getNombreDocuments() {
+        return CDdoc.getNombreDocuments(Documents);
     }
 
 
