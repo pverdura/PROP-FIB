@@ -3,6 +3,8 @@ package Codi.Domini;
 import Codi.Excepcions.DocumentInexistentException;
 import Codi.Excepcions.DocumentJaExisteixException;
 import Codi.Util.TipusExtensio;
+import Codi.Util.Trie;
+
 import java.util.AbstractMap.SimpleEntry;
 
 import java.util.ArrayList;
@@ -15,7 +17,9 @@ public class CtrlDominiDocument {
     }
 
     //Crea un document a partir del títol i de l’autor.
-    public void creaDocument (String titol, String autor, HashMap<SimpleEntry<String, String>, Document> documents) throws DocumentJaExisteixException {
+    public void creaDocument (String titol, String autor, HashMap<SimpleEntry<String, String>, Document> documents,
+                              Trie<String> autors, HashMap<String,ArrayList<String>> documentsAutor,
+                              HashMap<String,ArrayList<String>> TitolAutors, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentJaExisteixException {
         SimpleEntry<String, String> id = new SimpleEntry<>(titol, autor);
         if (documents.containsKey(id)) throw new DocumentJaExisteixException(titol, autor);
 
@@ -109,7 +113,9 @@ public class CtrlDominiDocument {
     }
 
     //Elimina un document.
-    public void eliminaDocument (String titol, String autor, HashMap<SimpleEntry<String, String>, Document> documents) throws DocumentInexistentException {
+    public void eliminaDocument (String titol, String autor, HashMap<SimpleEntry<String, String>, Document> documents,
+                                 Trie<String> autors, HashMap<String,ArrayList<String>> documentsAutor,
+                                 HashMap<String,ArrayList<String>> TitolAutors, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentInexistentException {
         SimpleEntry<String, String> id = new SimpleEntry<>(titol, autor);
         if (!documents.containsKey(id)) throw new DocumentInexistentException(titol, autor);
 
