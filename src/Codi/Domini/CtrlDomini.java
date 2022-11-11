@@ -6,6 +6,7 @@ import Codi.Util.*;
 import Codi.Excepcions.*;
 
 import javax.print.Doc;
+import java.util.AbstractMap;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -202,7 +203,7 @@ public class CtrlDomini {
      * Pre: El Document D no té contingut buit, k > 0
      * Post: Un arraylist de longitud k amb els identificadors dels documents més semblants a D
      */
-    public ArrayList<SimpleEntry<String,String>> cercaSemblant(String titol, String autor, Integer k, TipusOrdenacio ord) {
+    public ArrayList<SimpleEntry<String,String>> cercaSemblant(String titol, String autor, Integer k, TipusOrdenacio ord) throws ArrayDeParaulesBuitException {
         return CDcer.cercaSemblant(titol,autor,k,Paraules,Documents,ord);
     }
 
@@ -210,7 +211,7 @@ public class CtrlDomini {
      * Pre: L'array no és buit, k > 0
      * Post: Un arraylist de longitud k amb els identificadors dels documents més rellevants a l'array paraules
      */
-    public ArrayList<SimpleEntry<String,String>> cercaParaules(String paraules, Integer k, TipusOrdenacio ord) {
+    public ArrayList<SimpleEntry<String,String>> cercaParaules(String paraules, Integer k, TipusOrdenacio ord) throws ArrayDeParaulesBuitException {
         return CDcer.cercaParaules(paraules,k,Paraules,Documents,ord);
     }
 
@@ -218,8 +219,16 @@ public class CtrlDomini {
      * Pre: ??? expr no és buida
      * Post: Els documents que compleixen l'expressió expr
      */
-    public ArrayList<SimpleEntry<String,String>> cercaBooleana(ExpressioBooleana expr, TipusOrdenacio ord) {
-        return CDcer.cercaBooleana(expr,Documents,ord);
+    public ArrayList<SimpleEntry<String,String>> cercaBooleana(String expr, TipusOrdenacio ord) throws ExpressioBooleanaInexistentException {
+        return CDcer.cercaBooleana(expr,Documents,ExpressionsBooleanes,ord);
+    }
+
+    public ArrayList<SimpleEntry<String,String>> cercaAllDocuments(TipusOrdenacio ord){
+        return CDcer.cercaAllDocuments(Documents,ord);
+    }
+
+    public ArrayList<String> cercaAllExpressionsBool(TipusOrdenacio ord) {
+        return CDcer.cercaAllExpressionsBool(ExpressionsBooleanes,ord);
     }
 
 
