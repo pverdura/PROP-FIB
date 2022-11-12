@@ -25,7 +25,7 @@ public class CtrlDominiCerca {
         return CercaTitolAutor.cercaDoc(titol, autor, documents);
     }
 
-    public ArrayList<String> cercaPrefix(String prefix, Trie<String> autors, TipusOrdenacio ordre) throws AutorInexistent {
+    public ArrayList<String> cercaPrefix(String prefix, Trie<String> autors, TipusOrdenacio ordre) throws AutorInexistentException {
         return ordenarCercaSimple(CercaPrefix.cercaDoc(prefix, autors), ordre);
     }
 
