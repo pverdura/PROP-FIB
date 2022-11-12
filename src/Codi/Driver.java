@@ -25,7 +25,10 @@ public class Driver {
 
         while (running) {
             dv.menu();
-            int op = sc.nextInt();
+
+            int op = 0;
+            if (sc.hasNextInt())
+                op = sc.nextInt();
             switch (op) {
                 case 1:
                     dv.testCrearDocument();
@@ -117,9 +120,14 @@ public class Driver {
     void testCrearDocument () {
         Scanner sc = new Scanner(System.in);
         System.out.println("Títol del document:\t");
-        String nom = sc.nextLine();
+        String nom = "";
+        if (sc.hasNextLine())
+            nom = sc.nextLine();
+
         System.out.println("Autor del document:\t");
-        String autor = sc.nextLine();
+        String autor = "";
+        if (sc.hasNextLine())
+            autor = sc.nextLine();
 
         try {
             cd.creaDocument(nom, autor);
@@ -130,9 +138,14 @@ public class Driver {
     void testEliminarDocument () {
         Scanner sc = new Scanner(System.in);
         System.out.println("Títol del document:\t");
-        String nom = sc.nextLine();
+        String nom = "";
+        if (sc.hasNextLine())
+            nom = sc.nextLine();
+
         System.out.println("Autor del document:\t");
-        String autor = sc.nextLine();
+        String autor = "";
+        if (sc.hasNextLine())
+            autor = sc.nextLine();
 
         try {
             cd.eliminaDocument(nom, autor);
@@ -144,9 +157,14 @@ public class Driver {
         //títol, autor, contingut, path, extensió,
         Scanner sc = new Scanner(System.in);
         System.out.println("Títol del document:\t");
-        String nom = sc.nextLine();
+        String nom = "";
+        if (sc.hasNextLine())
+            nom = sc.nextLine();
+
         System.out.println("Autor del document:\t");
-        String autor = sc.nextLine();
+        String autor = "";
+        if (sc.hasNextLine())
+            autor = sc.nextLine();
 
         System.out.println("Què vols modificar?");
         System.out.println("1. Títol");
@@ -155,12 +173,16 @@ public class Driver {
         System.out.println("4. Path");
         System.out.println("5. Extensió");
 
-        int op = sc.nextInt();
+        int op = 0;
+        if (sc.hasNextInt())
+            op = sc.nextInt();
         switch (op) {
             case 1:
                 sc.nextLine();
                 System.out.println("Nou títol del document:\t");
-                String nomNou = sc.nextLine();
+                String nomNou = "";
+                if (sc.hasNextLine())
+                    nomNou = sc.nextLine();
 
                 try {
                     cd.setTitol(nom, autor, nomNou);
@@ -171,7 +193,9 @@ public class Driver {
             case 2:
                 sc.nextLine();
                 System.out.println("Nou autor del document:\t");
-                String autorNou = sc.nextLine();
+                String autorNou = "";
+                if (sc.hasNextLine())
+                    autorNou = sc.nextLine();
 
                 try {
                     cd.setAutor(nom, autor, autorNou);
@@ -182,19 +206,22 @@ public class Driver {
             case 3:
                 sc.nextLine();
                 System.out.println("Nou contingut del document:\t");
-                String contingutNou = sc.nextLine();
+                String contingutNou = "";
+                if (sc.hasNextLine())
+                    contingutNou = sc.nextLine();
 
                 try {
                     cd.setContingut(nom, autor, contingutNou);
                 } catch (Exception e) {
                     System.out.println(e.toString());
-                    e.printStackTrace();
                 }
                 break;
             case 4:
                 sc.nextLine();
                 System.out.println("Nova path del document:\t");
-                String novaPath = sc.nextLine();
+                String novaPath = "";
+                if (sc.hasNextLine())
+                    novaPath = sc.nextLine();
 
                 try {
                     cd.setPath(nom, autor, novaPath);
@@ -208,11 +235,13 @@ public class Driver {
                 System.out.println("1. TXT");
                 System.out.println("2. XML");
                 System.out.println("2. BOL");
-                int aux = sc.nextInt();
+                int aux = 0;
+                if (sc.hasNextInt())
+                    aux = sc.nextInt();
                 TipusExtensio novaExtensio;
                 if (aux == 1) novaExtensio = TipusExtensio.TXT;
                 else if (aux == 2) novaExtensio = TipusExtensio.XML;
-                else  novaExtensio = TipusExtensio.BOL;
+                else novaExtensio = TipusExtensio.BOL;
 
                 try {
                     cd.setExtensio(nom, autor, novaExtensio);
@@ -228,9 +257,14 @@ public class Driver {
     void testVeureDocument () {
         Scanner sc = new Scanner(System.in);
         System.out.println("Títol del document:\t");
-        String nom = sc.nextLine();
+        String nom = "";
+        if (sc.hasNextLine())
+            nom = sc.nextLine();
+
         System.out.println("Autor del document:\t");
-        String autor = sc.nextLine();
+        String autor = "";
+        if (sc.hasNextLine())
+            autor = sc.nextLine();
 
         try {
             System.out.println("Títol: "+nom);
@@ -262,7 +296,9 @@ public class Driver {
         System.out.println("5. Per document semblant");
         System.out.println("6. Per autor");
 
-        int op = sc.nextInt();
+        int op = 0;
+        if (sc.hasNextInt())
+            op = sc.nextInt();
 
         System.out.println("Com ho vols ordenar?");
         System.out.println("1. Alfabèticament ascendent");
@@ -272,7 +308,9 @@ public class Driver {
             System.out.println("4. Per pes descendent");
         }
 
-        int ord = sc.nextInt();
+        int ord = 0;
+        if (sc.hasNextInt())
+            ord = sc.nextInt();
         sc.nextLine();
         TipusOrdenacio tipusOrdenacio;
         if (ord == 1) tipusOrdenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
@@ -281,12 +319,13 @@ public class Driver {
         else tipusOrdenacio = TipusOrdenacio.PES_DESCENDENT;
 
         ArrayList<SimpleEntry<String, String>> res = new ArrayList<>();
-        String s;
+        String s = "";
 
         switch (op) {
             case 1:
                 System.out.println("Títol:\t");
-                s = sc.nextLine();
+                if (sc.hasNextLine())
+                    s = sc.nextLine();
                 try {
                     res = cd.cercaTitol(s, tipusOrdenacio);
                 } catch (Exception e) {System.out.println(e.toString());}
@@ -294,7 +333,8 @@ public class Driver {
                 break;
             case 2:
                 System.out.println("Prefix d'autor:\t");
-                s = sc.nextLine();
+                if (sc.hasNextLine())
+                    s = sc.nextLine();
                 ArrayList<String> res2 = cd.cercaPrefix(s, tipusOrdenacio);
                 for (String se : res2) {
                     System.out.println(se);
@@ -302,9 +342,12 @@ public class Driver {
                 break;
             case 3:
                 System.out.println("Paraules:\t");
-                s = sc.nextLine();
+                if (sc.hasNextLine())
+                    s = sc.nextLine();
                 System.out.println("Nombre de documents:\t");
-                int k = sc.nextInt();
+                int k = 0;
+                if (sc.hasNextInt())
+                    k = sc.nextInt();
 
                 sc.nextLine();
 
@@ -315,7 +358,8 @@ public class Driver {
                 break;
             case 4:
                 System.out.println("Expressió booleana:\t");
-                s = sc.nextLine();
+                if (sc.hasNextLine())
+                    s = sc.nextLine();
                 try {
                     res = cd.cercaBooleana(s, tipusOrdenacio);
                 } catch (Exception e) {System.out.println(e.toString());}
@@ -323,11 +367,19 @@ public class Driver {
                 break;
             case 5:
                 System.out.println("Títol document:\t");
-                String nom = sc.nextLine();
+                String nom = "";
+                if (sc.hasNextLine())
+                    sc.nextLine();
+
                 System.out.println("Autor document:\t");
-                String autor = sc.nextLine();
+                String autor = "";
+                if (sc.hasNextLine())
+                    sc.nextLine();
+
                 System.out.println("Nombre de documents:\t");
-                k = sc.nextInt();
+                k = 0;
+                if (sc.hasNextInt())
+                    k = sc.nextInt();
 
                 try {
                     res = cd.cercaSemblant(nom, autor, k);
@@ -336,7 +388,8 @@ public class Driver {
                 break;
             case 6:
                 System.out.println("Autor:\t");
-                s = sc.nextLine();
+                if (sc.hasNextLine())
+                    s = sc.nextLine();
                 res = cd.cercaAutor(s, tipusOrdenacio);
 
                 break;
@@ -359,7 +412,9 @@ public class Driver {
     void testCrearExpressioBooleana () {
         Scanner sc = new Scanner(System.in);
         System.out.println("Expressió booleana:\t");
-        String expr = sc.nextLine();
+        String expr = "";
+        if (sc.hasNextLine())
+            expr = sc.nextLine();
 
         try {
             cd.creaExpressioBool(expr);
@@ -370,9 +425,14 @@ public class Driver {
     void testModificarExpressioBooleana () {
         Scanner sc = new Scanner(System.in);
         System.out.println("Expressió booleana a modificar:\t");
-        String expr = sc.nextLine();
+        String expr = "";
+        if (sc.hasNextLine())
+            expr = sc.nextLine();
+
         System.out.println("Nova booleana a modificar:\t");
-        String exprNova = sc.nextLine();
+        String exprNova = "";
+        if (sc.hasNextLine())
+            exprNova =sc.nextLine();
 
         try {
             cd.modificaExpressioBool(expr, exprNova);
@@ -383,7 +443,9 @@ public class Driver {
     void testEliminarExpressioBooleana () {
         Scanner sc = new Scanner(System.in);
         System.out.println("Expressió booleana a eliminar:\t");
-        String expr = sc.nextLine();
+        String expr = "";
+        if (sc.hasNextLine())
+            expr = sc.nextLine();
 
         try {
             cd.eliminaExpressioBool(expr);
