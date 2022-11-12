@@ -1,8 +1,6 @@
 package Codi.Domini;
 
-import Codi.Excepcions.ArrayDeParaulesBuitException;
-import Codi.Excepcions.DocumentInexistentException;
-import Codi.Excepcions.ExpressioBooleanaInexistentException;
+import Codi.Excepcions.*;
 import Codi.Util.TipusOrdenacio;
 import Codi.Util.Trie;
 
@@ -27,19 +25,19 @@ public class CtrlDominiCerca {
         return CercaTitolAutor.cercaDoc(titol, autor, documents);
     }
 
-    public ArrayList<String> cercaPrefix(String prefix, Trie<String> autors, TipusOrdenacio ordre){
+    public ArrayList<String> cercaPrefix(String prefix, Trie<String> autors, TipusOrdenacio ordre) throws AutorInexistent {
         return ordenarCercaSimple(CercaPrefix.cercaDoc(prefix, autors), ordre);
     }
 
     public ArrayList<SimpleEntry<String, String>> cercaSemblant(String titol, String autor, int k, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraulesDocuments,
-                                                           HashMap<SimpleEntry<String, String>, Document> documents) throws DocumentInexistentException, ArrayDeParaulesBuitException {
+                                                           HashMap<SimpleEntry<String, String>, Document> documents) throws ArrayDeParaulesBuitException, NombreMassaPetitDocuments {
         SimpleEntry<String, String> id = new SimpleEntry<>(titol, autor);
         if (!documents.containsKey(id)) throw new DocumentInexistentException(titol, autor);
         return CercaSemblant.cercaDoc(documents.get(id), k, paraulesDocuments, documents);
     }
 
     public ArrayList<SimpleEntry<String, String>> cercaParaules(String paraules, int k, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraulesDocuments,
-                                                           HashMap<SimpleEntry<String, String>,Document> documents) throws ArrayDeParaulesBuitException{
+                                                           HashMap<SimpleEntry<String, String>,Document> documents) throws ArrayDeParaulesBuitException, NombreMassaPetitDocuments{
         String[] aux = paraules.split(" ");
         ArrayList<String> llistaParaules = new ArrayList<>(Arrays.asList(aux));
         return CercaParaules.cercaDoc(llistaParaules, k, paraulesDocuments, documents);
