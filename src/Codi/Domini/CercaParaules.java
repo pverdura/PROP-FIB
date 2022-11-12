@@ -3,6 +3,7 @@
 package Codi.Domini;
 
 import Codi.Excepcions.ArrayDeParaulesBuitException;
+import Codi.Excepcions.NombreMassaPetitDocuments;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
@@ -26,7 +27,11 @@ public class CercaParaules implements Cerca {
      * Post: Un llistat de k Documents (títol,autor), més rellevants segons el array de paraules
      */
     public static ArrayList<SimpleEntry<String,String>> cercaDoc(ArrayList<String> paraules, int k, HashMap<String,ArrayList<SimpleEntry<String,String>>> DocumentsParaules,
-                                                                             HashMap<SimpleEntry<String,String>,Document> Documents) throws ArrayDeParaulesBuitException {
+                                                                             HashMap<SimpleEntry<String,String>,Document> Documents) throws ArrayDeParaulesBuitException, NombreMassaPetitDocuments {
+        if (k <= 0) {
+            throw new NombreMassaPetitDocuments();
+        }
+
         // Array on es posaran els identificadors dels documents que cerquem
         ArrayList<SimpleEntry<String,String>> docs = new ArrayList<SimpleEntry<String,String>>();
 
