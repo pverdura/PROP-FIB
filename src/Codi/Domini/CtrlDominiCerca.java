@@ -57,7 +57,7 @@ public class CtrlDominiCerca {
     }
 
     public ArrayList<String> cercaAllExpressionsBool (HashMap<String,ExpressioBooleana> ExpressionsBooleanes, TipusOrdenacio ordre){
-        return ordenarCercaSimple(CercaAllExpressionsBool.cercaBool(ExpressionsBooleanes), ordre);
+        return ordenarCercaSimple(CercaAllExpressionsBool.cercaDoc(ExpressionsBooleanes), ordre);
     }
 
     private ArrayList<SimpleEntry<String,String>> ordenarCerca(ArrayList<SimpleEntry<String, String>> cerca, TipusOrdenacio tipus, HashMap<SimpleEntry<String,String>, Document> documents){
