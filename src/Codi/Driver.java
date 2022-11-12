@@ -107,7 +107,8 @@ public class Driver {
         }
 
         cd.setStopWords(s);
-    }    void testStopWords() {
+    }
+    void testStopWords() {
         ArrayList<String> stopWords = cd.getStopWords();
         for (String s : stopWords) {
             System.out.println(s);
@@ -242,6 +243,7 @@ public class Driver {
         }
     }
     void testResumDocuments () {
+        System.out.println("Quantitat de documents existents: " + cd.getNombreDocuments());
         ArrayList<SimpleEntry<String, String>> docs = cd.cercaAllDocuments(TipusOrdenacio.ALFABETIC_ASCENDENT);
 
         for (SimpleEntry<String, String> se : docs) {
