@@ -8,13 +8,13 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class Document {    String titol, autor, path, contingut;
-    static ArrayList<String> stopWords;
-    static String signesDePuntuacio = "-_!\"$%&/()=|@#~€¬?¿¡'[]";
-    static String[] extres = {"l'", "d'", "m'", "n'", "t'", "s'", "'l", "'ls", "'m", "'n", "'t", "'s",
+    private static ArrayList<String> stopWords;
+    private final static String signesDePuntuacio = "-_!\"$%&/()=|@#~€¬?¿¡'[]";
+    private final static String[] extres = {"l'", "d'", "m'", "n'", "t'", "s'", "'l", "'ls", "'m", "'n", "'t", "'s",
                                 "-ho","-ne","-me","-te","-se","-los","-les", "-lo","-hi","-li"};
-    TipusExtensio tipusExtensio;
-    int pes;    //quantitat de caràcters
-    HashMap<String, Integer> aparicions;
+    private TipusExtensio tipusExtensio;
+    private int pes;    //quantitat de caràcters
+    private HashMap<String, Integer> aparicions;
     public Document () {
         this.aparicions = new HashMap<>();
         if (Objects.isNull(Document.stopWords)) Document.stopWords = new ArrayList<>();
@@ -31,7 +31,7 @@ public class Document {    String titol, autor, path, contingut;
 
         this.setContingut(contingut);
     }
-    String tractar (String s) {
+    private String tractar (String s) {
         int n = extres.length;
 
         for (int i = 0; i < n; ++i) {
@@ -45,7 +45,7 @@ public class Document {    String titol, autor, path, contingut;
         }
         return s;
     }
-    void comptarAparicions () {
+    private void comptarAparicions () {
         String[] aux = this.contingut.toLowerCase().split("[, \n\t.;:]+");
         ArrayList<String> senseEspais = new ArrayList<>(Arrays.asList(aux));
 
@@ -106,6 +106,6 @@ public class Document {    String titol, autor, path, contingut;
     }
 
     public ArrayList<String> getParaules () {
-        return new ArrayList<String>(this.aparicions.keySet());
+        return new ArrayList<>(this.aparicions.keySet());
     }
 }
