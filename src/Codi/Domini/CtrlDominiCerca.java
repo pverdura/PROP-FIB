@@ -116,8 +116,8 @@ public class CtrlDominiCerca {
         Collections.sort(docs, new Comparator<SimpleEntry<SimpleEntry<String, String>, Integer>>() {
             @Override
             public int compare(SimpleEntry<SimpleEntry<String, String>, Integer> p1, SimpleEntry<SimpleEntry<String, String>, Integer> p2) {
-                if (p1.getValue() < p2.getValue()) return 1;
-                else if (p1.getValue()> p2.getValue()) return -1;
+                if (p1.getValue() < p2.getValue()) return -1;
+                else if (p1.getValue()> p2.getValue()) return 1;
                 else return 0;
             }
         });
@@ -140,8 +140,8 @@ public class CtrlDominiCerca {
         Collections.sort(docs, new Comparator<SimpleEntry<SimpleEntry<String, String>, Integer>>() {
             @Override
             public int compare(SimpleEntry<SimpleEntry<String, String>, Integer> p1, SimpleEntry<SimpleEntry<String, String>, Integer> p2) {
-                if (p1.getValue() < p2.getValue()) return -1;
-                else if (p1.getValue()> p2.getValue()) return 1;
+                if (p1.getValue() < p2.getValue()) return 1;
+                else if (p1.getValue()> p2.getValue()) return -1;
                 else return 0;
             }
         });
