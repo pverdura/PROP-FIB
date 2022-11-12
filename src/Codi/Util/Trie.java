@@ -4,6 +4,7 @@ package Codi.Util;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.AbstractMap.SimpleEntry;
 
 public class Trie<T> {
 
@@ -51,29 +52,26 @@ public class Trie<T> {
     }
 
 
-    private Pair<Boolean, TrieNode> contePrefix(String prefix){
+    private   SimpleEntry<Boolean, TrieNode> contePrefix(String prefix){
         TrieNode actual = arrel;
-        Pair<Boolean, TrieNode> resultat = new Pair<>(false,null);
         for (int i = 0; i < prefix.length(); ++i) {
             char ch = prefix.charAt(i);
             TrieNode node = actual.fills.get(ch);
             if (node == null) {
-                return resultat;
+                return new SimpleEntry<>(false, null);
             }
             actual = node;
         }
-        resultat.setFirst(true);
-        resultat.setSecond(actual);
-        return resultat;
+        return new SimpleEntry<>(true, actual);
     }
 
 
     /* obte les paraules que comencen pel prefix*/
     public ArrayList<String> getParaules(String prefix) {
         ArrayList<String> paraules = new ArrayList<>();
-        Pair<Boolean, TrieNode> existeixPrefix = contePrefix(prefix);
-        if (existeixPrefix.getFirst()){
-            getParaulesNode(prefix, existeixPrefix.getSecond(), paraules);
+          SimpleEntry<Boolean, TrieNode> existeixPrefix = contePrefix(prefix);
+        if (existeixPrefix.getKey()){
+            getParaulesNode(prefix, existeixPrefix.getValue(), paraules);
         }
         return paraules;
     }
