@@ -55,4 +55,18 @@ public class BinaryTreeTest {
         contingut_doc = "hola que tal jose , has hecho los problemas p1 i p2 ?";
         assertFalse(tree.cerca(contingut_doc));
     }
+
+    @Test
+    public void testCercaCorrecte4() {
+        tree = new BinaryTree("!(!Gei) & (\"el millor\" & ({es una} | {es un}))");
+        contingut_doc = "Gei es un grau espectacular i és el millor";
+        assertTrue(tree.cerca(contingut_doc));
+    }
+
+    @Test
+    public void testCercaIncorrecte4() {
+        tree = new BinaryTree("!(!Gei) & (\"el millor\" & ({es una} & {es un}))");
+        contingut_doc = "Gei es un grau espectacular i és el millor";
+        assertFalse(tree.cerca(contingut_doc));
+    }
 }
