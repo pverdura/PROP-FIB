@@ -1,11 +1,8 @@
 package Codi.Tests;
 
 import static org.junit.Assert.*;
-
 import Codi.Domini.ExpressioBooleana;
-import org.junit.Before;
 import org.junit.Test;
-import Codi.Util.BinaryTree;
 
 public class ExpressioBooleanaTest {
 
