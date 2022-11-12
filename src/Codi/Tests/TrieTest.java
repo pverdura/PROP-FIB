@@ -69,7 +69,7 @@ public class TrieTest {
         ArrayList<String> res_esperat = new ArrayList<>();
         res_esperat.add(autor);
         res_esperat.add(autor2);
-        assertTrue(res_esperat.equals(resultat));
+        assertEquals(res_esperat, resultat);
     }
 
     @Test
@@ -82,7 +82,7 @@ public class TrieTest {
         trie.afegir(autor3);
         ArrayList<String> resultat = trie.getParaules("Bon");
         ArrayList<String> res_esperat = new ArrayList<>();
-        assertTrue(res_esperat.equals(resultat));
+        assertEquals(res_esperat, resultat);
     }
 
 }
