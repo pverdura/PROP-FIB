@@ -21,7 +21,7 @@ public class CtrlDominiExprBool {
          expressions.remove(expressio);
     }
 
-    void modificaExpressioBool(String anticValor, String nouValor,
+    public void modificaExpressioBool(String anticValor, String nouValor,
                                HashMap<String,ExpressioBooleana> expressions) throws ExpressioBooleanaInexistentException, ExpressioBooleanaJaExistentException {
 
         if (!expressions.containsKey(anticValor)) throw new ExpressioBooleanaInexistentException(anticValor);
@@ -31,7 +31,7 @@ public class CtrlDominiExprBool {
         expressions.put(nouValor, new ExpressioBooleana(nouValor));
     }
 
-    int getNombreExpressionsBooleanes(HashMap<String, ExpressioBooleana> expressions) {
+    public int getNombreExpressionsBooleanes(HashMap<String, ExpressioBooleana> expressions) {
         return expressions.size();
     }
 }
