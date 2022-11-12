@@ -41,4 +41,18 @@ public class BinaryTreeTest {
         contingut_doc = "Pau ha fet els problemes p1 p2 i p3";
         assertFalse(tree.cerca(contingut_doc));
     }
+
+    @Test
+    public void testCercaCorrecte3() {
+        tree = new BinaryTree("jose & !({p1 p2} & {hola que tal})");
+        contingut_doc = "Hola como estas jose , has hecho los problemas p2 i p3 ?";
+        assertTrue(tree.cerca(contingut_doc));
+    }
+
+    @Test
+    public void testCercaIncorrecte3() {
+        tree = new BinaryTree("jose & !({p1 p2} & {hola que tal})");
+        contingut_doc = "hola que tal jose , has hecho los problemas p1 i p2 ?";
+        assertFalse(tree.cerca(contingut_doc));
+    }
 }
