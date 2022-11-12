@@ -25,14 +25,14 @@ public class TrieTest {
     }
 
     @Test
-    public void testAfegirCorrecte() {
+    public void testAfegirConteCorrecte() {
         autor = "Brandon Sanderson";
         trie.afegir(autor);
         assertTrue(trie.conteParaula(autor));
     }
 
     @Test
-    public void testAfegirCorrecte2() {
+    public void testAfegirConteCorrecte2() {
         autor = "Brandon Sanderson";
         autor2 = "Brandon Sanderso";
         trie.afegir(autor);
