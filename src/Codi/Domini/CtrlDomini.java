@@ -70,9 +70,8 @@ public class CtrlDomini {
      * Pre: Els String títol i autor no són buits
      * Post: True si s'ha eliminat el document, false si no s'ha eliminat
      */
-    public Boolean eliminaDocument(String titol, String autor) {
+    public void eliminaDocument(String titol, String autor) {
         CDdoc.eliminaDocument(titol,autor,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
-        return true;
     }
 
     public void setTitol(String titolVell, String autor, String titolNou) throws DocumentJaExisteixException, DocumentInexistentException {
@@ -88,9 +87,8 @@ public class CtrlDomini {
      * Pre: Els String títol i autor no són buits
      * Post: True si s'ha modificat el contingut del document, false si no s'ha modificat
      */
-    public Boolean setContingut(String titol, String autor, String contingut) throws DocumentInexistentException {
+    public void setContingut(String titol, String autor, String contingut) throws DocumentInexistentException {
         CDdoc.setContingut(titol,autor,contingut,Documents,Paraules);
-        return true;
     }
 
     /* Obté el contingut del document identificat per {títol, autor}
@@ -105,9 +103,8 @@ public class CtrlDomini {
      * Pre: Els String títol i autor no són buits, i el path existeix
      * Post: True si s'ha modificat el path del document, false si no s'ha modificat
      */
-    public Boolean setPath(String titol, String autor, String path) throws DocumentInexistentException {
+    public void setPath(String titol, String autor, String path) throws DocumentInexistentException {
         CDdoc.setPath(titol,autor,path,Documents);
-        return true;
     }
 
     /* Obté el path del document identificat per {títol, autor}
@@ -122,9 +119,8 @@ public class CtrlDomini {
      * Pre: Els String títol i autor no són buits
      * Post: True si s'ha modificat l'extensió del document, false si no s'ha modificat
      */
-    public Boolean setExtensio(String titol, String autor, TipusExtensio ext) throws DocumentInexistentException {
+    public void setExtensio(String titol, String autor, TipusExtensio ext) throws DocumentInexistentException {
         CDdoc.setExtensio(titol,autor,ext,Documents);
-        return true;
     }
 
     /* Obté l'extensió del document identificat per {títol, autor}
@@ -235,27 +231,24 @@ public class CtrlDomini {
      * Pre: El String expr no és buit
      * Post: True si s'ha creat l'expressió, false si no s'ha creat
      */
-    public Boolean creaExpressioBool(String expr) throws ExpressioBooleanaJaExistentException {
+    public void creaExpressioBool(String expr) throws ExpressioBooleanaJaExistentException {
         CDeb.creaExpressioBool(expr,ExpressionsBooleanes);
-        return true;
     }
 
     /* Elimina l'expressió booleana formada per l'expressió expr
      * Pre: El String expr no és buit
      * Post: True si s'ha eliminat el document, false si no s'ha eliminat
      */
-    public Boolean eliminaExpressioBool(String expr) throws ExpressioBooleanaInexistentException {
+    public void eliminaExpressioBool(String expr) throws ExpressioBooleanaInexistentException {
         CDeb.eliminaExpressioBool(expr,ExpressionsBooleanes);
-        return true;
     }
 
     /* Modifica l'expressió booleana formada per l'expressió exprAnt
      * Pre: Els String exprAnt i exprNova no són buits
      * Post: True si la expressió passa a ser exprNova, false si la expressió continua sent exprAnt
      */
-    public Boolean modificaExpressioBool(String exprAnt, String exprNova) throws ExpressioBooleanaInexistentException, ExpressioBooleanaJaExistentException {
+    public void modificaExpressioBool(String exprAnt, String exprNova) throws ExpressioBooleanaInexistentException, ExpressioBooleanaJaExistentException {
         CDeb.modificaExpressioBool(exprAnt,exprNova,ExpressionsBooleanes);
-        return true;
     }
 
 }
