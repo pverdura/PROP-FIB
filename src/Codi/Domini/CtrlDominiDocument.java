@@ -19,7 +19,7 @@ public class CtrlDominiDocument {
     //Crea un document a partir del títol i de l’autor.
     public void creaDocument (String titol, String autor, HashMap<SimpleEntry<String, String>, Document> documents,
                               Trie<String> autors, HashMap<String,ArrayList<String>> documentsAutor,
-                              HashMap<String,ArrayList<String>> titolAutors, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentJaExisteixException {
+                              HashMap<String,ArrayList<String>> titolAutors) throws DocumentJaExisteixException {
         SimpleEntry<String, String> id = new SimpleEntry<>(titol, autor);
         if (documents.containsKey(id)) throw new DocumentJaExisteixException(titol, autor);
 

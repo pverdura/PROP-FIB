@@ -7,8 +7,7 @@ import java.util.Map;
 
 public class CercaBooleana implements Cerca {
 
-    public static ArrayList<SimpleEntry<String,String>> cercaDoc(ExpressioBooleana expressio,
-                                                          HashMap<SimpleEntry<String,String>,Document> docs) {
+    public static ArrayList<SimpleEntry<String,String>> cercaDoc(ExpressioBooleana expressio, HashMap<SimpleEntry<String,String>,Document> docs) {
 
         ArrayList <SimpleEntry<String,String>> docs_valids = new ArrayList<>();
 
@@ -16,7 +15,7 @@ public class CercaBooleana implements Cerca {
 
             if (expressio.compleixCerca(doc.getValue().getContingut())) {
                 docs_valids.add(
-                        new SimpleEntry<String, String>(doc.getValue().getAutor(), doc.getValue().getTitol()));
+                        new SimpleEntry<String, String>(doc.getValue().getTitol(), doc.getValue().getAutor()));
             }
         }
 
