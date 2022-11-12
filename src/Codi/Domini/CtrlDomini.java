@@ -63,7 +63,7 @@ public class CtrlDomini {
      * Post: S'ha creat el document identificat per (titol,autor)
      */
     public void creaDocument(String titol, String autor) throws DocumentJaExisteixException {
-        CDdoc.creaDocument(titol,autor,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
+        CDdoc.creaDocument(titol,autor,Documents,Autors,DocumentsAutor,TitolAutors);
     }
 
     /* Elimina el document identificat per {títol, autor} del sistema
