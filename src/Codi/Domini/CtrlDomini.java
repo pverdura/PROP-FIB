@@ -194,7 +194,7 @@ public class CtrlDomini {
      * Pre: El Document D no té contingut buit, k > 0
      * Post: Un arraylist de longitud k amb els identificadors dels documents més semblants a D
      */
-    public ArrayList<SimpleEntry<String,String>> cercaSemblant(String titol, String autor, Integer k) throws ArrayDeParaulesBuitException {
+    public ArrayList<SimpleEntry<String,String>> cercaSemblant(String titol, String autor, Integer k) throws ArrayDeParaulesBuitException, NombreMassaPetitDocuments {
         return CDcer.cercaSemblant(titol,autor,k,Paraules,Documents);
     }
 
@@ -202,7 +202,7 @@ public class CtrlDomini {
      * Pre: L'array no és buit, k > 0
      * Post: Un arraylist de longitud k amb els identificadors dels documents més rellevants a l'array paraules
      */
-    public ArrayList<SimpleEntry<String,String>> cercaParaules(String paraules, Integer k) throws ArrayDeParaulesBuitException {
+    public ArrayList<SimpleEntry<String,String>> cercaParaules(String paraules, Integer k) throws ArrayDeParaulesBuitException, NombreMassaPetitDocuments {
         return CDcer.cercaParaules(paraules,k,Paraules,Documents);
     }
 
