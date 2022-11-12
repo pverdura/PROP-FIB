@@ -26,7 +26,7 @@ public class Main {
         System.out.println(p.getFirst()+" "+p.getSecond());
 
         CercaBooleana c = new CercaBooleana();
-        System.out.println(c.cercaDoc(2));
+        //System.out.println(c.cercaDoc(2));
 
 
         BinaryTree parseTree = new BinaryTree("\"!hola bebe\" & (p1 | p2) & {p2 p3}");
