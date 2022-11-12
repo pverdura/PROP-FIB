@@ -158,8 +158,14 @@ public class CtrlDominiDocument {
         p = documents.get(id).getParaules();
 
         for (String paraula : p) {
-            if (!paraules.get(paraula).contains(id))
-                paraules.get(paraula).add(id);
+            if (paraules.containsKey(paraula))
+                if (!paraules.get(paraula).contains(id))
+                    paraules.get(paraula).add(id);
+            else {
+                ArrayList<SimpleEntry<String, String>> aux = new ArrayList<>();
+                aux.add(id);
+                paraules.put(paraula, aux);
+            }
         }
     }
 
