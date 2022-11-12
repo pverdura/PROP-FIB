@@ -17,6 +17,7 @@ public class TrieTest {
     @Before
     public void init(){
         trie = new Trie<>();
+        assertNotNull(trie);
     }
 
     @Test
