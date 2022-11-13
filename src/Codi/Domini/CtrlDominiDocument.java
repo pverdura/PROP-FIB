@@ -239,9 +239,11 @@ public class CtrlDominiDocument {
         ArrayList<String> p = documents.get(id).getParaules();
 
         for (String paraula : p) {
-            paraules.get(paraula).remove(id);
-            if (paraules.get(paraula).size() == 0) {
-                paraules.remove(paraula);
+            if (paraules.containsKey(p)) {
+                paraules.get(paraula).remove(id);
+                if (paraules.get(paraula).size() == 0) {
+                    paraules.remove(paraula);
+                }
             }
         }
 

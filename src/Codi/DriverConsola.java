@@ -216,7 +216,7 @@ public class DriverConsola {
                 System.out.println("Nova extensió del document:\t");
                 System.out.println("1. TXT");
                 System.out.println("2. XML");
-                System.out.println("2. BOL");
+                System.out.println("3. BOL");
                 int aux = sc.nextInt();
                 TipusExtensio novaExtensio;
                 if (aux == 1) novaExtensio = TipusExtensio.TXT;
