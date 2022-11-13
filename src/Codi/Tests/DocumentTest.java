@@ -7,6 +7,7 @@ import Codi.Util.TipusExtensio;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -62,16 +63,27 @@ public class DocumentTest {
         assertEquals(new ArrayList<String>(), d.getStopWords());
     }
     @Test
-    public void testSetGetContingut () {
+    public void testSetContingut () throws NoSuchFieldException, IllegalAccessException {
         d = new Document();
+
         d.setContingut("hola bon dia");
-        assertEquals("hola bon dia", d.getContingut());
+
+        final Field field = d.getClass().getDeclaredField("contingut");
+        field.setAccessible(true);
+
+        assertEquals("hola bon dia", field.get(d));
     }
     @Test
-    public void testGetContingut () {
+    public void testGetContingut () throws NoSuchFieldException, IllegalAccessException {
         d = new Document();
-        d.setContingut("hola bon dia");
-        assertEquals("hola bon dia", d.getContingut());
+
+        final Field field = d.getClass().getDeclaredField("contingut");
+        field.setAccessible(true);
+        field.set(d, "prova de getter de contingut");
+
+        final String result = d.getContingut();
+
+        assertEquals(result, "prova de getter de contingut");
     }
     @Test
     public void testSetStopWords () {
