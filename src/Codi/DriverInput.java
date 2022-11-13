@@ -18,7 +18,24 @@ public class DriverInput {
 
     public static void main (String[] args) {
         DriverInput dv = new DriverInput();
-        sc = new Scanner(System.in);
+
+        /*String path = new File("prova_01.txt.txt").getAbsolutePath();
+        File file = new File(path);
+        try {
+            bf = new BufferedReader(new FileReader(file));
+        } catch (Exception e) { e.printStackTrace(); }*/
+
+        //System.out.print("Enter the file name with extension: "); ESBORRRAR
+
+        Scanner input = new Scanner(System.in);
+
+        //String path = new File("src/codi/"+input.nextLine()).getAbsolutePath(); ESBORRARRRRRRR
+        String path = new File("src/Codi/prova_01.txt").getAbsolutePath();
+        File file = new File(path);
+
+        try {
+            sc = new Scanner(file);
+        } catch (Exception e) { e.printStackTrace(); }
 
         dv.llegirStopWords();
 
@@ -28,6 +45,9 @@ public class DriverInput {
             int op = 0;
             if (sc.hasNextInt())
                 op = sc.nextInt();
+            //System.out.println(op);
+            if (sc.hasNextLine())
+                sc.nextLine();
             switch (op) {
                 case 1:
                     dv.testCrearDocument();
@@ -76,7 +96,7 @@ public class DriverInput {
     }
     void llegirStopWords () {
         ArrayList<String> s = new ArrayList<>();
-        String path = new File("src/codi/stop_words.txt").getAbsolutePath();
+        String path = new File("src/Codi/stop_words.txt").getAbsolutePath();
 
         try {
             File file = new File(path);
@@ -99,12 +119,12 @@ public class DriverInput {
         }
     }
     void testCrearDocument () {
-        sc = new Scanner(System.in);
+        //sc = new Scanner(System.in);
         //Títol del document:
         String nom = "";
         if (sc.hasNextLine())
             nom = sc.nextLine();
-
+        //System.out.println(nom);
         //"Autor del document:
         String autor = "";
         if (sc.hasNextLine())
@@ -117,7 +137,7 @@ public class DriverInput {
         }
     }
     void testEliminarDocument () {
-        sc = new Scanner(System.in);
+        //sc = new Scanner(System.in);
         //Títol del document:
         String nom = "";
         if (sc.hasNextLine())
@@ -136,7 +156,7 @@ public class DriverInput {
     }
     void testModificarDocument () {
         //títol, autor, contingut, path, extensió,
-        sc = new Scanner(System.in);
+        //sc = new Scanner(System.in);
         //Títol del document:
         String nom = "";
         if (sc.hasNextLine())
@@ -181,8 +201,17 @@ public class DriverInput {
                 sc.nextLine();
                 //Nou contingut del document:
                 String contingutNou = "";
+                //if (sc.hasNextLine())
+                //    contingutNou = sc.nextLine();
+
+                String s = "";
                 if (sc.hasNextLine())
-                    contingutNou = sc.nextLine();
+                    s = sc.nextLine();
+                while (!s.equals("\\0")) {
+                    contingutNou += s+'\n';
+                    if (sc.hasNextLine())
+                        s = sc.nextLine();
+                }
 
                 try {
                     cd.setContingut(nom, autor, contingutNou);
@@ -226,7 +255,7 @@ public class DriverInput {
         }
     }
     void testVeureDocument () {
-        sc = new Scanner(System.in);
+        //sc = new Scanner(System.in);
         //"Títol del document:
         String nom = "";
         if (sc.hasNextLine())
@@ -242,7 +271,7 @@ public class DriverInput {
             System.out.println("Autor: "+autor);
             System.out.println("Path: "+cd.getPath(nom, autor));
             System.out.println("Extensió: "+cd.getExtensio(nom, autor));
-            System.out.println("Contingut: "+cd.getContingut(nom, autor));
+            System.out.println("Contingut: "+'\n'+cd.getContingut(nom, autor));
             System.out.println("Pes: "+cd.getPes(nom, autor));
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -258,7 +287,7 @@ public class DriverInput {
     }
     void testCercaDocuments () {
         //cerca documents
-        sc = new Scanner(System.in);
+        //sc = new Scanner(System.in);
         /*Quina cerca vols fer?
         1. Per títol
         2. Per prefix d'autor
@@ -374,7 +403,7 @@ public class DriverInput {
         }
     }
     void testCrearExpressioBooleana () {
-        sc = new Scanner(System.in);
+        //sc = new Scanner(System.in);
         //Expressió booleana:
         String expr = "";
         if (sc.hasNextLine())
@@ -387,7 +416,7 @@ public class DriverInput {
         }
     }
     void testModificarExpressioBooleana () {
-        sc = new Scanner(System.in);
+        //sc = new Scanner(System.in);
         //Expressió booleana a modificar:
         String expr = "";
         if (sc.hasNextLine())
@@ -405,7 +434,7 @@ public class DriverInput {
         }
     }
     void testEliminarExpressioBooleana () {
-        sc = new Scanner(System.in);
+        //sc = new Scanner(System.in);
         //Expressió booleana a eliminar:
         String expr = "";
         if (sc.hasNextLine())

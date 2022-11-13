@@ -181,8 +181,17 @@ public class DriverConsola {
                 break;
             case 3:
                 sc.nextLine();
-                System.out.println("Nou contingut del document:\t");
-                String contingutNou = sc.nextLine();
+                System.out.println("Nou contingut del document:\nEscriu una línia amb només un \\0 per acabar\t");
+                String contingutNou = "";//sc.nextLine();
+
+                String s = "";
+                if (sc.hasNextLine())
+                    s = sc.nextLine();
+                while (!s.equals("\\0")) {
+                    contingutNou += s+'\n';
+                    if (sc.hasNextLine())
+                        s = sc.nextLine();
+                }
 
                 try {
                     cd.setContingut(nom, autor, contingutNou);
@@ -237,7 +246,7 @@ public class DriverConsola {
             System.out.println("Autor: "+autor);
             System.out.println("Path: "+cd.getPath(nom, autor));
             System.out.println("Extensió: "+cd.getExtensio(nom, autor));
-            System.out.println("Contingut: "+cd.getContingut(nom, autor));
+            System.out.println("Contingut: "+'\n'+cd.getContingut(nom, autor));
             System.out.println("Pes: "+cd.getPes(nom, autor));
         } catch (Exception e) {
             System.out.println(e.toString());
