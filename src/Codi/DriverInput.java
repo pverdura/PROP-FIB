@@ -327,10 +327,12 @@ public class DriverInput {
                 //Prefix d'autor:
                 if (sc.hasNextLine())
                     s = sc.nextLine();
-                ArrayList<String> res2 = cd.cercaPrefix(s, tipusOrdenacio);
-                for (String se : res2) {
-                    System.out.println(se);
-                }
+                try {
+                    ArrayList<String> res2 = cd.cercaPrefix(s, tipusOrdenacio);
+                    for (String se : res2) {
+                        System.out.println(se);
+                    }
+                } catch (Exception e) {System.out.println(e.toString());}
                 break;
             case 3:
                 //Paraules:
@@ -383,7 +385,9 @@ public class DriverInput {
                 //Autor:
                 if (sc.hasNextLine())
                     s = sc.nextLine();
-                res = cd.cercaAutor(s, tipusOrdenacio);
+                try {
+                    res = cd.cercaAutor(s, tipusOrdenacio);
+                } catch (Exception e) {System.out.println(e.toString());}
 
                 break;
             default:

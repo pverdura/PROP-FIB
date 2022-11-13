@@ -304,10 +304,12 @@ public class DriverConsola {
             case 2:
                 System.out.println("Prefix d'autor:\t");
                 s = sc.nextLine();
-                ArrayList<String> res2 = cd.cercaPrefix(s, tipusOrdenacio);
-                for (String se : res2) {
-                    System.out.println(se);
-                }
+                try {
+                    ArrayList<String> res2 = cd.cercaPrefix(s, tipusOrdenacio);
+                    for (String se : res2) {
+                        System.out.println(se);
+                    }
+                } catch (Exception e) {System.out.println(e.toString());}
                 break;
             case 3:
                 System.out.println("Paraules:\t");
@@ -346,8 +348,9 @@ public class DriverConsola {
             case 6:
                 System.out.println("Autor:\t");
                 s = sc.nextLine();
-                res = cd.cercaAutor(s, tipusOrdenacio);
-
+                try {
+                    res = cd.cercaAutor(s, tipusOrdenacio);
+                } catch (Exception e) {System.out.println(e.toString());}
                 break;
             default:
                 System.out.println("Error: opció no vàlida.");
