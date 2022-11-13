@@ -92,7 +92,7 @@ public class DriverConsola {
 
     void llegirStopWords () {
         ArrayList<String> s = new ArrayList<>();
-        String path = new File("src/codi/stop_words.txt").getAbsolutePath();
+        String path = new File("src/Codi/stop_words.txt").getAbsolutePath();
 
         try {
             File file = new File(path);
