@@ -172,7 +172,43 @@ public class CtrlDominiCerca {
             public int compare(SimpleEntry<SimpleEntry<String, String>, Integer> p1, SimpleEntry<SimpleEntry<String, String>, Integer> p2) {
                 if (p1.getValue() < p2.getValue()) return -1;
                 else if (p1.getValue()> p2.getValue()) return 1;
-                else return 0;
+                else {
+                    String s1 = p1.getKey().getKey().toLowerCase();
+                    String s2 = p2.getKey().getKey().toLowerCase();
+                    String s12 = p1.getKey().getValue().toLowerCase();
+                    String s21 = p2.getKey().getValue().toLowerCase();
+                    if (s1.compareTo(s2) == 0) {
+                        if (p1.getKey().getKey().compareTo(p2.getKey().getKey()) < 0) return -1;
+                        else if (p1.getKey().getKey().compareTo(p2.getKey().getKey()) > 0) return 1;
+                        else {
+                            if (s12.compareTo(s21) == 0) {
+                                if (p1.getKey().getValue().compareTo(p2.getKey().getValue()) < 0) return -1;
+                                else if (p1.getKey().getValue().compareTo(p2.getKey().getValue()) > 0) return 1;
+                                return 0;
+                            } else {
+                                if (s12.compareTo(s21) < 0) return -1;
+                                else if (s12.compareTo(s21) > 0) return 1;
+                                else return 0;
+                            }
+                        }
+                    } else if (s12.compareTo(s21) == 0) {
+                        if (p1.getKey().getKey().compareTo(p2.getKey().getKey()) < 0) return -1;
+                        else if (p1.getKey().getKey().compareTo(p2.getKey().getKey()) > 0) return 1;
+                        else {
+                            if (p1.getKey().getValue().compareTo(p2.getKey().getValue()) < 0) return -1;
+                            else if (p1.getKey().getValue().compareTo(p2.getKey().getValue()) > 0) return 1;
+                            else return 0;
+                        }
+                    } else {
+                        if (s1.compareTo(s2) < 0) return -1;
+                        else if (s1.compareTo(s2) > 0) return 1;
+                        else {
+                            if (s12.compareTo(s21) < 0) return -1;
+                            else if (s12.compareTo(s21) > 0) return 1;
+                            else return 0;
+                        }
+                    }
+                }
             }
         });
 
@@ -196,7 +232,43 @@ public class CtrlDominiCerca {
             public int compare(SimpleEntry<SimpleEntry<String, String>, Integer> p1, SimpleEntry<SimpleEntry<String, String>, Integer> p2) {
                 if (p1.getValue() < p2.getValue()) return 1;
                 else if (p1.getValue()> p2.getValue()) return -1;
-                else return 0;
+                else {
+                    String s1 = p1.getKey().getKey().toLowerCase();
+                    String s2 = p2.getKey().getKey().toLowerCase();
+                    String s12 = p1.getKey().getValue().toLowerCase();
+                    String s21 = p2.getKey().getValue().toLowerCase();
+                    if (s1.compareTo(s2) == 0) {
+                        if (p1.getKey().getKey().compareTo(p2.getKey().getKey()) < 0) return 1;
+                        else if (p1.getKey().getKey().compareTo(p2.getKey().getKey()) > 0) return -1;
+                        else {
+                            if (s12.compareTo(s21) == 0) {
+                                if (p1.getKey().getValue().compareTo(p2.getKey().getValue()) < 0) return 1;
+                                else if (p1.getKey().getValue().compareTo(p2.getKey().getValue()) > 0) return -1;
+                                return 0;
+                            } else {
+                                if (s12.compareTo(s21) < 0) return 1;
+                                else if (s12.compareTo(s21) > 0) return -1;
+                                else return 0;
+                            }
+                        }
+                    } else if (s12.compareTo(s21) == 0) {
+                        if (p1.getKey().getKey().compareTo(p2.getKey().getKey()) < 0) return 1;
+                        else if (p1.getKey().getKey().compareTo(p2.getKey().getKey()) > 0) return -1;
+                        else {
+                            if (p1.getKey().getValue().compareTo(p2.getKey().getValue()) < 0) return 1;
+                            else if (p1.getKey().getValue().compareTo(p2.getKey().getValue()) > 0) return -1;
+                            else return 0;
+                        }
+                    } else {
+                        if (s1.compareTo(s2) < 0) return 1;
+                        else if (s1.compareTo(s2) > 0) return -1;
+                        else {
+                            if (s12.compareTo(s21) < 0) return 1;
+                            else if (s12.compareTo(s21) > 0) return -1;
+                            else return 0;
+                        }
+                    }
+                }
             }
         });
 
