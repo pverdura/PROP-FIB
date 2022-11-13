@@ -78,8 +78,8 @@ public class CtrlDomini {
      * Pre: El Document identificat per (titolVell,autor) existeix
      * Post: El Document (titolVell,autor) ara està identificat per (titolNou,autor)
      */
-    public void setTitol(String titolVell, String autor, String titolNou) throws DocumentJaExisteixException, DocumentInexistentException {
-        CDdoc.setTitol(titolVell,autor,titolNou,Documents,DocumentsAutor,TitolAutors,Paraules);
+    public void setTitol(String titolVell, String titolNou, String autor) throws DocumentJaExisteixException, DocumentInexistentException {
+        CDdoc.setTitol(titolVell,titolNou,autor,Documents,DocumentsAutor,TitolAutors,Paraules);
     }
 
     /* Modifica el autor d'un document
