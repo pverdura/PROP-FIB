@@ -7,7 +7,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class Document {    String titol, autor, path, contingut;
+public class Document {
+    String titol, autor, path, contingut;
     private static ArrayList<String> stopWords;
     private final static String signesDePuntuacio = "-_!\"$%&/()=|@#~€¬?¿¡'[]";
     private final static String[] extres = {"l'", "d'", "m'", "n'", "t'", "s'", "'l", "'ls", "'m", "'n", "'t", "'s",
