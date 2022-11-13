@@ -80,12 +80,32 @@ public class CtrlDominiCerca {
                 String s2 = p2.getKey().toLowerCase();
                 String s12 = p1.getValue().toLowerCase();
                 String s21 = p2.getValue().toLowerCase();
-                if (s1.compareTo(s2) < 0) return -1;
-                else if (s1.compareTo(s2) > 0) return 1;
+                if (s1 == s2) {
+                    if (p1.getKey().compareTo(p2.getKey()) < 0) return -1;
+                    else if (p1.getKey().compareTo(p2.getKey()) > 0) return 1;
+                    else {
+                        if (p1.getValue().compareTo(p2.getValue()) < 0) return -1;
+                        else if (p1.getValue().compareTo(p2.getValue()) > 0) return 1;
+                        else return 0;
+                    }
+                }
+                else if (s12 == s21){
+                    if (p1.getKey().compareTo(p2.getKey()) < 0) return -1;
+                    else if (p1.getKey().compareTo(p2.getKey()) > 0) return 1;
+                    else {
+                        if (p1.getValue().compareTo(p2.getValue()) < 0) return -1;
+                        else if (p1.getValue().compareTo(p2.getValue()) > 0) return 1;
+                        else return 0;
+                    }
+                }
                 else {
-                    if (s12.compareTo(s21) < 0) return -1;
-                    else if (s12.compareTo(s21) > 0) return 1;
-                    else return 0;
+                    if (s1.compareTo(s2) < 0) return -1;
+                    else if (s1.compareTo(s2) > 0) return 1;
+                    else {
+                        if (s12.compareTo(s21) < 0) return -1;
+                        else if (s12.compareTo(s21) > 0) return 1;
+                        else return 0;
+                    }
                 }
             }
         });
@@ -100,12 +120,32 @@ public class CtrlDominiCerca {
                 String s2 = p2.getKey().toLowerCase();
                 String s12 = p1.getValue().toLowerCase();
                 String s21 = p2.getValue().toLowerCase();
-                if (s1.compareTo(s2) < 0) return 1;
-                else if (s1.compareTo(s2) > 0) return -1;
+                if (s1 == s2) {
+                    if (p1.getKey().compareTo(p2.getKey()) < 0) return 1;
+                    else if (p1.getKey().compareTo(p2.getKey()) > 0) return -1;
+                    else {
+                        if (p1.getValue().compareTo(p2.getValue()) < 0) return 1;
+                        else if (p1.getValue().compareTo(p2.getValue()) > 0) return -1;
+                        else return 0;
+                    }
+                }
+                else if (s12 == s21){
+                    if (p1.getKey().compareTo(p2.getKey()) < 0) return 1;
+                    else if (p1.getKey().compareTo(p2.getKey()) > 0) return -1;
+                    else {
+                        if (p1.getValue().compareTo(p2.getValue()) < 0) return 1;
+                        else if (p1.getValue().compareTo(p2.getValue()) > 0) return -1;
+                        else return 0;
+                    }
+                }
                 else {
-                    if (s12.compareTo(s21) < 0) return 1;
-                    else if (s12.compareTo(s21) > 0) return -1;
-                    else return 0;
+                    if (s1.compareTo(s2) < 0) return 1;
+                    else if (s1.compareTo(s2) > 0) return -1;
+                    else {
+                        if (s12.compareTo(s21) < 0) return 1;
+                        else if (s12.compareTo(s21) > 0) return -1;
+                        else return 0;
+                    }
                 }
             }
         });
@@ -165,9 +205,16 @@ public class CtrlDominiCerca {
             public int compare(String o1, String o2) {
                 String s1 = o1.toLowerCase();
                 String s2 = o2.toLowerCase();
-                if (s1.compareTo(s2) < 0) return -1;
-                else if (s1.compareTo(s2) > 0) return 1;
-                else return 0;
+                if (s1 == s2) {
+                    if (o1.compareTo(o2) < 0) return -1;
+                    else if (o1.compareTo(o2) > 0) return 1;
+                    else return 0;
+                }
+                else {
+                    if (s1.compareTo(s2) < 0) return -1;
+                    else if (s1.compareTo(s2) > 0) return 1;
+                    else return 0;
+                }
             }
         });
     }
@@ -178,9 +225,15 @@ public class CtrlDominiCerca {
             public int compare(String o1, String o2) {
                 String s1 = o1.toLowerCase();
                 String s2 = o2.toLowerCase();
-                if (s1.compareTo(s2) < 0) return 1;
-                else if (s1.compareTo(s2) > 0) return -1;
-                else return 0;
+                if (s1 == s2) {
+                    if (o1.compareTo(o2) < 0) return 1;
+                    else if (o1.compareTo(o2) > 0) return -1;
+                    else return 0;
+                } else {
+                    if (s1.compareTo(s2) < 0) return 1;
+                    else if (s1.compareTo(s2) > 0) return -1;
+                    else return 0;
+                }
             }
         });
     }
