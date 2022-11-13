@@ -33,8 +33,8 @@ public class Trie<T> {
         actual.fi_paraula = true;
     }
 
-    public boolean esborrar(String paraula) {
-        return esborrar(arrel, paraula, 0);
+    public void esborrar(String paraula) {
+        esborrar(arrel, paraula, 0);
     }
 
     public boolean conteParaula(String paraula) {
