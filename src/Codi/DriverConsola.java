@@ -253,8 +253,24 @@ public class DriverConsola {
         }
     }
     void testResumDocuments () {
+        Scanner sc = new Scanner(System.in);
         System.out.println("Quantitat de documents existents: " + cd.getNombreDocuments());
-        ArrayList<SimpleEntry<String, String>> docs = cd.cercaAllDocuments(TipusOrdenacio.ALFABETIC_ASCENDENT);
+
+        System.out.println("Com ho vols ordenar?");
+        System.out.println("1. Alfabèticament ascendent");
+        System.out.println("2. Alfabèticament descendent");
+        System.out.println("3. Per pes ascendent");
+        System.out.println("4. Per pes descendent");
+
+        int ord = sc.nextInt();
+        sc.nextLine();
+        TipusOrdenacio tipusOrdenacio;
+        if (ord == 1) tipusOrdenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
+        else if (ord == 2) tipusOrdenacio = TipusOrdenacio.ALFABETIC_DESCENDENT;
+        else if (ord == 3) tipusOrdenacio = TipusOrdenacio.PES_ASCENDENT;
+        else tipusOrdenacio = TipusOrdenacio.PES_DESCENDENT;
+
+        ArrayList<SimpleEntry<String, String>> docs = cd.cercaAllDocuments(tipusOrdenacio);
 
         for (SimpleEntry<String, String> se : docs) {
             System.out.println(se.getKey() + "\t" + se.getValue());
@@ -362,7 +378,22 @@ public class DriverConsola {
         }
     }
     void testVeureExpressionsBooleanes () {
-        ArrayList<String> exprs = cd.cercaAllExpressionsBool(TipusOrdenacio.ALFABETIC_ASCENDENT);
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Com ho vols ordenar?");
+        System.out.println("1. Alfabèticament ascendent");
+        System.out.println("2. Alfabèticament descendent");
+        System.out.println("3. Per pes ascendent");
+        System.out.println("4. Per pes descendent");
+
+        int ord = sc.nextInt();
+        sc.nextLine();
+        TipusOrdenacio tipusOrdenacio;
+        if (ord == 1) tipusOrdenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
+        else if (ord == 2) tipusOrdenacio = TipusOrdenacio.ALFABETIC_DESCENDENT;
+        else if (ord == 3) tipusOrdenacio = TipusOrdenacio.PES_ASCENDENT;
+        else tipusOrdenacio = TipusOrdenacio.PES_DESCENDENT;
+
+        ArrayList<String> exprs = cd.cercaAllExpressionsBool(tipusOrdenacio);
 
         for (String se : exprs) {
             System.out.println(se);

@@ -19,18 +19,12 @@ public class DriverInput {
     public static void main (String[] args) {
         DriverInput dv = new DriverInput();
 
-        /*String path = new File("prova_01.txt.txt").getAbsolutePath();
-        File file = new File(path);
-        try {
-            bf = new BufferedReader(new FileReader(file));
-        } catch (Exception e) { e.printStackTrace(); }*/
-
-        //System.out.print("Enter the file name with extension: "); ESBORRRAR
+        //System.out.print("Enter the file name with extension: ");
 
         Scanner input = new Scanner(System.in);
 
-        //String path = new File("src/codi/"+input.nextLine()).getAbsolutePath(); ESBORRARRRRRRR
-        String path = new File("src/Codi/prova_01.txt").getAbsolutePath();
+        //String path = new File("src/codi/"+input.nextLine()).getAbsolutePath();
+        String path = new File("src/Codi/joc_documents.txt").getAbsolutePath();
         File file = new File(path);
 
         try {
@@ -279,7 +273,16 @@ public class DriverInput {
     }
     void testResumDocuments () {
         System.out.println("Quantitat de documents existents: " + cd.getNombreDocuments());
-        ArrayList<SimpleEntry<String, String>> docs = cd.cercaAllDocuments(TipusOrdenacio.ALFABETIC_ASCENDENT);
+
+        int ord = sc.nextInt();
+        sc.nextLine();
+        TipusOrdenacio tipusOrdenacio;
+        if (ord == 1) tipusOrdenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
+        else if (ord == 2) tipusOrdenacio = TipusOrdenacio.ALFABETIC_DESCENDENT;
+        else if (ord == 3) tipusOrdenacio = TipusOrdenacio.PES_ASCENDENT;
+        else tipusOrdenacio = TipusOrdenacio.PES_DESCENDENT;
+
+        ArrayList<SimpleEntry<String, String>> docs = cd.cercaAllDocuments(tipusOrdenacio);
 
         for (SimpleEntry<String, String> se : docs) {
             System.out.println(se.getKey() + "\t" + se.getValue());
@@ -400,7 +403,15 @@ public class DriverInput {
         }
     }
     void testVeureExpressionsBooleanes () {
-        ArrayList<String> exprs = cd.cercaAllExpressionsBool(TipusOrdenacio.ALFABETIC_ASCENDENT);
+        int ord = sc.nextInt();
+        sc.nextLine();
+        TipusOrdenacio tipusOrdenacio;
+        if (ord == 1) tipusOrdenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
+        else if (ord == 2) tipusOrdenacio = TipusOrdenacio.ALFABETIC_DESCENDENT;
+        else if (ord == 3) tipusOrdenacio = TipusOrdenacio.PES_ASCENDENT;
+        else tipusOrdenacio = TipusOrdenacio.PES_DESCENDENT;
+
+        ArrayList<String> exprs = cd.cercaAllExpressionsBool(tipusOrdenacio);
 
         for (String se : exprs) {
             System.out.println(se);
