@@ -17,16 +17,16 @@ public class CercaBooleanaTest {
 
     @Before
     public void init() {
-        Document doc = new Document("titol", "pau");
+        Document doc = new StubDocumentCB1("titol", "pau");
         doc.setContingut("Document del pau : Bon dia a tothom");
 
-        Document doc2 = new Document("titol", "jordi");
+        Document doc2 = new StubDocumentCB1("titol", "jordi");
         doc2.setContingut("Document del jordi : Sóc professional del tetris");
 
-        Document doc3 = new Document("titol", "judit");
+        Document doc3 = new StubDocumentCB1("titol", "judit");
         doc3.setContingut("Document de la judit : Ahir vaig anar a fer escalada");
 
-        Document doc4 = new Document("titol", "pol");
+        Document doc4 = new StubDocumentCB1("titol", "pol");
         doc4.setContingut("Document del pol : Això és una obra d'art");
 
         documents = new HashMap<>();
