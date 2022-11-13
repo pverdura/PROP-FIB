@@ -436,7 +436,7 @@ public class DriverConsola {
     }
 
     void testVeureParaules () {
-        HashMap<String, ArrayList<SimpleEntry<String, String>>> p =  cd.ListgetParaules();
+        HashMap<String, ArrayList<SimpleEntry<String, String>>> p =  cd.getParaules();
 
         for (String s : p.keySet()) {
             System.out.println(s+": ");
