@@ -84,12 +84,17 @@ public class CtrlDominiCerca {
                     if (p1.getKey().compareTo(p2.getKey()) < 0) return -1;
                     else if (p1.getKey().compareTo(p2.getKey()) > 0) return 1;
                     else {
-                        if (p1.getValue().compareTo(p2.getValue()) < 0) return -1;
-                        else if (p1.getValue().compareTo(p2.getValue()) > 0) return 1;
-                        else return 0;
+                        if (s12.compareTo(s21) == 0) {
+                            if (p1.getValue().compareTo(p2.getValue()) < 0) return -1;
+                            else if (p1.getValue().compareTo(p2.getValue()) > 0) return 1;
+                            return 0;
+                        } else {
+                            if (s12.compareTo(s21) < 0) return -1;
+                            else if (s12.compareTo(s21) > 0) return 1;
+                            else return 0;
+                        }
                     }
-                }
-                else if (s12.compareTo(s21) == 0){
+                } else if (s12.compareTo(s21) == 0) {
                     if (p1.getKey().compareTo(p2.getKey()) < 0) return -1;
                     else if (p1.getKey().compareTo(p2.getKey()) > 0) return 1;
                     else {
@@ -97,8 +102,7 @@ public class CtrlDominiCerca {
                         else if (p1.getValue().compareTo(p2.getValue()) > 0) return 1;
                         else return 0;
                     }
-                }
-                else {
+                } else {
                     if (s1.compareTo(s2) < 0) return -1;
                     else if (s1.compareTo(s2) > 0) return 1;
                     else {
@@ -124,12 +128,17 @@ public class CtrlDominiCerca {
                     if (p1.getKey().compareTo(p2.getKey()) < 0) return 1;
                     else if (p1.getKey().compareTo(p2.getKey()) > 0) return -1;
                     else {
-                        if (p1.getValue().compareTo(p2.getValue()) < 0) return 1;
-                        else if (p1.getValue().compareTo(p2.getValue()) > 0) return -1;
-                        else return 0;
+                        if (s12.compareTo(s21) == 0) {
+                            if (p1.getValue().compareTo(p2.getValue()) < 0) return 1;
+                            else if (p1.getValue().compareTo(p2.getValue()) > 0) return -1;
+                            return 0;
+                        } else {
+                            if (s12.compareTo(s21) < 0) return 1;
+                            else if (s12.compareTo(s21) > 0) return -1;
+                            else return 0;
+                        }
                     }
-                }
-                else if (s12.compareTo(s21) == 0){
+                } else if (s12.compareTo(s21) == 0) {
                     if (p1.getKey().compareTo(p2.getKey()) < 0) return 1;
                     else if (p1.getKey().compareTo(p2.getKey()) > 0) return -1;
                     else {
@@ -137,8 +146,7 @@ public class CtrlDominiCerca {
                         else if (p1.getValue().compareTo(p2.getValue()) > 0) return -1;
                         else return 0;
                     }
-                }
-                else {
+                } else {
                     if (s1.compareTo(s2) < 0) return 1;
                     else if (s1.compareTo(s2) > 0) return -1;
                     else {
