@@ -31,6 +31,7 @@ public class BinaryTree {
         if (node.left == null && node.right == null) {
             char c = node.value.charAt(0);
 
+            //Comprobar si la fulla compleix l'expressio booleana segons el valor del node i tipus de valor
             switch (c) {
                 case '"':
                     return contingut.contains(node.value.substring(1, node.value.length()-1));
@@ -47,7 +48,7 @@ public class BinaryTree {
             }
         }
 
-        //CAS RESTANT (!, &, |)
+        //CAS RESTANT (!, &, |) Retornar valor segons operador node pare i valors dels fills
         switch (node.value) {
             case "&":
                 return cercaRec(node.left, contingut) && cercaRec(node.right, contingut);
@@ -61,6 +62,8 @@ public class BinaryTree {
     }
 
     private void insertar(Node node, String expressio) {
+
+        //Insertar per ordre d'operadors de menys a més prioritats. ORDRE -> (| -> & -> ! -> () -> expressio sense operador)
 
         boolean op_asignado = insertarOP_i_dividir('|', node, expressio);
 
@@ -83,12 +86,16 @@ public class BinaryTree {
             }
         }
     }
+
+
+    //Funció per assignar operador al node si es possible i dividir l'expressio en dos parts noves recursivament
     private boolean insertarOP_i_dividir(char op, Node node, String expressio) {
         int l = expressio.length();
         int i = l-1;
 
         int suma_substring = op == '!' ? 1 : 2;
 
+        //Ignorar sequencies dins de caracters especials
         while (i >= 0) {
             char c = expressio.charAt(i);
 
@@ -108,14 +115,17 @@ public class BinaryTree {
 
             if (i >= 0) c = expressio.charAt(i);
 
+            //Si ens trobem un operador assignem el valor al node d'aquest mateix
             if (c == op) {
                 node.value = String.valueOf(op);
 
+                //Crida recursiva al fill dret amb l'operand dret de l'expressio marcada per l'operador
                 if (i + suma_substring < l) {
                     node.right = new Node();
                     insertar(node.right, expressio.substring(i + suma_substring, l));
                 }
 
+                //Crida recursiva al fill esquerre amb l'operand esquerre de l'expressio marcada per l'operador
                 if (i -1 > 0) {
                     node.left = new Node();
                     insertar(node.left, expressio.substring(0, i - 1));
@@ -127,6 +137,7 @@ public class BinaryTree {
         return false;
     }
 
+    //Funcio per ignorar sequencies de paraules dins de caracters especials i retorna el nou index
     private int ignorar_seq(char cAbrir, char cCerrar, int i, String expressio) {
         int suma = 1;
         i--;
