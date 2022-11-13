@@ -76,11 +76,15 @@ public class CtrlDominiCerca {
         cerca.sort(new Comparator<SimpleEntry<String,String>>() {
             @Override
             public int compare(SimpleEntry<String, String > p1, SimpleEntry<String, String> p2) {
-                if (p1.getKey().compareTo(p2.getKey()) < 0) return -1;
-                else if (p1.getKey().compareTo(p2.getKey()) > 0) return 1;
+                String s1 = p1.getKey().toLowerCase();
+                String s2 = p2.getKey().toLowerCase();
+                String s12 = p1.getValue().toLowerCase();
+                String s21 = p2.getValue().toLowerCase();
+                if (s1.compareTo(s2) < 0) return -1;
+                else if (s1.compareTo(s2) > 0) return 1;
                 else {
-                    if (p1.getValue().compareTo(p2.getValue()) < 0) return -1;
-                    else if (p1.getValue().compareTo(p2.getValue()) > 0) return 1;
+                    if (s12.compareTo(s21) < 0) return -1;
+                    else if (s12.compareTo(s21) > 0) return 1;
                     else return 0;
                 }
             }
@@ -92,11 +96,15 @@ public class CtrlDominiCerca {
         cerca.sort(new Comparator<SimpleEntry<String,String>>() {
             @Override
             public int compare(SimpleEntry<String, String > p1, SimpleEntry<String, String> p2) {
-                if (p1.getKey().compareTo(p2.getKey()) < 0) return 1;
-                else if (p1.getKey().compareTo(p2.getKey()) > 0) return -1;
+                String s1 = p1.getKey().toLowerCase();
+                String s2 = p2.getKey().toLowerCase();
+                String s12 = p1.getValue().toLowerCase();
+                String s21 = p2.getValue().toLowerCase();
+                if (s1.compareTo(s2) < 0) return 1;
+                else if (s1.compareTo(s2) > 0) return -1;
                 else {
-                    if (p1.getValue().compareTo(p2.getValue()) < 0) return 1;
-                    else if (p1.getValue().compareTo(p2.getValue()) > 0) return -1;
+                    if (s12.compareTo(s21) < 0) return 1;
+                    else if (s12.compareTo(s21) > 0) return -1;
                     else return 0;
                 }
             }
@@ -152,11 +160,29 @@ public class CtrlDominiCerca {
     }
 
     private void ordreAscendent(ArrayList<String> cerca){
-        cerca.sort(Comparator.naturalOrder());
+        cerca.sort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                String s1 = o1.toLowerCase();
+                String s2 = o2.toLowerCase();
+                if (s1.compareTo(s2) < 0) return -1;
+                else if (s1.compareTo(s2) > 0) return 1;
+                else return 0;
+            }
+        });
     }
 
     private void ordreDescendent(ArrayList<String> cerca){
-        cerca.sort(Comparator.reverseOrder());
+        cerca.sort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                String s1 = o1.toLowerCase();
+                String s2 = o2.toLowerCase();
+                if (s1.compareTo(s2) < 0) return 1;
+                else if (s1.compareTo(s2) > 0) return -1;
+                else return 0;
+            }
+        });
     }
 
 
