@@ -47,6 +47,16 @@ public class CercaAutorTest {
         assertEquals(res_esperat,CercaAutor.cercaDoc(autor,autorTitols));
     }
 
+    @Test
+    public void testCercaCorrecte2(){
+        res_esperat.add(new SimpleEntry<>(titols.get(0), autor2));
+        res_esperat.add(new SimpleEntry<>(titols.get(1), autor2));
+        res_esperat.add(new SimpleEntry<>(titols.get(2), autor2));
+
+        assertEquals(res_esperat,CercaAutor.cercaDoc(autor2,autorTitols));
+    }
+
+
     @Test(expected = DocumentInexistentException.class)
     public void testAutorsExcepcio() {
         CercaAutor.cercaDoc("George Martin", autorTitols);
