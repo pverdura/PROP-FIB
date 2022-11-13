@@ -46,17 +46,7 @@ public class CercaPrefixTest {
         assertEquals(res_esperat, resultat);
     }
 
-    @Test
-    public void testCercaCorrecte2(){
-        autors = new StubTrie1();
-        prefix = "Bra";
-        resultat = CercaPrefix.cercaDoc(prefix, autors);
 
-        res_esperat.add(autor1);
-        res_esperat.add(autor2);
-
-        assertEquals(res_esperat, resultat);
-    }
 
     @Test(expected = AutorInexistentException.class)
     public void testPrefixExcepcio() {
