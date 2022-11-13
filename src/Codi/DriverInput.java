@@ -173,7 +173,7 @@ public class DriverInput {
                     nomNou = sc.nextLine();
 
                 try {
-                    cd.setTitol(nom, autor, nomNou);
+                    cd.setTitol(nom, nomNou, autor);
                 } catch (Exception e) {
                     System.out.println(e.toString());
                 }
