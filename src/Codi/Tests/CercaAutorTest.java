@@ -1,7 +1,7 @@
 package Codi.Tests;
 
 import Codi.Domini.CercaAutor;
-import Codi.Excepcions.DocumentInexistentException;
+import Codi.Excepcions.AutorNoExisteixException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -57,7 +57,7 @@ public class CercaAutorTest {
     }
 
 
-    @Test(expected = DocumentInexistentException.class)
+    @Test(expected = AutorNoExisteixException.class)
     public void testAutorsExcepcio() {
         CercaAutor.cercaDoc("George Martin", autorTitols);
     }

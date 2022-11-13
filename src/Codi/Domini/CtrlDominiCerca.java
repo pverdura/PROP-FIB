@@ -13,11 +13,11 @@ public class CtrlDominiCerca {
     }
 
     //Retorna
-    public ArrayList<SimpleEntry<String,String>> cercaAutor(String autor, HashMap<String, ArrayList<String>> autorsTitols, TipusOrdenacio ordre, HashMap<SimpleEntry<String,String>, Document> documents) throws DocumentInexistentException{
+    public ArrayList<SimpleEntry<String,String>> cercaAutor(String autor, HashMap<String, ArrayList<String>> autorsTitols, TipusOrdenacio ordre, HashMap<SimpleEntry<String,String>, Document> documents) throws AutorNoExisteixException{
         return ordenarCerca(CercaAutor.cercaDoc(autor, autorsTitols),ordre, documents);
     }
 
-    public ArrayList<SimpleEntry<String, String>> cercaTitol(String titol,  HashMap<String, ArrayList<String>> titolsAutors, TipusOrdenacio ordre, HashMap<SimpleEntry<String,String>, Document> documents) throws DocumentInexistentException{
+    public ArrayList<SimpleEntry<String, String>> cercaTitol(String titol,  HashMap<String, ArrayList<String>> titolsAutors, TipusOrdenacio ordre, HashMap<SimpleEntry<String,String>, Document> documents) throws TitolNoExisteixException{
         return ordenarCerca(CercaTitol.cercaDoc(titol, titolsAutors), ordre, documents);
     }
 
@@ -25,7 +25,7 @@ public class CtrlDominiCerca {
         return CercaTitolAutor.cercaDoc(titol, autor, documents);
     }
 
-    public ArrayList<String> cercaPrefix(String prefix, Trie<String> autors, TipusOrdenacio ordre) throws AutorInexistentException {
+    public ArrayList<String> cercaPrefix(String prefix, Trie<String> autors, TipusOrdenacio ordre) throws PrefixNoExisteixException {
         return ordenarCercaSimple(CercaPrefix.cercaDoc(prefix, autors), ordre);
     }
 

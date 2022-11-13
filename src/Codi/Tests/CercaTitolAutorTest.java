@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import Codi.Domini.CercaTitolAutor;
 import Codi.Domini.Document;
-import Codi.Excepcions.AutorInexistentException;
 import Codi.Excepcions.DocumentInexistentException;
 import org.junit.Before;
 import org.junit.Test;

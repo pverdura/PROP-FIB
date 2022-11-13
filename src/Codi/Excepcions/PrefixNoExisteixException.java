@@ -1,9 +1,9 @@
 package Codi.Excepcions;
 
-public class AutorInexistentException extends NullPointerException{
+public class PrefixNoExisteixException extends NullPointerException{
     String prefix;
 
-    public AutorInexistentException(String prefix) {
+    public PrefixNoExisteixException(String prefix) {
         super("Error: no existeix cap autor que comenci pel prefix : " + prefix);
         this.prefix = prefix;
     }

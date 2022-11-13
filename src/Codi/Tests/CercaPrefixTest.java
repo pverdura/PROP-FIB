@@ -1,7 +1,7 @@
 package Codi.Tests;
 
 import Codi.Domini.CercaPrefix;
-import Codi.Excepcions.AutorInexistentException;
+import Codi.Excepcions.PrefixNoExisteixException;
 import Codi.Stubs.StubTrie1;
 import Codi.Stubs.StubTrie2;
 import Codi.Util.Trie;
@@ -48,7 +48,7 @@ public class CercaPrefixTest {
 
 
 
-    @Test(expected = AutorInexistentException.class)
+    @Test(expected = PrefixNoExisteixException.class)
     public void testPrefixExcepcio() {
         autors = new StubTrie2();
         prefix = "Bon";
