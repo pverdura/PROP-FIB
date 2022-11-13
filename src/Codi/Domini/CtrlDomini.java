@@ -22,7 +22,7 @@ public class CtrlDomini {
     private HashMap<String,ArrayList<SimpleEntry<String,String>>> Paraules; // Estructura on es guarden els documents que contenen una paraula en concret
     private HashMap<String,ExpressioBooleana> ExpressionsBooleanes;         // Estructura on es guarden totes les expression booleanes
 
-    public HashMap<String,ArrayList<SimpleEntry<String,String>>> ListgetParaules() {
+    public HashMap<String,ArrayList<SimpleEntry<String,String>>> getParaules() {
         return Paraules;
     }
 
