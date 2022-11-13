@@ -23,7 +23,7 @@ public class DriverInput {
 
         Scanner input = new Scanner(System.in);
 
-        String path = new File("src/codi/"+input.nextLine()).getAbsolutePath();
+        String path = new File("src/Codi/"+input.nextLine()).getAbsolutePath();
         //String path = new File("src/Codi/joc_documents.txt").getAbsolutePath();
         File file = new File(path);
 
