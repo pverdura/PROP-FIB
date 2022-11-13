@@ -19,12 +19,12 @@ public class DriverInput {
     public static void main (String[] args) {
         DriverInput dv = new DriverInput();
 
-        //System.out.print("Enter the file name with extension: ");
+        System.out.print("Enter the file name with extension: ");
 
         Scanner input = new Scanner(System.in);
 
-        //String path = new File("src/codi/"+input.nextLine()).getAbsolutePath();
-        String path = new File("src/Codi/joc_documents.txt").getAbsolutePath();
+        String path = new File("src/codi/"+input.nextLine()).getAbsolutePath();
+        //String path = new File("src/Codi/joc_documents.txt").getAbsolutePath();
         File file = new File(path);
 
         try {
@@ -463,7 +463,7 @@ public class DriverInput {
     }
 
     void testVeureParaules () {
-        HashMap<String, ArrayList<SimpleEntry<String, String>>> p =  cd.ListgetParaules();
+        HashMap<String, ArrayList<SimpleEntry<String, String>>> p =  cd.getParaules();
 
         for (String s : p.keySet()) {
             System.out.println(s+": ");
