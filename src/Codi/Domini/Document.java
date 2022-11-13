@@ -53,7 +53,7 @@ public class Document {
         for (String paraula : senseEspais) {
             paraula = tractar(paraula);
 
-            if (!Document.stopWords.contains(paraula)) {
+            if (!Document.stopWords.contains(paraula) && !paraula.equals("")) {
                 this.aparicions.merge(paraula, 1, Integer::sum);
             }
         }

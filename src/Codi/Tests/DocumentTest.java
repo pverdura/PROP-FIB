@@ -11,9 +11,10 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class DocumentTest {
-    Document d;
     HashMap<String, Integer> aparicions;
 
     @Before
@@ -23,7 +24,7 @@ public class DocumentTest {
 
     @Test
     public void testConstructorBuit () {
-        d = new Document();
+        Document d = new Document();
         assertNotNull(d);
         assertNull(d.getTitol());
         assertNull(d.getAutor());
@@ -33,11 +34,10 @@ public class DocumentTest {
         assertNull(d.getPath());
 
         assertEquals(new HashMap<String, Integer>(), d.getAparicions());
-        assertEquals(new ArrayList<String>(), d.getStopWords());
     }
     @Test
     public void testConstructor2 () {
-        d = new Document("titol", "autor");
+        Document d = new Document("titol", "autor");
         assertNotNull(d);
         assertEquals("titol", d.getTitol());
         assertEquals("autor", d.getAutor());
@@ -47,11 +47,10 @@ public class DocumentTest {
         assertNull(d.getPath());
 
         assertEquals(new HashMap<String, Integer>(), d.getAparicions());
-        assertEquals(new ArrayList<String>(), d.getStopWords());
     }
     @Test
     public void testConstructorPle () {
-        d = new Document("titol", "autor", "./path/fitxer.txt", "contingut", TipusExtensio.BOL);
+        Document d = new Document("titol", "autor", "./path/fitxer.txt", "contingut", TipusExtensio.BOL);
         assertNotNull(d);
         assertEquals("titol", d.getTitol());
         assertEquals("autor", d.getAutor());
@@ -60,12 +59,13 @@ public class DocumentTest {
         assertEquals(TipusExtensio.BOL, d.getExtensio());
         assertEquals("./path/fitxer.txt", d.getPath());
 
-        assertEquals(new HashMap<String, Integer>(), d.getAparicions());
-        assertEquals(new ArrayList<String>(), d.getStopWords());
+        HashMap<String, Integer> resultat = new HashMap<>();
+        resultat.put("contingut", 1);
+        assertEquals(resultat, d.getAparicions());
     }
     @Test
     public void testSetContingut () throws NoSuchFieldException, IllegalAccessException {
-        d = new Document();
+        Document d = new Document();
 
         d.setContingut("hola bon dia");
 
@@ -76,7 +76,7 @@ public class DocumentTest {
     }
     @Test
     public void testGetContingut () throws NoSuchFieldException, IllegalAccessException {
-        d = new Document();
+        Document d = new Document();
 
         final Field field = d.getClass().getDeclaredField("contingut");
         field.setAccessible(true);
@@ -84,11 +84,11 @@ public class DocumentTest {
 
         final String result = d.getContingut();
 
-        assertEquals(result, "prova de getter de contingut");
+        assertEquals("prova de getter de contingut", result);
     }
     @Test
     public void testSetStopWords () throws NoSuchFieldException, IllegalAccessException {
-        d = new Document();
+        Document d = new Document();
 
         ArrayList<String> stopWords = new ArrayList<>();
         stopWords.add("stop1");
@@ -105,7 +105,7 @@ public class DocumentTest {
     }
     @Test
     public void testGetStopWords () throws NoSuchFieldException, IllegalAccessException {
-        d = new Document();
+        Document d = new Document();
 
         ArrayList<String> stopWords = new ArrayList<>();
         stopWords.add("miau");
@@ -118,11 +118,11 @@ public class DocumentTest {
 
         final ArrayList<String> result = d.getStopWords();
 
-        assertEquals(result, stopWords);
+        assertEquals(stopWords, result);
     }
     @Test
     public void testSetAutor () throws NoSuchFieldException, IllegalAccessException {
-        d = new Document();
+        Document d = new Document();
 
         d.setAutor("Johan Johan Johan Haaaans");
 
@@ -133,7 +133,7 @@ public class DocumentTest {
     }
     @Test
     public void testGetAutor () throws NoSuchFieldException, IllegalAccessException {
-        d = new Document();
+        Document d = new Document();
 
         final Field field = d.getClass().getDeclaredField("autor");
         field.setAccessible(true);
@@ -141,11 +141,11 @@ public class DocumentTest {
 
         final String result = d.getAutor();
 
-        assertEquals(result, "Carles de la Carlada");
+        assertEquals("Carles de la Carlada", result);
     }
     @Test
     public void testSetTitol () throws NoSuchFieldException, IllegalAccessException {
-        d = new Document();
+        Document d = new Document();
 
         d.setTitol("el millor títol");
 
@@ -156,7 +156,7 @@ public class DocumentTest {
     }
     @Test
     public void testGetTitol () throws NoSuchFieldException, IllegalAccessException {
-        d = new Document();
+        Document d = new Document();
 
         final Field field = d.getClass().getDeclaredField("titol");
         field.setAccessible(true);
@@ -164,11 +164,11 @@ public class DocumentTest {
 
         final String result = d.getTitol();
 
-        assertEquals(result, "Per què PROP és una assignatura amb massa feina: VOLUM IX");
+        assertEquals("Per què PROP és una assignatura amb massa feina: VOLUM IX", result);
     }
     @Test
     public void testSetPath () throws NoSuchFieldException, IllegalAccessException {
-        d = new Document();
+        Document d = new Document();
 
         d.setPath("./path/fitxer.txt");
 
@@ -179,7 +179,7 @@ public class DocumentTest {
     }
     @Test
     public void testGetPath () throws NoSuchFieldException, IllegalAccessException {
-        d = new Document();
+        Document d = new Document();
 
         final Field field = d.getClass().getDeclaredField("path");
         field.setAccessible(true);
@@ -187,11 +187,11 @@ public class DocumentTest {
 
         final String result = d.getPath();
 
-        assertEquals(result, "./path/fitxer/carpeta/ola/prop/subgrup/fitxer.txt");
+        assertEquals("./path/fitxer/carpeta/ola/prop/subgrup/fitxer.txt", result);
     }
     @Test
     public void testSetExtensio () throws NoSuchFieldException, IllegalAccessException {
-        d = new Document();
+        Document d = new Document();
 
         d.setExtensio(TipusExtensio.XML);
 
@@ -202,7 +202,7 @@ public class DocumentTest {
     }
     @Test
     public void testGetExtensio () throws NoSuchFieldException, IllegalAccessException {
-        d = new Document();
+        Document d = new Document();
 
         final Field field = d.getClass().getDeclaredField("tipusExtensio");
         field.setAccessible(true);
@@ -210,23 +210,21 @@ public class DocumentTest {
 
         final TipusExtensio result = d.getExtensio();
 
-        assertEquals(result, TipusExtensio.TXT);
+        assertEquals(TipusExtensio.TXT, result);
     }
     @Test
     public void testGetPes () throws NoSuchFieldException, IllegalAccessException {
-        d = new Document();
+        Document d = new Document();
 
-        final Field field = d.getClass().getDeclaredField("contingut");
-        field.setAccessible(true);
-        field.set(d, "quin pes deu tenir? qui sap, vés a saber");
+        d.setContingut("quin pes deu tenir? qui sap, vés a saber");
 
         final int result = d.getPes();
 
-        assertEquals(result, "quin pes deu tenir? qui sap, vés a saber".length());
+        assertEquals("quin pes deu tenir? qui sap, vés a saber".length(), result);
     }
     @Test
     public void testGetAparicions () throws NoSuchFieldException, IllegalAccessException {
-        d = new Document();
+        Document d = new Document();
         d.setContingut("taula cadira d'era sostre cadira d'era cadira sostre la meva tota perfecte digues digues-ho");
 
         final HashMap<String, Integer> correcte = new HashMap<>();
@@ -241,12 +239,11 @@ public class DocumentTest {
         correcte.put("digues", 2);
         final HashMap<String, Integer> result = d.getAparicions();
 
-        assertEquals(result, correcte);
+        assertEquals(correcte, result);
     }
     @Test
     public void testAparicionsStopWords () throws NoSuchFieldException, IllegalAccessException {
-        d = new Document();
-        d.setContingut("stop no bon dia una casa stop2 stop3 bon dolent bon stop una era seré stop");
+        Document d = new Document();
 
         ArrayList<String> stopWords = new ArrayList<>();
         stopWords.add("stop");
@@ -255,37 +252,45 @@ public class DocumentTest {
 
         d.setStopWords(stopWords);
 
+
+        d.setContingut("stop no bon dia una casa stop2 stop3 bon dolent bon stop una era seré stop");
+
         final HashMap<String, Integer> correcte = new HashMap<>();
         correcte.put("no", 1);
         correcte.put("bon", 3);
-        correcte.put("dia", 2);
+        correcte.put("dia", 1);
         correcte.put("una", 2);
         correcte.put("casa", 1);
         correcte.put("dolent", 1);
         correcte.put("seré", 1);
+        correcte.put("era", 1);
         final HashMap<String, Integer> result = d.getAparicions();
 
-        assertEquals(result, correcte);
+        assertEquals(correcte, result);
     }
     @Test
     public void testGetParaules () throws NoSuchFieldException, IllegalAccessException {
-        d = new Document();
-        d.setContingut("llista de paraules diferents això és una llista de paraules diferents");
+        Document d = new Document();
 
         ArrayList<String> stopWords = new ArrayList<>();
         stopWords.add("això");
-
         d.setStopWords(stopWords);
 
-        final ArrayList<String> correcte = new ArrayList<>();
-        correcte.add("llista");
-        correcte.add("de");
-        correcte.add("paraules");
-        correcte.add("diferents");
-        correcte.add("una");
+        d.setContingut("llista de paraules diferents això és una llista de paraules diferents");
 
-        final ArrayList<String> result = d.getParaules();
 
-        assertEquals(result, correcte);
+        final ArrayList<String> c = new ArrayList<>();
+        c.add("llista");
+        c.add("de");
+        c.add("paraules");
+        c.add("diferents");
+        c.add("una");
+        c.add("és");
+
+        Set<String> correcte = new HashSet(c);
+
+        final Set<String> result = new HashSet(d.getParaules());
+
+        assertEquals(correcte, result);
     }
 }
