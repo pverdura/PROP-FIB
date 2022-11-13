@@ -1,0 +1,159 @@
+9
+hola & {que tal} & !adeu & (p1 | p2)
+
+9
+{p1 p2 p2} & ("hola adeu" | pep) & !joan
+
+9
+("Bon dia" | "Bona tarda") & !Bona nit
+
+9
+!pol & ("la universitat" | "el grau" | "el master") & !{FIB UPC GEI}
+
+9
+(!Suspens | !"no aprovat") & "superior a 5" & {prop ia a compu}
+
+9
+{futbol basquet tennis hockey} & esport & !"esport de risc"
+
+9
+(({a b} | {c d}) & ({a c} | {b d}))
+
+9
+(!b | !c) & (!"zzz" | !{bbb})
+
+9
+!(!Gei) & ("el millor" & ({es una} | {es un}))
+
+9
+jose & !({p1 p2} & {hola que tal})
+
+9
+jose & !({p1 p2} & {hola que tal})
+
+9
+!(!Gei) & ("el millor" & ({es una} | {es un}))
+
+9
+!a
+
+8
+
+11
+jose & !({p1 p2} & {hola que tal})
+
+11
+!(!Gei) & ("el millor" & ({es una} | {es un}))
+
+11
+{futbol basquet tennis hockey} & esport & !"esport de risc"
+
+11
+(!Suspens | !"no aprovat") & "superior a 5" & {prop ia a compu}
+
+11
+(!b | !c) & (!"zzz" | !{bbb})
+
+11
+(!b | !c) & (!"zzz" | !{bbb})
+
+11
+{futbol basquet tennis hockey} & esport & !"esport de risc"
+
+8
+
+10
+("Bon dia" | "Bona tarda") & !Bona nit
+("Bona tarda" | "Bon dia") & !Bona nit
+
+10
+("Bon dia" | "Bona tarda") & !Bona nit
+("Bona tarda" | "Bon dia") & !Bona nit
+
+10
+("Bona tarda" | "Bon dia") & !Bona nit
+{p1 p2 p2} & ("hola adeu" | pep) & !joan
+
+10
+hola & {que tal} & !adeu & (p1 | p2)
+siau & !{que tal} & adeu & !(p2 | p1)
+
+10
+(({a b} | {c d}) & ({a c} | {b d}))
+(({a d} | {b c}) & ({a c} | {b d}))
+
+10
+!pol & ("la universitat" | "el grau" | "el master") & !{FIB UPC GEI}
+!pol & ("la universitat" | "Batxillerat" | "ESO") & !{FIB UPC GEI}
+
+8
+
+1
+titol1
+pau
+
+1
+titol2
+pau
+
+1
+titol1
+pol
+
+1
+titol2
+pol
+
+3
+titol1
+pau
+3
+Bona tarda soc el pau de la universitat UAB
+\0
+
+3
+titol2
+pau
+3
+adeu siau pep que vagi be al casal
+\0
+
+3
+titol1
+pol
+3
+Soc el pol de la universitat UPC
+\0
+
+3
+titol2
+pol
+3
+He fet els problemes p1 p2 p3 i el pep m'ha ajudat
+\0
+
+7
+4
+!pol & ("la universitat" | "Batxillerat" | "ESO") & !{FIB UPC GEI}
+
+7
+4
+("Bona tarda" | "Bon dia") & !Bona nit
+
+7
+4
+(({a d} | {b c}) & ({a c} | {b d}))
+
+7
+4
+siau & !{que tal} & adeu & !(p2 | p1)
+
+7
+4
+{p1 p2 p2} & ("hola adeu" | pep) & !joan
+
+7
+4
+!a
+
+13
