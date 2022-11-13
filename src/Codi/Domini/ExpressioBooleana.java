@@ -6,6 +6,10 @@ public class ExpressioBooleana {
 
     private BinaryTree treeExpressio;
 
+    public ExpressioBooleana(BinaryTree bTree) {
+        this.treeExpressio = bTree;
+    }
+
     public ExpressioBooleana(String expressio) {
         this.treeExpressio = new BinaryTree(expressio);
     }
