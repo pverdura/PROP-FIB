@@ -2,7 +2,7 @@ package Codi.Tests;
 
 import Codi.Domini.CercaBooleana;
 import Codi.Domini.Document;
-import Codi.Domini.ExpressioBooleana;
+import Codi.Stubs.*;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.AbstractMap.SimpleEntry;
@@ -30,10 +30,11 @@ public class CercaBooleanaTest {
         doc4.setContingut("Document del pol : Això és una obra d'art");
 
         documents = new HashMap<>();
-        documents.put(new SimpleEntry<>("titol","pau"),doc);
         documents.put(new SimpleEntry<>("titol","jordi"),doc2);
         documents.put(new SimpleEntry<>("titol","judit"),doc3);
         documents.put(new SimpleEntry<>("titol","pol"),doc4);
+        documents.put(new SimpleEntry<>("titol","pau"),doc);
+
     }
 
     @Test
@@ -44,7 +45,7 @@ public class CercaBooleanaTest {
         expected_documents.add(new SimpleEntry<>("titol","pol"));
         expected_documents.add(new SimpleEntry<>("titol","pau"));
 
-        assertEquals(expected_documents, CercaBooleana.cercaDoc(new ExpressioBooleana("Document"), documents));
+        assertEquals(expected_documents, CercaBooleana.cercaDoc(new StubExpressioBooleana1("Document"), documents));
     }
 
     @Test
@@ -53,7 +54,7 @@ public class CercaBooleanaTest {
         expected_documents.add(new SimpleEntry<>("titol","pol"));
         expected_documents.add(new SimpleEntry<>("titol","pau"));
 
-        assertEquals(expected_documents, CercaBooleana.cercaDoc(new ExpressioBooleana("Document & (pol | pau)"), documents));
+        assertEquals(expected_documents, CercaBooleana.cercaDoc(new StubExpressioBooleana2("Document & (pol | pau)"), documents));
     }
 
     @Test
@@ -62,7 +63,7 @@ public class CercaBooleanaTest {
         expected_documents.add(new SimpleEntry<>("titol","judit"));
         expected_documents.add(new SimpleEntry<>("titol","jordi"));
 
-        assertEquals(expected_documents, CercaBooleana.cercaDoc(new ExpressioBooleana("Document & !(pol | pau)"), documents));
+        assertEquals(expected_documents, CercaBooleana.cercaDoc(new StubExpressioBooleana3("Document & !(pol | pau)"), documents));
     }
 
     @Test
@@ -72,12 +73,12 @@ public class CercaBooleanaTest {
         expected_documents.add(new SimpleEntry<>("titol","jordi"));
         expected_documents.add(new SimpleEntry<>("titol","pau"));
 
-        assertEquals(expected_documents, CercaBooleana.cercaDoc(new ExpressioBooleana("{Document :} & ((escalada | tetris | tothom | obra)) & !pol"), documents));
+        assertEquals(expected_documents, CercaBooleana.cercaDoc(new StubExpressioBooleana4("{Document :} & ((escalada | tetris | tothom | obra)) & !pol"), documents));
     }
 
     @Test
     public void cercaDocTest5() {
         ArrayList<SimpleEntry<String,String>> expected_documents = new ArrayList<>();
-        assertEquals(expected_documents, CercaBooleana.cercaDoc(new ExpressioBooleana("{Document a} & ((escalada | tetris | tothom | obra) & \"Bona tarda\")"), documents));
+        assertEquals(expected_documents, CercaBooleana.cercaDoc(new StubExpressioBooleana5("{Document a} & ((escalada | tetris | tothom | obra) & \"Bona tarda\")"), documents));
     }
 }
