@@ -135,7 +135,7 @@ public class CtrlDominiDocument {
 
     //Modifica el contingut d’un document.
     public void setContingut (String titol, String autor, String contingut, HashMap<SimpleEntry<String, String>, Document> documents,
-                              HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentInexistentException {
+                              HashMap<String, ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentInexistentException {
         SimpleEntry<String, String> id = new SimpleEntry<>(titol, autor);
         if (!documents.containsKey(id)) throw new DocumentInexistentException(titol, autor);
 
@@ -158,9 +158,11 @@ public class CtrlDominiDocument {
         p = documents.get(id).getParaules();
 
         for (String paraula : p) {
-            if (paraules.containsKey(paraula))
-                if (!paraules.get(paraula).contains(id))
+            if (paraules.containsKey(paraula)) {
+                if (!paraules.get(paraula).contains(id)) {
                     paraules.get(paraula).add(id);
+                }
+            }
             else {
                 ArrayList<SimpleEntry<String, String>> aux = new ArrayList<>();
                 aux.add(id);
@@ -239,7 +241,7 @@ public class CtrlDominiDocument {
         ArrayList<String> p = documents.get(id).getParaules();
 
         for (String paraula : p) {
-            if (paraules.containsKey(p)) {
+            if (paraules.containsKey(paraula)) {
                 paraules.get(paraula).remove(id);
                 if (paraules.get(paraula).size() == 0) {
                     paraules.remove(paraula);
