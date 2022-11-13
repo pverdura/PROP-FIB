@@ -197,7 +197,6 @@ public class DriverConsola {
                     cd.setContingut(nom, autor, contingutNou);
                 } catch (Exception e) {
                     System.out.println(e.toString());
-                    e.printStackTrace();
                 }
                 break;
             case 4:
@@ -337,7 +336,7 @@ public class DriverConsola {
 
                 try {
                     res = cd.cercaParaules(s, k);
-                } catch (Exception e) {System.out.println(e.toString()); e.printStackTrace();}
+                } catch (Exception e) {System.out.println(e.toString()); }
 
                 break;
             case 4:

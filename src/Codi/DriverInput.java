@@ -86,7 +86,6 @@ public class DriverInput {
                     System.out.println("Opció no vàlida.");
                     break;
             }
-            System.out.println();
         }
     }
     void llegirStopWords () {
@@ -177,7 +176,6 @@ public class DriverInput {
                     cd.setTitol(nom, nomNou, autor);
                 } catch (Exception e) {
                     System.out.println(e.toString());
-                    e.printStackTrace();
                 }
                 break;
             case 2:
@@ -353,7 +351,7 @@ public class DriverInput {
 
                 try {
                     res = cd.cercaParaules(s, k);
-                } catch (Exception e) {System.out.println(e.toString()); e.printStackTrace();}
+                } catch (Exception e) {System.out.println(e.toString()); }
 
                 break;
             case 4:
