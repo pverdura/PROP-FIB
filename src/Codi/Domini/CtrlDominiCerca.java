@@ -9,6 +9,10 @@ import java.util.AbstractMap.SimpleEntry;
 
 public class CtrlDominiCerca {
 
+    private int ord;
+    private int pes;
+    private int ordS;
+
     public CtrlDominiCerca() {
     }
 
@@ -73,22 +77,14 @@ public class CtrlDominiCerca {
     }
 
     private void ordreAlfAscendent(ArrayList<SimpleEntry<String, String>> cerca){
-        cerca.sort(new Comparator<SimpleEntry<String,String>>() {
-            @Override
-            public int compare(SimpleEntry<String, String > p1, SimpleEntry<String, String> p2) {
-                return ordena(p1,p2,1);
-            }
-        });
+        ord = 1;
+        cerca.sort(ordreAlf);
 
     }
 
     private void ordreAlfDescendent(ArrayList<SimpleEntry<String, String>> cerca){
-        cerca.sort(new Comparator<SimpleEntry<String,String>>() {
-            @Override
-            public int compare(SimpleEntry<String, String > p1, SimpleEntry<String, String> p2) {
-                return ordena(p1,p2,-1);
-            }
-        });
+        ord = -1;
+        cerca.sort(ordreAlf);
     }
 
     private ArrayList<SimpleEntry<String, String>> ordrePesAscendent(ArrayList<SimpleEntry<String, String>> cerca, HashMap<SimpleEntry<String,String>, Document> documents){
@@ -98,17 +94,8 @@ public class CtrlDominiCerca {
             SimpleEntry<SimpleEntry<String,String>, Integer> aux = new SimpleEntry<>(c,d.getPes());
             docs.add(aux);
         }
-
-        Collections.sort(docs, new Comparator<SimpleEntry<SimpleEntry<String, String>, Integer>>() {
-            @Override
-            public int compare(SimpleEntry<SimpleEntry<String, String>, Integer> p1, SimpleEntry<SimpleEntry<String, String>, Integer> p2) {
-                if (p1.getValue() < p2.getValue()) return -1;
-                else if (p1.getValue()> p2.getValue()) return 1;
-                else {
-                    return ordena(p1.getKey(), p2.getKey(), 1);
-                }
-            }
-        });
+        pes = 1;
+        docs.sort(ordrePes);
 
         ArrayList<SimpleEntry<String,String>> cercaOrd = new ArrayList<>();
         for(SimpleEntry<SimpleEntry<String,String>, Integer> d : docs){
@@ -124,17 +111,8 @@ public class CtrlDominiCerca {
             SimpleEntry<SimpleEntry<String,String>, Integer> aux = new SimpleEntry<>(c,d.getPes());
             docs.add(aux);
         }
-
-        Collections.sort(docs, new Comparator<SimpleEntry<SimpleEntry<String, String>, Integer>>() {
-            @Override
-            public int compare(SimpleEntry<SimpleEntry<String, String>, Integer> p1, SimpleEntry<SimpleEntry<String, String>, Integer> p2) {
-                if (p1.getValue() < p2.getValue()) return 1;
-                else if (p1.getValue()> p2.getValue()) return -1;
-                else {
-                    return ordena(p1.getKey(), p2.getKey(), -1);
-                }
-            }
-        });
+        pes = -1;
+        docs.sort(ordrePes);
 
         ArrayList<SimpleEntry<String,String>> cercaOrd = new ArrayList<>();
         for(SimpleEntry<SimpleEntry<String,String>, Integer> d : docs){
@@ -144,43 +122,31 @@ public class CtrlDominiCerca {
     }
 
     private void ordreAscendent(ArrayList<String> cerca){
-        cerca.sort(new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                String s1 = o1.toLowerCase();
-                String s2 = o2.toLowerCase();
-                if (s1.compareTo(s2) == 0) {
-                    if (o1.compareTo(o2) < 0) return -1;
-                    else if (o1.compareTo(o2) > 0) return 1;
-                    else return 0;
-                }
-                else {
-                    if (s1.compareTo(s2) < 0) return -1;
-                    else if (s1.compareTo(s2) > 0) return 1;
-                    else return 0;
-                }
-            }
-        });
+        ordS = 1;
+        cerca.sort(ordreSimple);
     }
 
     private void ordreDescendent(ArrayList<String> cerca){
-        cerca.sort(new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                String s1 = o1.toLowerCase();
-                String s2 = o2.toLowerCase();
-                if (s1.compareTo(s2) == 0) {
-                    if (o1.compareTo(o2) < 0) return 1;
-                    else if (o1.compareTo(o2) > 0) return -1;
-                    else return 0;
-                } else {
-                    if (s1.compareTo(s2) < 0) return 1;
-                    else if (s1.compareTo(s2) > 0) return -1;
-                    else return 0;
-                }
-            }
-        });
+        ordS = -1;
+        cerca.sort(ordreSimple);
     }
+
+    private final Comparator<String> ordreSimple = new Comparator<>() {
+        public int compare(String o1, String o2) {
+            String s1 = o1.toLowerCase();
+            String s2 = o2.toLowerCase();
+            if (s1.compareTo(s2) == 0) {
+                if (o1.compareTo(o2) < 0) return -ordS;
+                else if (o1.compareTo(o2) > 0) return ordS;
+                else return 0;
+            }
+            else {
+                if (s1.compareTo(s2) < 0) return -ordS;
+                else if (s1.compareTo(s2) > 0) return ordS;
+                else return 0;
+            }
+        }
+    };
 
     /*ordena alfabèticament ascendent si ret és 1
       ordena alfabèticament descendent si ret és -1
@@ -222,5 +188,25 @@ public class CtrlDominiCerca {
             }
         }
     }
+
+
+
+    private final Comparator<SimpleEntry<String,String>> ordreAlf = new Comparator<>() {
+        @Override
+        public int compare(SimpleEntry<String, String> p1, SimpleEntry<String, String> p2) {
+            return ordena(p1,p2, ord);
+        }
+    };
+
+    private final Comparator<SimpleEntry<SimpleEntry<String, String>, Integer>> ordrePes = new Comparator<>() {
+        @Override
+        public int compare(SimpleEntry<SimpleEntry<String, String>, Integer> p1, SimpleEntry<SimpleEntry<String, String>, Integer> p2) {
+            if (p1.getValue() < p2.getValue()) return -pes;
+            else if (p1.getValue()> p2.getValue()) return pes;
+            else {
+                return ordena(p1.getKey(), p2.getKey(), pes);
+            }
+        }
+    };
 
 }
