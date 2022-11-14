@@ -25,7 +25,7 @@ public class EspaiVecTest {
         paraulesIDF.add(p3);
         paraulesIDF.add(p4);
 
-        Document D1 = new StubDocument();
+        Document D1 = new StubDocumentEV();
 
         double result = EspaiVec.calculaTF_IDF(paraulesIDF,D1);
         assertEquals(0.2, result,0); // Resultat teòric, resultat real, marge error
@@ -35,7 +35,7 @@ public class EspaiVecTest {
     public void calculaTF_IDFerror() throws ArrayDeParaulesBuitException {
         ArrayList<SimpleEntry<String,Double>> paraulesIDF = new ArrayList<>();
 
-        Document D1 = new StubDocument();
+        Document D1 = new StubDocumentEV();
         EspaiVec.calculaTF_IDF(paraulesIDF,D1);
     }
 }

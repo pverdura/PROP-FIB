@@ -4,7 +4,7 @@ import Codi.Domini.*;
 
 import java.util.*;
 
-public class StubDocument extends Document {
+public class StubDocumentEV extends Document {
 
     @Override
     public HashMap<String, Integer> getAparicions() {

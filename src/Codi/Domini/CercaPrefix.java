@@ -8,9 +8,6 @@ import java.util.ArrayList;
 
 public class CercaPrefix implements Cerca{
 
-    //@Override
-    //public void cercaDoc() {}
-
     public static ArrayList<String> cercaDoc(String prefix, Trie<String> autors) throws PrefixNoExisteixException {
         ArrayList<String> resultat = autors.getParaules(prefix);
         if (resultat.isEmpty()) throw new PrefixNoExisteixException(prefix);
