@@ -70,7 +70,7 @@ public class CtrlDomini {
      * Pre: El Document identificat per (titol,autor) existeix
      * Post: S'ha eliminat el document identificat per (titol,autor) del sistema
      */
-    public void eliminaDocument(String titol, String autor) {
+    public void eliminaDocument(String titol, String autor) throws DocumentInexistentException {
         CDdoc.eliminaDocument(titol,autor,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
     }
 
