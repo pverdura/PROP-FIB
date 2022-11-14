@@ -1,167 +1,174 @@
 1
-doc1
 jordi Palomera
+Pere Ventura
 1
-doc1
 Judit Serna
+Pere Ventura
 1
-doc1
 Arnau Flor
+Pere Ventura
 1
-doc1
 carles molí
+Pere Ventura
 1
-doc1
 Sergi vila
+Pere Ventura
 1
-doc1
 jordi abella
+Pere Ventura
 7
+6
 1
+Pere Ventura
 1
-doc1
+Montse Gol
+Pere Ventura
 7
+6
 1
+Nova Mil
+7
+6
 1
 Alfa
 7
-1
+6
 2
-doc1
+Pere Ventura
 7
+6
 1
-1
-Alfb
+Beta
 7
-1
+6
 3
-doc1
+Pere Ventura
 7
+6
 1
-2
-Pesa
+Pes a
 7
-1
+6
 4
-doc1
+Pere Ventura
 7
+6
 1
+Pes b
 1
-Pesb
-1
-doc1
 Jordi garcia
+Pere Ventura
 1
-doc1
 judit serna
+Pere Ventura
 1
-doc1
 Judit serna
+Pere Ventura
 1
-doc1
 judit Serna
+Pere Ventura
 1
-doc1
 juDit Serna
+Pere Ventura
 1
-doc1
 jUdit Serna
+Pere Ventura
 1
 doc2
 autor3
 1
-doc2
-autor4
+doc3
+autor3
 1
-doc2
-autor5
+doc4
+autor3
 1
 doc3
 autor1
 1
 doc3
-autor2
+autor3
 1
 doc3
 autor3
 1
 doc3
-autor4
+autor3
 1
 doc3
-autor5
+autor3
 1
 doc4
 autor1
 3
-doc1
 jordi Palomera
+Pere Ventura
 3
 Avui haig de fer feina de prop.
 
 \0
 3
-doc1
 Judit Serna
+Pere Ventura
 3
 AVUI HAIG DE FER FEINA DE PROP.
 
 \0
 3
-doc1
 Arnau Flor
+Pere Ventura
 3
 Avui no faré res.
 
 \0
 3
-doc1
 carles molí
+Pere Ventura
 3
 avui haig de fer feina de PROP.
 
 \0
+7
+6
+1
+Pere Ventura
+7
+6
 3
-doc1
+Alfa
+7
+6
+4
+Pere Ventura
+7
+6
+1
+Pes b
+7
+6
+3
+Pere Ventura
+7
+6
+1
+Pes a
+3
 Sergi vila
+Pere Ventura
 3
 demà potser aniré a comprar al supermercat perque ja no em queda menjar.
 
 \0
 3
-doc1
 jordi abella
+Pere Ventura
 3
 Ahir vaig anar al cine.
 
 \0
-7
-1
-1
-doc1
-7
-1
-2
-docNo A
-7
-1
 3
-doc1
-7
-1
-1
-docNo D
-7
-1
-4
-doc1
-7
-1
-1
-Canvi contingut
-3
-doc1
 judit serna
+Pere Ventura
 3
 Informe setmanal de les coses a fer de totes les assignatures
 
@@ -173,8 +180,8 @@ Continuar amb la entrega de prop
 
 \0
 3
-doc1
 judit Serna
+Pere Ventura
 3
 Recepta per fer un bon pastís de formatge:
 
@@ -191,74 +198,90 @@ També buscar receptes:
 
 \0
 3
-doc1
 juDit Serna
+Pere Ventura
 3
 Buscar nous llibres per llegir. Com a mínim haig de trobar-ne 10 d'interessants
 
 \0
 3
-doc1
 jUdit Serna
+Pere Ventura
 3
 avui haig de fer prop.
 
 \0
 
 7
+6
 1
-1
-doc1
+Pere Ventura
 7
+6
 1
-1
-AlfA
+Alfa
 7
-1
+6
 2
-doc1
+Pere Ventura
 7
-1
+6
 1
 Beta
 7
-1
+6
 3
-doc1
+Pere Ventura
 7
+6
 1
-1
-Pes A
+Pes a
 7
-1
+6
 4
-doc1
+Pere Ventura
 7
+6
 1
-1
-Pes D
+Pes b
 7
+6
 1
-1
-doc1 amb doc2
+Entrega prop
 7
+6
 1
-1
-doc2
+autor3
 7
+6
 1
+Pilar
+7
+6
 2
-doc1
+Pere Ventura
 7
+6
 1
+Enric Ple
+7
+6
 4
-doc1
+Pere Ventura
 7
+6
 1
-1
-doc1
+Enric Ple
 7
+6
 1
+Pere Ventura
+7
+6
+1
+Enric Ple
+7
+6
 3
-doc1
+Pere Ventura
 13
