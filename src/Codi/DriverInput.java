@@ -361,12 +361,12 @@ public class DriverInput {
                 //Títol document:
                 String nom = "";
                 if (sc.hasNextLine())
-                    sc.nextLine();
+                    nom = sc.nextLine();
 
                 //Autor document:
                 String autor = "";
                 if (sc.hasNextLine())
-                    sc.nextLine();
+                    autor = sc.nextLine();
 
                 //Nombre de documents:
                 k = 0;
