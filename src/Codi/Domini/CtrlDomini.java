@@ -179,7 +179,7 @@ public class CtrlDomini {
      * Pre: True
      * Post: Un llistat dels documents que ha creat l'autor "autor"
      */
-    public ArrayList<SimpleEntry<String,String>> cercaAutor(String autor, TipusOrdenacio ord) {
+    public ArrayList<SimpleEntry<String,String>> cercaAutor(String autor, TipusOrdenacio ord) throws AutorNoExisteixException {
         return CDcer.cercaAutor(autor,DocumentsAutor,ord,Documents);
     }
 
@@ -187,7 +187,7 @@ public class CtrlDomini {
      * Pre: True
      * Post: Un llistat dels documents que tenen com a titol "titol"
      */
-    public ArrayList<SimpleEntry<String,String>> cercaTitol(String titol, TipusOrdenacio ord) {
+    public ArrayList<SimpleEntry<String,String>> cercaTitol(String titol, TipusOrdenacio ord) throws TitolNoExisteixException{
         return CDcer.cercaTitol(titol,TitolAutors,ord,Documents);
     }
 
@@ -203,7 +203,7 @@ public class CtrlDomini {
      * Pre: True
      * Post: Un llistat dels autors que tenen el prefix "prefix"
      */
-    public ArrayList<String> cercaPrefix(String prefix, TipusOrdenacio ord) {
+    public ArrayList<String> cercaPrefix(String prefix, TipusOrdenacio ord) throws DocumentInexistentException {
         return CDcer.cercaPrefix(prefix,Autors,ord);
     }
 
@@ -276,4 +276,7 @@ public class CtrlDomini {
         CDeb.modificaExpressioBool(exprAnt,exprNova,ExpressionsBooleanes);
     }
 
+    public int getNombreExprssioBool() {
+        return CDeb.getNombreExpressionsBooleanes(ExpressionsBooleanes);
+    }
 }
