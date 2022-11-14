@@ -24,7 +24,6 @@ public class DriverInput {
         Scanner input = new Scanner(System.in);
 
         String path = new File("src/Codi/"+input.nextLine()).getAbsolutePath();
-        //String path = new File("src/Codi/joc_documents.txt").getAbsolutePath();
         File file = new File(path);
 
         try {
@@ -113,7 +112,6 @@ public class DriverInput {
         }
     }
     void testCrearDocument () {
-        //sc = new Scanner(System.in);
         //Títol del document:
         String nom = "";
         if (sc.hasNextLine())
@@ -131,7 +129,6 @@ public class DriverInput {
         }
     }
     void testEliminarDocument () {
-        //sc = new Scanner(System.in);
         //Títol del document:
         String nom = "";
         if (sc.hasNextLine())
@@ -149,7 +146,6 @@ public class DriverInput {
         }
     }
     void testModificarDocument () {
-        //títol, autor, contingut, path, extensió,
         //sc = new Scanner(System.in);
         //Títol del document:
         String nom = "";
@@ -249,7 +245,6 @@ public class DriverInput {
         }
     }
     void testVeureDocument () {
-        //sc = new Scanner(System.in);
         //"Títol del document:
         String nom = "";
         if (sc.hasNextLine())
@@ -290,7 +285,6 @@ public class DriverInput {
     }
     void testCercaDocuments () {
         //cerca documents
-        //sc = new Scanner(System.in);
         /*Quina cerca vols fer?
         1. Per títol
         2. Per prefix d'autor
@@ -418,7 +412,6 @@ public class DriverInput {
         }
     }
     void testCrearExpressioBooleana () {
-        //sc = new Scanner(System.in);
         //Expressió booleana:
         String expr = "";
         if (sc.hasNextLine())
@@ -431,7 +424,6 @@ public class DriverInput {
         }
     }
     void testModificarExpressioBooleana () {
-        //sc = new Scanner(System.in);
         //Expressió booleana a modificar:
         String expr = "";
         if (sc.hasNextLine())
@@ -449,7 +441,6 @@ public class DriverInput {
         }
     }
     void testEliminarExpressioBooleana () {
-        //sc = new Scanner(System.in);
         //Expressió booleana a eliminar:
         String expr = "";
         if (sc.hasNextLine())
