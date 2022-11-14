@@ -65,7 +65,7 @@ public class CercaParaulesTest {
 
         ArrayList<SimpleEntry<String,String>> teoric = new ArrayList<SimpleEntry<String,String>>();
         teoric.add(id3);
-        teoric.add(id2);
+        teoric.add(id4);
 
         assertEquals(teoric,resposta);
     }
