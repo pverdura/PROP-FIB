@@ -34,7 +34,7 @@ public class CercaPrefixTest {
 
 
     @Test
-    public void testCercaCorrecte(){
+    public void testCerca(){
         autors = new StubTrie1();
         prefix = "Br";
         resultat = CercaPrefix.cercaDoc(prefix, autors);

@@ -39,7 +39,7 @@ public class CercaAutorTest {
     }
 
     @Test
-    public void testCercaCorrecte(){
+    public void testCerca1(){
         res_esperat.add(new SimpleEntry<>(titols.get(0), autor));
         res_esperat.add(new SimpleEntry<>(titols.get(1), autor));
         res_esperat.add(new SimpleEntry<>(titols.get(2), autor));
@@ -48,7 +48,7 @@ public class CercaAutorTest {
     }
 
     @Test
-    public void testCercaCorrecte2(){
+    public void testCerca2(){
         res_esperat.add(new SimpleEntry<>(titols.get(0), autor2));
         res_esperat.add(new SimpleEntry<>(titols.get(1), autor2));
         res_esperat.add(new SimpleEntry<>(titols.get(2), autor2));

@@ -26,7 +26,7 @@ public class TrieTest {
     }
 
     @Test
-    public void testAfegirConteCorrecte() {
+    public void testAfegirConte1() {
 
         assertFalse(trie.conteParaula(autor1));
         trie.afegir(autor1);
@@ -34,16 +34,16 @@ public class TrieTest {
     }
 
     @Test
-    public void testAfegirConteCorrecte2() {
+    public void testAfegirConte2() {
 
         autor2 = "Brandon Sanderso";
-        assertFalse(trie.conteParaula(autor2));
+        assertFalse(trie.conteParaula(autor2) && trie.conteParaula(autor1));
         trie.afegir(autor1);
-        assertFalse(trie.conteParaula(autor2));
+        assertFalse(trie.conteParaula(autor2) && trie.conteParaula(autor1));
     }
 
     @Test
-    public void testEsborrarCorrecte() {
+    public void testEsborrar1() {
 
         trie.afegir(autor1);
         assertTrue(trie.conteParaula(autor1));
@@ -52,7 +52,7 @@ public class TrieTest {
     }
 
     @Test
-    public void testEsborrarCorrecte2() {
+    public void testEsborrar2() {
 
         autor2 = "Brandon Sanderso";
         trie.afegir(autor1);
@@ -63,7 +63,7 @@ public class TrieTest {
     }
 
     @Test
-    public void testAfegirEsborrarCorrecte2() {
+    public void testAfegirEsborrar1() {
 
         trie.afegir(autor1);
         trie.afegir(autor1);
@@ -73,7 +73,7 @@ public class TrieTest {
     }
 
     @Test
-    public void testPrefixCorrecte() {
+    public void testPrefix1() {
 
         autor2 = "Brook Crane";
         autor3 = "Borja Sander";
@@ -88,7 +88,7 @@ public class TrieTest {
     }
 
     @Test
-    public void testPrefixCorrecte2() {
+    public void testPrefix2() {
 
         autor2 = "Brook Crane";
         autor3 = "Borja Sander";
@@ -104,7 +104,7 @@ public class TrieTest {
     }
 
     @Test
-    public void testPrefixCorrecte3() {
+    public void testPrefix3() {
 
         autor2 = "Brook Crane";
         autor3 = "Borja Sander";
