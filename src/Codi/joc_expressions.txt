@@ -8,7 +8,7 @@ hola & {que tal} & !adeu & (p1 | p2)
 ("Bon dia" | "Bona tarda") & !Bona nit
 
 9
-!pol & ("la universitat" | "el grau" | "el master") & !{FIB UPC GEI}
+!pol & ("la universitat" | "el grau" | "el màster") & !{FIB UPC GEI}
 
 9
 (!Suspens | !"no aprovat") & "superior a 5" & {prop ia a compu}
@@ -38,6 +38,7 @@ jose & !({p1 p2} & {hola que tal})
 !a
 
 8
+1
 
 11
 jose & !({p1 p2} & {hola que tal})
@@ -61,6 +62,7 @@ jose & !({p1 p2} & {hola que tal})
 {futbol basquet tennis hockey} & esport & !"esport de risc"
 
 8
+1
 
 10
 ("Bon dia" | "Bona tarda") & !Bona nit
@@ -83,10 +85,11 @@ siau & !{que tal} & adeu & !(p2 | p1)
 (({a d} | {b c}) & ({a c} | {b d}))
 
 10
-!pol & ("la universitat" | "el grau" | "el master") & !{FIB UPC GEI}
+!pol & ("la universitat" | "el grau" | "el màster") & !{FIB UPC GEI}
 !pol & ("la universitat" | "Batxillerat" | "ESO") & !{FIB UPC GEI}
 
 8
+1
 
 1
 titol1
