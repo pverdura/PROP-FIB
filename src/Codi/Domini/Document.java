@@ -71,7 +71,6 @@ public class Document {
     public static void setStopWords (ArrayList<String> s) {
         Document.stopWords = s;
     }
-
     public static ArrayList<String> getStopWords () {
         return Document.stopWords;
     }

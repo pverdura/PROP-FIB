@@ -11,11 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CtrlDominiDocument {
-
-    public CtrlDominiDocument () {
-
-    }
-
     //Crea un document a partir del títol i de l’autor.
     public void creaDocument (String titol, String autor, HashMap<SimpleEntry<String, String>, Document> documents,
                               Trie<String> autors, HashMap<String,ArrayList<String>> documentsAutor,
