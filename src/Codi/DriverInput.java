@@ -23,7 +23,7 @@ public class DriverInput {
 
         Scanner input = new Scanner(System.in);
 
-        String path = new File("src/Codi/"+input.nextLine()).getAbsolutePath();
+        String path = new File("jocs_de_prova/"+input.nextLine()).getAbsolutePath();
         File file = new File(path);
 
         try {
@@ -89,7 +89,7 @@ public class DriverInput {
     }
     void llegirStopWords () {
         ArrayList<String> s = new ArrayList<>();
-        String path = new File("src/Codi/stop_words.txt").getAbsolutePath();
+        String path = new File("stopWords/stop_words.txt").getAbsolutePath();
 
         try {
             File file = new File(path);
