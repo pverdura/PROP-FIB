@@ -19,7 +19,7 @@ public class DriverInput {
     public static void main (String[] args) {
         DriverInput dv = new DriverInput();
 
-        System.out.print("Enter the file name with extension: ");
+        System.out.print("Escriu el nom del fitxer de joc de proves amb l'extensió: ");
 
         Scanner input = new Scanner(System.in);
 
