@@ -171,8 +171,8 @@ public class CtrlDominiCerca {
                 }
             }
         } else if (s12.compareTo(s21) == 0) {
-            if (p1.getKey().compareTo(p2.getKey()) < 0) return -ret;
-            else if (p1.getKey().compareTo(p2.getKey()) > 0) return ret;
+            if (s1.compareTo(s2) < 0) return -ret;
+            else if (s1.compareTo(s2) > 0) return ret;
             else {
                 if (p1.getValue().compareTo(p2.getValue()) < 0) return -ret;
                 else if (p1.getValue().compareTo(p2.getValue()) > 0) return ret;
