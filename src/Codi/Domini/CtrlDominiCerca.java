@@ -182,7 +182,9 @@ public class CtrlDominiCerca {
         });
     }
 
-
+    /*ordena alfabèticament ascendent si ret és 1
+      ordena alfabèticament descendent si ret és -1
+     */
     private int ordenaSimpleEntryStringString (SimpleEntry<String,String> p1,SimpleEntry<String,String> p2, int ret){
         String s1 = p1.getKey().toLowerCase();
         String s2 = p2.getKey().toLowerCase();
