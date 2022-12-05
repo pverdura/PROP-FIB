@@ -82,7 +82,7 @@ public class ViewGestioExprBool extends JFrame{
     public void posar_visible() {
         setContentPane(this.boolPanel);
         setTitle("Gestió d'Expressions Booleanes");
-        setSize(400, 300);
+        setSize(350, 350);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
