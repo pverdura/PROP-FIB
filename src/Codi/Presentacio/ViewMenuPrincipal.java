@@ -8,7 +8,6 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
     private JPanel mainPanel;
     private JButton cleanButton;
-    private JScrollPane scrollPane;
     private JTextArea textAreaCerques;
     private JMenuBar barraMenu;
     private JMenu menuDoc, menuBool, menuCerca, menuOrdre;
@@ -26,7 +25,6 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
     }
 
     private void crearMenus() {
-        setLayout(null);
         barraMenu = new JMenuBar();
         setJMenuBar(barraMenu);
 
