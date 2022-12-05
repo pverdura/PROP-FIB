@@ -84,7 +84,7 @@ public class ViewGestioExprBool extends JFrame{
         setTitle("Gestió d'Expressions Booleanes");
         setSize(350, 350);
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
 
