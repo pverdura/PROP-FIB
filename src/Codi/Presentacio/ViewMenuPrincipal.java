@@ -21,6 +21,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
     public ViewMenuPrincipal(CtrlPresentacio ctrlPresentacio1) {
         this.ctrlPresentacio = ctrlPresentacio1;
+        cleanButton.addActionListener(this);
         crearMenus();
     }
 
@@ -102,6 +103,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
         Object source = e.getSource();
 
+        //Afegir la vista del menuItem clicat
         if (source == miCreaDoc) {
 
         } else if (source == miImportaDoc) {
@@ -126,9 +128,20 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
         } else if (source == miCercaDoc) {
 
+        } else if (source == miOrdreAlfAsc) {
+
+        } else if (source == miOrdreAlfDesc) {
+
+        } else if (source == miOrdrePesAsc) {
+
+        } else if (source == miOrdrePesDesc) {
+
+        } else if (source == cleanButton) {
+            textAreaCerques.setText("");
         }
     }
 
+    //Metode per posar visible la vista
     public void posar_visible() {
         setContentPane(this.mainPanel);
         setTitle("Menú Principal");
