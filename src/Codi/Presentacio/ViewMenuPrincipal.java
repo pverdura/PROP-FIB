@@ -17,10 +17,15 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
     private JMenuItem miOrdreAlfAsc, miOrdreAlfDesc, miOrdrePesAsc, miOrdrePesDesc;
 
     private CtrlPresentacio ctrlPresentacio;
-    private  ViewGestioExprBool viewGestioExprBool;
 
     public ViewMenuPrincipal(CtrlPresentacio ctrlPresentacio1) {
         this.ctrlPresentacio = ctrlPresentacio1;
+
+        setContentPane(this.mainPanel);
+        setTitle("Menú Principal");
+        setSize(600, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         cleanButton.addActionListener(this);
         crearMenus();
     }
@@ -114,8 +119,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
             System.exit(0);
 
         } else if (miGestioBool.equals(source)) {
-            viewGestioExprBool = new ViewGestioExprBool(ctrlPresentacio);
-            viewGestioExprBool.posar_visible();
+            ctrlPresentacio.canviar_menuPrincipal_a_gestioExprBool();
 
         } else if (source == miCercaTitol) {
 
@@ -143,11 +147,15 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
     }
 
     //Metode per posar visible la vista
-    public void posar_visible() {
-        setContentPane(this.mainPanel);
-        setTitle("Menú Principal");
+    public void ferVisible() {
         setSize(600, 600);
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    
+    public void activar() {
+        setEnabled(true);
+    }
+    public  void desactivar() {
+        setEnabled(false);
     }
 }

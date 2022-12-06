@@ -1,7 +1,6 @@
 package Codi.Presentacio;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,6 +11,8 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
     private JButton deleteButton;
     private JButton updateButton;
     private JTextArea textArea1;
+    private JButton searchButton;
+    private JButton backButton;
 
 
     private CtrlPresentacio ctrlPresentacio;
@@ -19,20 +20,29 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
     public ViewGestioExprBool(CtrlPresentacio ctrlPresentacio) {
         this.ctrlPresentacio = ctrlPresentacio;
 
+        setContentPane(this.boolPanel);
+        setTitle("Gestió d'Expressions Booleanes");
+        setSize(350, 350);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         //Afegir listeners per detectar quan es clica cada boto
         createButton.addActionListener(this);
         deleteButton.addActionListener(this);
         updateButton.addActionListener(this);
+        searchButton.addActionListener(this);
+        backButton.addActionListener(this);
 
         //TODO: CARGAR AL TEXT AREA TOTES LES EXPRESSIONS
     }
 
     //Metode per visualitzar vista
-    public void posar_visible() {
-        setContentPane(this.boolPanel);
-        setTitle("Gestió d'Expressions Booleanes");
+    public void ferVisible() {
         setSize(350, 350);
         setVisible(true);
+    }
+
+    public void ferInvisible() {
+        setVisible(false);
     }
 
     @Override
@@ -66,6 +76,13 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
             if (input[0] != null)  {
                 //TODO: modifica expressio booleana amb valor inputs[0] pel valor inputs[1]
             }
+
+        } else if (source == searchButton) {
+            //TODO: fer dialog i realitzar cerca booleana
+
+        } else if (source == backButton) {
+            ctrlPresentacio.canviar_gestioExprBool_a_menuPrincipal();
+
         }
     }
 
