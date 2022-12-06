@@ -1,5 +1,3 @@
-// Cerca que implementa l'obtenció d'un llistat de k documents més semblants al document D
-
 package Codi.Domini;
 
 import Codi.Excepcions.ArrayDeParaulesBuitException;
@@ -8,6 +6,7 @@ import Codi.Excepcions.NombreMassaPetitDocumentsException;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 public class CercaSemblant implements Cerca {
 
@@ -15,7 +14,9 @@ public class CercaSemblant implements Cerca {
     ///                      CREADORES                      ///
     ///////////////////////////////////////////////////////////
 
-    // Creadora per defecte
+    /**
+     * Creadora per defecte
+     */
     public CercaSemblant() {}
 
 
@@ -23,9 +24,28 @@ public class CercaSemblant implements Cerca {
     ///                      FUNCIONS                       ///
     ///////////////////////////////////////////////////////////
 
-    /* S'obtenen els k documents més semblants al document D
-     * Pre: El contingut del document D no és buit, k >= 0
-     * Post: Un llistat de k Documents (títol,autor), més semblants al document D
+    /**
+     * Transforma el contingut del document D en un array sense paraules repetides
+     *
+     * @param D Aquest és el Document que s'utilitza per fer la cerca
+     * @return Retorna el calcul log_2(N/#DocsApareix) del conjunt de paraules del document D
+     */
+    private static ArrayList<String> obteContingut(Document D) {
+        Set<String> paraules = D.getAparicions().keySet();
+
+        return new ArrayList<String>(paraules);
+    }
+
+    /**
+     * S'obtenen els k documents més semblants al document D
+     *
+     * @param D Aquest és el Document que s'utilitza per fer la cerca
+     * @param k Indica el nombre de documents que volem obtenir
+     * @param DocumentsParaules Hi ha es paraules amb els identificadors dels documents on apareix
+     * @param Documents Hi ha els documents del sistema
+     * @return Retorna un llistat de k Documents (títol,autor) més semblants al document D
+     * @throws ArrayDeParaulesBuitException Error si el document D no té contingut
+     * @throws NombreMassaPetitDocumentsException Error si k <= 0
      */
     public static ArrayList<SimpleEntry<String,String>> cercaDoc(Document D, int k,  HashMap<String,ArrayList<SimpleEntry<String,String>>> DocumentsParaules,
                                                    HashMap<SimpleEntry<String,String>, Document> Documents) throws ArrayDeParaulesBuitException, NombreMassaPetitDocumentsException {
@@ -33,55 +53,12 @@ public class CercaSemblant implements Cerca {
             throw new NombreMassaPetitDocumentsException();
         }
 
-        // Array on es posaran els identificadors dels documents que cerquem
-        ArrayList<SimpleEntry<String,String>> docs = new ArrayList<SimpleEntry<String,String>>();
-
-        // Array on guardem les paraules del document D i el nombre seu idf
-        ArrayList<SimpleEntry<String,Double>> paraulesIDF = new ArrayList<SimpleEntry<String,Double>>();
-
-        int N = Documents.size();   // Nombre de documents
-
-        for (String p : D.getAparicions().keySet()) {   // Afegim en l'array les paraules i el seu idf
-            int aparicions = DocumentsParaules.get(p).size()+1; // Se li suma 1 per si no apareix en cap a part del document D (no es pot dividir per 0)
-            double idf = Math.log((double) N/aparicions)/Math.log(2);   // Calculem log2(#Docs/#DocsApareix)
-            SimpleEntry<String,Double> elem = new SimpleEntry<String,Double>(p,idf);
-            paraulesIDF.add(elem);
+        if (D.getParaules().size() == 0) {
+            throw new ArrayDeParaulesBuitException();
         }
 
-        // Guardem els documents i el seu TF-IDF (NÚM MAX DE POSICIONS: K)
-        ArrayList<SimpleEntry<SimpleEntry<String,String>,Double>> semblants = new ArrayList<SimpleEntry<SimpleEntry<String,String>,Double>>();
-        boolean primera = true;
+        ArrayList<String> paraules = obteContingut(D);
 
-        for (SimpleEntry<String,String> idDocument : Documents.keySet()) {     // Iterem tots els Documents del sistema
-            Document DCons = Documents.get(idDocument);                 // Obtenim el document X
-            double sembl = EspaiVec.calculaTF_IDF(paraulesIDF, DCons);  // Calculem el tf-idf del document X
-            SimpleEntry<SimpleEntry<String,String>,Double> elem = new SimpleEntry<SimpleEntry<String,String>,Double>(idDocument,sembl);
-
-            if (primera) {
-                semblants.add(elem);
-                primera = false;
-            }
-            else {
-                int n = semblants.size()-1;
-                int idx = 0;
-
-                // Mirem que la posició que mirem estigui en l'array i que l'element de la posició idx tingui
-                // una semblança major al document iterat
-                while (idx < n && semblants.get(idx).getValue() > sembl) {
-                    ++idx;
-                }
-                semblants.add(idx,elem);
-                if(semblants.size() > k) {  // Si el tamany de l'array és més gran que k, treiem elements
-                    semblants.remove(k);
-
-                }
-            }
-        }
-
-        for (SimpleEntry<SimpleEntry<String,String>,Double> p : semblants) {
-            docs.add(p.getKey());
-        }
-
-        return docs;
+        return EspaiVec.cercaDoc(k, Documents, paraules, DocumentsParaules);
     }
 }
