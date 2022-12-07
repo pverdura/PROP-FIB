@@ -10,17 +10,22 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
     private JButton cleanButton;
     private JTextArea textAreaCerques;
     private JMenuBar barraMenu;
-    private JMenu menuDoc, menuBool, menuCerca, menuOrdre;
-    private JMenuItem miCreaDoc, miImportaDoc, miExportaDoc;
+    private JMenu menuFitxer, menuBool, menuCerca, menuOrdre;
+    private JMenuItem miCreaDoc, miImportaDoc, miAjuda, miSortir;
     private JMenuItem miGestioBool;
-    private JMenuItem miCercaTitol, miCercaAutor, miCercaTitolAutor, miCercaPrefix, miCercaBool, miCercaParaules, miCercaDoc;
+    private JMenuItem miCercaTitol, miCercaAutor, miCercaTitolAutor, miCercaPrefix, miCercaParaules, miCercaDoc;
     private JMenuItem miOrdreAlfAsc, miOrdreAlfDesc, miOrdrePesAsc, miOrdrePesDesc;
 
     private CtrlPresentacio ctrlPresentacio;
-    private  ViewGestioExprBool viewGestioExprBool;
 
     public ViewMenuPrincipal(CtrlPresentacio ctrlPresentacio1) {
         this.ctrlPresentacio = ctrlPresentacio1;
+
+        setContentPane(this.mainPanel);
+        setTitle("Menú Principal");
+        setSize(600, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         cleanButton.addActionListener(this);
         crearMenus();
     }
@@ -30,19 +35,22 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         setJMenuBar(barraMenu);
 
         //Afegir menu document
-        menuDoc = new JMenu("Document");
-        barraMenu.add(menuDoc);
+        menuFitxer = new JMenu("Fitxer");
+        barraMenu.add(menuFitxer);
 
         miCreaDoc = new JMenuItem("Crea / Modifica");
         miCreaDoc.addActionListener(this);
         miImportaDoc = new JMenuItem("Importa");
         miImportaDoc.addActionListener(this);
-        miExportaDoc = new JMenuItem("Exporta");
-        miExportaDoc.addActionListener(this);
+        miAjuda = new JMenuItem("Ajuda");
+        miAjuda.addActionListener(this);
+        miSortir = new JMenuItem("Sortir");
+        miSortir.addActionListener(this);
 
-        menuDoc.add(miCreaDoc);
-        menuDoc.add(miImportaDoc);
-        menuDoc.add(miExportaDoc);
+        menuFitxer.add(miCreaDoc);
+        menuFitxer.add(miImportaDoc);
+        menuFitxer.add(miAjuda);
+        menuFitxer.add(miSortir);
 
         //Afegir menu expressio bool
         menuBool = new JMenu("Expressió Bool");
@@ -64,8 +72,6 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         miCercaTitolAutor.addActionListener(this);
         miCercaPrefix = new JMenuItem("Cerca Prefix");
         miCercaPrefix.addActionListener(this);
-        miCercaBool = new JMenuItem("Cerca Booleana");
-        miCercaBool.addActionListener(this);
         miCercaParaules = new JMenuItem("Cerca Paraules");
         miCercaParaules.addActionListener(this);
         miCercaDoc = new JMenuItem("Cerca per Document");
@@ -75,7 +81,6 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         menuCerca.add(miCercaAutor);
         menuCerca.add(miCercaTitolAutor);
         menuCerca.add(miCercaPrefix);
-        menuCerca.add(miCercaBool);
         menuCerca.add(miCercaParaules);
         menuCerca.add(miCercaDoc);
 
@@ -108,11 +113,13 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
         } else if (source == miImportaDoc) {
 
-        } else if (source == miExportaDoc) {
+        } else if (source == miAjuda) {
+
+        } else if (source == miSortir) {
+            System.exit(0);
 
         } else if (miGestioBool.equals(source)) {
-            viewGestioExprBool = new ViewGestioExprBool(ctrlPresentacio);
-            viewGestioExprBool.posar_visible();
+            ctrlPresentacio.canviar_menuPrincipal_a_gestioExprBool();
 
         } else if (source == miCercaTitol) {
 
@@ -121,8 +128,6 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         } else if (source == miCercaTitolAutor) {
 
         } else if (source == miCercaPrefix) {
-
-        } else if (source == miCercaBool) {
 
         } else if (source == miCercaParaules) {
 
@@ -142,11 +147,15 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
     }
 
     //Metode per posar visible la vista
-    public void posar_visible() {
-        setContentPane(this.mainPanel);
-        setTitle("Menú Principal");
+    public void ferVisible() {
         setSize(600, 600);
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    
+    public void activar() {
+        setEnabled(true);
+    }
+    public  void desactivar() {
+        setEnabled(false);
     }
 }
