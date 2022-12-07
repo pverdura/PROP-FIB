@@ -30,10 +30,7 @@ public class CtrlPresentacio {
         try {
             ctrlDomini.creaExpressioBool(expr);
             return true;
-        } catch (ExpressioBooleanaJaExistentException e) {
-            return false;
-        } catch (Exception e) {
-            viewGestioExprBool.error(e);
+        }  catch (Exception e) {
             return false;
         }
     }
@@ -42,10 +39,7 @@ public class CtrlPresentacio {
         try {
             ctrlDomini.eliminaExpressioBool(expr);
             return true;
-        } catch (ExpressioBooleanaInexistentException e) {
-            return false;
         } catch (Exception e) {
-            viewGestioExprBool.error(e);
             return false;
         }
     }
@@ -54,15 +48,24 @@ public class CtrlPresentacio {
         try {
             ctrlDomini.modificaExpressioBool(exprAntiga, exprNova);
             return true;
-        } catch (ExpressioBooleanaInexistentException e) {
-            return false;
         } catch (Exception e) {
-            viewGestioExprBool.error(e);
             return false;
         }
     }
 
     public boolean cercaBooleana () {
+        return true;
+    }
+
+    public boolean cercaTitol () {
+        return true;
+    }
+
+    public boolean cercaAutor () {
+        return true;
+    }
+
+    public boolean cercaTitolAutor () {
         return true;
     }
 }
