@@ -44,8 +44,8 @@ public class CercaSemblant implements Cerca {
      * @param DocumentsParaules Hi ha es paraules amb els identificadors dels documents on apareix
      * @param Documents Hi ha els documents del sistema
      * @return Retorna un llistat de k Documents (títol,autor) més semblants al document D
-     * @throws ArrayDeParaulesBuitException Error si el document D no té contingut
-     * @throws NombreMassaPetitDocumentsException Error si k <= 0
+     * @throws ArrayDeParaulesBuitException Si el document D no té contingut
+     * @throws NombreMassaPetitDocumentsException Si k <= 0
      */
     public static ArrayList<SimpleEntry<String,String>> cercaDoc(Document D, int k,  HashMap<String,ArrayList<SimpleEntry<String,String>>> DocumentsParaules,
                                                    HashMap<SimpleEntry<String,String>, Document> Documents) throws ArrayDeParaulesBuitException, NombreMassaPetitDocumentsException {

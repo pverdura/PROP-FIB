@@ -39,9 +39,6 @@ public class CtrlDomini {
 
     /**
      * Crea i inicialitza els altres controladors i estructures
-     *
-     * Pre: True
-     * Post: S'han inicialitzat les estructures de dades
      */
     public CtrlDomini() {
         Documents = new HashMap<SimpleEntry<String,String>,Document>();
@@ -62,120 +59,141 @@ public class CtrlDomini {
     ///////////////////////////////////////////////////////////
 
     /**
-     * Afegeix un nou document al sistema
+     * Afegeix un nou document al sistema identificat per titol i autor
      *
-     * Pre: El Document identificat per (titol,autor) no existeix
-     * Post: S'ha creat el document identificat per (titol,autor)
+     * @param titol Indica el títol del document
+     * @param autor Indica l'autor del document
+     * @throws DocumentJaExisteixException Si el document identificat per títol i autor ja existeix
      */
     public void creaDocument(String titol, String autor) throws DocumentJaExisteixException {
         CDdoc.creaDocument(titol,autor,Documents,Autors,DocumentsAutor,TitolAutors);
     }
 
     /**
-     * Elimina un document del sistema
+     * Elimina el document del sistema identificat per titol i autor
      *
-     * Pre: El Document identificat per (titol,autor) existeix
-     * Post: S'ha eliminat el document identificat per (titol,autor) del sistema
+     * @param titol Indica el títol del document
+     * @param autor Indica l'autor del document
+     * @throws DocumentInexistentException Si el document identificat per titol i autor no existeix
      */
     public void eliminaDocument(String titol, String autor) throws DocumentInexistentException {
         CDdoc.eliminaDocument(titol,autor,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
     }
 
     /**
-     * Modifica el titol d'un document
+     * Modifica el titol del document identificat per titolVell i autor
      *
-     * Pre: El Document identificat per (titolVell,autor) existeix
-     * Post: El Document (titolVell,autor) ara està identificat per (titolNou,autor)
+     * @param titolVell Indica el títol que identificava el document
+     * @param titolNou Indica el nout titol que identifica el document
+     * @param autor Indica l'autro del document
+     * @throws DocumentJaExisteixException Si el document identificat per titolNou i autor ja existeix
+     * @throws DocumentInexistentException Si el document identificat per titolVell i autor no existeix
      */
     public void setTitol(String titolVell, String titolNou, String autor) throws DocumentJaExisteixException, DocumentInexistentException {
         CDdoc.setTitol(titolVell,titolNou,autor,Documents,DocumentsAutor,TitolAutors,Paraules);
     }
 
     /**
-     * Modifica el autor d'un document
+     * Modifica l'autor del document identificat per titol i autorVell
      *
-     * Pre: El Document identificat per (titol,autorVell) existeix
-     * Post: El Document (titol,autorVell) ara està està identificat per (titol,autorNou)
+     * @param titol Indica el titol que identifica el document
+     * @param autorVell Indica l'autor que identificava el document
+     * @param autorNou Indica el nou autor que identifica el document
+     * @throws DocumentJaExisteixException Si el document identificat per titol i autorNou no existeix
+     * @throws DocumentInexistentException Si el document identificat per titol i autorVell ja existeix
      */
     public void setAutor(String titol, String autorVell, String autorNou) throws DocumentJaExisteixException, DocumentInexistentException  {
         CDdoc.setAutor(titol,autorVell,autorNou,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
     }
 
     /**
-     * Modifica el contingut d'un document
+     * Modifica el contingut del document identificat per titol i autor
      *
-     * Pre: El Document identificat per (titol,autor) existeix
-     * Post: El contingut del Document (titol,autor) és igual al paràmetre contingut
+     * @param titol Indica el titol que identifica el document
+     * @param autor Indica l'autor que identifica el document
+     * @param contingut Indica el nou contingut que tindrà el document
+     * @throws DocumentInexistentException Si el document identificat per titol i autor no existeix
      */
     public void setContingut(String titol, String autor, String contingut) throws DocumentInexistentException {
         CDdoc.setContingut(titol,autor,contingut,Documents,Paraules);
     }
 
     /**
-     * Obté el contingut d'un document
+     * Obté el contingut del document identificat per titol i autor
      *
-     * Pre: El Document identificat per (titol,autor) existeix
-     * Post: S'obté el contingut del document identificat per (títol, autor)
+     * @param titol Indica el titol que identifica el document
+     * @param autor Indica l'autor que identifica el document
+     * @return Retorna el contingut del document identificat per titol i autor
+     * @throws DocumentInexistentException Si el document identificat per titol i autor no existeix
      */
     public String getContingut(String titol, String autor) throws DocumentInexistentException {
         return CDdoc.getContingut(titol,autor,Documents);
     }
 
     /**
-     * Modifica el path d'un Document
+     * Modifica el path del document identificat per titol i autor
      *
-     * Pre: El Document identificat per (titol,autor) existeix
-     * Post: Es modifica el path del document identificat per (titol,autor)
+     * @param titol Indica el titol que identifica el document
+     * @param autor Indica l'autor que identifica el document
+     * @param path Indica el path on estarà el document
+     * @throws DocumentInexistentException Si el document identificat per titol i autor no existeix
      */
     public void setPath(String titol, String autor, String path) throws DocumentInexistentException {
         CDdoc.setPath(titol,autor,path,Documents);
     }
 
     /**
-     * Obté el path d'un Document
+     * Obté el path del document identificat per titol i autor
      *
-     * Pre: El Document identificat per (titol,autor) existeix
-     * Post: S'obté el path del Document identificat per (títol, autor)
+     * @param titol Indica el titol que identifica el document
+     * @param autor Indica l'autor que identifica el document
+     * @return Retorna el path on està el document
+     * @throws DocumentInexistentException Si el document identificat per titol i autor no existeix
      */
     public String getPath(String titol, String autor) throws DocumentInexistentException {
         return CDdoc.getPath(titol,autor,Documents);
     }
 
     /**
-     * Modifica l'extensió d'un Document
+     * Modifica l'extensió del document identificat per titol i autor
      *
-     * Pre: El Document identificat per (titol,autor) existeix
-     * Post: S'ha modificat l'extensió del document identificat per (titol,autor)
+     * @param titol Indica el titol que identifica el document
+     * @param autor Indica l'autor que identifica el document
+     * @param ext Indica l'extensió que tindrà el document
+     * @throws DocumentInexistentException Si el document identificat per titol i autor no existeix
      */
     public void setExtensio(String titol, String autor, TipusExtensio ext) throws DocumentInexistentException {
         CDdoc.setExtensio(titol,autor,ext,Documents);
     }
 
     /**
-     * Obté l'extensió d'un Document
+     * Obté l'extensió del document identificat per titol i autor
      *
-     * Pre: El Document identificat per (titol,autor) existeix
-     * Post:S'obté l'extensió del Document identificat per (titol,autor)
+     * @param titol Indica el titol que identifica el document
+     * @param autor Indica l'autor que identifica el document
+     * @return Retorna el tipus d'extensió que té el document identificat per titol i autor
+     * @throws DocumentInexistentException Si el document identificat per titol i autor no existeix
      */
     public TipusExtensio getExtensio(String titol, String autor) throws DocumentInexistentException {
         return CDdoc.getExtensio(titol,autor,Documents);
     }
 
     /**
-     * Obté el pes d'un Document
+     * Obté el pes del document identificat per tiol i autor
      *
-     * Pre: El Document identificat per (titol,autor) existeix
-     * Post: S'obté el pes del Document identificat per (tiol,autor)
+     * @param titol Indica el titol que identifica el document
+     * @param autor Indica l'autor que identifica el document @param titol
+     * @return Retorna el pes que té el document identificat per titol i autor
+     * @throws DocumentInexistentException Si el document identificat per titol i autor no existeix
      */
     public Integer getPes(String titol, String autor) throws DocumentInexistentException {
         return CDdoc.getPes(titol,autor,Documents);
     }
 
     /**
-     * Obtenen les StopWords
+     * Obté les StopWords del sistema
      *
-     * Pre: True
-     * Post: S'obtenen les StopWords
+     * @return Retorna les stop words
      */
     public ArrayList<String> getStopWords() {
         return CDdoc.getStopWords();
@@ -184,18 +202,16 @@ public class CtrlDomini {
     /**
      * Modifica les StopWords
      *
-     * Pre: True
-     * Post: Les Stop Words passen a ser les paraules del array StopWords
+     * @param StopWords Indica les noves StopWords
      */
     public void setStopWords(ArrayList<String> StopWords) {
         CDdoc.setStopWords(StopWords);
     }
 
     /**
-     * S'obtenen el nombre de documents del sistema
+     * Obté el nombre de document del sistema
      *
-     * Pre: True
-     * Post: S'obté el nombre de documents del sistema
+     * @return Retorn el nombre de documents que hi ha en el sistema
      */
     public Integer getNombreDocuments() {
         return CDdoc.getNombreDocuments(Documents);
@@ -207,60 +223,75 @@ public class CtrlDomini {
     ///////////////////////////////////////////////////////////
 
     /**
-     * Llista els identificadors del documents (títol,autor) creats per l'autor "autor"
+     * Llista els identificadors dels documents creats per l'autor autor
      *
-     * Pre: True
-     * Post: Un llistat dels documents que ha creat l'autor "autor"
+     * @param autor Indica l'autor del que buscarem els seus documents
+     * @param ord Indica el tipus d'ordre que volem que surtin el documents
+     * @return Retorna els documents que estan identificats amb l'autor autor
+     * @throws AutorNoExisteixException Si no hi ha cap document que tingui com a autor autor
      */
     public ArrayList<SimpleEntry<String,String>> cercaAutor(String autor, TipusOrdenacio ord) throws AutorNoExisteixException {
         return CDcer.cercaAutor(autor,DocumentsAutor,ord,Documents);
     }
 
     /**
-     * Llista els identificadors dels documents (titol,autor) que tenen com a títol "titol"
+     * Llista els identificadors dels documents que tenen com a titol titol
      *
-     * Pre: True
-     * Post: Un llistat dels documents que tenen com a titol "titol"
+     * @param titol Indica el titol que cercarem entre els documents
+     * @param ord Indica el tipus d'ordre que volem que surtin els documents
+     * @return Retorna els documents que estan identificats amb el titol titol
+     * @throws TitolNoExisteixException Si no hi ha cap document que tingui com a titol titol
      */
     public ArrayList<SimpleEntry<String,String>> cercaTitol(String titol, TipusOrdenacio ord) throws TitolNoExisteixException{
         return CDcer.cercaTitol(titol,TitolAutors,ord,Documents);
     }
 
     /**
-     * Obté un document
+     * Obté el document identificat per titol i autor
      *
-     * Pre: El document identificat per (titol,autor) existeix
-     * Post: Obté el document identificat per (titol,autor)
+     * @param titol Indica el titol que identifica el document
+     * @param autor Indica l'autor que identifica el document
+     * @return Retorna el document identificat per titol i autor
+     * @throws DocumentInexistentException Si el document identificat per titol i autor no existeix
      */
     public Document cercaTitolAutor(String titol, String autor) throws DocumentInexistentException {
         return CDcer.cercaTitolAutor(titol,autor,Documents);
     }
 
     /**
-     * Llista els autors que contenen el prefix "prefix"
+     * Llista els autors que contenen el prefix prefix
      *
-     * Pre: True
-     * Post: Un llistat dels autors que tenen el prefix "prefix"
+     * @param prefix Indica el prefix que cercarem entre els autors del sistema
+     * @param ord Indica l'ordre en que volem que es llistin els autors que cerquem
+     * @return Retorna els autors que comencen per el prefix prefix
+     * @throws DocumentInexistentException Si no hi ha cap document que tingui un autor que comenci per prefix
      */
     public ArrayList<String> cercaPrefix(String prefix, TipusOrdenacio ord) throws DocumentInexistentException {
         return CDcer.cercaPrefix(prefix,Autors,ord);
     }
 
     /**
-     * Llista els k documents més semblants al document D
+     * Llista els k documents més semblants al document identificat per titol i autor
      *
-     * Pre: El Document D no té el contingut buit i k > 0
-     * Post: Un arraylist de longitud k amb els identificadors dels documents més semblants a D
+     * @param titol Indica el titol que identifica el document que utilitzarem per fer la cerca
+     * @param autor Indica l'autor que identifica el document que utilitzarem per fer la cerca
+     * @param k Indica el nombre de documents que volem que ens retorni
+     * @return Retorna els k documents més semblants al document identificat per titol i autor
+     * @throws ArrayDeParaulesBuitException Si el contingut del document identificat per titol i autor és buit
+     * @throws NombreMassaPetitDocumentsException Si k <= 0
      */
     public ArrayList<SimpleEntry<String,String>> cercaSemblant(String titol, String autor, Integer k) throws ArrayDeParaulesBuitException, NombreMassaPetitDocumentsException {
         return CDcer.cercaSemblant(titol,autor,k,Paraules,Documents);
     }
 
     /**
-     * Llista els k documents més rellevants segons l'array de paraules
+     * Llista els k documents més rellevants a l'array paraules
      *
-     * Pre: L'array no és buit i k > 0
-     * Post: Un arraylist de longitud k amb els identificadors dels documents més rellevants a l'array paraules
+     * @param paraules Indica les paraules que utilitzarem per fer la cerca
+     * @param k Indica el nombre de documents que volem que ens retori
+     * @return Retorna els k documents més rellevants a l'array paraules
+     * @throws ArrayDeParaulesBuitException Si l'array paraules és buit
+     * @throws NombreMassaPetitDocumentsException Si k <0
      */
     public ArrayList<SimpleEntry<String,String>> cercaParaules(String paraules, Integer k) throws ArrayDeParaulesBuitException, NombreMassaPetitDocumentsException {
         return CDcer.cercaParaules(paraules,k,Paraules,Documents);
@@ -269,8 +300,10 @@ public class CtrlDomini {
     /**
      * Llista els documents que compleixen la condició booleana expr
      *
-     * Pre: La expressio booleana expr no existeix
-     * Post: Un arraylist dels documents que compleixen l'expressió expr
+     * @param expr Expressió booleana que s'utilitza per fer la cerca
+     * @param ord Indica l'ordre que volem que ens retorni la cerca
+     * @return Retorna els documents que compleixen l'expressió booleana expr
+     * @throws ExpressioBooleanaInexistentException Si l'expressio booleana expr no existeix en el sistema
      */
     public ArrayList<SimpleEntry<String,String>> cercaBooleana(String expr, TipusOrdenacio ord) throws ExpressioBooleanaInexistentException {
         return CDcer.cercaBooleana(expr,Documents,ExpressionsBooleanes,ord);
@@ -279,18 +312,18 @@ public class CtrlDomini {
     /**
      * Llista tots els documents del sistema
      *
-     * Pre: True
-     * Post: S'obté una llista dels identificadors de tots els documents del sistema
+     * @param ord Indica l'ordre en que volem que ens retorni la consulta
+     * @return Retorna tots els documents del sistema
      */
     public ArrayList<SimpleEntry<String,String>> cercaAllDocuments(TipusOrdenacio ord){
         return CDcer.cercaAllDocuments(Documents,ord);
     }
 
     /**
-     * Llista totes les expressions booleanes
+     * Llista totes les expressions booleanes del sistema
      *
-     * Pre: True
-     * Post: S'obté una llista de totes les expressions booleanes del sistema
+     * @param ord Indica l'ordre en que volem que ens retorni la consulta
+     * @return Retorna totes les expressions booleanes del sistema
      */
     public ArrayList<String> cercaAllExpressionsBool(TipusOrdenacio ord) {
         return CDcer.cercaAllExpressionsBool(ExpressionsBooleanes,ord);
@@ -302,30 +335,32 @@ public class CtrlDomini {
     ///////////////////////////////////////////////////////////
 
     /**
-     * Crea una expressió booleana
+     * Crea l'expressió booleana formada per el string expr
      *
-     * Pre: La expressió booleana ja existeix
-     * Post: S'ha creat una expressió booleana formada per l'expressió expr
+     * @param expr Indica l'expressió booleana que guardarem en el sistema
+     * @throws ExpressioBooleanaJaExistentException Si ja hi ha una expressio booleana formada per l'expressio expr
      */
     public void creaExpressioBool(String expr) throws ExpressioBooleanaJaExistentException {
         CDeb.creaExpressioBool(expr,ExpressionsBooleanes);
     }
 
     /**
-     * Elimina una expressió booleana
+     * Elimina l'expressió booleana formada per el string expr
      *
-     * Pre: La expressió booleana expr no existeix
-     * Post: S'ha eliminat l'expressió booleana formada per l'expressió expr
+     * @param expr Indica l'expressió booleana que eliminem del sistema
+     * @throws ExpressioBooleanaJaExistentException Si no hi ha cap expressio booleana formada per l'expressio expr
      */
     public void eliminaExpressioBool(String expr) throws ExpressioBooleanaInexistentException {
         CDeb.eliminaExpressioBool(expr,ExpressionsBooleanes);
     }
 
-    /*
-     * Modifica una expressió booleana
+    /**
+     * Modifica la expressió booleana formada per el string exprAnt
      *
-     * Pre: La expressió booleana
-     * Post: L'expressió exprAnt passa a ser exprNova
+     * @param exprAnt Indica l'expressió booleana que modificarem
+     * @param exprNova Indica el nou valor que tindrà l'expressió
+     * @throws  ExpressioBooleanaInexistentException Si no hi ha cap expressio booleana formada per l'expressio expr
+     * @throws ExpressioBooleanaJaExistentException Si ja hi ha una expressio booleana formada per l'expressio expr
      */
     public void modificaExpressioBool(String exprAnt, String exprNova) throws ExpressioBooleanaInexistentException, ExpressioBooleanaJaExistentException {
         CDeb.modificaExpressioBool(exprAnt,exprNova,ExpressionsBooleanes);
@@ -334,8 +369,7 @@ public class CtrlDomini {
     /**
      * Obté el nombre d'expressions booleanes del sistema
      *
-     * Pre: True
-     * Post: El nombre d'expression booleanes del sistema
+     * @return Retorna el nombre d'expressions booleanes del sistema
      */
     public int getNombreExprssioBool() {
         return CDeb.getNombreExpressionsBooleanes(ExpressionsBooleanes);

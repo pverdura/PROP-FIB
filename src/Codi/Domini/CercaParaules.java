@@ -31,8 +31,8 @@ public class CercaParaules implements Cerca {
      * @param DocumentsParaules Hi ha es paraules amb els identificadors dels documents on apareix
      * @param Documents Hi ha els documents del sistema
      * @return Retorna un llistat de k Documents (títol,autor) més rellevants a l'array paraules
-     * @throws ArrayDeParaulesBuitException Error si l'array paraules és buit
-     * @throws NombreMassaPetitDocumentsException Error si k <= 0
+     * @throws ArrayDeParaulesBuitException Si l'array paraules és buit
+     * @throws NombreMassaPetitDocumentsException Si k <= 0
      */
     public static ArrayList<SimpleEntry<String,String>> cercaDoc(ArrayList<String> paraules, int k, HashMap<String,ArrayList<SimpleEntry<String,String>>> DocumentsParaules,
                                                                              HashMap<SimpleEntry<String,String>,Document> Documents) throws ArrayDeParaulesBuitException, NombreMassaPetitDocumentsException {
