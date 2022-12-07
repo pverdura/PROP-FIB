@@ -3,6 +3,8 @@ package Codi.Presentacio;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 public class ViewGestioExprBool extends JFrame implements ActionListener{
 
@@ -13,16 +15,22 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
     private JTextArea textArea1;
     private JButton searchButton;
     private JButton backButton;
+    private JScrollPane scroll;
 
 
     private CtrlPresentacio ctrlPresentacio;
 
     public ViewGestioExprBool(CtrlPresentacio ctrlPresentacio) {
         this.ctrlPresentacio = ctrlPresentacio;
+        this.textArea1 = new JTextArea(30,1);
+        this.textArea1.setEditable(false);
+        this.scroll.setViewportView(textArea1);
 
+
+        //Inicialitzar components de la vista
         setContentPane(this.boolPanel);
         setTitle("Gestió d'Expressions Booleanes");
-        setSize(350, 350);
+        setSize(500, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Afegir listeners per detectar quan es clica cada boto
@@ -32,17 +40,8 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
         searchButton.addActionListener(this);
         backButton.addActionListener(this);
 
-        //TODO: CARGAR AL TEXT AREA TOTES LES EXPRESSIONS
-    }
-
-    //Metode per visualitzar vista
-    public void ferVisible() {
-        setSize(350, 350);
-        setVisible(true);
-    }
-
-    public void ferInvisible() {
-        setVisible(false);
+        //Carregar expressions a la vista
+        carregaExpressions();
     }
 
     @Override
@@ -81,8 +80,26 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
             //TODO: fer dialog i realitzar cerca booleana
 
         } else if (source == backButton) {
-            ctrlPresentacio.canviar_gestioExprBool_a_menuPrincipal();
+            ctrlPresentacio.tancarGestioExprBool();
+        }
+    }
 
+    //Metode per carregar les expressions per pantalla
+    private void carregaExpressions() {
+
+        try {
+
+            FileReader fr = new FileReader("src/Codi/Persistencia/expressions.csv");
+            BufferedReader br = new BufferedReader(fr);
+            textArea1.setVisible(true);
+            String expressio;
+            while ((expressio = br.readLine()) != null) {
+                textArea1.append(expressio + "\n");
+            }
+            br.close();
+
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -116,6 +133,17 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
         }
 
         return new String[]{null};
+    }
+
+    //Metode per visualitzar vista
+    public void ferVisible() {
+        setSize(500, 500);
+        setVisible(true);
+    }
+
+    //Metode per deixar de visualitzar vista
+    public void ferInvisible() {
+        setVisible(false);
     }
 }
 

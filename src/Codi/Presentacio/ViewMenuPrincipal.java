@@ -119,7 +119,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
             System.exit(0);
 
         } else if (miGestioBool.equals(source)) {
-            ctrlPresentacio.canviar_menuPrincipal_a_gestioExprBool();
+            ctrlPresentacio.obrirGestioExprBool();
 
         } else if (source == miCercaTitol) {
 
@@ -150,12 +150,5 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
     public void ferVisible() {
         setSize(600, 600);
         setVisible(true);
-    }
-    
-    public void activar() {
-        setEnabled(true);
-    }
-    public  void desactivar() {
-        setEnabled(false);
     }
 }
