@@ -39,7 +39,7 @@ public class CercaAutorTest {
     }
 
     @Test
-    public void testCerca1(){
+    public void testCerca(){
         res_esperat.add(new SimpleEntry<>(titols.get(0), autor));
         res_esperat.add(new SimpleEntry<>(titols.get(1), autor));
         res_esperat.add(new SimpleEntry<>(titols.get(2), autor));
@@ -47,14 +47,6 @@ public class CercaAutorTest {
         assertEquals(res_esperat,CercaAutor.cercaDoc(autor,autorTitols));
     }
 
-    @Test
-    public void testCerca2(){
-        res_esperat.add(new SimpleEntry<>(titols.get(0), autor2));
-        res_esperat.add(new SimpleEntry<>(titols.get(1), autor2));
-        res_esperat.add(new SimpleEntry<>(titols.get(2), autor2));
-
-        assertEquals(res_esperat,CercaAutor.cercaDoc(autor2,autorTitols));
-    }
 
 
     @Test(expected = AutorNoExisteixException.class)
