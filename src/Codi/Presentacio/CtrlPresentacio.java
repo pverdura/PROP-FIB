@@ -23,5 +23,21 @@ public class CtrlPresentacio {
     public void tancarGestioExprBool () {
         viewGestioExprBool.ferInvisible();
     }
+
+    public void afegirExprBool () {
+
+    }
+
+    public void eliminarExprBool () {
+
+    }
+
+    public void modificarExprBool () {
+
+    }
+
+    public void cercaBooleana () {
+
+    }
 }
 
