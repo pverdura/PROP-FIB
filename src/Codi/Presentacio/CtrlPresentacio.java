@@ -17,13 +17,10 @@ public class CtrlPresentacio {
         viewMenuPrincipal.ferVisible();
     }
 
-    public void canviar_menuPrincipal_a_gestioExprBool () {
-        viewMenuPrincipal.desactivar();
+    public void obrirGestioExprBool () {
         viewGestioExprBool.ferVisible();
     }
-
-    public void canviar_gestioExprBool_a_menuPrincipal() {
-        viewMenuPrincipal.activar();
+    public void tancarGestioExprBool () {
         viewGestioExprBool.ferInvisible();
     }
 }
