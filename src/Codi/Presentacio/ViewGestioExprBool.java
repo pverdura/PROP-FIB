@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 public class ViewGestioExprBool extends JFrame implements ActionListener{
 
@@ -23,6 +24,7 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
     public ViewGestioExprBool(CtrlPresentacio ctrlPresentacio) {
         this.ctrlPresentacio = ctrlPresentacio;
         this.textArea1 = new JTextArea(30,1);
+        this.textArea1.setVisible(true);
         this.textArea1.setEditable(false);
         this.scroll.setViewportView(textArea1);
 
@@ -40,8 +42,8 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
         searchButton.addActionListener(this);
         backButton.addActionListener(this);
 
-        //Carregar expressions a la vista
-        carregaExpressions();
+        //Afegir totes les expressions booleanes al text area
+        mostrarAllExpressions();
     }
 
     @Override
@@ -84,23 +86,10 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
         }
     }
 
-    //Metode per carregar les expressions per pantalla
-    private void carregaExpressions() {
-
-        try {
-
-            FileReader fr = new FileReader("src/Codi/Persistencia/expressions.csv");
-            BufferedReader br = new BufferedReader(fr);
-            textArea1.setVisible(true);
-            String expressio;
-            while ((expressio = br.readLine()) != null) {
-                textArea1.append(expressio + "\n");
-            }
-            br.close();
-
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+    //Metode per afegir les expressions booleanes a la vista
+    private void mostrarAllExpressions() {
+        ArrayList<String> expressions = ctrlPresentacio.getExpressionsBooleanes();
+        for (String e: expressions) textArea1.append(e+"\n");
     }
 
     private String[] customDialog(Object[] options, String title, String label1, int inputs) {

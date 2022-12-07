@@ -1,8 +1,12 @@
 package Codi.Presentacio;
 
+import Codi.Util.TipusOrdenacio;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.AbstractMap;
+import java.util.ArrayList;
 
 public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
@@ -18,15 +22,19 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
     private CtrlPresentacio ctrlPresentacio;
 
+    private TipusOrdenacio tipus_ordenacio;
+
     public ViewMenuPrincipal(CtrlPresentacio ctrlPresentacio1) {
         this.ctrlPresentacio = ctrlPresentacio1;
+        this.cleanButton.addActionListener(this);
+        this.tipus_ordenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
+
 
         setContentPane(this.mainPanel);
         setTitle("Menú Principal");
         setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        cleanButton.addActionListener(this);
         crearMenus();
     }
 
@@ -134,16 +142,28 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         } else if (source == miCercaDoc) {
 
         } else if (source == miOrdreAlfAsc) {
+            this.tipus_ordenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
 
         } else if (source == miOrdreAlfDesc) {
+            this.tipus_ordenacio = TipusOrdenacio.ALFABETIC_DESCENDENT;
 
         } else if (source == miOrdrePesAsc) {
+            this.tipus_ordenacio = TipusOrdenacio.PES_ASCENDENT;
 
         } else if (source == miOrdrePesDesc) {
+            this.tipus_ordenacio = TipusOrdenacio.PES_DESCENDENT;
 
         } else if (source == cleanButton) {
             textAreaCerques.setText("");
         }
+    }
+
+    public TipusOrdenacio getTipusOrdenacio() {
+        return tipus_ordenacio;
+    }
+
+    public void actualitzarResultat(ArrayList<AbstractMap.SimpleEntry<String,String>> documents) {
+
     }
 
     //Metode per posar visible la vista
