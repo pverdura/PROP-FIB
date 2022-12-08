@@ -268,7 +268,7 @@ public class CtrlDominiCerca {
     }
 
     /**
-     * Comparador por ordenar dos strings
+     * Comparador per ordenar dos strings
      * Si ord és 1, es vol ascendent
      * Si ord és -1, es vol descendent
      */
@@ -346,7 +346,7 @@ public class CtrlDominiCerca {
     };
 
     /**
-     * Comparador per ordenar pel pes del documents donats dos identificadors SimpleEntry<String, String>
+     * Comparador per ordenar pel pes dels documents donats dos identificadors SimpleEntry<String, String>
      * Si ord és 1, es vol ascendent
      * Si ord és -1, es vol descendent
      */
