@@ -1,8 +1,7 @@
 package Codi.Presentacio;
 
 import Codi.Domini.CtrlDomini;
-import Codi.Excepcions.ExpressioBooleanaInexistentException;
-import Codi.Excepcions.ExpressioBooleanaJaExistentException;
+import Codi.Util.TipusCerca;
 import Codi.Util.TipusOrdenacio;
 
 import java.util.AbstractMap.SimpleEntry;
@@ -14,6 +13,7 @@ public class CtrlPresentacio {
     private ViewGestioExprBool viewGestioExprBool;
 
     private ArrayList<SimpleEntry<String, String>> resultatActual1;
+    private TipusCerca ultimaCerca;
 
     public CtrlPresentacio () {
         ctrlDomini = new CtrlDomini();
@@ -66,36 +66,86 @@ public class CtrlPresentacio {
         return ctrlDomini.cercaAllExpressionsBool(TipusOrdenacio.ALFABETIC_ASCENDENT);
     }
 
+    //documents
+    public void crearDocument () {
+
+    }
+
+    public void importarDocument () {
+
+    }
+
+    public void obrirAjuda () {
+
+    }
+
+    public void tancarAplicacio () {
+
+    }
+
+    public void modificarDocument () {
+
+    }
+
+    public void exportarDocument () {
+
+    }
+
+    public void esborrarDocument () {
+
+    }
+
+    public void ordenar (TipusOrdenacio tipusOrdenacio) {
+
+    }
+
+    public void guardarDocument () {
+
+    }
+
+    //cerques
     public boolean cercaBooleana (String expr) {
         try {
             resultatActual1 = ctrlDomini.cercaBooleana(expr, viewMenuPrincipal.getTipusOrdenacio());
             viewMenuPrincipal.actualitzarResultat(resultatActual1);
+            ultimaCerca = TipusCerca.BOOLEANA;
             return true;
         } catch (Exception e) {
             return false;
         }
     }
 
+    public boolean esborrarCerca () {
+        ultimaCerca = TipusCerca.TOTS;
+        return true;
+    }
+
     public boolean cercaTitol () {
+        ultimaCerca = TipusCerca.TITOL;
         return true;
     }
 
     public boolean cercaAutor () {
+        ultimaCerca = TipusCerca.AUTOR;
         return true;
     }
 
     public boolean cercaTitolAutor () {
+        ultimaCerca = TipusCerca.TITOLAUTOR;
         return true;
     }
 
     public boolean cercaPrefix () {
+        ultimaCerca = TipusCerca.PREFIX;
         return true;
     }
 
     public boolean cercaParaules () {
+        ultimaCerca = TipusCerca.PARAULES;
         return true;
     }
     public boolean cercaSemblant () {
+        ultimaCerca = TipusCerca.SEMBLANT;
         return true;
     }
 }
