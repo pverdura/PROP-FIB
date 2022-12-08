@@ -85,7 +85,7 @@ public class GestorDades {
         ArrayList<Document> documents = new ArrayList<Document>();
 
         // Mirem que el fitxer on guardem els documents es pugui llegir
-        if(!doc.canRead()) {
+        if(doc.canRead()) {
             try {
                 Scanner lector = new Scanner(doc);
 
@@ -98,11 +98,13 @@ public class GestorDades {
                     // Partim la línia en 4 parts (títol, autor, extensió, contingut)
                     String[] parts = dades.split(",",4);
 
+                    // Convertim la línia llegida en un document
                     D.setTitol(parts[0]);
                     D.setAutor(parts[1]);
                     D.setExtensio(toTipus(parts[2]));
                     D.setContingut(parts[3]);
 
+                    // Afegim el document en el llistat
                     documents.add(D);
                 }
             }
