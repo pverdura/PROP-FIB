@@ -3,8 +3,7 @@ package Codi.Presentacio;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 
 public class ViewGestioExprBool extends JFrame implements ActionListener{
@@ -23,6 +22,8 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
 
     public ViewGestioExprBool(CtrlPresentacio ctrlPresentacio) {
         this.ctrlPresentacio = ctrlPresentacio;
+
+        //Inicialitzar el scrollPanel i el text area associat
         this.textArea1 = new JTextArea(30,1);
         this.textArea1.setVisible(true);
         this.textArea1.setEditable(false);
@@ -55,31 +56,65 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
         if (source == createButton) {
 
             Object[] options = {"Crear", "Sortir"};
-            String[] input = customDialog(options, "Crear Expressió Booleana", "Valor", 1);
+            String input = VistaDialeg.inputDialog("Crear Expressió Booleana", "Valor", options);
 
-            if (input[0] != null)  {
-                //TODO: crear expressio booleana amb valor inputs[0]
+            //Si input != null significa que s ha clicat boto crear en el dialeg
+            if (input != null)  {
+
+                boolean correcte = ctrlPresentacio.crearExprBool(input);
+
+                //Comprova si s ha creat correctament l expressio
+                if (correcte)
+                    mostrarAllExpressions();
+                else
+                    VistaDialeg.errorDialog("ERROR: La expressió a crear ja existeix");
             }
 
         } else if (source == deleteButton) {
             Object[] options = {"Elimina", "Sortir"};
-            String[] input = customDialog(options, "Eliminar Expressió Booleana", "Valor", 1);
+            String input = VistaDialeg.inputDialog("Eliminar Expressió Booleana", "Valor", options);
 
-            if (input[0] != null)  {
-                //TODO: eliminar expressio booleana amb valor inputs[0]
+            //Si input != null significa que s ha clicat boto crear en el dialeg
+            if (input != null)  {
+
+                boolean correcte = ctrlPresentacio.eliminarExprBool(input);
+
+                //Comprova si s ha eliminat correctament l expressio
+                if (correcte)
+                    mostrarAllExpressions();
+                else
+                    VistaDialeg.errorDialog("ERROR: La expressió a borrar no existeix");
             }
 
         } else if (source == updateButton) {
 
             Object[] options = {"Modifica", "Sortir"};
-            String[] input = customDialog(options, "Modificar Expressió Booleana", "Antic Valor", 2);
+            SimpleEntry<String, String> inputs = VistaDialeg.twoInputDialog("Modificar Expressió Booleana","Antic Valor", "Nou Valor", options);
 
-            if (input[0] != null)  {
-                //TODO: modifica expressio booleana amb valor inputs[0] pel valor inputs[1]
+            //Si input != null significa que s ha clicat boto modificar en el dialeg
+            if (inputs != null)  {
+
+                boolean correcte = ctrlPresentacio.modificarExprBool(inputs.getKey(), inputs.getValue());
+
+                //Comprova si s ha modificat correctament l expressio
+                if (correcte)
+                    mostrarAllExpressions();
+                else
+                    VistaDialeg.errorDialog("ERROR: La nova expressió ja està creada o l'antiga no existeix");
             }
 
         } else if (source == searchButton) {
-            //TODO: fer dialog i realitzar cerca booleana
+
+            Object[] options = {"Cerca", "Sortir"};
+            String input = VistaDialeg.inputDialog("Cercar Expressió Booleana", "Valor", options);
+
+            //Si input != null significa que s ha clicat boto cerca en el dialeg
+            if (input != null) {
+                boolean correcte = ctrlPresentacio.cercaBooleana(input);
+
+                //Comprova si s ha cercat correctament l expressio
+                if (!correcte) VistaDialeg.errorDialog("ERROR: La expressió no s'ha pogut cercar");
+            }
 
         } else if (source == backButton) {
             ctrlPresentacio.tancarGestioExprBool();
@@ -92,37 +127,6 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
         for (String e: expressions) textArea1.append(e+"\n");
     }
 
-    private String[] customDialog(Object[] options, String title, String label1, int inputs) {
-
-        //Crear panel del dialog
-        JPanel panel = new JPanel();
-
-        JTextField inputExpressio  = new JTextField(10);
-        JTextField inputExpressioNova = new JTextField(10);
-
-        //Primer input de crear, eliminar o modificar una expressio
-        panel.add(new JLabel(label1));
-        panel.add(inputExpressio);
-
-        //Cas modificar expressio que necessita input del nou valor
-        if (inputs == 2) {
-            panel.add(new JLabel("Nou valor"));
-            panel.add(inputExpressioNova);
-        }
-
-        //Crear dialog
-        int result = JOptionPane.showOptionDialog(null, panel, title,
-                JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,null,options,null);
-
-        //Comprobar si s'ha acceptat l operacio
-        if (result == JOptionPane.YES_OPTION) {
-            if (inputs == 2) return new String[]{inputExpressio.getText(), inputExpressioNova.getText()};
-
-            return new String[]{inputExpressio.getText()};
-        }
-
-        return new String[]{null};
-    }
 
     //Metode per visualitzar vista
     public void ferVisible() {
