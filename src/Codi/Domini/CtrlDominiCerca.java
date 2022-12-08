@@ -11,10 +11,7 @@ public class CtrlDominiCerca {
 
     private int ord;    //ordenar ascendentment si val 1,
                         //ordenar descendentment si val -1
-    private int pes;    //ordenar ascendentment si val 1,
-                        //ordenar descendentment si val -1
-    private int ordS;   //ordenar ascendentment si val 1,
-                        //ordenar descendentment si val -1
+
 
     /**
      * Creadora per defecte
@@ -216,7 +213,7 @@ public class CtrlDominiCerca {
             SimpleEntry<SimpleEntry<String,String>, Integer> aux = new SimpleEntry<>(c,d.getPes());
             docs.add(aux);
         }
-        pes = 1;
+        ord = 1;
         docs.sort(ordrePes);
 
         ArrayList<SimpleEntry<String,String>> cercaOrd = new ArrayList<>();
@@ -240,7 +237,7 @@ public class CtrlDominiCerca {
             SimpleEntry<SimpleEntry<String,String>, Integer> aux = new SimpleEntry<>(c,d.getPes());
             docs.add(aux);
         }
-        pes = -1;
+        ord = -1;
         docs.sort(ordrePes);
 
         ArrayList<SimpleEntry<String,String>> cercaOrd = new ArrayList<>();
@@ -256,7 +253,7 @@ public class CtrlDominiCerca {
      * @param cerca Llista del resultat d'una cerca que es vol ordenar
      */
     private void ordreAscendent(ArrayList<String> cerca){
-        ordS = 1;
+        ord = 1;
         cerca.sort(ordreSimple);
     }
 
@@ -266,27 +263,27 @@ public class CtrlDominiCerca {
      * @param cerca Llista del resultat d'una cerca que es vol ordenar
      */
     private void ordreDescendent(ArrayList<String> cerca){
-        ordS = -1;
+        ord = -1;
         cerca.sort(ordreSimple);
     }
 
     /**
      * Comparador por ordenar dos strings
-     * Si ordS és 1, es vol ascendent
-     * Si ordS és -1, es vol descendent
+     * Si ord és 1, es vol ascendent
+     * Si ord és -1, es vol descendent
      */
     private final Comparator<String> ordreSimple = new Comparator<>() {
         public int compare(String o1, String o2) {
             String s1 = o1.toLowerCase();
             String s2 = o2.toLowerCase();
             if (s1.compareTo(s2) == 0) {
-                if (o1.compareTo(o2) < 0) return -ordS;
-                else if (o1.compareTo(o2) > 0) return ordS;
+                if (o1.compareTo(o2) < 0) return -ord;
+                else if (o1.compareTo(o2) > 0) return ord;
                 else return 0;
             }
             else {
-                if (s1.compareTo(s2) < 0) return -ordS;
-                else if (s1.compareTo(s2) > 0) return ordS;
+                if (s1.compareTo(s2) < 0) return -ord;
+                else if (s1.compareTo(s2) > 0) return ord;
                 else return 0;
             }
         }
@@ -356,10 +353,10 @@ public class CtrlDominiCerca {
     private final Comparator<SimpleEntry<SimpleEntry<String, String>, Integer>> ordrePes = new Comparator<>() {
         @Override
         public int compare(SimpleEntry<SimpleEntry<String, String>, Integer> p1, SimpleEntry<SimpleEntry<String, String>, Integer> p2) {
-            if (p1.getValue() < p2.getValue()) return -pes;
-            else if (p1.getValue()> p2.getValue()) return pes;
+            if (p1.getValue() < p2.getValue()) return -ord;
+            else if (p1.getValue()> p2.getValue()) return ord;
             else {
-                return ordena(p1.getKey(), p2.getKey(), pes);
+                return ordena(p1.getKey(), p2.getKey(), ord);
             }
         }
     };
