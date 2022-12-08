@@ -329,6 +329,28 @@ public class CtrlDomini {
         return CDcer.cercaAllExpressionsBool(ExpressionsBooleanes,ord);
     }
 
+    /**
+     * Ordena el resultat d'una cerca
+     *
+     * @param cerca Indica la cerca obtinguda
+     * @param ord Indica el nou ordre que es farà a la cerca
+     * @return Retorna la cerca en l'ordre indicat
+     */
+    public ArrayList<SimpleEntry<String,String>> ordenarCerca(ArrayList<SimpleEntry<String,String>> cerca, TipusOrdenacio ord) {
+        return CDcer.ordenarCerca(cerca,ord,Documents);
+    }
+
+    /**
+     * Ordena el resultat d'una cerca
+     *
+     * @param cerca Indica la cerca obtinguda
+     * @param ord Indica el nou ordre que es farà a la cerca
+     * @return Retorna la cerca en l'ordre indicat
+     */
+    public ArrayList<String> ordenarCercaSimple(ArrayList<String> cerca, TipusOrdenacio ord) {
+        return CDcer.ordenarCercaSimple(cerca,ord);
+    }
+
 
     ///////////////////////////////////////////////////////////
     ///           FUNCIONS CTRL_DOMINI_EXPR.BOOL.           ///
