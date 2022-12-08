@@ -46,4 +46,8 @@ public class VistaDialeg {
         JOptionPane.showMessageDialog(null, error,
                 "Error detectat", JOptionPane.ERROR_MESSAGE);
     }
+
+    public static void messageDialog(String mensaje) {
+        JOptionPane.showMessageDialog(null, mensaje);
+    }
 }
