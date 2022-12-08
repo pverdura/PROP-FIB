@@ -5,7 +5,7 @@ import Codi.Util.TipusOrdenacio;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 
 public class ViewMenuPrincipal extends JFrame implements ActionListener {
@@ -36,6 +36,8 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         crearMenus();
+
+        JOptionPane o = new JOptionPane("hola", JOptionPane.WARNING_MESSAGE);
     }
 
     private void crearMenus() {
@@ -162,7 +164,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         return tipus_ordenacio;
     }
 
-    public void actualitzarResultat(ArrayList<AbstractMap.SimpleEntry<String,String>> documents) {
+    public void actualitzarResultat(ArrayList<SimpleEntry<String,String>> documents) {
 
     }
 
