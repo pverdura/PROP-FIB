@@ -156,7 +156,7 @@ public class CtrlDominiCerca {
      * @param documents Estructura on estan guardats tots els documents
      * @return La cerca donada ordenada segons l'ordre indicat
      */
-    private ArrayList<SimpleEntry<String,String>> ordenarCerca(ArrayList<SimpleEntry<String, String>> cerca, TipusOrdenacio tipus, HashMap<SimpleEntry<String,String>, Document> documents){
+    public ArrayList<SimpleEntry<String,String>> ordenarCerca(ArrayList<SimpleEntry<String, String>> cerca, TipusOrdenacio tipus, HashMap<SimpleEntry<String,String>, Document> documents){
         if (tipus == TipusOrdenacio.ALFABETIC_ASCENDENT){ ordreAlfAscendent(cerca);}
         else if (tipus == TipusOrdenacio.ALFABETIC_DESCENDENT) { ordreAlfDescendent(cerca); }
         else if (tipus == TipusOrdenacio.PES_ASCENDENT){ cerca = ordrePesAscendent(cerca, documents); }
@@ -172,7 +172,7 @@ public class CtrlDominiCerca {
      * @return La cerca donada ordenada segons l'ordre indicat
      */
 
-    private ArrayList<String> ordenarCercaSimple(ArrayList<String> cerca, TipusOrdenacio tipus){
+    public ArrayList<String> ordenarCercaSimple(ArrayList<String> cerca, TipusOrdenacio tipus){
         if (tipus == TipusOrdenacio.ALFABETIC_ASCENDENT){ ordreAscendent(cerca);}
         else if (tipus == TipusOrdenacio.ALFABETIC_DESCENDENT) { ordreDescendent(cerca); }
         return cerca;
