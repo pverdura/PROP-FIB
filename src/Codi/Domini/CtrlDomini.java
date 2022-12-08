@@ -1,5 +1,6 @@
 package Codi.Domini;
 
+import Codi.Persistencia.CtrlPersistencia;
 import Codi.Util.*;
 import Codi.Excepcions.*;
 
@@ -31,6 +32,7 @@ public class CtrlDomini {
     private CtrlDominiExprBool CDeb;    // Agregació del controlador d'expressió booleana
     private CtrlDominiDocument CDdoc;   // Agregació del controlador de document
     private CtrlDominiCerca CDcer;      // Agregació del controlador de cerca
+    private CtrlPersistencia CP;        // Agregació del controladaor de persistència
 
 
     ///////////////////////////////////////////////////////////
@@ -51,6 +53,7 @@ public class CtrlDomini {
         CDeb = new CtrlDominiExprBool();
         CDdoc = new CtrlDominiDocument();
         CDcer = new CtrlDominiCerca();
+        CP = new CtrlPersistencia();
     }
 
 
