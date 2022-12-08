@@ -9,9 +9,12 @@ import java.util.AbstractMap.SimpleEntry;
 
 public class CtrlDominiCerca {
 
-    private int ord;
-    private int pes;
-    private int ordS;
+    private int ord;    //ordenar ascendentment si val 1,
+                        //ordenar descendentment si val -1
+    private int pes;    //ordenar ascendentment si val 1,
+                        //ordenar descendentment si val -1
+    private int ordS;   //ordenar ascendentment si val 1,
+                        //ordenar descendentment si val -1
 
     /**
      * Creadora per defecte
