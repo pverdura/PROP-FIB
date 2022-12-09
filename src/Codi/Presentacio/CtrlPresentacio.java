@@ -173,16 +173,16 @@ public class CtrlPresentacio {
         viewCercaAutor.ferVisible(true);
     }
     public void obrirCercaTitolAutor () {
-        if (viewCercaTitolAutor == null) viewCercaTitolAutor = new ViewCercaTitolAutor(this);
-        viewCercaTitolAutor.ferVisible(true);
+        //if (viewCercaTitolAutor == null) viewCercaTitolAutor = new ViewCercaTitolAutor(this);
+        //viewCercaTitolAutor.ferVisible(true);
     }
     public void obrirCercaPrefix () {
-        if (viewCercaPrefix == null) viewCercaPrefix = new ViewCercaPrefix(this);
-        viewCercaPrefix.ferVisible(true);
+        //if (viewCercaPrefix == null) viewCercaPrefix = new ViewCercaPrefix(this);
+        //viewCercaPrefix.ferVisible(true);
     }
     public void obrirCercaSemblant () {
-        if (viewCercaSemblant == null) viewCercaSemblant = new ViewCercaSemblant(this);
-        viewCercaSemblant.ferVisible(true);
+        //if (viewCercaSemblant == null) viewCercaSemblant = new ViewCercaSemblant(this);
+        //viewCercaSemblant.ferVisible(true);
     }
     public void obrirCercaParaules () {
         if (viewCercaParaules == null) viewCercaParaules = new ViewCercaParaules(this);
