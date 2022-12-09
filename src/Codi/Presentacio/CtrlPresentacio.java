@@ -2,6 +2,7 @@ package Codi.Presentacio;
 
 import Codi.Domini.CtrlDomini;
 import Codi.Util.TipusCerca;
+import Codi.Util.TipusExtensio;
 import Codi.Util.TipusOrdenacio;
 
 import java.io.File;
@@ -97,11 +98,12 @@ public class CtrlPresentacio {
         //ordenar i actualitzar vista principal
     }
 
-    public void guardarDocument (SimpleEntry<String, String> idVell, SimpleEntry<String, String> idNou) {
+    public boolean guardarDocument (SimpleEntry<String, String> idVell, SimpleEntry<String, String> idNou, String contingut, TipusExtensio te) {
         //actualitzar id (si cal, canviant idVell i idNou (nou mètode: modificar identificador, que modifica títol i autor alhora?
         //actualitzar classe
         //guardar físicament
         //si hi ha cerca semblant o paraules, actualitzar-ne resultat, si s'ha modifiat el títol/autor, també potser
+        return true;
     }
 
     //cerques
@@ -167,6 +169,9 @@ public class CtrlPresentacio {
     public void modificarDocument (String titol, String autor) {
         if (viewModificarDocument == null)
             viewModificarDocument = new ViewModificarDocument(this);
+        viewModificarDocument.setTitol("titol");
+        viewModificarDocument.setAutor("autor");
+        viewModificarDocument.setContingut("contingut1\ncontingut2\ncontingut3");
         viewModificarDocument.ferVisible(true);
     }
     public void obrirCercaTitol () {
@@ -178,16 +183,16 @@ public class CtrlPresentacio {
         viewCercaAutor.ferVisible(true);
     }
     public void obrirCercaTitolAutor () {
-        //if (viewCercaTitolAutor == null) viewCercaTitolAutor = new ViewCercaTitolAutor(this);
-        //viewCercaTitolAutor.ferVisible(true);
+        if (viewCercaTitolAutor == null) viewCercaTitolAutor = new ViewCercaTitolAutor(this);
+        viewCercaTitolAutor.ferVisible(true);
     }
     public void obrirCercaPrefix () {
-        //if (viewCercaPrefix == null) viewCercaPrefix = new ViewCercaPrefix(this);
-        //viewCercaPrefix.ferVisible(true);
+        if (viewCercaPrefix == null) viewCercaPrefix = new ViewCercaPrefix(this);
+        viewCercaPrefix.ferVisible(true);
     }
     public void obrirCercaSemblant () {
-        //if (viewCercaSemblant == null) viewCercaSemblant = new ViewCercaSemblant(this);
-        //viewCercaSemblant.ferVisible(true);
+        if (viewCercaSemblant == null) viewCercaSemblant = new ViewCercaSemblant(this);
+        viewCercaSemblant.ferVisible(true);
     }
     public void obrirCercaParaules () {
         if (viewCercaParaules == null) viewCercaParaules = new ViewCercaParaules(this);
