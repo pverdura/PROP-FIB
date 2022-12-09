@@ -65,8 +65,6 @@ public class ViewModificarDocument {
         frame.setPreferredSize(frame.getMinimumSize());
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public void ferVisible (boolean visible) {

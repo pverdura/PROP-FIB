@@ -10,12 +10,9 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
-import java.nio.Buffer;
 import java.nio.file.*;
 import java.nio.charset.StandardCharsets;
-import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
-import java.util.List;
 
 public class GestorDades {
 
@@ -125,9 +122,9 @@ public class GestorDades {
 
         // Lector que ens llegirà el document
         try (BufferedReader lector = Files.newBufferedReader(PATH,StandardCharsets.UTF_8)) {
-            String contingut = null;
-            String linia = null;
-            int num_linia = 0;
+            String contingut = null;    // Concatenació de línies per llegir el contingut
+            String linia = null;        // Ens ajuda a llegir línies del document
+            int num_linia = 0;          // Nombre de línies llegides
 
             // Llegim el document mentre hi hagi línies
             while ((linia = lector.readLine()) != null) {
@@ -144,7 +141,7 @@ public class GestorDades {
                 ++num_linia;
             }
             D.setContingut(contingut);
-            //D.setExtensio(TipusExtensio.TXT);
+            D.setExtensio(TipusExtensio.TXT);
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -153,23 +150,41 @@ public class GestorDades {
     }
 
     private DocumentLlegit llegeixDocumentXML(Path PATH) {
-
+        DocumentLlegit D = new DocumentLlegit();
 
         // Lector que ens llegirà el document
         try (BufferedReader lector = Files.newBufferedReader(PATH, StandardCharsets.UTF_8)) {
-            String contingut = null;
-            String linia = null;
-            int num_linia = 0;
+            String contingut = null;    // Concatenació de línies per llegir el contingut
+            String linia = null;        // Ens ajuda a llegir línies del document
+            boolean c = false;          // Ens indica si estem llegint el contingut
 
             // Llegim el document mentre hi hagi línies
             while ((linia = lector.readLine()) != null) {
-                ++num_linia;
+                if(linia.startsWith("<titol>") && linia.endsWith("</titol>")) {
+                    D.setAutor(linia.substring(8,linia.length()-9)); // Agafem el text que està entre els <...> i </...>
+                }
+                else if(linia.startsWith("<autor>") && linia.endsWith("</autor>")) {
+                    D.setTitol(linia.substring(8,linia.length()-9)); // Agafem el text que està entre els <...> i </...>
+                }
+                else if(linia.startsWith("<contingut>")) {
+                    contingut = linia.substring(12,linia.length()-1);
+                    c = true;
+                }
+                else if (c) { // Concatenem les línies per obtenir el contingut
+                    if(!linia.endsWith("</contingut>")) {
+                        contingut = contingut.concat(linia)+"\n";
+                    }
+                    else contingut = contingut.concat(linia.substring(0,linia.length()-13));
+                }
+                else break;
             }
+            D.setContingut(contingut);
+            D.setExtensio(TipusExtensio.XML);
         }
         catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return D;
     }
 
     private DocumentLlegit llegeixDocumentBOL(Path PATH) {
@@ -177,14 +192,29 @@ public class GestorDades {
 
         // Lector que ens llegirà el document
         try (BufferedReader lector = Files.newBufferedReader(PATH, StandardCharsets.UTF_8)) {
-            String contingut = null;
-            String linia = null;
-            int num_linia = 0;
+            String contingut = null;    // Concatenació de línies per llegir el contingut
+            String linia = null;        // Ens ajuda a llegir línies del document
+            int espais = 0;             // Ens indica el nombre de "----" que hem llegit
 
             // Llegim el document mentre hi hagi línies
             while ((linia = lector.readLine()) != null) {
-
+                if(linia.equals("----")) {
+                    ++espais;
+                }
+                else if(espais == 0) {
+                    D.setAutor(linia);
+                }
+                else if(espais == 1) {
+                    D.setTitol(linia);
+                }
+                else if(espais == 2) {
+                    if (contingut != null) contingut = contingut.concat(linia);
+                    else contingut = linia;
+                }
+                else break;
             }
+            D.setContingut(contingut);
+            D.setExtensio(TipusExtensio.BOL);
         }
         catch (IOException e) {
             e.printStackTrace();

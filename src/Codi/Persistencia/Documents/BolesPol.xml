@@ -1,6 +1,8 @@
-<titol> Boles </titol>
-<autor> Pol </autor>
+<autor> autor </autor>
+<titol> tiol </titol>
 <contingut>
-    Hi ha boles grans i petites.
-    Mac mec mic
+    linia 1 contingut
+    linia 2 contingut
+    ...
+    linia n contingut
 </contingut>
