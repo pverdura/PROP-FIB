@@ -172,6 +172,7 @@ public class CtrlPresentacio {
         viewModificarDocument.setTitol("titol");
         viewModificarDocument.setAutor("autor");
         viewModificarDocument.setContingut("contingut1\ncontingut2\ncontingut3");
+        viewModificarDocument.setExtensio(TipusExtensio.XML);
         viewModificarDocument.ferVisible(true);
     }
     public void obrirCercaTitol () {
@@ -187,12 +188,12 @@ public class CtrlPresentacio {
         viewCercaTitolAutor.ferVisible(true);
     }
     public void obrirCercaPrefix () {
-        if (viewCercaPrefix == null) viewCercaPrefix = new ViewCercaPrefix(this);
-        viewCercaPrefix.ferVisible(true);
+        //if (viewCercaPrefix == null) viewCercaPrefix = new ViewCercaPrefix(this);
+        //viewCercaPrefix.ferVisible(true);
     }
     public void obrirCercaSemblant () {
-        if (viewCercaSemblant == null) viewCercaSemblant = new ViewCercaSemblant(this);
-        viewCercaSemblant.ferVisible(true);
+        //if (viewCercaSemblant == null) viewCercaSemblant = new ViewCercaSemblant(this);
+        //viewCercaSemblant.ferVisible(true);
     }
     public void obrirCercaParaules () {
         if (viewCercaParaules == null) viewCercaParaules = new ViewCercaParaules(this);

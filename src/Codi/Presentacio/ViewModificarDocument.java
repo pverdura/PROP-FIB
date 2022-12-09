@@ -25,6 +25,7 @@ public class ViewModificarDocument {
     private CtrlPresentacio ctrlPresentacio;
     private String titol;
     private String autor;
+    private String[] extensions = {"TXT", "XML", "BOL"};
     public ViewModificarDocument (CtrlPresentacio cp) {
         this.ctrlPresentacio = cp;
         inicialitzar();
@@ -51,7 +52,7 @@ public class ViewModificarDocument {
         textTitol = new JTextField();
         textAutor = new JTextField();
         textContingut = new JTextArea();
-        tipusExtensio = new JComboBox<>();
+        tipusExtensio = new JComboBox<>(extensions);
     }
 
     private void configurarVista () {
@@ -63,6 +64,7 @@ public class ViewModificarDocument {
         frame.setMinimumSize(new Dimension(500, 500));
         frame.setPreferredSize(frame.getMinimumSize());
         frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -73,7 +75,7 @@ public class ViewModificarDocument {
     }
 
     public void configurarPanellSuperior () {
-
+        tipusExtensio.setSelectedIndex(2);
 
         panellSuperior.add(labelTitol);
         panellSuperior.add(textTitol);
@@ -126,7 +128,9 @@ public class ViewModificarDocument {
     public void setContingut (String text) {
         textContingut.setText(text);
     }
-    public void setExtensio (TipusExtensio tipusExtensio) {
-
+    public void setExtensio (TipusExtensio te) {
+        if (te == TipusExtensio.TXT) tipusExtensio.setSelectedIndex(0);
+        else if (te == TipusExtensio.XML) tipusExtensio.setSelectedIndex(1);
+        else tipusExtensio.setSelectedIndex(2);
     }
 }
