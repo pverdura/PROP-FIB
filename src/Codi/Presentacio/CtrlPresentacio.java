@@ -21,11 +21,14 @@ public class CtrlPresentacio {
 
     private ArrayList<SimpleEntry<String, String>> resultatActual1;
     private TipusCerca ultimaCerca;
+    private TipusOrdenacio tipusOrdenacio;
 
     public CtrlPresentacio () {
         ctrlDomini = new CtrlDomini();
 
         resultatActual1 = new ArrayList<>();
+        ultimaCerca = TipusCerca.TOTS;
+        tipusOrdenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
 
         viewMenuPrincipal = new ViewMenuPrincipal(this);
     }
@@ -107,7 +110,7 @@ public class CtrlPresentacio {
     //cerques
     public boolean cercaBooleana (String expr) {
         try {
-            resultatActual1 = ctrlDomini.cercaBooleana(expr, viewMenuPrincipal.getTipusOrdenacio());
+            resultatActual1 = ctrlDomini.cercaBooleana(expr, tipusOrdenacio);
             viewMenuPrincipal.actualitzarResultat(resultatActual1);
             ultimaCerca = TipusCerca.BOOLEANA;
             return true;
@@ -117,35 +120,42 @@ public class CtrlPresentacio {
     }
 
     public boolean esborrarCerca () {
-        ultimaCerca = TipusCerca.TOTS;
-        return true;
+        try {
+            resultatActual1 = ctrlDomini.cercaAllDocuments(tipusOrdenacio);
+            viewMenuPrincipal.actualitzarResultat(resultatActual1);
+            ultimaCerca = TipusCerca.TOTS;
+            return true;
+        } catch (Exception e) {
+            VistaDialeg.errorDialog("Hi ha algun error a l'aplicació");
+            return false;
+        }
     }
 
-    public boolean cercaTitol (String text) {
+    public boolean cercaTitol (String titol) {
         ultimaCerca = TipusCerca.TITOL;
         return true;
     }
 
-    public boolean cercaAutor () {
+    public boolean cercaAutor (String autor) {
         ultimaCerca = TipusCerca.AUTOR;
         return true;
     }
 
-    public boolean cercaTitolAutor () {
+    public boolean cercaTitolAutor (String titol, String autor) {
         ultimaCerca = TipusCerca.TITOLAUTOR;
         return true;
     }
 
-    public boolean cercaPrefix () {
+    public boolean cercaPrefix (String prefix) {
         ultimaCerca = TipusCerca.PREFIX;
         return true;
     }
 
-    public boolean cercaParaules () {
+    public boolean cercaParaules (String paraules, int k, boolean tots) {
         ultimaCerca = TipusCerca.PARAULES;
         return true;
     }
-    public boolean cercaSemblant () {
+    public boolean cercaSemblant (String titol, String autor, int k, boolean tots) {
         ultimaCerca = TipusCerca.SEMBLANT;
         return true;
     }
@@ -187,6 +197,13 @@ public class CtrlPresentacio {
     public void obrirCercaParaules () {
         if (viewCercaParaules == null) viewCercaParaules = new ViewCercaParaules(this);
         viewCercaParaules.ferVisible(true);
+    }
+
+    //ESBORRAR
+    public void prova () {
+        ArrayList<SimpleEntry<String, String>> a = new ArrayList<>();
+        a.add(new SimpleEntry<>("titol", "autor"));
+        viewMenuPrincipal.actualitzarResultat(a);
     }
 }
 
