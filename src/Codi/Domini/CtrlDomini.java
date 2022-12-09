@@ -83,7 +83,7 @@ public class CtrlDomini {
         CDdoc.eliminaDocument(titol,autor,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
     }
 
-    /**
+    /*
      * Modifica el titol del document identificat per titolVell i autor
      *
      * @param titolVell Indica el títol que identificava el document
@@ -91,12 +91,12 @@ public class CtrlDomini {
      * @param autor Indica l'autro del document
      * @throws DocumentJaExisteixException Si el document identificat per titolNou i autor ja existeix
      * @throws DocumentInexistentException Si el document identificat per titolVell i autor no existeix
-     */
+     *
     public void setTitol(String titolVell, String titolNou, String autor) throws DocumentJaExisteixException, DocumentInexistentException {
         CDdoc.setTitol(titolVell,titolNou,autor,Documents,DocumentsAutor,TitolAutors,Paraules);
-    }
+    }*/
 
-    /**
+    /*
      * Modifica l'autor del document identificat per titol i autorVell
      *
      * @param titol Indica el titol que identifica el document
@@ -104,10 +104,16 @@ public class CtrlDomini {
      * @param autorNou Indica el nou autor que identifica el document
      * @throws DocumentJaExisteixException Si el document identificat per titol i autorNou no existeix
      * @throws DocumentInexistentException Si el document identificat per titol i autorVell ja existeix
-     */
+     *
     public void setAutor(String titol, String autorVell, String autorNou) throws DocumentJaExisteixException, DocumentInexistentException  {
         CDdoc.setAutor(titol,autorVell,autorNou,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
+    }*/
+
+    public void modificarIdentificador(SimpleEntry<String,String> idVell, SimpleEntry<String,String> idNou)
+            throws DocumentJaExisteixException, DocumentInexistentException {
+        CDdoc.modificarIdentificador(idVell,idNou,Documents,DocumentsAutor,Autors,TitolAutors,Paraules);
     }
+
 
     /**
      * Modifica el contingut del document identificat per titol i autor
