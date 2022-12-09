@@ -11,6 +11,8 @@ public class CtrlPresentacio {
     private CtrlDomini ctrlDomini;
     private ViewMenuPrincipal viewMenuPrincipal;
     private ViewGestioExprBool viewGestioExprBool;
+    private ViewModificarDocument viewModificarDocument;
+    private ViewCercaTitol viewCercaTitol;
 
     private ArrayList<SimpleEntry<String, String>> resultatActual1;
     private TipusCerca ultimaCerca;
@@ -21,18 +23,10 @@ public class CtrlPresentacio {
         resultatActual1 = new ArrayList<>();
 
         viewMenuPrincipal = new ViewMenuPrincipal(this);
-        viewGestioExprBool = new ViewGestioExprBool(this);
     }
 
     public void init () {
         viewMenuPrincipal.ferVisible();
-    }
-
-    public void obrirGestioExprBool () {
-        viewGestioExprBool.ferVisible();
-    }
-    public void tancarGestioExprBool () {
-        viewGestioExprBool.ferInvisible();
     }
 
     public boolean crearExprBool (String expr) {
@@ -68,39 +62,41 @@ public class CtrlPresentacio {
 
     //documents
     public void crearDocument () {
-
+        viewModificarDocument.ferVisible();
     }
 
     public void importarDocument () {
 
     }
 
-    public void obrirAjuda () {
-
-    }
-
     public void tancarAplicacio () {
+        if (viewCercaTitol != null) viewCercaTitol.tancarVista();
 
     }
 
-    public void modificarDocument () {
-
+    public void modificarDocument (SimpleEntry<String, String> id) {
+        //obrir vista modificar document amb les dades del document id
     }
 
-    public void exportarDocument () {
-
+    public void exportarDocument (SimpleEntry<String, String> id, String path) {
+        //exportar document id a path
     }
 
-    public void esborrarDocument () {
-
+    public void esborrarDocument (SimpleEntry<String, String> id) {
+        //esborrar document id
+        //si hi és a la cerca, esborrar de la cerca, tornar a ordenar i actualitzar vista principal
+        //si és cerca semblant/paraules, tornar-la a fer
     }
 
     public void ordenar (TipusOrdenacio tipusOrdenacio) {
-
+        //ordenar i actualitzar vista principal
     }
 
-    public void guardarDocument () {
-
+    public void guardarDocument (SimpleEntry<String, String> idVell, SimpleEntry<String, String> idNou) {
+        //actualitzar id (si cal, canviant idVell i idNou (nou mètode: modificar identificador, que modifica títol i autor alhora?
+        //actualitzar classe
+        //guardar físicament
+        //si hi ha cerca semblant o paraules, actualitzar-ne resultat, si s'ha modifiat el títol/autor, també potser
     }
 
     //cerques
@@ -120,7 +116,7 @@ public class CtrlPresentacio {
         return true;
     }
 
-    public boolean cercaTitol () {
+    public boolean cercaTitol (String text) {
         ultimaCerca = TipusCerca.TITOL;
         return true;
     }
@@ -147,6 +143,29 @@ public class CtrlPresentacio {
     public boolean cercaSemblant () {
         ultimaCerca = TipusCerca.SEMBLANT;
         return true;
+    }
+
+    //obrir vistes
+    public void obrirCercaTitol () {
+        if (viewCercaTitol == null) viewCercaTitol = new ViewCercaTitol(this);
+        viewCercaTitol.ferVisible(true);
+    }
+    public void obrirAjuda () {
+        //obrir vista ajuda
+    }
+    public void obrirGestioExprBool () {
+        if (viewGestioExprBool == null)
+            viewGestioExprBool = new ViewGestioExprBool(this);
+        viewGestioExprBool.ferVisible();
+    }
+    public void tancarGestioExprBool () {
+        viewGestioExprBool.ferInvisible();
+        //cal aquest mètode?
+    }
+    public void obrirViewModificarDocument () {
+        if (viewModificarDocument == null)
+            viewModificarDocument = new ViewModificarDocument(this);
+        viewModificarDocument.ferVisible();
     }
 }
 

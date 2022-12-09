@@ -46,12 +46,77 @@ public class CtrlDominiDocument {
         }
     }
 
-    //retorna false si ja existeix un document amb aquest títol i autor, true si s'ha modificat correctament
+    public void modificarIdentificador (SimpleEntry<String, String> idVell, SimpleEntry<String, String> idNou, HashMap<SimpleEntry<String, String>, Document> documents,
+                                        HashMap<String,ArrayList<String>> documentsAutor, Trie<String> autors,
+                                        HashMap<String,ArrayList<String>> titolAutors, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentJaExisteixException, DocumentInexistentException {
+        String titolVell = idVell.getKey();
+        String titolNou = idNou.getKey();
+        String autorVell = idVell.getValue();
+        String autorNou = idNou.getValue();
+
+        if (documents.containsKey(idNou)) throw new DocumentJaExisteixException(titolNou, autorNou);
+        if (!documents.containsKey(idVell)) throw new DocumentInexistentException(titolVell, autorVell);
+
+        boolean titolModificat = (!titolVell.equals(titolNou));
+        boolean autorModificat = (!autorVell.equals(autorNou));
+
+        Document d = documents.get(idVell);
+        if (titolModificat) d.setTitol(titolNou);
+        if (autorModificat) d.setAutor(autorNou);
+
+        //documentsAutor
+        if (titolModificat & autorModificat) {
+            //títol i autor
+
+        } else if (titolModificat) {
+            //només títol
+
+        } else if (autorModificat){
+            //només autor
+            documentsAutor.get(autorVell).remove(titolVell);
+            if (documentsAutor.get(autorVell).isEmpty()) documentsAutor.remove(autorVell);
+
+            if (documentsAutor.containsKey(autorNou)) {
+
+            } else {
+
+            }
+        }
+
+        //titolAutors
+        if (titolModificat & autorModificat) {
+            //títol i autor
+
+        } else if (titolModificat) {
+            //només títol
+
+        } else if (autorModificat){
+            //només autor
+        }
+
+        //autors trie
+        autors.esborrar(autorVell);
+        autors.afegir(autorNou);
+
+        //paraules
+        ArrayList<String> p = documents.get(idVell).getParaules();
+
+        for (String paraula : p) {
+            paraules.get(paraula).remove(idVell);
+            paraules.get(paraula).add(idNou);
+        }
+
+        //documents
+        documents.remove(idVell);
+        documents.put(idNou, d);
+    }
+
+
     public void setTitol (String titolVell, String titolNou, String autor, HashMap<SimpleEntry<String, String>, Document> documents,
                           HashMap<String,ArrayList<String>> documentsAutor,
                           HashMap<String,ArrayList<String>> titolAutors, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentJaExisteixException, DocumentInexistentException {
         SimpleEntry<String, String> idNou = new SimpleEntry<>(titolNou, autor);
-        if (documents.containsKey(idNou)) throw new DocumentJaExisteixException(titolVell, autor);
+        if (documents.containsKey(idNou)) throw new DocumentJaExisteixException(titolNou, autor);
 
         SimpleEntry<String, String> idVell = new SimpleEntry<>(titolVell, autor);
         if (!documents.containsKey(idVell)) throw new DocumentInexistentException(titolVell, autor);
@@ -85,7 +150,7 @@ public class CtrlDominiDocument {
         documents.put(idNou, d);
     }
 
-    //retorna false si ja existeix un document amb aquest títol i autor, true si s'ha modificat correctament
+
     public void setAutor (String titol, String autorVell, String autorNou, HashMap<SimpleEntry<String, String>, Document> documents,
                           Trie<String> autors, HashMap<String,ArrayList<String>> documentsAutor,
                           HashMap<String,ArrayList<String>> titolAutors, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentJaExisteixException, DocumentInexistentException {
