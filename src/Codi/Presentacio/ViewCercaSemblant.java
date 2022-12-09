@@ -111,6 +111,7 @@ public class ViewCercaSemblant {
 
     private void configurarVista(){
         frameVista.setLayout(new BorderLayout());
+
         JPanel innerPanel = new JPanel(new BorderLayout());
         innerPanel.add(titolPanel, BorderLayout.NORTH);
         innerPanel.add(autorPanel, BorderLayout.CENTER);
