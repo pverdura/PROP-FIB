@@ -1,5 +1,6 @@
 package Codi.Domini;
 
+import Codi.Persistencia.CtrlPersistencia;
 import Codi.Util.*;
 import Codi.Excepcions.*;
 
@@ -31,6 +32,7 @@ public class CtrlDomini {
     private CtrlDominiExprBool CDeb;    // Agregació del controlador d'expressió booleana
     private CtrlDominiDocument CDdoc;   // Agregació del controlador de document
     private CtrlDominiCerca CDcer;      // Agregació del controlador de cerca
+    private CtrlPersistencia CP;        // Agregació del controladaor de persistència
 
 
     ///////////////////////////////////////////////////////////
@@ -51,6 +53,7 @@ public class CtrlDomini {
         CDeb = new CtrlDominiExprBool();
         CDdoc = new CtrlDominiDocument();
         CDcer = new CtrlDominiCerca();
+        CP = new CtrlPersistencia();
     }
 
 
@@ -327,6 +330,28 @@ public class CtrlDomini {
      */
     public ArrayList<String> cercaAllExpressionsBool(TipusOrdenacio ord) {
         return CDcer.cercaAllExpressionsBool(ExpressionsBooleanes,ord);
+    }
+
+    /**
+     * Ordena el resultat d'una cerca
+     *
+     * @param cerca Indica la cerca obtinguda
+     * @param ord Indica el nou ordre que es farà a la cerca
+     * @return Retorna la cerca en l'ordre indicat
+     */
+    public ArrayList<SimpleEntry<String,String>> ordenarCerca(ArrayList<SimpleEntry<String,String>> cerca, TipusOrdenacio ord) {
+        return CDcer.ordenarCerca(cerca,ord,Documents);
+    }
+
+    /**
+     * Ordena el resultat d'una cerca
+     *
+     * @param cerca Indica la cerca obtinguda
+     * @param ord Indica el nou ordre que es farà a la cerca
+     * @return Retorna la cerca en l'ordre indicat
+     */
+    public ArrayList<String> ordenarCercaSimple(ArrayList<String> cerca, TipusOrdenacio ord) {
+        return CDcer.ordenarCercaSimple(cerca,ord);
     }
 
 

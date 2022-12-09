@@ -1,11 +1,18 @@
 package Codi.Presentacio;
 
+import Codi.Util.TipusExtensio;
 import Codi.Util.TipusOrdenacio;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.AbstractMap;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 
 public class ViewMenuPrincipal extends JFrame implements ActionListener {
@@ -36,6 +43,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         crearMenus();
+        //TODO: CRIDAR AL METODE CercaAllDocuments DEL CONTROL PRESENTACIO I QUE ACTUALITZI SCROLL PANE
     }
 
     private void crearMenus() {
@@ -121,6 +129,31 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
         } else if (source == miImportaDoc) {
 
+            FileNameExtensionFilter filtre = new FileNameExtensionFilter("Fitxers app",
+                    TipusExtensio.BOL.toString(),
+                    TipusExtensio.TXT.toString(),
+                    TipusExtensio.XML.toString());
+
+            JFileChooser fc = new JFileChooser();
+            fc.setFileFilter(filtre);
+
+            int seleccionat = fc.showOpenDialog(this);
+
+            if (seleccionat == JFileChooser.APPROVE_OPTION) {
+                File f = fc.getSelectedFile();
+
+                Path src = Paths.get(fc.getSelectedFile().getPath());
+                Path dest = Paths.get("src/Codi/Persistencia/Documents/"+f.getName());
+
+                try {
+                    Files.copy(src.toFile().toPath(), dest.toFile().toPath());
+                    VistaDialeg.messageDialog("El fitxer " +f.getName()+ " s'ha importat correctament");
+                } catch (IOException ex) {
+                    VistaDialeg.errorDialog("ERROR: No s'ha pogut importar el fitxer: "+f.getName()+
+                                            "\nPossiblement el fitxer ja està importat");
+                }
+            }
+
         } else if (source == miAjuda) {
 
         } else if (source == miSortir) {
@@ -142,16 +175,20 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         } else if (source == miCercaDoc) {
 
         } else if (source == miOrdreAlfAsc) {
-            this.tipus_ordenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
+            tipus_ordenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
+            ctrlPresentacio.ordenar(tipus_ordenacio);
 
         } else if (source == miOrdreAlfDesc) {
-            this.tipus_ordenacio = TipusOrdenacio.ALFABETIC_DESCENDENT;
+            tipus_ordenacio = TipusOrdenacio.ALFABETIC_DESCENDENT;
+            ctrlPresentacio.ordenar(tipus_ordenacio);
 
         } else if (source == miOrdrePesAsc) {
-            this.tipus_ordenacio = TipusOrdenacio.PES_ASCENDENT;
+            tipus_ordenacio = TipusOrdenacio.PES_ASCENDENT;
+            ctrlPresentacio.ordenar(tipus_ordenacio);
 
         } else if (source == miOrdrePesDesc) {
-            this.tipus_ordenacio = TipusOrdenacio.PES_DESCENDENT;
+            tipus_ordenacio = TipusOrdenacio.PES_DESCENDENT;
+            ctrlPresentacio.ordenar(tipus_ordenacio);
 
         } else if (source == cleanButton) {
             textAreaCerques.setText("");
@@ -162,8 +199,8 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         return tipus_ordenacio;
     }
 
-    public void actualitzarResultat(ArrayList<AbstractMap.SimpleEntry<String,String>> documents) {
-
+    public void actualitzarResultat(ArrayList<SimpleEntry<String,String>> documents) {
+        //TODO: ACTUALITZAR EL SCROLL PANEL AMB EL VALORS QUE ARRIBEN PER PARAMETRE
     }
 
     //Metode per posar visible la vista
