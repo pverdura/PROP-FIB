@@ -56,7 +56,7 @@ public class ViewCercaParaules {
         frame.add(panellInferior, BorderLayout.SOUTH);
 
 
-        frame.setMinimumSize(new Dimension(500, 125));
+        frame.setMinimumSize(new Dimension(500, 175));
         frame.setPreferredSize(frame.getMinimumSize());
         frame.setResizable(false);
 
@@ -73,8 +73,8 @@ public class ViewCercaParaules {
 
     private void configurarPanellMig () {
         panellMig.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        //textNombreDocuments.setMinimumSize(new Dimension(50, 30));
-        //textNombreDocuments.setPreferredSize(textNombreDocuments.getMinimumSize());
+        textNombreDocuments.setMinimumSize(new Dimension(50, 25));
+        textNombreDocuments.setPreferredSize(textNombreDocuments.getMinimumSize());
         panellMig.add(label2);
         panellMig.add(textNombreDocuments);
     }

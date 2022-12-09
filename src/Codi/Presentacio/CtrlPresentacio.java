@@ -71,7 +71,7 @@ public class CtrlPresentacio {
 
     //documents
     public void crearDocument () {
-        viewModificarDocument.ferVisible();
+        viewModificarDocument.ferVisible(true);
     }
 
     public boolean importarDocument (File fitxer) {
@@ -81,10 +81,6 @@ public class CtrlPresentacio {
     public void tancarAplicacio () {
         if (viewCercaTitol != null) viewCercaTitol.tancarVista();
 
-    }
-
-    public void modificarDocument (SimpleEntry<String, String> id) {
-        //obrir vista modificar document amb les dades del document id
     }
 
     public void exportarDocument (SimpleEntry<String, String> id, String path) {
@@ -120,15 +116,13 @@ public class CtrlPresentacio {
         }
     }
 
-    public boolean esborrarCerca () {
+    public void mostrarDocuments () {
         try {
             resultatActual1 = ctrlDomini.cercaAllDocuments(tipusOrdenacio);
             viewMenuPrincipal.actualitzarResultat(resultatActual1);
             ultimaCerca = TipusCerca.TOTS;
-            return true;
         } catch (Exception e) {
             VistaDialeg.errorDialog("Hi ha algun error a l'aplicació");
-            return false;
         }
     }
 
@@ -170,10 +164,10 @@ public class CtrlPresentacio {
             viewGestioExprBool = new ViewGestioExprBool(this);
         viewGestioExprBool.ferVisible();
     }
-    public void obrirViewModificarDocument () {
+    public void modificarDocument (String titol, String autor) {
         if (viewModificarDocument == null)
             viewModificarDocument = new ViewModificarDocument(this);
-        viewModificarDocument.ferVisible();
+        viewModificarDocument.ferVisible(true);
     }
     public void obrirCercaTitol () {
         if (viewCercaTitol == null) viewCercaTitol = new ViewCercaTitol(this);
