@@ -83,6 +83,10 @@ public class CtrlDomini {
         CDdoc.eliminaDocument(titol,autor,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
     }
 
+    public void llegirDocument(DocumentLlegit D) throws DocumentJaExisteixException {
+        CDdoc.llegirDocument(D,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
+    }
+
     /*
      * Modifica el titol del document identificat per titolVell i autor
      *
