@@ -5,6 +5,7 @@ public class DocumentLlegit {
     private String autor;
     private String path;
     private String contingut;
+    private TipusExtensio extensio;
 
 
     public String getTitol(){
@@ -23,6 +24,8 @@ public class DocumentLlegit {
         return contingut;
     }
 
+    public TipusExtensio getExtensio(){ return extensio;}
+
     public void setTitol(String s){
         titol = s;
     }
@@ -38,4 +41,6 @@ public class DocumentLlegit {
     public void setContingut(String s){
         contingut = s;
     }
+
+    public void setExtensio(TipusExtensio e){ extensio = e; }
 }
