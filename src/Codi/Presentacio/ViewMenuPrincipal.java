@@ -16,6 +16,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
     private JButton cleanButton;
     private JTextArea textAreaCerques;
     private JScrollPane scroll;
+    private JPanel cerquesPanel;
     private JMenuItem miCreaDoc, miImportaDoc, miAjuda, miSortir;
     private JMenuItem miGestioBool;
     private JMenuItem miCercaTitol, miCercaAutor, miCercaTitolAutor, miCercaPrefix, miCercaParaules, miCercaSemblant;
@@ -43,7 +44,9 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         crearMenus();
-        ctrlPresentacio.mostrarDocuments();
+        //TODO: afegir ctrlPresentacio.mostrarDocuments();
+        //ArrayList<SimpleEntry<String,String>> a = new ArrayList<>();
+        //actualitzarResultat(a);
     }
 
     private void crearMenus() {
@@ -90,7 +93,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         miCercaParaules.addActionListener(this);
         miCercaPrefix = new JMenuItem("Cerca Prefix");
         miCercaPrefix.addActionListener(this);
-        miCercaSemblant = new JMenuItem("Cerca Semblant");
+        miCercaSemblant = new JMenuItem("Cerca per Documents");
         miCercaSemblant.addActionListener(this);
 
         menuCerca.add(miCercaTitol);
@@ -126,7 +129,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
         //Aplicar funcionalitats associades al menu + buidar cerques de la vista
         if (source == miCreaDoc) {
-            //ctrlPresentacio.doc();
+            ctrlPresentacio.crearDocument();
 
         } else if (source == miImportaDoc) {
 
@@ -152,8 +155,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
             }
 
         } else if (source == miAjuda) {
-            //TODO: Parlar amb grup i decidir si posar dialeg missatge d'ajuda o si utilitzo el metode de presentacio jordi
-            VistaDialeg.messageDialog("MENÚ AJUDA", "informació d'ajuda");
+            ctrlPresentacio.obrirAjuda();
 
         } else if (source == miSortir) {
             ctrlPresentacio.tancarAplicacio();
@@ -200,13 +202,19 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         }
     }
 
-    public TipusOrdenacio getTipusOrdenacio() {
-        return tipus_ordenacio;
-    }
-
     public void actualitzarResultat(ArrayList<SimpleEntry<String,String>> documents) {
-        //TODO: ACTUALITZAR EL SCROLL PANEL AMB EL VALORS QUE ARRIBEN PER PARÀMETRE
+        //TODO: ACTUALITZAR EL SCROLL PANEL AMB EL VALORS QUE ARRIBEN PER PARÀMETRE I FER DELETE/UPDATE/EXPORT AL CLICAR
         //TODO: SEPARAR ELS VALORS DEL TEXT AREA PER "-" AIXI AMB FUNC SPLIT PODEM SEPARAR ELS VALORS
+
+        /*
+        cerquesPanel = new JPanel();
+        for (int i = 0; i <= 10; i++) {
+            JLabel a = new JLabel("AJAJAJAJJAJJAJA");
+            cerquesPanel.add(a);
+        }
+        scroll.add(cerquesPanel);
+
+         */
     }
 
     //Metode per posar visible la vista
