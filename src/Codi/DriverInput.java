@@ -169,7 +169,7 @@ public class DriverInput {
                     nomNou = sc.nextLine();
 
                 try {
-                    cd.setTitol(nom, nomNou, autor);
+                    //cd.setTitol(nom, nomNou, autor);
                 } catch (Exception e) {
                     System.out.println(e.toString());
                 }
@@ -182,7 +182,7 @@ public class DriverInput {
                     autorNou = sc.nextLine();
 
                 try {
-                    cd.setAutor(nom, autor, autorNou);
+                    //cd.setAutor(nom, autor, autorNou);
                 } catch (Exception e) {
                     System.out.println(e.toString());
                 }

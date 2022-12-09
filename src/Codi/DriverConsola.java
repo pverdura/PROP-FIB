@@ -163,7 +163,7 @@ public class DriverConsola {
                 String nomNou = sc.nextLine();
 
                 try {
-                    cd.setTitol(nom, nomNou, autor);
+                    //cd.setTitol(nom, nomNou, autor);
                 } catch (Exception e) {
                     System.out.println(e.toString());
                 }
@@ -174,7 +174,7 @@ public class DriverConsola {
                 String autorNou = sc.nextLine();
 
                 try {
-                    cd.setAutor(nom, autor, autorNou);
+                    //cd.setAutor(nom, autor, autorNou);
                 } catch (Exception e) {
                     System.out.println(e.toString());
                 }
