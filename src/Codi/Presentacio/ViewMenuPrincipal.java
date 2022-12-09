@@ -1,9 +1,12 @@
 package Codi.Presentacio;
 
+import Codi.Util.TipusExtensio;
 import Codi.Util.TipusOrdenacio;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 
@@ -15,7 +18,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
     private JScrollPane scroll;
     private JMenuItem miCreaDoc, miImportaDoc, miAjuda, miSortir;
     private JMenuItem miGestioBool;
-    private JMenuItem miCercaTitol, miCercaAutor, miCercaTitolAutor, miCercaPrefix, miCercaParaules, miCercaDoc, miCercaSemblant;
+    private JMenuItem miCercaTitol, miCercaAutor, miCercaTitolAutor, miCercaPrefix, miCercaParaules, miCercaSemblant;
     private JMenuItem miOrdreAlfAsc, miOrdreAlfDesc, miOrdrePesAsc, miOrdrePesDesc;
 
     private final CtrlPresentacio ctrlPresentacio;
@@ -40,7 +43,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         crearMenus();
-        //TODO: cridar CercaAllDocuments de presentacio i que presentacio actualitzi la pantalla de la meva vista amb el meu metode
+        ctrlPresentacio.mostrarDocuments();
     }
 
     private void crearMenus() {
@@ -90,15 +93,11 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         miCercaSemblant = new JMenuItem("Cerca Semblant");
         miCercaSemblant.addActionListener(this);
 
-        miCercaDoc = new JMenuItem("Cerca per Document");
-        miCercaDoc.addActionListener(this);
-
         menuCerca.add(miCercaTitol);
         menuCerca.add(miCercaAutor);
         menuCerca.add(miCercaTitolAutor);
         menuCerca.add(miCercaPrefix);
         menuCerca.add(miCercaParaules);
-        menuCerca.add(miCercaDoc);
         menuCerca.add(miCercaSemblant);
 
         //Afegir menu ordre
@@ -127,13 +126,33 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
         //Aplicar funcionalitats associades al menu + buidar cerques de la vista
         if (source == miCreaDoc) {
-            //TODO: obrir gestioDoc
+            //ctrlPresentacio.doc();
 
         } else if (source == miImportaDoc) {
-            ctrlPresentacio.importarDocument();
+
+            FileNameExtensionFilter filtre = new FileNameExtensionFilter("Fitxers app",
+
+                    TipusExtensio.BOL.toString(),
+                    TipusExtensio.TXT.toString(),
+                    TipusExtensio.XML.toString());
+
+            JFileChooser fc = new JFileChooser();
+            fc.setFileFilter(filtre);
+
+            int seleccionat = fc.showOpenDialog(this);
+
+            if (seleccionat == JFileChooser.APPROVE_OPTION) {
+                File f = fc.getSelectedFile();
+                boolean res = ctrlPresentacio.importarDocument(f);
+
+                if (res)
+                    VistaDialeg.messageDialog("Import", "S'ha importat el fitxer correctament");
+                else
+                    VistaDialeg.errorDialog("ERROR: El fitxer no sha importat.\nÉs possible que ja existeixi un fitxer igual!");
+            }
 
         } else if (source == miAjuda) {
-            //TODO: Parlar amb els del grup per decidir que posar al missatge d'ajuda
+            //TODO: Parlar amb grup i decidir si posar dialeg missatge d'ajuda o si utilitzo el metode de presentacio jordi
             VistaDialeg.messageDialog("MENÚ AJUDA", "informació d'ajuda");
 
         } else if (source == miSortir) {
@@ -160,13 +179,9 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         } else if (source == miCercaSemblant) {
             ctrlPresentacio.obrirCercaSemblant();
 
-        } else if (source == miCercaDoc) {
-            //TODO: obrir cerca doc
-
         } else if (source == miOrdreAlfAsc) {
             tipus_ordenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
             ctrlPresentacio.ordenar(tipus_ordenacio);
-            //TODO: Comentar-li al jordi que el metode d'ordenar m'ha d actualitzar la pantalla amb el meu metode
 
         } else if (source == miOrdreAlfDesc) {
             tipus_ordenacio = TipusOrdenacio.ALFABETIC_DESCENDENT;
