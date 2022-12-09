@@ -59,8 +59,6 @@ public class ViewCercaParaules {
         frame.setPreferredSize(frame.getMinimumSize());
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private void configurarPanellSuperior () {

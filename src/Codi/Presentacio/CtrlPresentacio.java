@@ -37,6 +37,7 @@ public class CtrlPresentacio {
 
     public void init () {
         viewMenuPrincipal.ferVisible();
+        prova();    //esborrar
     }
 
     public boolean crearExprBool (String expr) {
@@ -81,7 +82,7 @@ public class CtrlPresentacio {
 
     public void tancarAplicacio () {
         if (viewCercaTitol != null) viewCercaTitol.tancarVista();
-
+        if (viewCercaParaules != null) viewCercaParaules.tancarVista();
     }
 
     public void exportarDocument (SimpleEntry<String, String> id, String path) {
