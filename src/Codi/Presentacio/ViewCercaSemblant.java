@@ -111,20 +111,21 @@ public class ViewCercaSemblant {
 
     private void configurarVista(){
         frameVista.setLayout(new BorderLayout());
-        frameVista.add(titolPanel, BorderLayout.NORTH);
-        frameVista.add(autorPanel, BorderLayout.CENTER);
-        frameVista.add(numPanel, BorderLayout.CENTER);
+        JPanel innerPanel = new JPanel(new BorderLayout());
+        innerPanel.add(titolPanel, BorderLayout.NORTH);
+        innerPanel.add(autorPanel, BorderLayout.CENTER);
+        innerPanel.add(numPanel, BorderLayout.SOUTH);
+
+        frameVista.add(innerPanel, BorderLayout.NORTH);
         frameVista.add(buttonsPanel, BorderLayout.SOUTH);
 
-        frameVista.setMinimumSize(new Dimension(500, 200));
+        frameVista.setMinimumSize(new Dimension(500, 225));
         frameVista.setPreferredSize(frameVista.getMinimumSize());
         frameVista.setResizable(false);
-
-        frameVista.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
 
     private void configTitolPanel(){
-        titolPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        titolPanel.setLayout(new FlowLayout(FlowLayout.CENTER,10, 19));
 
         omplirTitol.setMinimumSize(new Dimension(250,30));
         omplirTitol.setPreferredSize(omplirTitol.getMinimumSize());
@@ -134,7 +135,7 @@ public class ViewCercaSemblant {
     }
 
     private void configAutorPanel(){
-        autorPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        autorPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
         omplirAutor.setMinimumSize(new Dimension(250, 30));
         omplirAutor.setPreferredSize(omplirTitol.getMinimumSize());
@@ -144,7 +145,7 @@ public class ViewCercaSemblant {
     }
 
     private void configNumDocsPanel(){
-        numDocs.setLayout(new FlowLayout(FlowLayout.CENTER));
+        numPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         numDocs.setMinimumSize(new Dimension(50,25));
         numDocs.setPreferredSize(numDocs.getMinimumSize());
         numPanel.add(labelNumDocs);
