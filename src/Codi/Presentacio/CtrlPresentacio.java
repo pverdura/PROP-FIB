@@ -13,6 +13,11 @@ public class CtrlPresentacio {
     private ViewGestioExprBool viewGestioExprBool;
     private ViewModificarDocument viewModificarDocument;
     private ViewCercaTitol viewCercaTitol;
+    private ViewCercaAutor viewCercaAutor;
+    private ViewCercaTitolAutor viewCercaTitolAutor;
+    private ViewCercaPrefix viewCercaPrefix;
+    private ViewCercaSemblant viewCercaSemblant;
+    private ViewCercaParaules viewCercaParaules;
 
     private ArrayList<SimpleEntry<String, String>> resultatActual1;
     private TipusCerca ultimaCerca;
@@ -146,10 +151,6 @@ public class CtrlPresentacio {
     }
 
     //obrir vistes
-    public void obrirCercaTitol () {
-        if (viewCercaTitol == null) viewCercaTitol = new ViewCercaTitol(this);
-        viewCercaTitol.ferVisible(true);
-    }
     public void obrirAjuda () {
         //obrir vista ajuda
     }
@@ -158,14 +159,34 @@ public class CtrlPresentacio {
             viewGestioExprBool = new ViewGestioExprBool(this);
         viewGestioExprBool.ferVisible();
     }
-    public void tancarGestioExprBool () {
-        viewGestioExprBool.ferInvisible();
-        //cal aquest mètode?
-    }
     public void obrirViewModificarDocument () {
         if (viewModificarDocument == null)
             viewModificarDocument = new ViewModificarDocument(this);
         viewModificarDocument.ferVisible();
+    }
+    public void obrirCercaTitol () {
+        if (viewCercaTitol == null) viewCercaTitol = new ViewCercaTitol(this);
+        viewCercaTitol.ferVisible(true);
+    }
+    public void obrirCercaAutor () {
+        if (viewCercaAutor == null) viewCercaAutor = new ViewCercaAutor(this);
+        viewCercaAutor.ferVisible(true);
+    }
+    public void obrirCercaTitolAutor () {
+        if (viewCercaTitolAutor == null) viewCercaTitolAutor = new ViewCercaTitolAutor(this);
+        viewCercaTitolAutor.ferVisible(true);
+    }
+    public void obrirCercaPrefix () {
+        if (viewCercaPrefix == null) viewCercaPrefix = new ViewCercaPrefix(this);
+        viewCercaPrefix.ferVisible(true);
+    }
+    public void obrirCercaSemblant () {
+        if (viewCercaSemblant == null) viewCercaSemblant = new ViewCercaSemblant(this);
+        viewCercaSemblant.ferVisible(true);
+    }
+    public void obrirCercaParaules () {
+        if (viewCercaParaules == null) viewCercaParaules = new ViewCercaParaules(this);
+        viewCercaParaules.ferVisible(true);
     }
 }
 
