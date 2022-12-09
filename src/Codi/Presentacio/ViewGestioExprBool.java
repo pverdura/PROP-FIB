@@ -14,34 +14,31 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
     private JButton updateButton;
     private JTextArea textArea1;
     private JButton searchButton;
-    private JButton backButton;
     private JScrollPane scroll;
 
 
-    private CtrlPresentacio ctrlPresentacio;
+    private final CtrlPresentacio ctrlPresentacio;
 
     public ViewGestioExprBool(CtrlPresentacio ctrlPresentacio) {
         this.ctrlPresentacio = ctrlPresentacio;
 
         //Inicialitzar el scrollPanel i el text area associat
-        this.textArea1 = new JTextArea(30,1);
+        this.textArea1 = new JTextArea(100,1);
         this.textArea1.setVisible(true);
         this.textArea1.setEditable(false);
         this.scroll.setViewportView(textArea1);
 
 
-        //Inicialitzar components de la vista
+        //Inicialitzar components principals de la vista
         setContentPane(this.boolPanel);
         setTitle("Gestió d'Expressions Booleanes");
         setSize(500, 500);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Afegir listeners per detectar quan es clica cada boto
         createButton.addActionListener(this);
         deleteButton.addActionListener(this);
         updateButton.addActionListener(this);
         searchButton.addActionListener(this);
-        backButton.addActionListener(this);
 
         //Afegir totes les expressions booleanes al text area
         mostrarAllExpressions();
@@ -79,7 +76,7 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
 
                 boolean correcte = ctrlPresentacio.eliminarExprBool(input);
 
-                //Comprova si s ha eliminat correctament l expressio
+                //Comprova si s ha eliminat correctament la expressio
                 if (correcte)
                     mostrarAllExpressions();
                 else
@@ -96,7 +93,7 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
 
                 boolean correcte = ctrlPresentacio.modificarExprBool(inputs.getKey(), inputs.getValue());
 
-                //Comprova si s ha modificat correctament l expressio
+                //Comprova si s ha modificat correctament la expressio
                 if (correcte)
                     mostrarAllExpressions();
                 else
@@ -112,12 +109,10 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
             if (input != null) {
                 boolean correcte = ctrlPresentacio.cercaBooleana(input);
 
-                //Comprova si s ha cercat correctament l expressio
+                //Comprova si s ha cercat correctament la expressio
                 if (!correcte) VistaDialeg.errorDialog("ERROR: La expressió no s'ha pogut cercar");
             }
 
-        } else if (source == backButton) {
-            ctrlPresentacio.tancarGestioExprBool();
         }
     }
 
@@ -132,11 +127,6 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
     public void ferVisible() {
         setSize(500, 500);
         setVisible(true);
-    }
-
-    //Metode per deixar de visualitzar vista
-    public void ferInvisible() {
-        setVisible(false);
     }
 }
 
