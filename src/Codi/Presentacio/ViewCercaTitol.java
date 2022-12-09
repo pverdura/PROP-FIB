@@ -1,4 +1,102 @@
 package Codi.Presentacio;
 
-public class ViewCercaTitol {
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+
+public class ViewCercaTitol /*implements ActionListener*/ {
+    private CtrlPresentacio ctrlPresentacio;
+
+    private JFrame frame;
+    private JPanel panellSuperior, panellInferior;
+    private JButton btCancelar;
+    private JButton btAcceptar;
+    private JTextField textTitol;
+    private JLabel label;
+
+    public ViewCercaTitol (CtrlPresentacio cp) {
+        this.ctrlPresentacio = cp;
+        inicialitzar();
+    }
+
+    private void inicialitzar () {
+        inicialitzarComponents();
+        configurarVista();
+        configurarPanellSuperior();
+        configurarPanellInferior();
+        assignarListeners();
+    }
+
+    private void inicialitzarComponents () {
+        frame = new JFrame("Cerca per Títol");
+        panellSuperior = new JPanel();
+        panellInferior = new JPanel();
+        btCancelar = new JButton("Cancel·lar");
+        btAcceptar = new JButton("Acceptar");
+        textTitol = new JTextField();
+        label = new JLabel("Títol: ");
+    }
+
+    private void configurarVista () {
+        frame.setLayout(new BorderLayout());
+        frame.add(panellSuperior, BorderLayout.CENTER);
+        frame.add(panellInferior, BorderLayout.SOUTH);
+
+
+        frame.setMinimumSize(new Dimension(400, 200));
+        frame.setPreferredSize(frame.getMinimumSize());
+        frame.setResizable(false);
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    private void configurarPanellSuperior () {
+        //textTitol.setMaximumSize(new Dimension(50, 200));
+        //panellSuperior.setLayout(new BorderLayout());
+        textTitol.setMinimumSize(new Dimension(100, 100));
+        panellSuperior.add(label);
+        panellSuperior.add(textTitol);
+    }
+
+    private void configurarPanellInferior () {
+        panellInferior.setLayout(new BorderLayout());
+        panellInferior.add(btCancelar, BorderLayout.WEST);
+        panellInferior.add(btAcceptar, BorderLayout.EAST);
+    }
+
+    private void assignarListeners () {
+        btAcceptar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String text = textTitol.getText();
+                if (ctrlPresentacio.cercaTitol(text)) {
+                    //tancar
+                    System.out.println("cerca feta correctament");
+                } else {
+                    //mostrar missatge d'error
+                    System.out.println("error");
+                }
+            }
+        });
+
+        btCancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ferVisible(false);
+            }
+        });
+
+    }
+
+    public void ferVisible (boolean visible) {
+        if (visible) frame.pack();
+        frame.setVisible(visible);
+    }
+
+    public void tancarVista () {
+        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+    }
 }
