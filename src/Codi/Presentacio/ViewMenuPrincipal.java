@@ -2,16 +2,11 @@ package Codi.Presentacio;
 
 import Codi.Util.TipusExtensio;
 import Codi.Util.TipusOrdenacio;
-
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 
@@ -20,38 +15,43 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
     private JPanel mainPanel;
     private JButton cleanButton;
     private JTextArea textAreaCerques;
-    private JMenuBar barraMenu;
-    private JMenu menuFitxer, menuBool, menuCerca, menuOrdre;
+    private JScrollPane scroll;
     private JMenuItem miCreaDoc, miImportaDoc, miAjuda, miSortir;
     private JMenuItem miGestioBool;
-    private JMenuItem miCercaTitol, miCercaAutor, miCercaTitolAutor, miCercaPrefix, miCercaParaules, miCercaDoc;
+    private JMenuItem miCercaTitol, miCercaAutor, miCercaTitolAutor, miCercaPrefix, miCercaParaules, miCercaSemblant;
     private JMenuItem miOrdreAlfAsc, miOrdreAlfDesc, miOrdrePesAsc, miOrdrePesDesc;
 
-    private CtrlPresentacio ctrlPresentacio;
+    private final CtrlPresentacio ctrlPresentacio;
 
     private TipusOrdenacio tipus_ordenacio;
 
-    public ViewMenuPrincipal(CtrlPresentacio ctrlPresentacio1) {
-        this.ctrlPresentacio = ctrlPresentacio1;
+    public ViewMenuPrincipal(CtrlPresentacio ctrlPresentacio) {
+        this.ctrlPresentacio = ctrlPresentacio;
         this.cleanButton.addActionListener(this);
         this.tipus_ordenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
 
+        //Inicialitzar el scrollPanel i el text area associat
+        this.textAreaCerques = new JTextArea(100,1);
+        this.textAreaCerques.setVisible(true);
+        this.textAreaCerques.setEditable(false);
+        this.scroll.setViewportView(textAreaCerques);
 
+        //Inicialitzar components principals de la vista
         setContentPane(this.mainPanel);
         setTitle("Menú Principal");
         setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         crearMenus();
-        //TODO: CRIDAR AL METODE CercaAllDocuments DEL CONTROL PRESENTACIO I QUE ACTUALITZI SCROLL PANE
+        ctrlPresentacio.mostrarDocuments();
     }
 
     private void crearMenus() {
-        barraMenu = new JMenuBar();
+        JMenuBar barraMenu = new JMenuBar();
         setJMenuBar(barraMenu);
 
         //Afegir menu document
-        menuFitxer = new JMenu("Fitxer");
+        JMenu menuFitxer = new JMenu("Fitxer");
         barraMenu.add(menuFitxer);
 
         miCreaDoc = new JMenuItem("Crea / Modifica");
@@ -69,7 +69,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         menuFitxer.add(miSortir);
 
         //Afegir menu expressio bool
-        menuBool = new JMenu("Expressió Bool");
+        JMenu menuBool = new JMenu("Expressió Bool");
         barraMenu.add(menuBool);
 
         miGestioBool = new JMenuItem("Gestió");
@@ -77,31 +77,31 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         menuBool.add(miGestioBool);
 
         //Afegir menu cerca
-        menuCerca = new JMenu("Cerca");
+        JMenu menuCerca = new JMenu("Cerca");
         barraMenu.add(menuCerca);
 
-        miCercaTitol = new JMenuItem("Cerca Títol");
-        miCercaTitol.addActionListener(this);
         miCercaAutor = new JMenuItem("Cerca Autor");
         miCercaAutor.addActionListener(this);
+        miCercaTitol = new JMenuItem("Cerca Títol");
+        miCercaTitol.addActionListener(this);
         miCercaTitolAutor = new JMenuItem("Cerca Títol i Autor");
         miCercaTitolAutor.addActionListener(this);
-        miCercaPrefix = new JMenuItem("Cerca Prefix");
-        miCercaPrefix.addActionListener(this);
         miCercaParaules = new JMenuItem("Cerca Paraules");
         miCercaParaules.addActionListener(this);
-        miCercaDoc = new JMenuItem("Cerca per Document");
-        miCercaDoc.addActionListener(this);
+        miCercaPrefix = new JMenuItem("Cerca Prefix");
+        miCercaPrefix.addActionListener(this);
+        miCercaSemblant = new JMenuItem("Cerca Semblant");
+        miCercaSemblant.addActionListener(this);
 
         menuCerca.add(miCercaTitol);
         menuCerca.add(miCercaAutor);
         menuCerca.add(miCercaTitolAutor);
         menuCerca.add(miCercaPrefix);
         menuCerca.add(miCercaParaules);
-        menuCerca.add(miCercaDoc);
+        menuCerca.add(miCercaSemblant);
 
         //Afegir menu ordre
-        menuOrdre = new JMenu("Ordre");
+        JMenu menuOrdre = new JMenu("Ordre");
         barraMenu.add(menuOrdre);
 
         miOrdreAlfAsc = new JMenuItem("Alfabètic Ascendent");
@@ -124,12 +124,14 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
         Object source = e.getSource();
 
-        //Afegir la vista del menuItem clicat
+        //Aplicar funcionalitats associades al menu + buidar cerques de la vista
         if (source == miCreaDoc) {
+            //ctrlPresentacio.doc();
 
         } else if (source == miImportaDoc) {
 
             FileNameExtensionFilter filtre = new FileNameExtensionFilter("Fitxers app",
+
                     TipusExtensio.BOL.toString(),
                     TipusExtensio.TXT.toString(),
                     TipusExtensio.XML.toString());
@@ -141,38 +143,41 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
             if (seleccionat == JFileChooser.APPROVE_OPTION) {
                 File f = fc.getSelectedFile();
+                boolean res = ctrlPresentacio.importarDocument(f);
 
-                Path src = Paths.get(fc.getSelectedFile().getPath());
-                Path dest = Paths.get("src/Codi/Persistencia/Documents/"+f.getName());
-
-                try {
-                    Files.copy(src.toFile().toPath(), dest.toFile().toPath());
-                    VistaDialeg.messageDialog("El fitxer " +f.getName()+ " s'ha importat correctament");
-                } catch (IOException ex) {
-                    VistaDialeg.errorDialog("ERROR: No s'ha pogut importar el fitxer: "+f.getName()+
-                                            "\nPossiblement el fitxer ja està importat");
-                }
+                if (res)
+                    VistaDialeg.messageDialog("Import", "S'ha importat el fitxer correctament");
+                else
+                    VistaDialeg.errorDialog("ERROR: El fitxer no sha importat.\nÉs possible que ja existeixi un fitxer igual!");
             }
 
         } else if (source == miAjuda) {
+            //TODO: Parlar amb grup i decidir si posar dialeg missatge d'ajuda o si utilitzo el metode de presentacio jordi
+            VistaDialeg.messageDialog("MENÚ AJUDA", "informació d'ajuda");
 
         } else if (source == miSortir) {
-            System.exit(0);
+            ctrlPresentacio.tancarAplicacio();
 
         } else if (miGestioBool.equals(source)) {
             ctrlPresentacio.obrirGestioExprBool();
 
         } else if (source == miCercaTitol) {
+            ctrlPresentacio.obrirCercaTitol();
 
         } else if (source == miCercaAutor) {
+            ctrlPresentacio.obrirCercaAutor();
 
         } else if (source == miCercaTitolAutor) {
+            ctrlPresentacio.obrirCercaTitolAutor();
 
         } else if (source == miCercaPrefix) {
+            ctrlPresentacio.obrirCercaPrefix();
 
         } else if (source == miCercaParaules) {
+            ctrlPresentacio.obrirCercaParaules();
 
-        } else if (source == miCercaDoc) {
+        } else if (source == miCercaSemblant) {
+            ctrlPresentacio.obrirCercaSemblant();
 
         } else if (source == miOrdreAlfAsc) {
             tipus_ordenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
@@ -200,7 +205,8 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
     }
 
     public void actualitzarResultat(ArrayList<SimpleEntry<String,String>> documents) {
-        //TODO: ACTUALITZAR EL SCROLL PANEL AMB EL VALORS QUE ARRIBEN PER PARAMETRE
+        //TODO: ACTUALITZAR EL SCROLL PANEL AMB EL VALORS QUE ARRIBEN PER PARÀMETRE
+        //TODO: SEPARAR ELS VALORS DEL TEXT AREA PER "-" AIXI AMB FUNC SPLIT PODEM SEPARAR ELS VALORS
     }
 
     //Metode per posar visible la vista

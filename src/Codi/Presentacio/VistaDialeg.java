@@ -1,9 +1,7 @@
 package Codi.Presentacio;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.AbstractMap.SimpleEntry;
-
 
 public class VistaDialeg {
 
@@ -47,7 +45,7 @@ public class VistaDialeg {
                 "Error detectat", JOptionPane.ERROR_MESSAGE);
     }
 
-    public static void messageDialog(String mensaje) {
-        JOptionPane.showMessageDialog(null, mensaje);
+    public static void messageDialog(String titol, String missatge) {
+        JOptionPane.showMessageDialog(null, missatge, titol,  JOptionPane.INFORMATION_MESSAGE);
     }
 }

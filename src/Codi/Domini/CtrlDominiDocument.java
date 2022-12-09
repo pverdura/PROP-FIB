@@ -2,6 +2,7 @@ package Codi.Domini;
 
 import Codi.Excepcions.DocumentInexistentException;
 import Codi.Excepcions.DocumentJaExisteixException;
+import Codi.Util.DocumentLlegit;
 import Codi.Util.TipusExtensio;
 import Codi.Util.Trie;
 
@@ -65,33 +66,41 @@ public class CtrlDominiDocument {
         if (autorModificat) d.setAutor(autorNou);
 
         //documentsAutor
-        if (titolModificat & autorModificat) {
+        if (autorModificat) {
             //títol i autor
-
-        } else if (titolModificat) {
-            //només títol
-
-        } else if (autorModificat){
-            //només autor
             documentsAutor.get(autorVell).remove(titolVell);
             if (documentsAutor.get(autorVell).isEmpty()) documentsAutor.remove(autorVell);
 
             if (documentsAutor.containsKey(autorNou)) {
-
+                documentsAutor.get(autorNou).add(titolNou);
             } else {
-
+                ArrayList<String> aux = new ArrayList<>();
+                aux.add(titolNou);
+                documentsAutor.put(autorNou, aux);
             }
+        } else if (titolModificat) {
+            //només títol
+            documentsAutor.get(autorNou).remove(titolVell);
+            documentsAutor.get(autorNou).add(titolNou);
         }
 
         //titolAutors
-        if (titolModificat & autorModificat) {
+        if (titolModificat) {
             //títol i autor
+            titolAutors.get(titolVell).remove(autorVell);
+            if (titolAutors.get(titolVell).isEmpty()) titolAutors.remove(titolVell);
 
-        } else if (titolModificat) {
+            if (titolAutors.containsKey(titolNou)) {
+                titolAutors.get(titolNou).add(autorNou);
+            } else {
+                ArrayList<String> aux = new ArrayList<>();
+                aux.add(autorNou);
+                titolAutors.put(titolNou, aux);
+            }
+        } else if (autorModificat) {
             //només títol
-
-        } else if (autorModificat){
-            //només autor
+            titolAutors.get(titolNou).remove(autorVell);
+            titolAutors.get(titolNou).add(autorNou);
         }
 
         //autors trie
@@ -111,7 +120,7 @@ public class CtrlDominiDocument {
         documents.put(idNou, d);
     }
 
-
+/*
     public void setTitol (String titolVell, String titolNou, String autor, HashMap<SimpleEntry<String, String>, Document> documents,
                           HashMap<String,ArrayList<String>> documentsAutor,
                           HashMap<String,ArrayList<String>> titolAutors, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentJaExisteixException, DocumentInexistentException {
@@ -148,9 +157,9 @@ public class CtrlDominiDocument {
 
         documents.remove(idVell);
         documents.put(idNou, d);
-    }
+    }*/
 
-
+/*
     public void setAutor (String titol, String autorVell, String autorNou, HashMap<SimpleEntry<String, String>, Document> documents,
                           Trie<String> autors, HashMap<String,ArrayList<String>> documentsAutor,
                           HashMap<String,ArrayList<String>> titolAutors, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentJaExisteixException, DocumentInexistentException {
@@ -191,7 +200,7 @@ public class CtrlDominiDocument {
 
         documents.remove(idVell);
         documents.put(idNou, d);
-    }
+    }*/
 
     //Modifica el contingut d’un document.
     public void setContingut (String titol, String autor, String contingut, HashMap<SimpleEntry<String, String>, Document> documents,
@@ -310,6 +319,23 @@ public class CtrlDominiDocument {
         }
 
         documents.remove(id); //eliminar document de documents
+    }
+
+    public void llegirDocument (DocumentLlegit doc, HashMap<SimpleEntry<String, String>, Document> documents,
+                                Trie<String> autors, HashMap<String,ArrayList<String>> documentsAutor,
+                                HashMap<String,ArrayList<String>> titolAutors, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentJaExisteixException {
+            this.creaDocument(doc.getTitol(), doc.getAutor(), documents, autors, documentsAutor, titolAutors);
+            this.setContingut(doc.getTitol(), doc.getAutor(), doc.getContingut(), documents, paraules);
+
+            TipusExtensio te = TipusExtensio.BOL;
+            String path = doc.getPath();
+            String ext = path.substring(path.length() - 3);
+
+            if (ext.equals("txt")) te = TipusExtensio.TXT;
+            else if (ext.equals("xml")) te = TipusExtensio.XML;
+
+            this.setPath(doc.getTitol(), doc.getAutor(), path, documents);
+            this.setExtensio(doc.getTitol(), doc.getAutor(), te, documents);
     }
 
     //Obté les stop words.
