@@ -45,7 +45,7 @@ public class ViewCercaTitolAutor {
             public void actionPerformed(ActionEvent e) {
                 String titol = omplirTitol.getText();
                 String autor = omplirAutor.getText();
-                if (ctrlPresentacio.cercaTitol(titol) && ctrlPresentacio.cercaAutor(autor)){
+                if (ctrlPresentacio.cercaTitolAutor(titol, autor)){
                     System.out.println("cerca feta correctament");
                 }
                 else {
@@ -84,8 +84,8 @@ public class ViewCercaTitolAutor {
         acceptarButton = new JButton("Acceptar");
         omplirTitol = new JTextField();
         omplirAutor = new JTextField();
-        labelTitol = new JLabel("Títol:");
-        labelAutor = new JLabel("Autor:");
+        labelTitol = new JLabel("Títol: ");
+        labelAutor = new JLabel("Autor: ");
     }
 
     private void configurarVista(){
