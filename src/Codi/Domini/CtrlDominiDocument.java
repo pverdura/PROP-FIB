@@ -2,6 +2,7 @@ package Codi.Domini;
 
 import Codi.Excepcions.DocumentInexistentException;
 import Codi.Excepcions.DocumentJaExisteixException;
+import Codi.Util.DocumentLlegit;
 import Codi.Util.TipusExtensio;
 import Codi.Util.Trie;
 
@@ -320,11 +321,22 @@ public class CtrlDominiDocument {
         documents.remove(id); //eliminar document de documents
     }
 
-    /*public void llegirDocument (DocumentLlegit doc, HashMap<SimpleEntry<String, String>, Document> documents,
+    public void llegirDocument (DocumentLlegit doc, HashMap<SimpleEntry<String, String>, Document> documents,
                                 Trie<String> autors, HashMap<String,ArrayList<String>> documentsAutor,
-                                HashMap<String,ArrayList<String>> titolAutors, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) {
-            Document d = new Document(doc.getTitol(), doc.getAutor());
-    }*/
+                                HashMap<String,ArrayList<String>> titolAutors, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentJaExisteixException {
+            this.creaDocument(doc.getTitol(), doc.getAutor(), documents, autors, documentsAutor, titolAutors);
+            this.setContingut(doc.getTitol(), doc.getAutor(), doc.getContingut(), documents, paraules);
+
+            TipusExtensio te = TipusExtensio.BOL;
+            String path = doc.getPath();
+            String ext = path.substring(path.length() - 3);
+
+            if (ext.equals("txt")) te = TipusExtensio.TXT;
+            else if (ext.equals("xml")) te = TipusExtensio.XML;
+
+            this.setPath(doc.getTitol(), doc.getAutor(), path, documents);
+            this.setExtensio(doc.getTitol(), doc.getAutor(), te, documents);
+    }
 
     //Obté les stop words.
     public ArrayList<String> getStopWords () {
