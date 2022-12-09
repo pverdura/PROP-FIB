@@ -94,15 +94,13 @@ public class ViewCercaTitolAutor {
         frameVista.add(autorPanel, BorderLayout.CENTER);
         frameVista.add(buttonsPanel, BorderLayout.SOUTH);
 
-        frameVista.setMinimumSize(new Dimension(400, 150));
+        frameVista.setMinimumSize(new Dimension(400, 175));
         frameVista.setPreferredSize(frameVista.getMinimumSize());
         frameVista.setResizable(false);
-
-        frameVista.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
 
     private void configTitolPanel(){
-        titolPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        titolPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
         omplirTitol.setMinimumSize(new Dimension(250,30));
         omplirTitol.setPreferredSize(omplirTitol.getMinimumSize());
@@ -112,7 +110,7 @@ public class ViewCercaTitolAutor {
     }
 
     private void configAutorPanel(){
-        autorPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        autorPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
         omplirAutor.setMinimumSize(new Dimension(250, 30));
         omplirAutor.setPreferredSize(omplirTitol.getMinimumSize());
