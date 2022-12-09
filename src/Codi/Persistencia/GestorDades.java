@@ -1,9 +1,9 @@
 package Codi.Persistencia;
 
-import Codi.Domini.*;
 import Codi.Excepcions.CarpetaNoCreadaException;
 import Codi.Excepcions.FitxerNoCreatException;
 import Codi.Excepcions.TipusExtensioIncorrectaException;
+import Codi.Util.DocumentLlegit;
 import Codi.Util.TipusExtensio;
 
 import java.io.BufferedReader;
@@ -22,38 +22,6 @@ public class GestorDades {
     ///////////////////////////////////////////////////////////
     ///                 FUNCIONS PRIVADES                   ///
     ///////////////////////////////////////////////////////////
-
-    /**
-     * Busca la línia on el primer atribut és títol, i el segon autor del fitxer doc
-     *
-     * @param titol Indica el títol del document que volem
-     * @param autor Indica l'autor del document que volem
-     * @param PATH Indica el path del fitxer que volem consultar
-     * @return Retorna el número de línia on està primer el string títol i llavors el string autor,
-     *         si no hi ha cap línia amb les propietats anteriors, retorna -1
-     */
-    private int buscaLinia(String titol, String autor, Path PATH) {
-        // Lector que ens llegirà el fitxer
-        try (BufferedReader lector = Files.newBufferedReader(PATH,StandardCharsets.UTF_8)) {
-            String linia = null;
-            int numLinia = 0;
-
-            // Llegim el fitxer mentre hi hagi línies
-            while((linia = lector.readLine()) != null) {
-                String[] dades = linia.split(",",3);
-
-                // Mirem si el document que està en la línia numlinia el seu títol i autor és el que busquem
-                if(dades[0].equals(titol) && dades[1].equals(autor)) {
-                    return numLinia;
-                }
-                ++numLinia;
-            }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        return -1;
-    }
 
     /**
      * Escriu en el fitxer doc els paràmetres de la funció (titol,autor,ext,contingut) en format CSV
@@ -88,7 +56,6 @@ public class GestorDades {
         }
     }
 
-    // ^-^
     /**
      * Converteix el String tipus en TipusExtensió
      *
@@ -115,7 +82,6 @@ public class GestorDades {
         return ext;
     }
 
-    // ^-^
     /**
      * Crea un fitxer en el path path
      *
@@ -140,7 +106,6 @@ public class GestorDades {
         }
     }
 
-    // ^-^
     /**
      * Crea el directori on s'emmagatzemen les deades del sistema
      *
@@ -155,57 +120,8 @@ public class GestorDades {
         }
     }
 
-    /**
-     * Llegeix el contingut del fitxer documents.csv per a obtenir els documents guardats
-     * en aquest fitxer
-     *
-     * @param path Indica el path del fitxer documents.csv
-     * @return Retorna un array amb els documents guardats
-     * @throws TipusExtensioIncorrectaException Si hi ha algun document amb una extensió no coneguda
-     */
-    private ArrayList<Document> llegeixDocuments(String path) throws TipusExtensioIncorrectaException {
-        File doc = new File(path);
-        ArrayList<Document> documents = new ArrayList<Document>();
-
-        // Mirem que el fitxer on guardem els documents existeixi
-        if(doc.exists() && doc.isFile()) {
-            Path PATH = Paths.get(path);
-
-            // Lector que ens llegirà el fitxer
-            try (BufferedReader lector = Files.newBufferedReader(PATH,StandardCharsets.UTF_8)) {
-                String linia = null;
-
-                // Llegim el fitxer mentre hi hagi línies
-                while((linia = lector.readLine()) != null) {
-                    Document D = new Document();
-
-                    // Partim la línia en 4 parts (títol, autor, extensió, contingut)
-                    String[] dades = linia.split(",",4);
-
-                    // Convertim la línia llegida en un document
-                    D.setTitol(dades[0]);
-                    D.setAutor(dades[1]);
-                    D.setExtensio(toTipus(dades[2]));
-                    D.setContingut(dades[3]);
-
-                    // Afegim el document en el llistat
-                    documents.add(D);
-                }
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        // Si no existeix, el creem
-        else {
-            creaFitxer(path);
-        }
-        return documents;
-    }
-
-    // ^-^
-    private Document llegeixDocumentTXT(Path PATH) {
-        Document D = new Document();
+    private DocumentLlegit llegeixDocumentTXT(Path PATH) {
+        DocumentLlegit D = new DocumentLlegit();
 
         // Lector que ens llegirà el document
         try (BufferedReader lector = Files.newBufferedReader(PATH,StandardCharsets.UTF_8)) {
@@ -228,7 +144,7 @@ public class GestorDades {
                 ++num_linia;
             }
             D.setContingut(contingut);
-            D.setExtensio(TipusExtensio.TXT);
+            //D.setExtensio(TipusExtensio.TXT);
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -236,7 +152,7 @@ public class GestorDades {
         return D;
     }
 
-    private Document llegeixDocumentXML(Path PATH) {
+    private DocumentLlegit llegeixDocumentXML(Path PATH) {
 
 
         // Lector que ens llegirà el document
@@ -256,8 +172,8 @@ public class GestorDades {
         return null;
     }
 
-    private Document llegeixDocumentBOL(Path PATH) {
-        Document D = new Document();
+    private DocumentLlegit llegeixDocumentBOL(Path PATH) {
+        DocumentLlegit D = new DocumentLlegit();
 
         // Lector que ens llegirà el document
         try (BufferedReader lector = Files.newBufferedReader(PATH, StandardCharsets.UTF_8)) {
@@ -277,9 +193,9 @@ public class GestorDades {
     }
 
     // ^-^
-    private Document llegeixDocument(String path) throws TipusExtensioIncorrectaException {
+    private DocumentLlegit llegeixDocument(String path) throws TipusExtensioIncorrectaException {
         File doc = new File(path);
-        Document D = null;
+        DocumentLlegit D = null;
 
         // Mirem que el document que volem llegir existeixi
         if(doc.exists() && doc.isFile()) {
@@ -307,14 +223,14 @@ public class GestorDades {
     }
 
     // ^-^
-    private ArrayList<Document> llegeixDocuments(String path, File carpeta) throws TipusExtensioIncorrectaException {
-        ArrayList<Document> documents = new ArrayList<Document>();
+    private ArrayList<DocumentLlegit> llegeixDocuments(String path, File carpeta) throws TipusExtensioIncorrectaException {
+        ArrayList<DocumentLlegit> documents = new ArrayList<DocumentLlegit>();
         String[] docs = carpeta.list(); // Obtenim tots els documents de la carpeta situada en el path
 
         if(docs != null) {
             // Llegim tots els documents que estan en la carpeta situada en el path
             for (String doc : docs) {
-                Document D = llegeixDocument(path+"/"+doc);
+                DocumentLlegit D = llegeixDocument(path+"/"+doc);
                 if(D != null) documents.add(D);
             }
         }
@@ -328,9 +244,9 @@ public class GestorDades {
      * @param path Indica el path del fitxer expressions.csv
      * @return Retorna un array de les expressions booleanes guardades
      */
-    private ArrayList<ExpressioBooleana> llegeixExpressions(String path) {
+    private ArrayList<String> llegeixExpressions(String path) {
         File exp = new File(path);
-        ArrayList<ExpressioBooleana> expressions = new ArrayList<ExpressioBooleana>();
+        ArrayList<String> expressions = new ArrayList<String>();
 
         // Mirem que el fitxer on guardem les expressions existeixi
         if(exp.exists() && exp.isFile()) {
@@ -342,11 +258,8 @@ public class GestorDades {
 
                 // Llegim el fitxer mentre hi hagi línies
                 while((linia = lector.readLine()) != null) {
-                    // Llegim la línia del fitxer
-                    ExpressioBooleana EB = new ExpressioBooleana(linia);
-
                     // Afegim l'expressió en el llistat
-                    expressions.add(EB);
+                    expressions.add(linia);
                 }
             }
             catch (IOException e) {
@@ -375,10 +288,10 @@ public class GestorDades {
      * @throws FitxerNoCreatException Si no s'ha pogut crear el fitxer en la carpeta del path indicat
      * @throws TipusExtensioIncorrectaException Si hi ha algun document amb una extensió no coneguda
      */
-    public ArrayList<Document> carregaDocuments(String path) throws CarpetaNoCreadaException,
+    public ArrayList<DocumentLlegit> carregaDocuments(String path) throws CarpetaNoCreadaException,
             FitxerNoCreatException, TipusExtensioIncorrectaException {
         File carpeta = new File(path);
-        ArrayList<Document> documents = null;
+        ArrayList<DocumentLlegit> documents = null;
 
         // Primer mirem si existeix el directori on guardem els documents i expressions
         if(carpeta.exists() && carpeta.isDirectory()) documents = llegeixDocuments(path,carpeta);
@@ -397,10 +310,10 @@ public class GestorDades {
      * @throws CarpetaNoCreadaException Si no s'ha pogut crear la carpeta en el path indicat
      * @throws FitxerNoCreatException Si no s'ha pogut crear el fitxer en la carpeta del path indicat
      */
-    public ArrayList<ExpressioBooleana> carregaExpressionsBooleanes(String path) throws CarpetaNoCreadaException,
+    public ArrayList<String> carregaExpressionsBooleanes(String path) throws CarpetaNoCreadaException,
             FitxerNoCreatException {
         File carpeta = new File(path);
-        ArrayList<ExpressioBooleana> expressions = null;
+        ArrayList<String> expressions = null;
 
         // Primer mirem si existeix el directori on guardem els documents i expressions
         if(carpeta.exists() && carpeta.isDirectory()) expressions = llegeixExpressions(path+"/expressions.csv");
