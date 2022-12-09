@@ -46,7 +46,7 @@ public class ViewCercaTitol /*implements ActionListener*/ {
         frame.add(panellInferior, BorderLayout.SOUTH);
 
 
-        frame.setMinimumSize(new Dimension(400, 200));
+        frame.setMinimumSize(new Dimension(400, 125));
         frame.setPreferredSize(frame.getMinimumSize());
         frame.setResizable(false);
 
@@ -54,15 +54,16 @@ public class ViewCercaTitol /*implements ActionListener*/ {
     }
 
     private void configurarPanellSuperior () {
-        //textTitol.setMaximumSize(new Dimension(50, 200));
-        //panellSuperior.setLayout(new BorderLayout());
-        textTitol.setMinimumSize(new Dimension(100, 100));
+        panellSuperior.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        textTitol.setMinimumSize(new Dimension(250, 30));
+        textTitol.setPreferredSize(textTitol.getMinimumSize());
         panellSuperior.add(label);
         panellSuperior.add(textTitol);
     }
 
     private void configurarPanellInferior () {
-        panellInferior.setLayout(new BorderLayout());
+        BorderLayout bl = new BorderLayout();
+        panellInferior.setLayout(bl);
         panellInferior.add(btCancelar, BorderLayout.WEST);
         panellInferior.add(btAcceptar, BorderLayout.EAST);
     }
@@ -77,6 +78,7 @@ public class ViewCercaTitol /*implements ActionListener*/ {
                     System.out.println("cerca feta correctament");
                 } else {
                     //mostrar missatge d'error
+                    VistaDialeg.errorDialog("error a la cerca");
                     System.out.println("error");
                 }
             }
