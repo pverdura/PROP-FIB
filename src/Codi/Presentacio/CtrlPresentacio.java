@@ -4,6 +4,7 @@ import Codi.Domini.CtrlDomini;
 import Codi.Util.TipusCerca;
 import Codi.Util.TipusOrdenacio;
 
+import java.io.File;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 
@@ -73,8 +74,8 @@ public class CtrlPresentacio {
         viewModificarDocument.ferVisible();
     }
 
-    public void importarDocument () {
-
+    public boolean importarDocument (File fitxer) {
+        return true;
     }
 
     public void tancarAplicacio () {

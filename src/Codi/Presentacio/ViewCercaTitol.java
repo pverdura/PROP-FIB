@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
-public class ViewCercaTitol /*implements ActionListener*/ {
+public class ViewCercaTitol {
     private CtrlPresentacio ctrlPresentacio;
 
     private JFrame frame;
@@ -78,7 +78,7 @@ public class ViewCercaTitol /*implements ActionListener*/ {
                     System.out.println("cerca feta correctament");
                 } else {
                     //mostrar missatge d'error
-                    VistaDialeg.errorDialog("error a la cerca");
+                    VistaDialeg.errorDialog("Error a la cerca");
                     System.out.println("error");
                 }
             }
