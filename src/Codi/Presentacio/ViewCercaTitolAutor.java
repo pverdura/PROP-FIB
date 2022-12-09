@@ -98,7 +98,7 @@ public class ViewCercaTitolAutor {
         frameVista.setPreferredSize(frameVista.getMinimumSize());
         frameVista.setResizable(false);
 
-        frameVista.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameVista.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
 
     private void configTitolPanel(){
