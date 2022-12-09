@@ -55,10 +55,10 @@ public class ViewCercaParaules {
         frame.add(panellMig, BorderLayout.CENTER);
         frame.add(panellInferior, BorderLayout.SOUTH);
 
-
         frame.setMinimumSize(new Dimension(500, 175));
         frame.setPreferredSize(frame.getMinimumSize());
         frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
