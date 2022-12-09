@@ -73,7 +73,7 @@ public class GestorDades {
             // Mirem si el document ja existeix en el fitxer
 
 
-            // Afegim el document que no existia previament
+            /* Afegim el document que no existia previament
             if (l < 0) {
                 escriptor.newLine();
                 escriptor.append(new_linia);
@@ -81,7 +81,7 @@ public class GestorDades {
             // Modifiquem el fitxer existent
             else {
 
-            }
+            }*/
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -237,7 +237,7 @@ public class GestorDades {
     }
 
     private Document llegeixDocumentXML(Path PATH) {
-        ArrayList<
+
 
         // Lector que ens llegirà el document
         try (BufferedReader lector = Files.newBufferedReader(PATH, StandardCharsets.UTF_8)) {
@@ -247,13 +247,13 @@ public class GestorDades {
 
             // Llegim el document mentre hi hagi línies
             while ((linia = lector.readLine()) != null) {
-
+                ++num_linia;
             }
         }
         catch (IOException e) {
             e.printStackTrace();
         }
-        return D;
+        return null;
     }
 
     private Document llegeixDocumentBOL(Path PATH) {
@@ -414,7 +414,7 @@ public class GestorDades {
         File doc = new File(path);
 
         // Primer mirem si existeix el fitxer on guardem els documents
-        if(doc.exists() && doc.isFile()) guardaDoc(titol, autor, ext.toString(), contingut, path);
+        if(doc.exists() && doc.isFile()) guardaDoc(titol, autor, path, contingut, path);
         // Si no existeix el fitxer el creem
         else creaFitxer(path);
     }

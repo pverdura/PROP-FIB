@@ -49,6 +49,7 @@ public class ViewCercaTitol {
         frame.setMinimumSize(new Dimension(400, 125));
         frame.setPreferredSize(frame.getMinimumSize());
         frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
