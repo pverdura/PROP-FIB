@@ -1,9 +1,6 @@
 package Codi.Persistencia;
 
-import Codi.Excepcions.CarpetaBuidaException;
-import Codi.Excepcions.CarpetaNoCreadaException;
-import Codi.Excepcions.FitxerNoCreatException;
-import Codi.Excepcions.TipusExtensioIncorrectaException;
+import Codi.Excepcions.*;
 import Codi.Util.DocumentLlegit;
 import Codi.Util.TipusExtensio;
 
@@ -20,65 +17,6 @@ public class GestorDades {
     ///////////////////////////////////////////////////////////
     ///                 FUNCIONS PRIVADES                   ///
     ///////////////////////////////////////////////////////////
-
-    /**
-     * Escriu en el fitxer doc els paràmetres de la funció (titol,autor,ext,contingut) en format CSV
-     *
-     * @param titol Indica el títol que identifica el document
-     * @param autor Indica l'autor que identifica el document
-     * @param ext Indica l'extensió del document
-     * @param contingut Indica el contingut del document
-     * @param path Indica el path del fitxer que volem escriure
-     */
-    private void guardaDoc(String titol, String autor, String ext, String contingut, String path) {
-        String new_linia = titol+","+autor+","+ext+","+contingut;
-        Path PATH = Paths.get(path);
-        Path TMP = Paths.get("tmp.txt");
-
-        try (BufferedWriter escriptor = Files.newBufferedWriter(PATH,StandardCharsets.UTF_8)) {
-            // Mirem si el document ja existeix en el fitxer
-
-
-            /* Afegim el document que no existia previament
-            if (l < 0) {
-                escriptor.newLine();
-                escriptor.append(new_linia);
-            }
-            // Modifiquem el fitxer existent
-            else {
-
-            }*/
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Converteix el String tipus en TipusExtensió
-     *
-     * @param tipus Indica el tipus d'extensió en String
-     * @return Retorna el String tipus en format TipusExtensió
-     * @throws TipusExtensioIncorrectaException Si tipus no és una extensió coneguda
-     */
-    private TipusExtensio toTipus(String tipus) throws TipusExtensioIncorrectaException {
-        TipusExtensio ext = null;
-
-        switch(tipus) {
-            case "TXT":
-                ext = TipusExtensio.TXT;
-                break;
-            case "XML":
-                ext = TipusExtensio.XML;
-                break;
-            case "BOL":
-                ext = TipusExtensio.BOL;
-                break;
-            default:
-                throw new TipusExtensioIncorrectaException(tipus);
-        }
-        return ext;
-    }
 
     /**
      * Crea un fitxer en el path path
@@ -104,6 +42,15 @@ public class GestorDades {
         }
     }
 
+    private void eliminaFitxer(String path) {
+        File doc = new File(path);
+        if (doc.delete()) {
+            System.out.println("S'ha eliminat el fitxer " + path + " correctament");
+        } else {
+            throw new FitxerNoEliminatExeption(path);
+        }
+    }
+
     /**
      * Crea el directori on s'emmagatzemen les deades del sistema
      *
@@ -113,7 +60,10 @@ public class GestorDades {
      */
     private void creaDirectori(String path, File carpeta) throws CarpetaNoCreadaException {
         // Error en crear la carpeta
-        if(!carpeta.mkdir()) {
+        if(carpeta.mkdir()) {
+            System.out.println("S'ha creat el fitxer correctament");
+        }
+        else {
             throw new CarpetaNoCreadaException(path);
         }
     }
@@ -228,7 +178,6 @@ public class GestorDades {
         return D;
     }
 
-    // ^-^
     private DocumentLlegit llegeixDocument(String path) throws TipusExtensioIncorrectaException {
         File doc = new File(path);
         DocumentLlegit D = null;
@@ -261,7 +210,6 @@ public class GestorDades {
         return D;
     }
 
-    // ^-^
     private ArrayList<DocumentLlegit> llegeixDocuments(String path, File carpeta) throws TipusExtensioIncorrectaException {
         ArrayList<DocumentLlegit> documents = new ArrayList<DocumentLlegit>();
         String[] docs = carpeta.list(); // Obtenim tots els documents de la carpeta situada en el path
@@ -315,6 +263,70 @@ public class GestorDades {
         return expressions;
     }
 
+    /**
+     * Escriu en el fitxer doc els paràmetres de la funció (titol,autor,ext,contingut) en format CSV
+     *
+     * @param titol Indica el títol que identifica el document
+     * @param autor Indica l'autor que identifica el document
+     * @param contingut Indica el contingut del document
+     * @param new_path Indica el path del fitxer que volem escriure
+     */
+    private void guardaDocumentTXT(String titol, String autor, String contingut, String new_path) {
+        String path = new_path + "txt";
+        creaFitxer(path);
+
+        Path PATH = Paths.get(path);
+
+        try (BufferedWriter escriptor = Files.newBufferedWriter(PATH,StandardCharsets.UTF_8)) {
+            escriptor.write(autor + "\n" + titol + "\n" + contingut);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void guardaDocumentXML(String titol, String autor, String contingut, String new_path) {
+        String path = new_path + "xml";
+        creaFitxer(path);
+
+        Path PATH = Paths.get(path);
+
+        try (BufferedWriter escriptor = Files.newBufferedWriter(PATH,StandardCharsets.UTF_8)) {
+            escriptor.write("<autor>" + autor + "</autor>\n");
+            escriptor.write("<titol>" + titol + "</titol>\n");
+            escriptor.write("<contingut>");
+
+            String[] lines_contingut = contingut.split("\n");
+
+            for(String linia : lines_contingut) {
+                escriptor.write("\n\t" + linia);
+            }
+
+            escriptor.write("\n</contingut>");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void guardaDocumentBOL(String titol, String autor, String contingut, String new_path) {
+        String path = new_path + "bol";
+        creaFitxer(path);
+
+        Path PATH = Paths.get(path);
+
+        try (BufferedWriter escriptor = Files.newBufferedWriter(PATH,StandardCharsets.UTF_8)) {
+            escriptor.write(autor);
+            escriptor.write("\n----\n");
+            escriptor.write(titol);
+            escriptor.write("\n----\n");
+            escriptor.write(contingut);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     ///////////////////////////////////////////////////////////
     ///                 FUNCIONS PÚBLIQUES                  ///
@@ -324,7 +336,7 @@ public class GestorDades {
      * Llegeix el contingut del fitxer documents.csv per a obtenir els documents guardats
      * en aquest fitxer, i si no existeix, crea els fitxers
      *
-     * @param path Indica el path de la carpeta on està situat el fitxer
+     * @param path Indica el path relatiu de la carpeta on està situat el fitxer
      * @return Retorna un array amb els documents guardats si existeix el fitxer, altrament retorna null
      * @throws CarpetaNoCreadaException Si no s'ha pogut crear la carpeta en el path indicat
      * @throws FitxerNoCreatException Si no s'ha pogut crear el fitxer en la carpeta del path indicat
@@ -347,7 +359,7 @@ public class GestorDades {
      * Llegeix el contingut del fitxer expressions.csv per a obtenir les expressions booleanes guardades
      * en aquest fitxer, i si no existeix, crea els fitxers
      *
-     * @param path Indica el path de la carpeta on està situat el fitxer
+     * @param path Indica el path relatiu de la carpeta on està situat el fitxer
      * @return Retorna un array amb les expressions guardades si existeix el fitxer
      * @throws CarpetaNoCreadaException Si no s'ha pogut crear la carpeta en el path indicat
      * @throws FitxerNoCreatException Si no s'ha pogut crear el fitxer en la carpeta del path indicat
@@ -358,20 +370,35 @@ public class GestorDades {
         ArrayList<String> expressions = null;
 
         // Primer mirem si existeix el directori on guardem els documents i expressions
-        if(carpeta.exists() && carpeta.isDirectory()) expressions = llegeixExpressions(path+"/expressions.csv");
-        // Si no existeix el directori el creem
+        if(carpeta.exists() && carpeta.isDirectory()) expressions = llegeixExpressions(path+"/expressions.txt");
+        // Si no existeix el directori el creem/home/pol
         else creaDirectori(path,carpeta);
 
         return expressions;
     }
 
-    public void guardaDocument(String titol, String autor, String contingut, String path) {
+    public void guardaDocument(String titol, String autor, TipusExtensio ext, String contingut, String path) {
         File doc = new File(path);
 
-        // Primer mirem si existeix el fitxer on guardem els documents
-        if(doc.exists() && doc.isFile()) guardaDoc(titol, autor, path, contingut, path);
-        // Si no existeix el fitxer el creem
-        else creaFitxer(path);
+        // Primer mirem si ja existeix el document, i si existeix l'elimniem
+        // d'aquesta manera, podem canviar el format dels documents a més a més
+        if(doc.exists() && doc.isFile()) eliminaFitxer(path);
+        String new_path = path.substring(0,path.length()-3);
+
+        // Guardem el document
+        switch(ext.toString()) {
+            case("TXT"):
+                guardaDocumentTXT(titol,autor,contingut,new_path);
+                break;
+            case("XML"):
+                guardaDocumentXML(titol,autor,contingut,new_path);
+                break;
+            case("BOL"):
+                guardaDocumentBOL(titol,autor,contingut,new_path);
+                break;
+            default:
+                throw new TipusExtensioIncorrectaException(ext.toString());
+        }
     }
 
     public void guardaExpressioBool(String expr, String path) {
