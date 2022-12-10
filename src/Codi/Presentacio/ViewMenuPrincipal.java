@@ -14,16 +14,15 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
     private JPanel mainPanel;
     private JButton cleanButton;
-    private JTextArea textAreaCerques;
     private JScrollPane scroll;
-    private JPanel cerquesPanel;
     private JMenuItem miCreaDoc, miImportaDoc, miAjuda, miSortir;
     private JMenuItem miGestioBool;
     private JMenuItem miCercaTitol, miCercaAutor, miCercaTitolAutor, miCercaPrefix, miCercaParaules, miCercaSemblant;
     private JMenuItem miOrdreAlfAsc, miOrdreAlfDesc, miOrdrePesAsc, miOrdrePesDesc;
 
     private final CtrlPresentacio ctrlPresentacio;
-
+    private JList<String> llistaCerques;
+    private DefaultListModel<String> dlm;
     private TipusOrdenacio tipus_ordenacio;
 
     public ViewMenuPrincipal(CtrlPresentacio ctrlPresentacio) {
@@ -31,22 +30,34 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         this.cleanButton.addActionListener(this);
         this.tipus_ordenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
 
-        //Inicialitzar el scrollPanel i el text area associat
-        this.textAreaCerques = new JTextArea(100,1);
-        this.textAreaCerques.setVisible(true);
-        this.textAreaCerques.setEditable(false);
-        this.scroll.setViewportView(textAreaCerques);
-
         //Inicialitzar components principals de la vista
         setContentPane(this.mainPanel);
         setTitle("Menú Principal");
         setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        //Crear menus vista
         crearMenus();
+
+        //Carregar a la vista tots els documents guardats
+        this.dlm = new DefaultListModel<>();
+        this.llistaCerques = new JList<>(dlm);
+        this.llistaCerques.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.llistaCerques.setSelectedIndex(0);
+        this.scroll.setViewportView(llistaCerques);
+
         //TODO: afegir ctrlPresentacio.mostrarDocuments();
-        //ArrayList<SimpleEntry<String,String>> a = new ArrayList<>();
-        //actualitzarResultat(a);
+
+        //TODO: Borrar tot el d'abaix
+        /*
+        ArrayList<SimpleEntry<String,String>> docs = new ArrayList<>();
+        docs.add(new SimpleEntry<>("titol","pau"));
+        docs.add(new SimpleEntry<>("tetris","jordi"));
+        docs.add(new SimpleEntry<>("croissants","polete"));
+        docs.add(new SimpleEntry<>("garriga","judit"));
+        docs.add(new SimpleEntry<>("salud","donette"));
+        actualitzarResultat(docs);
+         */
     }
 
     private void crearMenus() {
@@ -198,23 +209,17 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
             ctrlPresentacio.ordenar(tipus_ordenacio);
 
         } else if (source == cleanButton) {
-            textAreaCerques.setText("");
+            //TODO: ELIMINAR TOTS ELS COMPONENTS FILLS DE CERQUES PANE
         }
     }
 
-    public void actualitzarResultat(ArrayList<SimpleEntry<String,String>> documents) {
+    public void actualitzarResultat(ArrayList<SimpleEntry<String,String>> titolsAutors, ArrayList<Integer> pesos, ArrayList<TipusExtensio> extensios) {
         //TODO: ACTUALITZAR EL SCROLL PANEL AMB EL VALORS QUE ARRIBEN PER PARÀMETRE I FER DELETE/UPDATE/EXPORT AL CLICAR
-        //TODO: SEPARAR ELS VALORS DEL TEXT AREA PER "-" AIXI AMB FUNC SPLIT PODEM SEPARAR ELS VALORS
+        //TODO: SEPARAR ELS VALORS DEL TEXT AREA PER "|" AIXI AMB FUNC SPLIT PODEM SEPARAR ELS VALORS
 
-        /*
-        cerquesPanel = new JPanel();
-        for (int i = 0; i <= 10; i++) {
-            JLabel a = new JLabel("AJAJAJAJJAJJAJA");
-            cerquesPanel.add(a);
-        }
-        scroll.add(cerquesPanel);
+        dlm.removeAllElements();
+        for (SimpleEntry<String,String> d : titolsAutors) dlm.addElement(d.getKey()+" "+d.getValue());
 
-         */
     }
 
     //Metode per posar visible la vista
