@@ -6,7 +6,7 @@ public class CarpetaBuidaException extends NullPointerException {
         super("Error: no hi ha cap document guardat en el sistema");
     }
 
-    String toSting() {
+    public String toString() {
         return "Error: no hi ha cap document guardat en el sistema";
     }
 }

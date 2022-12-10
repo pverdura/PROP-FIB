@@ -15,7 +15,7 @@ public class Document {
                                 "-ho","-ne","-me","-te","-se","-los","-les", "-lo","-hi","-li"};
     private TipusExtensio tipusExtensio;
     private int pes;    //quantitat de caràcters
-    private HashMap<String, Integer> aparicions;
+    private final HashMap<String, Integer> aparicions;
     public Document () {
         this.aparicions = new HashMap<>();
         if (Objects.isNull(Document.stopWords)) Document.stopWords = new ArrayList<>();

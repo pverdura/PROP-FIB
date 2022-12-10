@@ -9,8 +9,7 @@ public class CercaAllDocuments implements Cerca {
     //@Override
     //public static void cercaDoc() {}
     public static ArrayList<AbstractMap.SimpleEntry<String, String>> cercaDoc (HashMap<AbstractMap.SimpleEntry<String, String>, Document> documents) {
-        ArrayList<AbstractMap.SimpleEntry<String, String>> resultat = new ArrayList<AbstractMap.SimpleEntry<String, String>>(documents.keySet());
 
-        return resultat;
+        return new ArrayList<AbstractMap.SimpleEntry<String, String>>(documents.keySet());
     }
 }
