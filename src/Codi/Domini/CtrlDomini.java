@@ -63,27 +63,23 @@ public class CtrlDomini {
         for(DocumentLlegit doc : docs) {
             CDdoc.llegirDocument(doc,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
         }
+        // Llegim les expression booleanes
+        CP.carregaExpressionsBooleanes();
+        // Llegim lesstopWords
+        CDdoc.setStopWords(CP.carregaStopWords());
+
     }
 
     ///////////////////////////////////////////////////////////
     ///              FUNCIONS CTRL_PERSISTÈNCIA             ///
     ///////////////////////////////////////////////////////////
 
-    public void importarDocument(File path) {
-        DocumentLlegit D = CP.importarDocument(path);
-
-    }
-
     public void importarDocuments(File[] path) {
-        //CP.importarDocuments(File[] path);
-    }
-
-    public void exportarDocument(String titol, String autor, File path) {
-        CP.exportarDocument(titol,autor,path);
+        ArrayList<DocumentLlegit> docs = CP.importarDocument(File[] path);
     }
 
     public void exportarDocuments(ArrayList<String> titols, ArrayList<String> autors, File path) {
-        //CP.exportarDocuments(titols,autors,path);
+        //CP.exportarDocument(titols,autors,path);
     }
 
     ///////////////////////////////////////////////////////////
