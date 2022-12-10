@@ -3,6 +3,7 @@ package Codi.Presentacio;
 import Codi.Util.TipusExtensio;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,10 +13,10 @@ public class ViewModificarDocument {
     private JFrame frame;
     private JPanel panellSuperior;
     private JPanel panellMig;
-    private JScrollPane panellInferior;
+    private JPanel panellInferior;
+    private JScrollPane panellContingut;
     private JLabel labelTitol;
     private JLabel labelAutor;
-    private JLabel labelContingut;
     private JButton btGuardar;
     private JTextField textTitol;
     private JTextField textAutor;
@@ -44,9 +45,8 @@ public class ViewModificarDocument {
         frame = new JFrame("Editor de documents");
         panellSuperior = new JPanel();
         panellMig = new JPanel();
-        panellInferior = new JScrollPane();
+        panellInferior = new JPanel();
         labelAutor = new JLabel("Autor: ");
-        labelContingut = new JLabel("Contingut: ");
         labelTitol = new JLabel("Títol: ");
         btGuardar = new JButton("Desar");
         textTitol = new JTextField();
@@ -57,11 +57,11 @@ public class ViewModificarDocument {
 
     private void configurarVista () {
         //frame.setLayout(new BorderLayout());
-        frame.add(panellSuperior);
-        frame.add(panellMig);
-        frame.add(panellInferior);
+        frame.add(panellSuperior, BorderLayout.NORTH);
+        frame.add(panellMig, BorderLayout.CENTER);
+        frame.add(panellInferior, BorderLayout.SOUTH);
 
-        frame.setMinimumSize(new Dimension(500, 500));
+        frame.setMinimumSize(new Dimension(800, 600));
         frame.setPreferredSize(frame.getMinimumSize());
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
@@ -74,6 +74,8 @@ public class ViewModificarDocument {
 
     public void configurarPanellSuperior () {
         tipusExtensio.setSelectedIndex(2);
+        textTitol.setMinimumSize(new Dimension(400, 30));
+        textTitol.setPreferredSize(textTitol.getMinimumSize());
 
         panellSuperior.add(labelTitol);
         panellSuperior.add(textTitol);
@@ -81,7 +83,8 @@ public class ViewModificarDocument {
     }
 
     public void configurarPanellMig () {
-
+        textAutor.setMinimumSize(new Dimension(400, 30));
+        textAutor.setPreferredSize(textAutor.getMinimumSize());
 
         panellMig.add(labelAutor);
         panellMig.add(textAutor);
@@ -89,10 +92,13 @@ public class ViewModificarDocument {
     }
 
     public void configurarPanellInferior () {
+        textContingut.setMinimumSize(new Dimension(700, 450));
+        textContingut.setPreferredSize(textContingut.getMinimumSize());
 
+        panellContingut = new JScrollPane(textContingut);
+        panellContingut.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        panellInferior.add(labelContingut);
-        panellInferior.add(textContingut);
+        panellInferior.add(panellContingut, BorderLayout.CENTER);
     }
 
     public void assignarListeners () {
@@ -103,7 +109,7 @@ public class ViewModificarDocument {
                 SimpleEntry<String, String> idNou = new SimpleEntry<>(textTitol.getText(), textAutor.getText());
 
                 if (ctrlPresentacio.guardarDocument(idVell, idNou, textContingut.getText(), getTipusExtensio())) {
-                    VistaDialeg.messageDialog("Error", "El document s'ha desat correctament.");
+                    VistaDialeg.messageDialog("Informació", "El document s'ha desat correctament.");
                 } else {
                     VistaDialeg.errorDialog("El document no s'ha pogut desar correctament.");
                 }
