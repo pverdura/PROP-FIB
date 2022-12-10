@@ -45,14 +45,7 @@ public class ViewCercaTitolAutor {
             public void actionPerformed(ActionEvent e) {
                 String titol = omplirTitol.getText();
                 String autor = omplirAutor.getText();
-                if (ctrlPresentacio.cercaTitolAutor(titol, autor)){
-                    System.out.println("cerca feta correctament");
-                }
-                else {
-                    VistaDialeg.errorDialog("Error a la cerca");
-                    System.out.println("error");
-                }
-
+                ctrlPresentacio.cercaTitolAutor(titol, autor);
             }
         });
         cancelarButton.addActionListener(new ActionListener() {

@@ -1,9 +1,12 @@
 package Codi.Presentacio;
 
+import Codi.Util.TipusOrdenacio;
+
 import javax.swing.*;
 import javax.swing.plaf.BorderUIResource;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class ViewCercaPrefix {
     private JFrame frameVista;
@@ -39,7 +42,9 @@ public class ViewCercaPrefix {
     }
 
 
+    public void enviarDades(ArrayList<String> l){
 
+    }
 
     /////////////////////////// ASSIGNACIÓ DE LISTENERS
 
@@ -48,14 +53,10 @@ public class ViewCercaPrefix {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String prefix = omplirPrefix.getText();
-                if (ctrlPresentacio.cercaPrefix(prefix)){
-                    System.out.println("cerca feta correctament");
-                }
-                else {
-                    VistaDialeg.errorDialog("Error a la cerca");
-                    System.out.println("error");
-                }
-
+                TipusOrdenacio t;
+                if (asc.isSelected()) t = TipusOrdenacio.ALFABETIC_ASCENDENT;
+                else t = TipusOrdenacio.ALFABETIC_DESCENDENT;
+                ctrlPresentacio.cercaPrefix(prefix, t);
             }
         });
         cancelarButton.addActionListener(new ActionListener() {

@@ -48,14 +48,7 @@ public class ViewCercaSemblant {
                 String autor = omplirAutor.getText();
                 int k = (int)numDocs.getValue();
                 boolean tots = totsDocs.isSelected();
-                if (ctrlPresentacio.cercaSemblant(titol, autor, k, tots)){
-                    System.out.println("cerca feta correctament");
-                }
-                else {
-                    VistaDialeg.errorDialog("Error a la cerca");
-                    System.out.println("error");
-                }
-
+                ctrlPresentacio.cercaSemblant(titol, autor, k, tots);
             }
         });
         cancelarButton.addActionListener(new ActionListener() {
