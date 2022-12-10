@@ -20,11 +20,24 @@ public class CtrlPersistencia {
         gestorDades = new GestorDades();
     }
 
-    public DocumentLlegit importarDocument(File file){
-        String path = file.getAbsolutePath();
-        DocumentLlegit doc = gestorDades.llegeixDocument(path);
-        gestorDades.guardaDocument(doc.getTitol(), doc.getAutor(), doc.getExtensio(), doc.getContingut(), doc.getPath());
-        return doc;
+    public ArrayList<DocumentLlegit> importarDocument(ArrayList<File> files){
+        ArrayList<DocumentLlegit> docs = new ArrayList<>();
+        DocumentLlegit doc;
+        String path;
+        if (files.size() > 1){
+            for(File f: files){
+                path = f.getAbsolutePath();
+                doc = gestorDades.llegeixDocument(path);
+                gestorDades.guardaDocument(doc.getTitol(), doc.getAutor(), doc.getExtensio(), doc.getContingut(), doc.getPath());
+                docs.add(doc);
+            }
+        } else{
+            path = files.get(0).getAbsolutePath();
+            doc = gestorDades.llegeixDocument(path);
+            gestorDades.guardaDocument(doc.getTitol(), doc.getAutor(), doc.getExtensio(), doc.getContingut(), doc.getPath());
+            docs.add(doc);
+        }
+        return docs;
     }
 
     public void exportarDocument(String titol, String autor, File path){

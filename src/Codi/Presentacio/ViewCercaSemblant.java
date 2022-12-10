@@ -61,8 +61,7 @@ public class ViewCercaSemblant {
         totsDocs.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if (totsDocs.isSelected()) numDocs.setEnabled(false);
-                else numDocs.setEnabled(true);
+                numDocs.setEnabled(!totsDocs.isSelected());
             }
         });
     }
