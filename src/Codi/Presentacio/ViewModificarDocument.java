@@ -118,7 +118,10 @@ public class ViewModificarDocument {
     }
 
     public TipusExtensio getTipusExtensio () {
-        return TipusExtensio.XML;
+        String ext = (String) tipusExtensio.getSelectedItem();
+        if (ext == "TXT") return TipusExtensio.TXT;
+        else if (ext == "XML") return TipusExtensio.XML;
+        else return TipusExtensio.BOL;
     }
 
     public void setTitol (String text) {

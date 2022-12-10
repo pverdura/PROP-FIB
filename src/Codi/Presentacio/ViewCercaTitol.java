@@ -1,14 +1,13 @@
 package Codi.Presentacio;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
 public class ViewCercaTitol {
-    private CtrlPresentacio ctrlPresentacio;
+    private final CtrlPresentacio ctrlPresentacio;
 
     private JFrame frame;
     private JPanel panellSuperior, panellInferior;

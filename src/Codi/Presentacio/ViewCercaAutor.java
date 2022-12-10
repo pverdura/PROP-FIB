@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
 public class ViewCercaAutor {
-    private CtrlPresentacio ctrlPresentacio;
+    private final CtrlPresentacio ctrlPresentacio;
     private JFrame frame;
     private JPanel panellSuperior, panellInferior;
     private JButton btCancelar;

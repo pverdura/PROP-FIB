@@ -5,14 +5,13 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class ViewCercaParaules {
-    private CtrlPresentacio ctrlPresentacio;
+    private final CtrlPresentacio ctrlPresentacio;
 
     private JFrame frame;
     private JPanel panellSuperior, panellMig, panellInferior;
     private JButton btCancelar;
     private JButton btAcceptar;
     private JTextField textParaules;
-    private SpinnerNumberModel model;
     private JSpinner textNombreDocuments;
     private JLabel label1, label2;
     private JCheckBox totsDocuments;
@@ -39,7 +38,7 @@ public class ViewCercaParaules {
         btCancelar = new JButton("Cancel·lar");
         btAcceptar = new JButton("Acceptar");
         textParaules = new JTextField();
-        model = new SpinnerNumberModel();
+        SpinnerNumberModel model = new SpinnerNumberModel();
         model.setValue(0);
         model.setMinimum(0);
         model.setStepSize(1);
@@ -105,9 +104,8 @@ public class ViewCercaParaules {
 
         totsDocuments.addItemListener(new ItemListener() {
             @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (totsDocuments.isSelected()) textNombreDocuments.setEnabled(false);
-                else textNombreDocuments.setEnabled(true);
+            public void itemStateChanged (ItemEvent e) {
+                textNombreDocuments.setEnabled(!totsDocuments.isSelected());
             }
         });
     }
