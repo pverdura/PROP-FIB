@@ -58,30 +58,28 @@ public class CtrlPresentacio {
         viewMenuPrincipal.actualitzarResultat(resultatPrincipal, resultatPrincipalPes, resultatPrincipalExtensio);
     }
 
-    public boolean crearExprBool (String expr) {
+    public void crearExprBool (String expr) {
         try {
             ctrlDomini.creaExpressioBool(expr);
-            return true;
         }  catch (Exception e) {
-            return false;
+            VistaDialeg.errorDialog(e.toString());
         }
     }
 
-    public boolean eliminarExprBool (String expr) {
+    public void eliminarExprBool (String expr) {
         try {
             ctrlDomini.eliminaExpressioBool(expr);
-            return true;
         } catch (Exception e) {
-            return false;
+
+            VistaDialeg.errorDialog(e.toString());
         }
     }
 
-    public boolean modificarExprBool (String exprAntiga, String exprNova) {
+    public void modificarExprBool (String exprAntiga, String exprNova) {
         try {
             ctrlDomini.modificaExpressioBool(exprAntiga, exprNova);
-            return true;
         } catch (Exception e) {
-            return false;
+            VistaDialeg.errorDialog(e.toString());
         }
     }
 
@@ -99,13 +97,11 @@ public class CtrlPresentacio {
         viewModificarDocument.ferVisible(true);
     }
 
-    public boolean importarDocument (File fitxer) {
+    public void importarDocument (File fitxer) {
         try {
             ctrlDomini.importarDocument(fitxer);
-            return true;
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
-            return false;
         }
     }
 
@@ -117,7 +113,11 @@ public class CtrlPresentacio {
 
     public void exportarDocument (String titol, String autor, File path) {
         //exportar document id a path
-        ctrlDomini.exportarDocument(titol, autor, path);
+        try {
+            ctrlDomini.exportarDocument(titol, autor, path);
+        } catch (Exception e) {
+            VistaDialeg.errorDialog(e.toString());
+        }
     }
 
     public void esborrarDocument (String titol, String autor) {
