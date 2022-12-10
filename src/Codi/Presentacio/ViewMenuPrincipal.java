@@ -21,43 +21,31 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
     private JMenuItem miOrdreAlfAsc, miOrdreAlfDesc, miOrdrePesAsc, miOrdrePesDesc;
 
     private final CtrlPresentacio ctrlPresentacio;
-    private JList<String> llistaCerques;
-    private DefaultListModel<String> dlm;
+    private final DefaultListModel<String> dlm;
     private TipusOrdenacio tipus_ordenacio;
 
     public ViewMenuPrincipal(CtrlPresentacio ctrlPresentacio) {
-        this.ctrlPresentacio = ctrlPresentacio;
-        this.cleanButton.addActionListener(this);
-        this.tipus_ordenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
-
         //Inicialitzar components principals de la vista
         setContentPane(this.mainPanel);
         setTitle("Menú Principal");
         setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        this.ctrlPresentacio = ctrlPresentacio;
+        this.cleanButton.addActionListener(this);
+        this.tipus_ordenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
+
+        //Iniciar elements per carregar a la vista tots els documents guardats
+        this.dlm = new DefaultListModel<>();
+        JList<String> llistaCerques = new JList<>(dlm);
+        llistaCerques.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        llistaCerques.setSelectedIndex(0);
+        this.scroll.setViewportView(llistaCerques);
         //Crear menus vista
         crearMenus();
 
-        //Carregar a la vista tots els documents guardats
-        this.dlm = new DefaultListModel<>();
-        this.llistaCerques = new JList<>(dlm);
-        this.llistaCerques.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.llistaCerques.setSelectedIndex(0);
-        this.scroll.setViewportView(llistaCerques);
-
-        //TODO: afegir ctrlPresentacio.mostrarDocuments();
-
-        //TODO: Borrar tot el d'abaix
-        /*
-        ArrayList<SimpleEntry<String,String>> docs = new ArrayList<>();
-        docs.add(new SimpleEntry<>("titol","pau"));
-        docs.add(new SimpleEntry<>("tetris","jordi"));
-        docs.add(new SimpleEntry<>("croissants","polete"));
-        docs.add(new SimpleEntry<>("garriga","judit"));
-        docs.add(new SimpleEntry<>("salud","donette"));
-        actualitzarResultat(docs);
-         */
+        //Carregar docs a la vista
+        ctrlPresentacio.mostrarDocuments();
     }
 
     private void crearMenus() {
@@ -157,12 +145,8 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
             if (seleccionat == JFileChooser.APPROVE_OPTION) {
                 File f = fc.getSelectedFile();
-                boolean res = ctrlPresentacio.importarDocument(f);
-
-                if (res)
-                    VistaDialeg.messageDialog("Import", "S'ha importat el fitxer correctament");
-                else
-                    VistaDialeg.errorDialog("ERROR: El fitxer no sha importat.\nÉs possible que ja existeixi un fitxer igual!");
+                File[] files = new File[]{f};
+                ctrlPresentacio.importarDocument(files);
             }
 
         } else if (source == miAjuda) {
@@ -209,22 +193,29 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
             ctrlPresentacio.ordenar(tipus_ordenacio);
 
         } else if (source == cleanButton) {
-            //TODO: ELIMINAR TOTS ELS COMPONENTS FILLS DE CERQUES PANE
+            dlm.removeAllElements();
         }
     }
 
     public void actualitzarResultat(ArrayList<SimpleEntry<String,String>> titolsAutors, ArrayList<Integer> pesos, ArrayList<TipusExtensio> extensios) {
-        //TODO: ACTUALITZAR EL SCROLL PANEL AMB EL VALORS QUE ARRIBEN PER PARÀMETRE I FER DELETE/UPDATE/EXPORT AL CLICAR
-        //TODO: SEPARAR ELS VALORS DEL TEXT AREA PER "|" AIXI AMB FUNC SPLIT PODEM SEPARAR ELS VALORS
-
         dlm.removeAllElements();
-        for (SimpleEntry<String,String> d : titolsAutors) dlm.addElement(d.getKey()+" "+d.getValue());
+        int size = titolsAutors.size();
 
+        //Afegir a la llista que es mostra per pantalla tots els documents que arriben
+        for (int i = 0; i < 5;  i++) {
+            dlm.addElement(titolsAutors.get(i).getKey()+"  "+titolsAutors.get(i).getValue()+"  "+
+                           pesos.get(i).toString()+"  "+extensios.get(i).toString());
+        }
     }
 
     //Metode per posar visible la vista
     public void ferVisible() {
         setSize(600, 600);
         setVisible(true);
+    }
+
+    //Metode que tanca app
+    public void tancarVista() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
