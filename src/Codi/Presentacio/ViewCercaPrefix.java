@@ -14,7 +14,9 @@ public class ViewCercaPrefix {
     private JTextField omplirPrefix;
     private JButton acceptarButton;
     private JButton cancelarButton;
-    private JScrollPane resultat;
+    private JTextArea resultat;
+    private JScrollPane scroll;
+    private JScrollBar bar;
     private JRadioButton asc;
     private JRadioButton des;
 
@@ -101,7 +103,9 @@ public class ViewCercaPrefix {
         acceptarButton = new JButton("Acceptar");
         omplirPrefix = new JTextField();
         labelPrefix = new JLabel("Prefix: ");
-        resultat = new JScrollPane();
+        resultat = new JTextArea(20,35);
+        scroll = new JScrollPane();
+        bar = new JScrollBar();
         asc = new JRadioButton("Ascendent");
         des = new JRadioButton("Descendent");
     }
@@ -112,7 +116,7 @@ public class ViewCercaPrefix {
         frameVista.add(resultatPanel, BorderLayout.CENTER);
         frameVista.add(buttonsPanel, BorderLayout.SOUTH);
 
-        frameVista.setMinimumSize(new Dimension(400, 500));
+        frameVista.setMinimumSize(new Dimension(400, 475));
         frameVista.setPreferredSize(frameVista.getMinimumSize());
         frameVista.setResizable(false);
     }
@@ -130,7 +134,12 @@ public class ViewCercaPrefix {
     private void configResultatPanel(){
         resultatPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
+        resultat.setVisible(true);
+        resultat.setEditable(false);
+        scroll.setViewportView(resultat);
+
         resultatPanel.add(resultat, BorderLayout.CENTER);
+        resultat.add(bar, BorderLayout.AFTER_LINE_ENDS);
     }
 
     private void configButtonsPanel(){
