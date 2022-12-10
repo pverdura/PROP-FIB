@@ -717,4 +717,36 @@ public class GestorDades {
         // Guardem les stopWords
         guardaDocumentCSV(paraules, path);
     }
+
+    /**
+     * Busca el document identificat per títol i autor
+     *
+     * @param titol Indica el títol del document
+     * @param autor Indica l'autor del document
+     * @return Retorna el document que té com a títol i autor els indicats
+     */
+    public File buscaDocument(String titol, String autor, String path) {
+        File f = null;
+
+        try {
+            String id = titol + "_" + autor;
+            File[] candidats = new File(path).listFiles();
+
+            if (candidats != null) {
+                for (File doc : candidats) {
+                    String document = doc.getPath();
+
+                    // Mirem que
+                    if(document.substring(0,document.length()-4).endsWith(id)) {
+                        DocumentLlegit D = llegeixDocument(doc.getPath());
+                        if (D.getTitol().equals(titol) && D.getAutor().equals(autor)) f = doc;
+                    }
+                }
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return f;
+    }
 }
