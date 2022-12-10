@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GestorDades {
 
@@ -51,6 +52,11 @@ public class GestorDades {
         }
     }
 
+    private Boolean existeixFixter(String path) {
+        File doc = new File(path);
+        return doc.exists() && doc.isFile();
+    }
+
     /**
      * Crea el directori on s'emmagatzemen les deades del sistema
      *
@@ -60,12 +66,24 @@ public class GestorDades {
      */
     private void creaDirectori(String path, File carpeta) throws CarpetaNoCreadaException {
         // Error en crear la carpeta
-        if(carpeta.mkdir()) {
+        if(carpeta.mkdirs()) {
             System.out.println("S'ha creat el fitxer correctament");
         }
         else {
             throw new CarpetaNoCreadaException(path);
         }
+    }
+
+    private Boolean existeixDirectori(String path) {
+        File carpeta = new File(path);
+        boolean existeix = false;
+
+        // Primer mirem si existeix el directori on guardem els documents, expressions i stopWords
+        if(carpeta.exists() && carpeta.isDirectory()) existeix = true;
+            // Si no existeix el directori, el creem
+        else creaDirectori(path,carpeta);
+
+        return existeix;
     }
 
     private DocumentLlegit llegeixDocumentTXT(Path PATH) {
@@ -178,12 +196,31 @@ public class GestorDades {
         return D;
     }
 
+    private ArrayList<String> llegeixDocumentCSV (Path PATH) {
+        ArrayList<String> doc = new ArrayList<String>();
+
+        // Lector que ens llegirà el document
+        try (BufferedReader lector = Files.newBufferedReader(PATH, StandardCharsets.UTF_8)) {
+            String linia = null;        // Ens ajuda a llegir línies del document
+
+            // Llegim el document mentre hi hagi línies
+            while ((linia = lector.readLine()) != null) {
+                String[] linia_i = linia.split(",");
+
+                doc.addAll(Arrays.asList(linia_i));
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return doc;
+    }
+
     private DocumentLlegit llegeixDocument(String path) throws TipusExtensioIncorrectaException {
-        File doc = new File(path);
         DocumentLlegit D = null;
 
         // Mirem que el document que volem llegir existeixi
-        if(doc.exists() && doc.isFile()) {
+        if(existeixFixter(path)) {
             Path PATH = Paths.get(path);
 
             // Mirem el tipus d'extensió del document
@@ -210,8 +247,9 @@ public class GestorDades {
         return D;
     }
 
-    private ArrayList<DocumentLlegit> llegeixDocuments(String path, File carpeta) throws TipusExtensioIncorrectaException {
+    private ArrayList<DocumentLlegit> llegeixDocuments(String path) throws TipusExtensioIncorrectaException {
         ArrayList<DocumentLlegit> documents = new ArrayList<DocumentLlegit>();
+        File carpeta = new File(path);
         String[] docs = carpeta.list(); // Obtenim tots els documents de la carpeta situada en el path
 
         if(docs != null && docs.length != 0) {
@@ -235,11 +273,10 @@ public class GestorDades {
      * @return Retorna un array de les expressions booleanes guardades
      */
     private ArrayList<String> llegeixExpressions(String path) {
-        File exp = new File(path);
         ArrayList<String> expressions = new ArrayList<String>();
 
         // Mirem que el fitxer on guardem les expressions existeixi
-        if(exp.exists() && exp.isFile()) {
+        if(existeixFixter(path)) {
             Path PATH = Paths.get(path);
 
             // Lector que ens llegirà el fitxer
@@ -256,11 +293,24 @@ public class GestorDades {
                 e.printStackTrace();
             }
         }
-        // Si no existeix, el creem
-        else {
+        else {  // Si no existeix, el creem
             creaFitxer(path);
         }
         return expressions;
+    }
+
+    private ArrayList<String> llegeixStopWords(String path) {
+        ArrayList<String> stopWords = null;
+
+        // Mirem que el fitxer on guardem les stop words existeixi
+        if(existeixFixter(path)) {
+            Path PATH = Paths.get(path);
+            stopWords = llegeixDocumentCSV(PATH);
+        }
+        else {  // Si no existeix, el creem
+            creaFitxer(path);
+        }
+        return stopWords;
     }
 
     /**
@@ -285,7 +335,7 @@ public class GestorDades {
         }
     }
 
-    public void guardaDocumentXML(String titol, String autor, String contingut, String new_path) {
+    private void guardaDocumentXML(String titol, String autor, String contingut, String new_path) {
         String path = new_path + "xml";
         creaFitxer(path);
 
@@ -309,7 +359,7 @@ public class GestorDades {
         }
     }
 
-    public void guardaDocumentBOL(String titol, String autor, String contingut, String new_path) {
+    private void guardaDocumentBOL(String titol, String autor, String contingut, String new_path) {
         String path = new_path + "bol";
         creaFitxer(path);
 
@@ -327,6 +377,45 @@ public class GestorDades {
         }
     }
 
+    private void guardaDocumentCSV(ArrayList<String> paraules, String path) {
+        creaFitxer(path);
+        Path PATH = Paths.get(path);
+
+        try (BufferedWriter escriptor = Files.newBufferedWriter(PATH,StandardCharsets.UTF_8)) {
+            boolean primera = true;
+
+            for(String paraula : paraules) {
+                if(primera) {
+                    primera = false;
+                    escriptor.write(paraula);
+                }
+                else escriptor.write(","+paraula);
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void guardaExpressions(ArrayList<String> paraules, String path) {
+
+    }
+
+    public void guardaExpressio(String expr, String path) {
+        Path PATH = Paths.get(path);
+
+        try (BufferedWriter escriptor = Files.newBufferedWriter(PATH, StandardCharsets.UTF_8)) {
+            escriptor.write("\n"+expr);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void modificaExpressio(String exprAnt, String exprNova, String path) {
+
+    }
+
 
     ///////////////////////////////////////////////////////////
     ///                 FUNCIONS PÚBLIQUES                  ///
@@ -342,15 +431,12 @@ public class GestorDades {
      * @throws FitxerNoCreatException Si no s'ha pogut crear el fitxer en la carpeta del path indicat
      * @throws TipusExtensioIncorrectaException Si hi ha algun document amb una extensió no coneguda
      */
-    public ArrayList<DocumentLlegit> carregaDocuments(String path) throws CarpetaNoCreadaException,
-            FitxerNoCreatException, TipusExtensioIncorrectaException {
-        File carpeta = new File(path);
+    public ArrayList<DocumentLlegit> carregaDocuments(String path) throws CarpetaBuidaException {
         ArrayList<DocumentLlegit> documents = null;
+        boolean existeix = existeixDirectori(path);
 
-        // Primer mirem si existeix el directori on guardem els documents i expressions
-        if(carpeta.exists() && carpeta.isDirectory()) documents = llegeixDocuments(path,carpeta);
-        // Si no existeix el directori, el creem
-        else creaDirectori(path,carpeta);
+        if(existeix) documents = llegeixDocuments(path);
+        else throw new CarpetaBuidaException();
 
         return documents;
     }
@@ -366,23 +452,29 @@ public class GestorDades {
      */
     public ArrayList<String> carregaExpressionsBooleanes(String path) throws CarpetaNoCreadaException,
             FitxerNoCreatException {
-        File carpeta = new File(path);
         ArrayList<String> expressions = null;
+        boolean existeix = existeixDirectori(path);
 
-        // Primer mirem si existeix el directori on guardem els documents i expressions
-        if(carpeta.exists() && carpeta.isDirectory()) expressions = llegeixExpressions(path+"/expressions.txt");
-        // Si no existeix el directori el creem/home/pol
-        else creaDirectori(path,carpeta);
+        if(existeix) expressions = llegeixExpressions(path+"/expressions.txt");
+        else throw new CarpetaBuidaException();
 
         return expressions;
     }
 
-    public void guardaDocument(String titol, String autor, TipusExtensio ext, String contingut, String path) {
-        File doc = new File(path);
+    public ArrayList<String> carregaStopWords(String path) throws CarpetaNoCreadaException, FitxerNoCreatException {
+        ArrayList<String> stopWords = null;
+        boolean existeix = existeixDirectori(path);
 
+        if(existeix) stopWords = llegeixStopWords(path+"/stopWords.csv");
+        else throw new CarpetaBuidaException();
+
+        return stopWords;
+    }
+
+    public void guardaDocument(String titol, String autor, TipusExtensio ext, String contingut, String path) {
         // Primer mirem si ja existeix el document, i si existeix l'elimniem
         // d'aquesta manera, podem canviar el format dels documents a més a més
-        if(doc.exists() && doc.isFile()) eliminaFitxer(path);
+        if(existeixFixter(path)) eliminaFitxer(path);
         String new_path = path.substring(0,path.length()-3);
 
         // Guardem el document
@@ -401,7 +493,19 @@ public class GestorDades {
         }
     }
 
-    public void guardaExpressioBool(String expr, String path) {
+    public void guardaExpressioBool(String exprAnt, String exprNova, String path) {
+        if(exprAnt == null) {   // La expressió és nova
+            guardaExpressio(exprNova,path);
+        }
+        else {  // La expressió és modificada
+            modificaExpressio(exprAnt,exprNova,path);
+        }
+    }
+    public void guardaStopWords(ArrayList<String> paraules, String path) {
+        // Primer mirem si ja existeix el document, i si existeix l'eliminem
+        if(existeixFixter(path)) eliminaFitxer(path);
 
+        // Guardem les stopWords
+        guardaDocumentCSV(paraules, path);
     }
 }
