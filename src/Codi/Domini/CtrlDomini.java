@@ -15,12 +15,12 @@ public class CtrlDomini {
     ///                     ESTRUCTURES                     ///
     ///////////////////////////////////////////////////////////
 
-    private HashMap<SimpleEntry<String,String>,Document> Documents;         // Estructura on es guarden els documents
-    private Trie<String> Autors;                                            // Estructura on es guarden els autors (serveix per trobar el prefix)
-    private HashMap<String,ArrayList<String>> DocumentsAutor;               // Estructura on es guarden els títols dels documents creats per un autor
-    private HashMap<String,ArrayList<String>> TitolAutors;                  // Estructura on es guarden els autors que han creat un document amb un títol en concret
-    private HashMap<String,ArrayList<SimpleEntry<String,String>>> Paraules; // Estructura on es guarden els documents que contenen una paraula en concret
-    private HashMap<String,ExpressioBooleana> ExpressionsBooleanes;         // Estructura on es guarden totes les expression booleanes
+    private final HashMap<SimpleEntry<String,String>,Document> Documents;         // Estructura on es guarden els documents
+    private final Trie<String> Autors;                                            // Estructura on es guarden els autors (serveix per trobar el prefix)
+    private final HashMap<String,ArrayList<String>> DocumentsAutor;               // Estructura on es guarden els títols dels documents creats per un autor
+    private final HashMap<String,ArrayList<String>> TitolAutors;                  // Estructura on es guarden els autors que han creat un document amb un títol en concret
+    private final HashMap<String,ArrayList<SimpleEntry<String,String>>> Paraules; // Estructura on es guarden els documents que contenen una paraula en concret
+    private final HashMap<String,ExpressioBooleana> ExpressionsBooleanes;         // Estructura on es guarden totes les expression booleanes
 
     public HashMap<String,ArrayList<SimpleEntry<String,String>>> getParaules() {
         return Paraules;
@@ -30,10 +30,10 @@ public class CtrlDomini {
     ///                     AGREGACIONS                     ///
     ///////////////////////////////////////////////////////////
 
-    private CtrlDominiExprBool CDeb;    // Agregació del controlador d'expressió booleana
-    private CtrlDominiDocument CDdoc;   // Agregació del controlador de document
-    private CtrlDominiCerca CDcer;      // Agregació del controlador de cerca
-    private CtrlPersistencia CP;        // Agregació del controladaor de persistència
+    private final CtrlDominiExprBool CDeb;    // Agregació del controlador d'expressió booleana
+    private final CtrlDominiDocument CDdoc;   // Agregació del controlador de document
+    private final CtrlDominiCerca CDcer;      // Agregació del controlador de cerca
+    private final CtrlPersistencia CP;        // Agregació del controladaor de persistència
 
 
     ///////////////////////////////////////////////////////////
@@ -63,18 +63,19 @@ public class CtrlDomini {
     ///////////////////////////////////////////////////////////
 
     public void importarDocument(File path) {
-        //CP.importarDocument(path);
+        CP.importarDocument(path);
     }
 
     public void importarDocuments(File[] path) {
+        CP.importarDocuments(File[] path);
     }
 
     public void exportarDocument(String titol, String autor, File path) {
-        //CP.exportarDocument(titol,autor,path);
+        CP.exportarDocument(titol,autor,path);
     }
 
     public void exportarDocuments(ArrayList<String> titols, ArrayList<String> autors, File path) {
-
+        CP.exportarDocuments(titols,autors,path);
     }
 
     ///////////////////////////////////////////////////////////
