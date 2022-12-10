@@ -397,23 +397,61 @@ public class GestorDades {
         }
     }
 
-    public void guardaExpressions(ArrayList<String> paraules, String path) {
-
-    }
-
-    public void guardaExpressio(String expr, String path) {
+    public void escriuExpressio(String expr, String path) {
         Path PATH = Paths.get(path);
 
         try (BufferedWriter escriptor = Files.newBufferedWriter(PATH, StandardCharsets.UTF_8)) {
-            escriptor.write("\n"+expr);
+            escriptor.write("\n" + expr);
         }
         catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void modificaExpressio(String exprAnt, String exprNova, String path) {
+    public void guardaExpressions(ArrayList<String> expressions, String path) {
+        Path PATH = Paths.get(path);
+        boolean primera = true;
 
+        try(BufferedWriter escriptor = Files.newBufferedWriter(PATH, StandardCharsets.UTF_8)) {
+            for(String expressio : expressions) {
+                if(primera) {
+                    primera = false;
+                    escriptor.write(expressio);
+                }
+                else escriptor.write(expressio);
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void guardaExpressio(String expr, String path) throws ExpressioBooleanaJaExistentException {
+        boolean existeix = existeixFixter(path);
+
+        if(!existeix) { // El document no existeix i, per tant, el creem
+            creaFitxer(path);
+            //Com el document és buit no cal comprovar repeticions
+            escriuExpressio(expr,path);
+        }
+        else {  // El document existeix i, per tant, cal comprobar si ja existeix l'expressió en el document
+            ArrayList<String> expressions = llegeixExpressions(path);
+            for(String expressio : expressions) {
+                if(expressio.equals(expr)) {    // Ja existeix l'expressió
+                    throw new ExpressioBooleanaJaExistentException(expr);
+                }
+            }
+            // L'expressió no existeix i, per tant, es pot afegir
+            escriuExpressio(expr,path);
+        }
+    }
+
+    public void modificaExpressio(String exprAnt, String exprNova, String path) throws ExpressioBooleanaInexistentException {
+        // Llegim les expressions per eliminar exprAnt i posar exprNova
+        ArrayList<String> expressions = llegeixExpressions(path);
+        if(!expressions.remove(exprAnt)) throw new ExpressioBooleanaInexistentException(exprAnt);
+        expressions.add(exprNova);  // Afegim l'expressió al llistat d'expressions
+        guardaExpressions(expressions, path);
     }
 
 
@@ -493,8 +531,9 @@ public class GestorDades {
         }
     }
 
-    public void guardaExpressioBool(String exprAnt, String exprNova, String path) {
-        if(exprAnt == null) {   // La expressió és nova
+    public void guardaExpressioBool(String exprAnt, String exprNova, String path)
+            throws ExpressioBooleanaJaExistentException, ExpressioBooleanaInexistentException {
+        if(exprAnt == null) {   // L'expressió és nova
             guardaExpressio(exprNova,path);
         }
         else {  // La expressió és modificada
