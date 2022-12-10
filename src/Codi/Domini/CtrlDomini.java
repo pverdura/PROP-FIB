@@ -75,7 +75,7 @@ public class CtrlDomini {
     ///////////////////////////////////////////////////////////
 
     public void importarDocuments(File[] path) {
-        ArrayList<DocumentLlegit> docs = CP.importarDocument(File[] path);
+        //ArrayList<DocumentLlegit> docs = CP.importarDocument(File[] path);
     }
 
     public void exportarDocuments(ArrayList<String> titols, ArrayList<String> autors, File path) {
