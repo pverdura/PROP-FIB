@@ -267,36 +267,6 @@ public class GestorDades {
      * @return Retorna un DocumentLlegit que conté l'autor, títol, format i contingut del document llegit
      * @throws TipusExtensioIncorrectaException
      */
-    private DocumentLlegit llegeixDocument(String path) throws TipusExtensioIncorrectaException {
-        DocumentLlegit D = null;
-
-        // Mirem que el document que volem llegir existeixi
-        if(existeixFixter(path)) {
-            Path PATH = Paths.get(path);
-
-            // Mirem el tipus d'extensió del document
-            int l = path.length();
-            // Mirem que no siguin backups creats per emacs, nano o vi
-            if(!path.endsWith("~")) {
-                String ext = path.substring(l - 4, l);
-
-                switch (ext) {
-                    case ".txt":
-                        D = llegeixDocumentTXT(PATH);
-                        break;
-                    case ".xml":
-                        D = llegeixDocumentXML(PATH);
-                        break;
-                    case ".bol":
-                        D = llegeixDocumentBOL(PATH);
-                        break;
-                    default:
-                        throw new TipusExtensioIncorrectaException(ext);
-                }
-            }
-        }
-        return D;
-    }
 
     /**
      * Funció que llegeix tots els documents d'un directori
@@ -467,13 +437,13 @@ public class GestorDades {
         }
     }
 
-    /**
+    /*
      * Guarda unes paraules en format CSV en el fitxer indicat en el path
      *
      * @param paraules Paraules que es guarden en el fitxer
      * @param path Indica el path del fitxer que volem escriure
      * @throws FitxerNoCreatException Si s'ha intentat crear el fitxer i no s'ha pogut
-     */
+     *
     private void guardaDocumentCSV(ArrayList<String> paraules, String path) throws FitxerNoCreatException {
         creaFitxer(path);
         Path PATH = Paths.get(path);
@@ -493,6 +463,7 @@ public class GestorDades {
             e.printStackTrace();
         }
     }
+    */
 
     /**
      * Escriu l' expressió booleana expr en el document situat a path
@@ -702,23 +673,6 @@ public class GestorDades {
     }
 
     /**
-     * Guarda les paraules indicades en el fitxer de les stopWords
-     *
-     * @param paraules Nou conjunt de paraules que seran les stopWords
-     * @param path Indica el path on està situat el fitxer de les stopWords
-     * @throws FitxerNoEliminatExeption Si s'ha intentat eliminar el fitxer i no s'ha pogut
-     * @throws FitxerNoCreatException Si s'ha intentat crear el fitxer i no s'ha pogut
-     */
-    public void guardaStopWords(ArrayList<String> paraules, String path) throws FitxerNoEliminatExeption,
-            FitxerNoCreatException {
-        // Primer mirem si ja existeix el document, i si existeix l'eliminem
-        if(existeixFixter(path)) eliminaFitxer(path);
-
-        // Guardem les stopWords
-        guardaDocumentCSV(paraules, path);
-    }
-
-    /**
      * Busca el document identificat per títol i autor
      *
      * @param titol Indica el títol del document
@@ -748,5 +702,36 @@ public class GestorDades {
             e.printStackTrace();
         }
         return f;
+    }
+
+    public DocumentLlegit llegeixDocument(String path) throws TipusExtensioIncorrectaException {
+        DocumentLlegit D = null;
+
+        // Mirem que el document que volem llegir existeixi
+        if(existeixFixter(path)) {
+            Path PATH = Paths.get(path);
+
+            // Mirem el tipus d'extensió del document
+            int l = path.length();
+            // Mirem que no siguin backups creats per emacs, nano o vi
+            if(!path.endsWith("~")) {
+                String ext = path.substring(l - 4, l);
+
+                switch (ext) {
+                    case ".txt":
+                        D = llegeixDocumentTXT(PATH);
+                        break;
+                    case ".xml":
+                        D = llegeixDocumentXML(PATH);
+                        break;
+                    case ".bol":
+                        D = llegeixDocumentBOL(PATH);
+                        break;
+                    default:
+                        throw new TipusExtensioIncorrectaException(ext);
+                }
+            }
+        }
+        return D;
     }
 }
