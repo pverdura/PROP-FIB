@@ -7,6 +7,21 @@ public class DocumentLlegit {
     private String contingut;
     private TipusExtensio extensio;
 
+    public DocumentLlegit(){
+        titol = new String();
+        autor = new String();
+        contingut = new String();
+        path = new String();
+    }
+
+    public DocumentLlegit(String titol, String autor, TipusExtensio extensio, String contingut, String path){
+        this.titol = titol;
+        this.autor = autor;
+        this.extensio = extensio;
+        this.contingut = contingut;
+        this.path = path;
+    }
+
 
     public String getTitol(){
         return titol;
