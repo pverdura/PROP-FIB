@@ -43,7 +43,7 @@ public class CtrlDomini {
     /**
      * Crea i inicialitza els altres controladors i estructures
      */
-    public CtrlDomini() {
+    public CtrlDomini() throws DocumentJaExisteixException {
         CDeb = new CtrlDominiExprBool();
         CDdoc = new CtrlDominiDocument();
         CDcer = new CtrlDominiCerca();
@@ -55,6 +55,12 @@ public class CtrlDomini {
         TitolAutors = new HashMap<String,ArrayList<String>>();
         Paraules = new HashMap<String,ArrayList<SimpleEntry<String,String>>>();
         ExpressionsBooleanes = new HashMap<String,ExpressioBooleana>();
+
+        // Llegim els documents
+        ArrayList<DocumentLlegit> docs = CP.carregaDocuments();
+        for(DocumentLlegit doc : docs) {
+            CDdoc.llegirDocument(doc,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
+        }
     }
 
 
@@ -102,10 +108,6 @@ public class CtrlDomini {
      */
     public void eliminaDocument(String titol, String autor) throws DocumentInexistentException {
         CDdoc.eliminaDocument(titol,autor,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
-    }
-
-    public void llegirDocument(DocumentLlegit D) throws DocumentJaExisteixException {
-        CDdoc.llegirDocument(D,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
     }
 
     public void modificarIdentificador(SimpleEntry<String,String> idVell, SimpleEntry<String,String> idNou)
@@ -253,17 +255,18 @@ public class CtrlDomini {
         return CDcer.cercaTitol(titol,TitolAutors,ord,Documents);
     }
 
-    /**
+    /*
      * Obté el document identificat per titol i autor
      *
      * @param titol Indica el titol que identifica el document
      * @param autor Indica l'autor que identifica el document
      * @return Retorna el document identificat per titol i autor
      * @throws DocumentInexistentException Si el document identificat per titol i autor no existeix
-     */
+     *
     public Document cercaTitolAutor(String titol, String autor) throws DocumentInexistentException {
         return CDcer.cercaTitolAutor(titol,autor,Documents);
     }
+     */
 
     /**
      * Llista els autors que contenen el prefix prefix
@@ -347,16 +350,6 @@ public class CtrlDomini {
         return CDcer.ordenarCerca(cerca,ord,Documents);
     }
 
-    /**
-     * Ordena el resultat d'una cerca
-     *
-     * @param cerca Indica la cerca obtinguda
-     * @param ord Indica el nou ordre que es farà a la cerca
-     * @return Retorna la cerca en l'ordre indicat
-     */
-    public ArrayList<String> ordenarCercaSimple(ArrayList<String> cerca, TipusOrdenacio ord) {
-        return CDcer.ordenarCercaSimple(cerca,ord);
-    }
 
 
     ///////////////////////////////////////////////////////////
@@ -393,14 +386,5 @@ public class CtrlDomini {
      */
     public void modificaExpressioBool(String exprAnt, String exprNova) throws ExpressioBooleanaInexistentException, ExpressioBooleanaJaExistentException {
         CDeb.modificaExpressioBool(exprAnt,exprNova,ExpressionsBooleanes);
-    }
-
-    /**
-     * Obté el nombre d'expressions booleanes del sistema
-     *
-     * @return Retorna el nombre d'expressions booleanes del sistema
-     */
-    public int getNombreExprssioBool() {
-        return CDeb.getNombreExpressionsBooleanes(ExpressionsBooleanes);
     }
 }
