@@ -1,4 +1,4 @@
-package Codi;
+/*package Codi;
 
 import Codi.Domini.CtrlDomini;
 import Codi.Util.TipusExtensio;
@@ -444,4 +444,4 @@ public class DriverConsola {
             }
         }
     }
-}
+}*/

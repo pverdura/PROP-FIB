@@ -1,4 +1,4 @@
-package Codi;
+/*package Codi;
 
 import Codi.Domini.CtrlDomini;
 import Codi.Util.TipusExtensio;
@@ -291,7 +291,7 @@ public class DriverInput {
         3. Per paraules
         4. Per expressió booleana
         5. Per document semblant
-        6. Per autor*/
+        6. Per autor/
 
         int op = 0;
         if (sc.hasNextInt())
@@ -463,4 +463,4 @@ public class DriverInput {
             }
         }
     }
-}
+}*/
