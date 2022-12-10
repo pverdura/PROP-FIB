@@ -90,6 +90,11 @@ public class CtrlPresentacio {
 
     //documents
     public void crearDocument () {
+        if (viewModificarDocument == null) viewModificarDocument = new ViewModificarDocument(this);
+        viewModificarDocument.setTitol("");
+        viewModificarDocument.setAutor("");
+        viewModificarDocument.setContingut("");
+        viewModificarDocument.setExtensio(TipusExtensio.BOL);
         viewModificarDocument.ferVisible(true);
     }
 
@@ -100,6 +105,7 @@ public class CtrlPresentacio {
     public void tancarAplicacio () {
         if (viewCercaTitol != null) viewCercaTitol.tancarVista();
         if (viewCercaParaules != null) viewCercaParaules.tancarVista();
+        //????
     }
 
     public void exportarDocument (SimpleEntry<String, String> id, String path) {

@@ -86,6 +86,7 @@ public class ViewCercaTitol {
     }
 
     public void ferVisible (boolean visible) {
+        textTitol.setText("");
         if (visible) frame.pack();
         frame.setVisible(visible);
     }
