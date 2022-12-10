@@ -43,6 +43,7 @@ public class CtrlPresentacio {
 
     public void init () {
         viewMenuPrincipal.ferVisible();
+        mostrarDocuments();
     }
 
     private void enviarPrincipal () {
