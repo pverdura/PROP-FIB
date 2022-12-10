@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class CtrlPresentacio {
     private final CtrlDomini ctrlDomini;
-    private ViewMenuPrincipal viewMenuPrincipal;
+    private final ViewMenuPrincipal viewMenuPrincipal;
     private ViewGestioExprBool viewGestioExprBool;
     private ViewModificarDocument viewModificarDocument;
     private ViewCercaTitol viewCercaTitol;
@@ -23,8 +23,8 @@ public class CtrlPresentacio {
     private ViewAjuda viewAjuda;
 
     private ArrayList<SimpleEntry<String, String>> resultatPrincipal;
-    private ArrayList<Integer> resultatPrincipalPes;
-    private ArrayList<TipusExtensio> resultatPrincipalExtensio;
+    private final ArrayList<Integer> resultatPrincipalPes;
+    private final ArrayList<TipusExtensio> resultatPrincipalExtensio;
     private TipusCerca ultimaCerca;
     private TipusOrdenacio tipusOrdenacio;
 
@@ -98,6 +98,7 @@ public class CtrlPresentacio {
         viewModificarDocument.setAutor("");
         viewModificarDocument.setContingut("");
         viewModificarDocument.setExtensio(TipusExtensio.BOL);
+        viewModificarDocument.setDocumentNou(true);
         viewModificarDocument.ferVisible(true);
     }
 
@@ -145,12 +146,18 @@ public class CtrlPresentacio {
         }
     }
 
-    public boolean guardarDocument (SimpleEntry<String, String> idVell, SimpleEntry<String, String> idNou, String contingut, TipusExtensio te) {
+    public void guardarDocument (SimpleEntry<String, String> idVell, SimpleEntry<String, String> idNou, String contingut, TipusExtensio te) {
         //actualitzar id (si cal, canviant idVell i idNou (nou mètode: modificar identificador, que modifica títol i autor alhora?
         //actualitzar classe
         //guardar físicament
-        //si hi ha cerca semblant o paraules, actualitzar-ne resultat, si s'ha modifiat el títol/autor, també potser
-        return true;
+        //si hi ha cerca semblant o paraules, actualitzar-ne resultat, si s'ha modificat el títol/autor, també potser
+
+
+        if (idVell == null) {
+            //document nou
+        } else {
+            //document modificat, potser
+        }
     }
 
     //cerques
@@ -252,6 +259,7 @@ public class CtrlPresentacio {
         viewModificarDocument.setAutor(autor);
         viewModificarDocument.setContingut(ctrlDomini.getContingut(titol, autor));
         viewModificarDocument.setExtensio(ctrlDomini.getExtensio(titol, autor));
+        viewModificarDocument.setDocumentNou(false);
         viewModificarDocument.ferVisible(true);
     }
     public void obrirCercaTitol () {

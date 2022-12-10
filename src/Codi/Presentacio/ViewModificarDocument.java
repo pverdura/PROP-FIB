@@ -3,7 +3,6 @@ package Codi.Presentacio;
 import Codi.Util.TipusExtensio;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +13,6 @@ public class ViewModificarDocument {
     private JPanel panellSuperior;
     private JPanel panellMig;
     private JPanel panellInferior;
-    private JScrollPane panellContingut;
     private JLabel labelTitol;
     private JLabel labelAutor;
     private JButton btGuardar;
@@ -23,13 +21,15 @@ public class ViewModificarDocument {
     private JTextArea textContingut;
     private JComboBox<String> tipusExtensio;
 
-    private CtrlPresentacio ctrlPresentacio;
+    private final CtrlPresentacio ctrlPresentacio;
     private String titol;
     private String autor;
-    private String[] extensions = {"TXT", "XML", "BOL"};
+    private final String[] extensions = {"TXT", "XML", "BOL"};
+    private boolean documentNou;
     public ViewModificarDocument (CtrlPresentacio cp) {
         this.ctrlPresentacio = cp;
         inicialitzar();
+        documentNou = true;
     }
 
     private void inicialitzar () {
@@ -95,7 +95,7 @@ public class ViewModificarDocument {
         textContingut.setMinimumSize(new Dimension(700, 450));
         textContingut.setPreferredSize(textContingut.getMinimumSize());
 
-        panellContingut = new JScrollPane(textContingut);
+        JScrollPane panellContingut = new JScrollPane(textContingut);
         panellContingut.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         panellInferior.add(panellContingut, BorderLayout.CENTER);
@@ -106,14 +106,12 @@ public class ViewModificarDocument {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (VistaDialeg.confirmDialog("Segur que vols desar el document?")) {
-                    SimpleEntry<String, String> idVell = new SimpleEntry<>(titol, autor);
+                    SimpleEntry<String, String> idVell;
+                    if (documentNou) idVell = null;
+                    else idVell = new SimpleEntry<>(titol, autor);
                     SimpleEntry<String, String> idNou = new SimpleEntry<>(textTitol.getText(), textAutor.getText());
 
-                    if (ctrlPresentacio.guardarDocument(idVell, idNou, textContingut.getText(), getTipusExtensio())) {
-                        VistaDialeg.messageDialog("Informació", "El document s'ha desat correctament.");
-                    } else {
-                        VistaDialeg.errorDialog("El document no s'ha pogut desar correctament.");
-                    }
+                    ctrlPresentacio.guardarDocument(idVell, idNou, textContingut.getText(), getTipusExtensio());
                 }
             }
         });
@@ -138,5 +136,8 @@ public class ViewModificarDocument {
         if (te == TipusExtensio.TXT) tipusExtensio.setSelectedIndex(0);
         else if (te == TipusExtensio.XML) tipusExtensio.setSelectedIndex(1);
         else tipusExtensio.setSelectedIndex(2);
+    }
+    public void setDocumentNou (boolean esNou) {
+        documentNou = esNou;
     }
 }
