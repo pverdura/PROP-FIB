@@ -5,7 +5,6 @@ public enum TipusCerca {
     TITOL,
     AUTOR,
     TITOLAUTOR,
-    PREFIX,
     PARAULES,
     SEMBLANT,
     BOOLEANA

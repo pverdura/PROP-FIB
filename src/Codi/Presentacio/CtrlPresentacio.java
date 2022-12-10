@@ -10,7 +10,7 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 
 public class CtrlPresentacio {
-    private CtrlDomini ctrlDomini;
+    private final CtrlDomini ctrlDomini;
     private ViewMenuPrincipal viewMenuPrincipal;
     private ViewGestioExprBool viewGestioExprBool;
     private ViewModificarDocument viewModificarDocument;
@@ -20,15 +20,21 @@ public class CtrlPresentacio {
     private ViewCercaPrefix viewCercaPrefix;
     private ViewCercaSemblant viewCercaSemblant;
     private ViewCercaParaules viewCercaParaules;
+    private ViewAjuda viewAjuda;
 
-    private ArrayList<SimpleEntry<String, String>> resultatActual1;
+    private ArrayList<SimpleEntry<String, String>> resultatPrincipal;
+    private ArrayList<Integer> resultatPrincipalPes;
+    private ArrayList<TipusExtensio> resultatPrincipalExtensio;
     private TipusCerca ultimaCerca;
     private TipusOrdenacio tipusOrdenacio;
 
     public CtrlPresentacio () {
         ctrlDomini = new CtrlDomini();
 
-        resultatActual1 = new ArrayList<>();
+        resultatPrincipal = new ArrayList<>();
+        resultatPrincipalExtensio = new ArrayList<>();
+        resultatPrincipalPes = new ArrayList<>();
+
         ultimaCerca = TipusCerca.TOTS;
         tipusOrdenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
 
@@ -37,33 +43,44 @@ public class CtrlPresentacio {
 
     public void init () {
         viewMenuPrincipal.ferVisible();
-        prova();    //esborrar
+        mostrarDocuments();
     }
 
-    public boolean crearExprBool (String expr) {
+    private void enviarPrincipal () {
+        resultatPrincipalPes.clear();
+        resultatPrincipalExtensio.clear();
+
+        for (SimpleEntry<String, String> s : resultatPrincipal) {
+            String t = s.getKey(); String a = s.getValue();
+            resultatPrincipalPes.add(ctrlDomini.getPes(t, a));
+            resultatPrincipalExtensio.add(ctrlDomini.getExtensio(t, a));
+        }
+
+        viewMenuPrincipal.actualitzarResultat(resultatPrincipal, resultatPrincipalPes, resultatPrincipalExtensio);
+    }
+
+    public void crearExprBool (String expr) {
         try {
             ctrlDomini.creaExpressioBool(expr);
-            return true;
         }  catch (Exception e) {
-            return false;
+            VistaDialeg.errorDialog(e.toString());
         }
     }
 
-    public boolean eliminarExprBool (String expr) {
+    public void eliminarExprBool (String expr) {
         try {
             ctrlDomini.eliminaExpressioBool(expr);
-            return true;
         } catch (Exception e) {
-            return false;
+
+            VistaDialeg.errorDialog(e.toString());
         }
     }
 
-    public boolean modificarExprBool (String exprAntiga, String exprNova) {
+    public void modificarExprBool (String exprAntiga, String exprNova) {
         try {
             ctrlDomini.modificaExpressioBool(exprAntiga, exprNova);
-            return true;
         } catch (Exception e) {
-            return false;
+            VistaDialeg.errorDialog(e.toString());
         }
     }
 
@@ -73,30 +90,52 @@ public class CtrlPresentacio {
 
     //documents
     public void crearDocument () {
+        if (viewModificarDocument == null) viewModificarDocument = new ViewModificarDocument(this);
+        viewModificarDocument.setTitol("");
+        viewModificarDocument.setAutor("");
+        viewModificarDocument.setContingut("");
+        viewModificarDocument.setExtensio(TipusExtensio.BOL);
         viewModificarDocument.ferVisible(true);
     }
 
-    public boolean importarDocument (File fitxer) {
-        return true;
+    public void importarDocument (File[] fitxers) {
+        try {
+            ctrlDomini.importarDocuments(fitxers);
+        } catch (Exception e) {
+            VistaDialeg.errorDialog(e.toString());
+        }
     }
 
     public void tancarAplicacio () {
-        if (viewCercaTitol != null) viewCercaTitol.tancarVista();
-        if (viewCercaParaules != null) viewCercaParaules.tancarVista();
+        //if (viewCercaTitol != null) viewCercaTitol.tancarVista();
+        //if (viewCercaParaules != null) viewCercaParaules.tancarVista();
+        viewMenuPrincipal.tancarVista();
     }
 
-    public void exportarDocument (SimpleEntry<String, String> id, String path) {
+    public void exportarDocuments (ArrayList<String> titols, ArrayList<String> autors, File path) {
         //exportar document id a path
+        try {
+            ctrlDomini.exportarDocuments(titols, autors, path);
+        } catch (Exception e) {
+            VistaDialeg.errorDialog(e.toString());
+        }
     }
 
-    public void esborrarDocument (SimpleEntry<String, String> id) {
+    public void esborrarDocument (String titol, String autor) {
         //esborrar document id
+        ctrlDomini.eliminaDocument(titol, autor);
         //si hi és a la cerca, esborrar de la cerca, tornar a ordenar i actualitzar vista principal
+
         //si és cerca semblant/paraules, tornar-la a fer
     }
 
-    public void ordenar (TipusOrdenacio tipusOrdenacio) {
+    public void ordenar (TipusOrdenacio to) {
         //ordenar i actualitzar vista principal
+        if (to != tipusOrdenacio) {
+            tipusOrdenacio = to;
+            resultatPrincipal = ctrlDomini.ordenarCerca(resultatPrincipal, tipusOrdenacio);
+            enviarPrincipal();
+        }
     }
 
     public boolean guardarDocument (SimpleEntry<String, String> idVell, SimpleEntry<String, String> idNou, String contingut, TipusExtensio te) {
@@ -108,59 +147,90 @@ public class CtrlPresentacio {
     }
 
     //cerques
-    public boolean cercaBooleana (String expr) {
+    public void cercaBooleana (String expr) {
         try {
-            resultatActual1 = ctrlDomini.cercaBooleana(expr, tipusOrdenacio);
-            viewMenuPrincipal.actualitzarResultat(resultatActual1);
+            resultatPrincipal = ctrlDomini.cercaBooleana(expr, tipusOrdenacio);
+            enviarPrincipal();
             ultimaCerca = TipusCerca.BOOLEANA;
-            return true;
         } catch (Exception e) {
-            return false;
+            VistaDialeg.errorDialog(e.toString());
         }
     }
 
     public void mostrarDocuments () {
         try {
-            resultatActual1 = ctrlDomini.cercaAllDocuments(tipusOrdenacio);
-            viewMenuPrincipal.actualitzarResultat(resultatActual1);
+            resultatPrincipal = ctrlDomini.cercaAllDocuments(tipusOrdenacio);
+            enviarPrincipal();
             ultimaCerca = TipusCerca.TOTS;
         } catch (Exception e) {
-            VistaDialeg.errorDialog("Hi ha algun error a l'aplicació");
+            VistaDialeg.errorDialog(e.toString());
         }
     }
 
-    public boolean cercaTitol (String titol) {
-        ultimaCerca = TipusCerca.TITOL;
-        return true;
+    public void cercaTitol (String titol) {
+        try {
+            resultatPrincipal = ctrlDomini.cercaTitol(titol, tipusOrdenacio);
+            enviarPrincipal();
+            ultimaCerca = TipusCerca.TITOL;
+        } catch (Exception e) {
+            VistaDialeg.errorDialog(e.toString());
+        }
     }
 
-    public boolean cercaAutor (String autor) {
-        ultimaCerca = TipusCerca.AUTOR;
-        return true;
+    public void cercaAutor (String autor) {
+        try {
+            resultatPrincipal = ctrlDomini.cercaTitol(autor, tipusOrdenacio);
+            enviarPrincipal();
+            ultimaCerca = TipusCerca.AUTOR;
+        } catch (Exception e) {
+            VistaDialeg.errorDialog(e.toString());
+        }
     }
 
-    public boolean cercaTitolAutor (String titol, String autor) {
-        ultimaCerca = TipusCerca.TITOLAUTOR;
-        return true;
+    public void cercaTitolAutor (String titol, String autor) {
+        try {
+            resultatPrincipal.clear();
+            resultatPrincipal.add(new SimpleEntry<>(titol, autor));
+            enviarPrincipal();
+            ultimaCerca = TipusCerca.TITOLAUTOR;
+        } catch (Exception e) {
+            VistaDialeg.errorDialog(e.toString());
+        }
     }
 
-    public boolean cercaPrefix (String prefix) {
-        ultimaCerca = TipusCerca.PREFIX;
-        return true;
+    public void cercaPrefix (String prefix, TipusOrdenacio to) {
+        try {
+            viewCercaPrefix.enviarDades(ctrlDomini.cercaPrefix(prefix, to));
+        } catch (Exception e) {
+            VistaDialeg.errorDialog(e.toString());
+        }
     }
 
-    public boolean cercaParaules (String paraules, int k, boolean tots) {
-        ultimaCerca = TipusCerca.PARAULES;
-        return true;
+    public void cercaParaules (String paraules, int k, boolean tots) {
+        try {
+            if (tots) k = ctrlDomini.getNombreDocuments();
+            resultatPrincipal = ctrlDomini.cercaParaules(paraules, k);
+            enviarPrincipal();
+            ultimaCerca = TipusCerca.PARAULES;
+        } catch (Exception e) {
+            VistaDialeg.errorDialog(e.toString());
+        }
     }
-    public boolean cercaSemblant (String titol, String autor, int k, boolean tots) {
-        ultimaCerca = TipusCerca.SEMBLANT;
-        return true;
+    public void cercaSemblant (String titol, String autor, int k, boolean tots) {
+        try {
+            if (tots) k = ctrlDomini.getNombreDocuments();
+            resultatPrincipal = ctrlDomini.cercaSemblant(titol, autor, k);
+            enviarPrincipal();
+            ultimaCerca = TipusCerca.SEMBLANT;
+        } catch (Exception e) {
+            VistaDialeg.errorDialog(e.toString());
+        }
     }
 
     //obrir vistes
     public void obrirAjuda () {
-        //obrir vista ajuda
+        if (viewAjuda == null) viewAjuda = new ViewAjuda();
+        viewAjuda.ferVisible();
     }
     public void obrirGestioExprBool () {
         if (viewGestioExprBool == null)
@@ -189,23 +259,16 @@ public class CtrlPresentacio {
         viewCercaTitolAutor.ferVisible(true);
     }
     public void obrirCercaPrefix () {
-        //if (viewCercaPrefix == null) viewCercaPrefix = new ViewCercaPrefix(this);
-        //viewCercaPrefix.ferVisible(true);
+        if (viewCercaPrefix == null) viewCercaPrefix = new ViewCercaPrefix(this);
+        viewCercaPrefix.ferVisible(true);
     }
     public void obrirCercaSemblant () {
-        //if (viewCercaSemblant == null) viewCercaSemblant = new ViewCercaSemblant(this);
-        //viewCercaSemblant.ferVisible(true);
+        if (viewCercaSemblant == null) viewCercaSemblant = new ViewCercaSemblant(this);
+        viewCercaSemblant.ferVisible(true);
     }
     public void obrirCercaParaules () {
         if (viewCercaParaules == null) viewCercaParaules = new ViewCercaParaules(this);
         viewCercaParaules.ferVisible(true);
-    }
-
-    //ESBORRAR
-    public void prova () {
-        ArrayList<SimpleEntry<String, String>> a = new ArrayList<>();
-        a.add(new SimpleEntry<>("titol", "autor"));
-        viewMenuPrincipal.actualitzarResultat(a);
     }
 }
 
