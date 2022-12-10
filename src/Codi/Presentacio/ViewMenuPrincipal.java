@@ -202,7 +202,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         System.out.println(size);
 
         //Afegir a la llista que es mostra per pantalla tots els documents que arriben
-        for (int i = 0; i < 5;  i++) {
+        for (int i = 0; i < size;  i++) {
             dlm.addElement(titolsAutors.get(i).getKey()+"  "+titolsAutors.get(i).getValue()+"  "+
                            pesos.get(i).toString()+"  "+extensios.get(i).toString());
         }
