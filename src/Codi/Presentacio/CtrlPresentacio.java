@@ -10,7 +10,7 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 
 public class CtrlPresentacio {
-    private CtrlDomini ctrlDomini;
+    private final CtrlDomini ctrlDomini;
     private ViewMenuPrincipal viewMenuPrincipal;
     private ViewGestioExprBool viewGestioExprBool;
     private ViewModificarDocument viewModificarDocument;
@@ -115,13 +115,16 @@ public class CtrlPresentacio {
         viewMenuPrincipal.tancarVista();
     }
 
-    public void exportarDocument (SimpleEntry<String, String> id, String path) {
+    public void exportarDocument (String titol, String autor, File path) {
         //exportar document id a path
+        ctrlDomini.exportarDocument(titol, autor, path);
     }
 
-    public void esborrarDocument (SimpleEntry<String, String> id) {
+    public void esborrarDocument (String titol, String autor) {
         //esborrar document id
+        ctrlDomini.eliminaDocument(titol, autor);
         //si hi és a la cerca, esborrar de la cerca, tornar a ordenar i actualitzar vista principal
+
         //si és cerca semblant/paraules, tornar-la a fer
     }
 
@@ -196,7 +199,7 @@ public class CtrlPresentacio {
 
     public void cercaPrefix (String prefix, TipusOrdenacio to) {
         try {
-            //viewCercaPrefix.enviarDades(ctrlDomini.cercaPrefix(prefix, to);)
+            viewCercaPrefix.enviarDades(ctrlDomini.cercaPrefix(prefix, to));
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
@@ -226,7 +229,7 @@ public class CtrlPresentacio {
     //obrir vistes
     public void obrirAjuda () {
         if (viewAjuda == null) viewAjuda = new ViewAjuda();
-        //viewAjuda.ferVisible();
+        viewAjuda.ferVisible();
     }
     public void obrirGestioExprBool () {
         if (viewGestioExprBool == null)
@@ -255,12 +258,12 @@ public class CtrlPresentacio {
         viewCercaTitolAutor.ferVisible(true);
     }
     public void obrirCercaPrefix () {
-        //if (viewCercaPrefix == null) viewCercaPrefix = new ViewCercaPrefix(this);
-        //viewCercaPrefix.ferVisible(true);
+        if (viewCercaPrefix == null) viewCercaPrefix = new ViewCercaPrefix(this);
+        viewCercaPrefix.ferVisible(true);
     }
     public void obrirCercaSemblant () {
-        //if (viewCercaSemblant == null) viewCercaSemblant = new ViewCercaSemblant(this);
-        //viewCercaSemblant.ferVisible(true);
+        if (viewCercaSemblant == null) viewCercaSemblant = new ViewCercaSemblant(this);
+        viewCercaSemblant.ferVisible(true);
     }
     public void obrirCercaParaules () {
         if (viewCercaParaules == null) viewCercaParaules = new ViewCercaParaules(this);
