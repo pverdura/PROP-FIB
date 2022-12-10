@@ -4,6 +4,7 @@ import Codi.Excepcions.*;
 import Codi.Util.DocumentLlegit;
 import Codi.Util.TipusExtensio;
 
+import javax.print.Doc;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -11,14 +12,17 @@ import java.util.ArrayList;
 public class CtrlPersistencia {
 
     private GestorDades gestorDades;
-    private final String path = "";
+    private final String path = new File("src/Codi/Persistencia/Documents").getAbsolutePath();
+    private final String path_stopWords = new File("src/Codi/stop_words.txt").getAbsolutePath();
 
     public CtrlPersistencia(){
         gestorDades = new GestorDades();
     }
 
-    public void importarDocument(File path){
-
+    public void importarDocument(File file){
+        String path = file.getAbsolutePath();
+        DocumentLlegit doc = gestorDades.llegeixDocument(path);
+        gestorDades.guardaDocument(doc.getTitol(), doc.getAutor(), doc.getExtensio(), doc.getContingut(), doc.getPath());
     }
 
     public void exportarDocument(String titol, String autor, File path){
@@ -52,7 +56,7 @@ public class CtrlPersistencia {
     }
 
     public ArrayList<String> carregaStopWords() throws CarpetaNoCreadaException, FitxerNoCreatException{
-        return gestorDades.carregaStopWords(path);
+        return gestorDades.carregaStopWords(path_stopWords);
     }
 
     public void guardaDocument(String titol, String autor, TipusExtensio ext, String contingut, String path)
@@ -65,9 +69,5 @@ public class CtrlPersistencia {
         gestorDades.guardaExpressioBool(exprAnt,exprNova,path);
     }
 
-    public void guardaStopWords(ArrayList<String> paraules, String path) throws FitxerNoEliminatExeption,
-            FitxerNoCreatException{
-        gestorDades.guardaStopWords(paraules,path);
-    }
 }
 
