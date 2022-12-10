@@ -100,7 +100,7 @@ public class CtrlPresentacio {
 
     public void importarDocument (File[] fitxers) {
         try {
-            ctrlDomini.importarDocuments(fitxers);
+            //ctrlDomini.importarDocuments(fitxers);
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
@@ -109,13 +109,13 @@ public class CtrlPresentacio {
     public void tancarAplicacio () {
         //if (viewCercaTitol != null) viewCercaTitol.tancarVista();
         //if (viewCercaParaules != null) viewCercaParaules.tancarVista();
-        viewMenuPrincipal.tancarVista();
+        //viewMenuPrincipal.tancarVista();
     }
 
     public void exportarDocuments (ArrayList<String> titols, ArrayList<String> autors, File path) {
         //exportar document id a path
         try {
-            ctrlDomini.exportarDocuments(titols, autors, path);
+            //ctrlDomini.exportarDocuments(titols, autors, path);
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
@@ -230,7 +230,7 @@ public class CtrlPresentacio {
     //obrir vistes
     public void obrirAjuda () {
         if (viewAjuda == null) viewAjuda = new ViewAjuda();
-        viewAjuda.ferVisible();
+        //viewAjuda.ferVisible();
     }
     public void obrirGestioExprBool () {
         if (viewGestioExprBool == null)
