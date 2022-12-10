@@ -197,8 +197,7 @@ public class CtrlDominiCerca {
     private ArrayList<SimpleEntry<String, String>> ordrePesAscendent(ArrayList<SimpleEntry<String, String>> cerca, HashMap<SimpleEntry<String,String>, Document> documents){
         ArrayList<SimpleEntry<SimpleEntry<String,String>, Integer>> docs = new ArrayList<>();
         for (SimpleEntry<String,String> c : cerca){
-            SimpleEntry<String,String> id = new SimpleEntry<>(c.getKey(), c.getValue());
-            Document d = documents.get(id);
+            Document d = documents.get(c);
             SimpleEntry<SimpleEntry<String,String>, Integer> aux = new SimpleEntry<>(c,d.getPes());
             docs.add(aux);
         }
@@ -222,8 +221,7 @@ public class CtrlDominiCerca {
     private ArrayList<SimpleEntry<String, String>> ordrePesDescendent(ArrayList<SimpleEntry<String, String>> cerca, HashMap<SimpleEntry<String,String>, Document> documents){
         ArrayList<SimpleEntry<SimpleEntry<String,String>, Integer>> docs = new ArrayList<>();
         for (SimpleEntry<String,String> c : cerca){
-            SimpleEntry<String,String> id = new SimpleEntry<>(c.getKey(), c.getValue());
-            Document d = documents.get(id);
+            Document d = documents.get(c);
             SimpleEntry<SimpleEntry<String,String>, Integer> aux = new SimpleEntry<>(c,d.getPes());
             docs.add(aux);
         }
