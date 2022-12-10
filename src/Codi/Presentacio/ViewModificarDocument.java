@@ -105,13 +105,15 @@ public class ViewModificarDocument {
         btGuardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SimpleEntry<String, String> idVell = new SimpleEntry<>(titol, autor);
-                SimpleEntry<String, String> idNou = new SimpleEntry<>(textTitol.getText(), textAutor.getText());
+                if (VistaDialeg.confirmDialog("Segur que vols desar el document?")) {
+                    SimpleEntry<String, String> idVell = new SimpleEntry<>(titol, autor);
+                    SimpleEntry<String, String> idNou = new SimpleEntry<>(textTitol.getText(), textAutor.getText());
 
-                if (ctrlPresentacio.guardarDocument(idVell, idNou, textContingut.getText(), getTipusExtensio())) {
-                    VistaDialeg.messageDialog("Informació", "El document s'ha desat correctament.");
-                } else {
-                    VistaDialeg.errorDialog("El document no s'ha pogut desar correctament.");
+                    if (ctrlPresentacio.guardarDocument(idVell, idNou, textContingut.getText(), getTipusExtensio())) {
+                        VistaDialeg.messageDialog("Informació", "El document s'ha desat correctament.");
+                    } else {
+                        VistaDialeg.errorDialog("El document no s'ha pogut desar correctament.");
+                    }
                 }
             }
         });
