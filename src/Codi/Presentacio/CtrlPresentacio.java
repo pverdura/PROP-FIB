@@ -29,6 +29,7 @@ public class CtrlPresentacio {
     private TipusOrdenacio tipusOrdenacio;
 
     public CtrlPresentacio () {
+
         ctrlDomini = new CtrlDomini();
 
         resultatPrincipal = new ArrayList<>();
@@ -42,6 +43,13 @@ public class CtrlPresentacio {
     }
 
     public void init () {
+        try {
+            ctrlDomini.inicialitza();
+        } catch (Exception e) {
+            VistaDialeg.errorDialog(e.toString());
+            e.printStackTrace();
+        }
+
         viewMenuPrincipal.ferVisible();
         mostrarDocuments();
     }
@@ -102,7 +110,7 @@ public class CtrlPresentacio {
         viewModificarDocument.ferVisible(true);
     }
 
-    public void importarDocument (File[] fitxers) {
+    public void importarDocuments (ArrayList<File> fitxers) {
         try {
             ctrlDomini.importarDocuments(fitxers);
         } catch (Exception e) {
