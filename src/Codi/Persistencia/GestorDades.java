@@ -1,5 +1,6 @@
 package Codi.Persistencia;
 
+import Codi.Excepcions.CarpetaBuidaException;
 import Codi.Excepcions.CarpetaNoCreadaException;
 import Codi.Excepcions.FitxerNoCreatException;
 import Codi.Excepcions.TipusExtensioIncorrectaException;
@@ -91,7 +92,7 @@ public class GestorDades {
             boolean creada = F.createNewFile();
 
             // Mirem si s'ha creat el fitxer
-            if(!(creada && F.isFile())) {
+            if(creada && F.isFile()) {
                 System.out.println("S'ha creat el fitxer "+ path +" correctament");
             }
             else {
@@ -135,7 +136,7 @@ public class GestorDades {
                     D.setTitol(linia);
                 }
                 else {  // En aquestes línies hi ha el contingut
-                    if (contingut != null) contingut = contingut.concat(linia);
+                    if (contingut != null) contingut = contingut.concat("\n" + linia);
                     else contingut = linia;
                 }
                 ++num_linia;
@@ -160,21 +161,26 @@ public class GestorDades {
 
             // Llegim el document mentre hi hagi línies
             while ((linia = lector.readLine()) != null) {
-                if(linia.startsWith("<titol>") && linia.endsWith("</titol>")) {
-                    D.setAutor(linia.substring(8,linia.length()-9)); // Agafem el text que està entre els <...> i </...>
+                if(linia.startsWith("<autor>") && linia.endsWith("</autor>")) {
+                    // Agafem el text que està entre <autor> i </autor>
+                    D.setTitol(linia.substring(7,linia.length()-8));
                 }
-                else if(linia.startsWith("<autor>") && linia.endsWith("</autor>")) {
-                    D.setTitol(linia.substring(8,linia.length()-9)); // Agafem el text que està entre els <...> i </...>
+                else if(linia.startsWith("<titol>") && linia.endsWith("</titol>")) {
+                    // Agafem el text que està entre <titol> i </titol>
+                    D.setAutor(linia.substring(7,linia.length()-8));
                 }
                 else if(linia.startsWith("<contingut>")) {
-                    contingut = linia.substring(12,linia.length()-1);
                     c = true;
                 }
                 else if (c) { // Concatenem les línies per obtenir el contingut
                     if(!linia.endsWith("</contingut>")) {
-                        contingut = contingut.concat(linia)+"\n";
+                        // Si hi ha la tabulació la treiem
+                        if(linia.startsWith("\t")) linia = linia.substring(1);
+
+                        if(contingut == null) contingut = linia;
+                        else contingut = contingut + "\n" + linia;
                     }
-                    else contingut = contingut.concat(linia.substring(0,linia.length()-13));
+                    else c = false;
                 }
                 else break;
             }
@@ -208,7 +214,7 @@ public class GestorDades {
                     D.setTitol(linia);
                 }
                 else if(espais == 2) {
-                    if (contingut != null) contingut = contingut.concat(linia);
+                    if (contingut != null) contingut = contingut + "\n" + linia;
                     else contingut = linia;
                 }
                 else break;
@@ -232,21 +238,24 @@ public class GestorDades {
             Path PATH = Paths.get(path);
 
             // Mirem el tipus d'extensió del document
-            int l = path.length()-1;
-            String ext = path.substring(l-4,l);
+            int l = path.length();
+            // Mirem que no siguin backups creats per emacs, nano o vi
+            if(!path.endsWith("~")) {
+                String ext = path.substring(l - 4, l);
 
-            switch(ext) {
-                case ".txt":
-                    D = llegeixDocumentTXT(PATH);
-                    break;
-                case ".xml":
-                    D = llegeixDocumentXML(PATH);
-                    break;
-                case ".bol":
-                    D = llegeixDocumentBOL(PATH);
-                    break;
-                default:
-                    throw new TipusExtensioIncorrectaException(ext);
+                switch (ext) {
+                    case ".txt":
+                        D = llegeixDocumentTXT(PATH);
+                        break;
+                    case ".xml":
+                        D = llegeixDocumentXML(PATH);
+                        break;
+                    case ".bol":
+                        D = llegeixDocumentBOL(PATH);
+                        break;
+                    default:
+                        throw new TipusExtensioIncorrectaException(ext);
+                }
             }
         }
         return D;
@@ -257,12 +266,15 @@ public class GestorDades {
         ArrayList<DocumentLlegit> documents = new ArrayList<DocumentLlegit>();
         String[] docs = carpeta.list(); // Obtenim tots els documents de la carpeta situada en el path
 
-        if(docs != null) {
+        if(docs != null && docs.length != 0) {
             // Llegim tots els documents que estan en la carpeta situada en el path
             for (String doc : docs) {
                 DocumentLlegit D = llegeixDocument(path+"/"+doc);
                 if(D != null) documents.add(D);
             }
+        }
+        else {
+            throw new CarpetaBuidaException();
         }
         return documents;
     }
