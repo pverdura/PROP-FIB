@@ -56,6 +56,9 @@ public class CtrlPresentacio {
             resultatPrincipalExtensio.add(ctrlDomini.getExtensio(t, a));
         }
 
+        resultatPrincipal.add(new SimpleEntry<>("bon dia", "manel vilaro"));
+        resultatPrincipalExtensio.add(TipusExtensio.TXT);
+        resultatPrincipalPes.add(12);
         viewMenuPrincipal.actualitzarResultat(resultatPrincipal, resultatPrincipalPes, resultatPrincipalExtensio);
     }
 
@@ -123,10 +126,14 @@ public class CtrlPresentacio {
 
     public void esborrarDocument (String titol, String autor) {
         //esborrar document id
-        ctrlDomini.eliminaDocument(titol, autor);
-        //si hi és a la cerca, esborrar de la cerca, tornar a ordenar i actualitzar vista principal
+        try {
+            ctrlDomini.eliminaDocument(titol, autor);
+            //si hi és a la cerca, esborrar de la cerca, tornar a ordenar i actualitzar vista principal
 
-        //si és cerca semblant/paraules, tornar-la a fer
+            //si és cerca semblant/paraules, tornar-la a fer
+        } catch (Exception e) {
+            VistaDialeg.errorDialog(e.toString());
+        }
     }
 
     public void ordenar (TipusOrdenacio to) {
@@ -180,7 +187,7 @@ public class CtrlPresentacio {
 
     public void cercaAutor (String autor) {
         try {
-            resultatPrincipal = ctrlDomini.cercaTitol(autor, tipusOrdenacio);
+            resultatPrincipal = ctrlDomini.cercaAutor(autor, tipusOrdenacio);
             enviarPrincipal();
             ultimaCerca = TipusCerca.AUTOR;
         } catch (Exception e) {
@@ -231,7 +238,7 @@ public class CtrlPresentacio {
     //obrir vistes
     public void obrirAjuda () {
         if (viewAjuda == null) viewAjuda = new ViewAjuda();
-        //viewAjuda.ferVisible();
+        viewAjuda.ferVisible();
     }
     public void obrirGestioExprBool () {
         if (viewGestioExprBool == null)
@@ -241,10 +248,10 @@ public class CtrlPresentacio {
     public void modificarDocument (String titol, String autor) {
         if (viewModificarDocument == null)
             viewModificarDocument = new ViewModificarDocument(this);
-        viewModificarDocument.setTitol("titol");
-        viewModificarDocument.setAutor("autor");
-        viewModificarDocument.setContingut("contingut1\ncontingut2\ncontingut3");
-        viewModificarDocument.setExtensio(TipusExtensio.XML);
+        viewModificarDocument.setTitol(titol);
+        viewModificarDocument.setAutor(autor);
+        viewModificarDocument.setContingut(ctrlDomini.getContingut(titol, autor));
+        viewModificarDocument.setExtensio(ctrlDomini.getExtensio(titol, autor));
         viewModificarDocument.ferVisible(true);
     }
     public void obrirCercaTitol () {
