@@ -41,11 +41,9 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         llistaCerques.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         llistaCerques.setSelectedIndex(0);
         this.scroll.setViewportView(llistaCerques);
+
         //Crear menus vista
         crearMenus();
-
-        //Carregar docs a la vista
-        ctrlPresentacio.mostrarDocuments();
     }
 
     private void crearMenus() {
@@ -200,6 +198,8 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
     public void actualitzarResultat(ArrayList<SimpleEntry<String,String>> titolsAutors, ArrayList<Integer> pesos, ArrayList<TipusExtensio> extensios) {
         dlm.removeAllElements();
         int size = titolsAutors.size();
+
+        System.out.println(size);
 
         //Afegir a la llista que es mostra per pantalla tots els documents que arriben
         for (int i = 0; i < 5;  i++) {
