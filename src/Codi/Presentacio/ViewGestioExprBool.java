@@ -58,13 +58,7 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
             //Si input != null significa que s ha clicat boto crear en el dialeg
             if (input != null)  {
 
-                boolean correcte = ctrlPresentacio.crearExprBool(input);
-
-                //Comprova si s ha creat correctament l expressio
-                if (correcte)
-                    mostrarAllExpressions();
-                else
-                    VistaDialeg.errorDialog("ERROR: La expressió a crear ja existeix");
+                ctrlPresentacio.crearExprBool(input);
             }
 
         } else if (source == deleteButton) {
@@ -74,13 +68,7 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
             //Si input != null significa que s ha clicat boto crear en el dialeg
             if (input != null)  {
 
-                boolean correcte = ctrlPresentacio.eliminarExprBool(input);
-
-                //Comprova si s ha eliminat correctament la expressio
-                if (correcte)
-                    mostrarAllExpressions();
-                else
-                    VistaDialeg.errorDialog("ERROR: La expressió a borrar no existeix");
+                ctrlPresentacio.eliminarExprBool(input);
             }
 
         } else if (source == updateButton) {
@@ -91,13 +79,7 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
             //Si input != null significa que s ha clicat boto modificar en el dialeg
             if (inputs != null)  {
 
-                boolean correcte = ctrlPresentacio.modificarExprBool(inputs.getKey(), inputs.getValue());
-
-                //Comprova si s ha modificat correctament la expressio
-                if (correcte)
-                    mostrarAllExpressions();
-                else
-                    VistaDialeg.errorDialog("ERROR: La nova expressió ja està creada o l'antiga no existeix");
+                ctrlPresentacio.modificarExprBool(inputs.getKey(), inputs.getValue());
             }
 
         } else if (source == searchButton) {
