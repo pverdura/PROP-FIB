@@ -43,7 +43,7 @@ public class CtrlDomini {
     /**
      * Crea i inicialitza els altres controladors i estructures
      */
-    public CtrlDomini() throws DocumentJaExisteixException {
+    public CtrlDomini() {
         CDeb = new CtrlDominiExprBool();
         CDdoc = new CtrlDominiDocument();
         CDcer = new CtrlDominiCerca();
@@ -55,7 +55,9 @@ public class CtrlDomini {
         TitolAutors = new HashMap<String,ArrayList<String>>();
         Paraules = new HashMap<String,ArrayList<SimpleEntry<String,String>>>();
         ExpressionsBooleanes = new HashMap<String,ExpressioBooleana>();
+    }
 
+    public void inicialitza() throws DocumentJaExisteixException {
         // Llegim els documents
         ArrayList<DocumentLlegit> docs = CP.carregaDocuments();
         for(DocumentLlegit doc : docs) {
@@ -63,13 +65,13 @@ public class CtrlDomini {
         }
     }
 
-
     ///////////////////////////////////////////////////////////
     ///              FUNCIONS CTRL_PERSISTÈNCIA             ///
     ///////////////////////////////////////////////////////////
 
     public void importarDocument(File path) {
-        CP.importarDocument(path);
+        DocumentLlegit D = CP.importarDocument(path);
+
     }
 
     public void importarDocuments(File[] path) {
