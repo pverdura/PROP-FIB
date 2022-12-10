@@ -161,21 +161,21 @@ public class GestorDades {
 
             // Llegim el document mentre hi hagi línies
             while ((linia = lector.readLine()) != null) {
-                if(linia.startsWith("<autor>") && linia.endsWith("</autor>")) {
+                if(linia.startsWith("\t<autor>") && linia.endsWith("</autor>")) {
                     // Agafem el text que està entre <autor> i </autor>
                     D.setTitol(linia.substring(7,linia.length()-8));
                 }
-                else if(linia.startsWith("<titol>") && linia.endsWith("</titol>")) {
+                else if(linia.startsWith("\t<titol>") && linia.endsWith("</titol>")) {
                     // Agafem el text que està entre <titol> i </titol>
                     D.setAutor(linia.substring(7,linia.length()-8));
                 }
-                else if(linia.startsWith("<contingut>")) {
+                else if(linia.startsWith("\t<contingut>")) {
                     c = true;
                 }
                 else if (c) { // Concatenem les línies per obtenir el contingut
                     if(!linia.endsWith("</contingut>")) {
                         // Si hi ha la tabulació la treiem
-                        if(linia.startsWith("\t")) linia = linia.substring(1);
+                        if(linia.startsWith("\t\t")) linia = linia.substring(2);
 
                         if(contingut == null) contingut = linia;
                         else contingut = contingut + "\n" + linia;
@@ -259,14 +259,6 @@ public class GestorDades {
         }
         return doc;
     }
-
-    /**
-     * Funció general per llegir un document amb format .txt, .xml i .bol
-     *
-     * @param path Indica el path del document que es llegirà
-     * @return Retorna un DocumentLlegit que conté l'autor, títol, format i contingut del document llegit
-     * @throws TipusExtensioIncorrectaException
-     */
 
     /**
      * Funció que llegeix tots els documents d'un directori
@@ -392,17 +384,19 @@ public class GestorDades {
         Path PATH = Paths.get(path);
 
         try (BufferedWriter escriptor = Files.newBufferedWriter(PATH,StandardCharsets.UTF_8)) {
-            escriptor.write("<autor>" + autor + "</autor>\n");
-            escriptor.write("<titol>" + titol + "</titol>\n");
-            escriptor.write("<contingut>");
+            escriptor.write("<document>");
+            escriptor.write("\t<autor>" + autor + "</autor>\n");
+            escriptor.write("\t<titol>" + titol + "</titol>\n");
+            escriptor.write("\t<contingut>");
 
             String[] lines_contingut = contingut.split("\n");
 
             for(String linia : lines_contingut) {
-                escriptor.write("\n\t" + linia);
+                escriptor.write("\n\t\t" + linia);
             }
 
-            escriptor.write("\n</contingut>");
+            escriptor.write("\n\t</contingut>");
+            escriptor.write("\n</document>");
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -436,34 +430,6 @@ public class GestorDades {
             e.printStackTrace();
         }
     }
-
-    /*
-     * Guarda unes paraules en format CSV en el fitxer indicat en el path
-     *
-     * @param paraules Paraules que es guarden en el fitxer
-     * @param path Indica el path del fitxer que volem escriure
-     * @throws FitxerNoCreatException Si s'ha intentat crear el fitxer i no s'ha pogut
-     *
-    private void guardaDocumentCSV(ArrayList<String> paraules, String path) throws FitxerNoCreatException {
-        creaFitxer(path);
-        Path PATH = Paths.get(path);
-
-        try (BufferedWriter escriptor = Files.newBufferedWriter(PATH,StandardCharsets.UTF_8)) {
-            boolean primera = true;
-
-            for(String paraula : paraules) {
-                if(primera) {
-                    primera = false;
-                    escriptor.write(paraula);
-                }
-                else escriptor.write(","+paraula);
-            }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    */
 
     /**
      * Escriu l' expressió booleana expr en el document situat a path
