@@ -67,7 +67,7 @@ public class CtrlDomini {
     }
 
     public void importarDocuments(File[] path) {
-        CP.importarDocuments(File[] path);
+        //CP.importarDocuments(File[] path);
     }
 
     public void exportarDocument(String titol, String autor, File path) {
@@ -75,7 +75,7 @@ public class CtrlDomini {
     }
 
     public void exportarDocuments(ArrayList<String> titols, ArrayList<String> autors, File path) {
-        CP.exportarDocuments(titols,autors,path);
+        //CP.exportarDocuments(titols,autors,path);
     }
 
     ///////////////////////////////////////////////////////////
