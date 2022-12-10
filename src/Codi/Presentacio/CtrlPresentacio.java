@@ -98,9 +98,9 @@ public class CtrlPresentacio {
         viewModificarDocument.ferVisible(true);
     }
 
-    public void importarDocument (File fitxer) {
+    public void importarDocument (File[] fitxers) {
         try {
-            ctrlDomini.importarDocument(fitxer);
+            ctrlDomini.importarDocuments(fitxers);
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
@@ -112,10 +112,10 @@ public class CtrlPresentacio {
         viewMenuPrincipal.tancarVista();
     }
 
-    public void exportarDocument (String titol, String autor, File path) {
+    public void exportarDocuments (ArrayList<String> titols, ArrayList<String> autors, File path) {
         //exportar document id a path
         try {
-            ctrlDomini.exportarDocument(titol, autor, path);
+            ctrlDomini.exportarDocuments(titols, autors, path);
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
