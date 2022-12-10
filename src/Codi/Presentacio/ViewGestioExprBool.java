@@ -105,14 +105,8 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
             Object[] options = {"Cerca", "Sortir"};
             String input = VistaDialeg.inputDialog("Cercar Expressió Booleana", "Valor", options);
 
-            //Si input != null significa que s ha clicat boto cerca en el dialeg
-            if (input != null) {
-                boolean correcte = ctrlPresentacio.cercaBooleana(input);
-
-                //Comprova si s ha cercat correctament la expressio
-                if (!correcte) VistaDialeg.errorDialog("ERROR: La expressió no s'ha pogut cercar");
-            }
-
+            //Si sha clicat sortir en el dialeg -> no realitzara la cerca, en altre cas si
+            if (input != null) ctrlPresentacio.cercaBooleana(input);
         }
     }
 
@@ -121,7 +115,6 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
         ArrayList<String> expressions = ctrlPresentacio.getExpressionsBooleanes();
         for (String e: expressions) textArea1.append(e+"\n");
     }
-
 
     //Metode per visualitzar vista
     public void ferVisible() {

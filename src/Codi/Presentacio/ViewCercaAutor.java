@@ -12,7 +12,7 @@ public class ViewCercaAutor {
     private JPanel panellSuperior, panellInferior;
     private JButton btCancelar;
     private JButton btAcceptar;
-    private JTextField textTitol;
+    private JTextField textAutor;
     private JLabel label;
 
     public ViewCercaAutor (CtrlPresentacio cp) {
@@ -34,7 +34,7 @@ public class ViewCercaAutor {
         panellInferior = new JPanel();
         btCancelar = new JButton("Cancel·lar");
         btAcceptar = new JButton("Acceptar");
-        textTitol = new JTextField();
+        textAutor = new JTextField();
         label = new JLabel("Autor: ");
     }
 
@@ -52,10 +52,10 @@ public class ViewCercaAutor {
 
     private void configurarPanellSuperior () {
         panellSuperior.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        textTitol.setMinimumSize(new Dimension(250, 30));
-        textTitol.setPreferredSize(textTitol.getMinimumSize());
+        textAutor.setMinimumSize(new Dimension(250, 30));
+        textAutor.setPreferredSize(textAutor.getMinimumSize());
         panellSuperior.add(label);
-        panellSuperior.add(textTitol);
+        panellSuperior.add(textAutor);
     }
 
     private void configurarPanellInferior () {
@@ -69,15 +69,8 @@ public class ViewCercaAutor {
         btAcceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String text = textTitol.getText();
-                if (ctrlPresentacio.cercaAutor(text)) {
-                    //tancar
-                    System.out.println("cerca feta correctament");
-                } else {
-                    //mostrar missatge d'error
-                    VistaDialeg.errorDialog("Error a la cerca");
-                    System.out.println("error");
-                }
+                String text = textAutor.getText();
+                ctrlPresentacio.cercaAutor(text);
             }
         });
 
@@ -91,6 +84,7 @@ public class ViewCercaAutor {
     }
 
     public void ferVisible (boolean visible) {
+        textAutor.setText("");
         if (visible) frame.pack();
         frame.setVisible(visible);
     }
