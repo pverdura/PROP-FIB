@@ -7,6 +7,7 @@ import Codi.Util.TipusExtensio;
 import javax.print.Doc;
 import java.io.File;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class CtrlPersistencia {
@@ -19,17 +20,19 @@ public class CtrlPersistencia {
         gestorDades = new GestorDades();
     }
 
-    public void importarDocument(File file){
+    public DocumentLlegit importarDocument(File file){
         String path = file.getAbsolutePath();
         DocumentLlegit doc = gestorDades.llegeixDocument(path);
         gestorDades.guardaDocument(doc.getTitol(), doc.getAutor(), doc.getExtensio(), doc.getContingut(), doc.getPath());
+        return doc;
     }
 
     public void exportarDocument(String titol, String autor, File path){
 
     }
 
-    public void escriuExpressio(String expr, Path PATH, Boolean primera){
+    public void escriuExpressio(String expr, String path, Boolean primera){
+        Path PATH = Paths.get(path);
         gestorDades.escriuExpressio(expr, PATH, primera);
     }
 
