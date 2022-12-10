@@ -72,14 +72,7 @@ public class ViewCercaTitol {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String text = textTitol.getText();
-                if (ctrlPresentacio.cercaTitol(text)) {
-                    //tancar
-                    System.out.println("cerca feta correctament");
-                } else {
-                    //mostrar missatge d'error
-                    VistaDialeg.errorDialog("Error a la cerca");
-                    System.out.println("error");
-                }
+                ctrlPresentacio.cercaTitol(text);
             }
         });
 

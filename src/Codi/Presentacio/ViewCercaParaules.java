@@ -92,14 +92,7 @@ public class ViewCercaParaules {
                 String text = textParaules.getText();
                 int k = (int)textNombreDocuments.getValue();
                 boolean tots = totsDocuments.isSelected();
-                if (ctrlPresentacio.cercaParaules(text, k, tots)) {
-                    //tancar
-                    System.out.println("cerca feta correctament");
-                } else {
-                    //mostrar missatge d'error
-                    VistaDialeg.errorDialog("Error a la cerca");
-                    System.out.println("error");
-                }
+                ctrlPresentacio.cercaParaules(text, k, tots);
             }
         });
 
