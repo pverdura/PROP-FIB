@@ -4,6 +4,7 @@ import Codi.Persistencia.CtrlPersistencia;
 import Codi.Util.*;
 import Codi.Excepcions.*;
 
+import java.io.File;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,19 +44,38 @@ public class CtrlDomini {
      * Crea i inicialitza els altres controladors i estructures
      */
     public CtrlDomini() {
+        CDeb = new CtrlDominiExprBool();
+        CDdoc = new CtrlDominiDocument();
+        CDcer = new CtrlDominiCerca();
+        CP = new CtrlPersistencia();
+
         Documents = new HashMap<SimpleEntry<String,String>,Document>();
         Autors = new Trie<String>();
         DocumentsAutor = new HashMap<String,ArrayList<String>>();
         TitolAutors = new HashMap<String,ArrayList<String>>();
         Paraules = new HashMap<String,ArrayList<SimpleEntry<String,String>>>();
         ExpressionsBooleanes = new HashMap<String,ExpressioBooleana>();
-
-        CDeb = new CtrlDominiExprBool();
-        CDdoc = new CtrlDominiDocument();
-        CDcer = new CtrlDominiCerca();
-        CP = new CtrlPersistencia();
     }
 
+
+    ///////////////////////////////////////////////////////////
+    ///              FUNCIONS CTRL_PERSISTÈNCIA             ///
+    ///////////////////////////////////////////////////////////
+
+    public void importarDocument(File path) {
+        //CP.importarDocument(path);
+    }
+
+    public void importarDocuments(File[] path) {
+    }
+
+    public void exportarDocument(String titol, String autor, File path) {
+        //CP.exportarDocument(titol,autor,path);
+    }
+
+    public void exportarDocuments(ArrayList<String> titols, ArrayList<String> autors, File path) {
+
+    }
 
     ///////////////////////////////////////////////////////////
     ///            FUNCIONS CTRL_DOMINI_DOCUMENT            ///

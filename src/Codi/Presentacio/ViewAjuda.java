@@ -9,5 +9,8 @@ public class ViewAjuda {
     private JPanel panel1;
     private JButton tancarButton;
 
+    public void ferVisible() {
+        panel1.setVisible(true);
+    }
 
 }
