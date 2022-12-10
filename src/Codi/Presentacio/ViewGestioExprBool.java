@@ -56,20 +56,15 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
             String input = VistaDialeg.inputDialog("Crear Expressió Booleana", "Valor", options);
 
             //Si input != null significa que s ha clicat boto crear en el dialeg
-            if (input != null)  {
+            if (input != null) ctrlPresentacio.crearExprBool(input);
 
-                ctrlPresentacio.crearExprBool(input);
-            }
 
         } else if (source == deleteButton) {
             Object[] options = {"Elimina", "Sortir"};
             String input = VistaDialeg.inputDialog("Eliminar Expressió Booleana", "Valor", options);
 
             //Si input != null significa que s ha clicat boto crear en el dialeg
-            if (input != null)  {
-
-                ctrlPresentacio.eliminarExprBool(input);
-            }
+            if (input != null) ctrlPresentacio.eliminarExprBool(input);
 
         } else if (source == updateButton) {
 
@@ -77,10 +72,7 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
             SimpleEntry<String, String> inputs = VistaDialeg.twoInputDialog("Modificar Expressió Booleana","Antic Valor", "Nou Valor", options);
 
             //Si input != null significa que s ha clicat boto modificar en el dialeg
-            if (inputs != null)  {
-
-                ctrlPresentacio.modificarExprBool(inputs.getKey(), inputs.getValue());
-            }
+            if (inputs != null) ctrlPresentacio.modificarExprBool(inputs.getKey(), inputs.getValue());
 
         } else if (source == searchButton) {
 
