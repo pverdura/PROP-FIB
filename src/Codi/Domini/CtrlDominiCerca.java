@@ -47,18 +47,6 @@ public class CtrlDominiCerca {
         return ordenarCerca(CercaTitol.cercaDoc(titol, titolsAutors), ordre, documents);
     }
 
-    /**
-     * Cerca d'un document donat el seu títol i autor
-     *
-     * @param titol Indica el títol del document
-     * @param autor Indica el nom de l'autor del document
-     * @param documents Estructura on estan guardats tots els documents
-     * @return El document que té per títol i autor els indicats
-     * @throws DocumentInexistentException Si no existeix cap document amb els paràmetres donats
-     */
-    public Document cercaTitolAutor(String titol, String autor, HashMap<SimpleEntry<String,String>, Document> documents) throws DocumentInexistentException {
-        return CercaTitolAutor.cercaDoc(titol, autor, documents);
-    }
 
     /**
      * Cerca que retorna una llista d'autors que comencen per un prefix donat
@@ -209,7 +197,8 @@ public class CtrlDominiCerca {
     private ArrayList<SimpleEntry<String, String>> ordrePesAscendent(ArrayList<SimpleEntry<String, String>> cerca, HashMap<SimpleEntry<String,String>, Document> documents){
         ArrayList<SimpleEntry<SimpleEntry<String,String>, Integer>> docs = new ArrayList<>();
         for (SimpleEntry<String,String> c : cerca){
-            Document d = CercaTitolAutor.cercaDoc(c.getKey(),c.getValue(),documents);
+            SimpleEntry<String,String> id = new SimpleEntry<>(c.getKey(), c.getValue());
+            Document d = documents.get(id);
             SimpleEntry<SimpleEntry<String,String>, Integer> aux = new SimpleEntry<>(c,d.getPes());
             docs.add(aux);
         }
@@ -233,7 +222,8 @@ public class CtrlDominiCerca {
     private ArrayList<SimpleEntry<String, String>> ordrePesDescendent(ArrayList<SimpleEntry<String, String>> cerca, HashMap<SimpleEntry<String,String>, Document> documents){
         ArrayList<SimpleEntry<SimpleEntry<String,String>, Integer>> docs = new ArrayList<>();
         for (SimpleEntry<String,String> c : cerca){
-            Document d = CercaTitolAutor.cercaDoc(c.getKey(),c.getValue(),documents);
+            SimpleEntry<String,String> id = new SimpleEntry<>(c.getKey(), c.getValue());
+            Document d = documents.get(id);
             SimpleEntry<SimpleEntry<String,String>, Integer> aux = new SimpleEntry<>(c,d.getPes());
             docs.add(aux);
         }
