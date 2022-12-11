@@ -21,7 +21,7 @@ public class CtrlPersistencia {
 
     public CtrlPersistencia(){
         gestorDades = new GestorDades();
-        gestorDades.nombre_documents(path);
+        //gestorDades.nombre_documents(path);
     }
 
     public ArrayList<DocumentLlegit> importarDocuments(ArrayList<File> files){
@@ -106,7 +106,7 @@ public class CtrlPersistencia {
         gestorDades.guardaExpressioBool(exprAnt,exprNova,path);
     }
 
-    public void eliminaExpressioBool(String expr, String path){
+    public void eliminaExpressioBool(String expr, String path) throws ExpressioBooleanaInexistentException{
         gestorDades.eliminaExpressio(expr,path);
     }
 
