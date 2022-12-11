@@ -15,6 +15,8 @@ import java.util.Arrays;
 
 public class GestorDades {
 
+    Integer nDocs;
+
     ///////////////////////////////////////////////////////////
     ///                 FUNCIONS PRIVADES                   ///
     ///////////////////////////////////////////////////////////
@@ -521,6 +523,25 @@ public class GestorDades {
         guardaExpressions(expressions, path);
     }
 
+    private String getPath(String path, Integer num_doc, String titol, String autor, TipusExtensio ext) {
+        String extensio;
+
+        switch (ext.toString()) {
+            case("TXT"):
+                extensio = ".txt";
+                break;
+            case("XML"):
+                extensio = ".xml";
+                break;
+            case("BOL"):
+                extensio = ".bol";
+                break;
+            default:
+                extensio = "";
+        }
+        return path + "/" + num_doc.toString() + "_" + titol + "_" + autor + extensio;
+    }
+
 
     ///////////////////////////////////////////////////////////
     ///                 FUNCIONS PÚBLIQUES                  ///
@@ -590,18 +611,32 @@ public class GestorDades {
      * @param autor Indica l'autor del document que volem guardar
      * @param ext Indica l'extensió del document que volem guardar
      * @param contingut Indica el contingut del document que volem guardar
-     * @param path Indica el path del fitxer on guardarem el document
-     * @return Retorna
+     * @param path Indica el path del directori on guardarem el document
+     * @return Retorna el nou path del document
      * @throws FitxerNoEliminatExeption Si s'ha intentat eliminar el fitxer i no s'ha pogut
      * @throws CarpetaNoCreadaException Si s'ha intentat crear la carpeta i no s'ha pogut
      * @throws TipusExtensioIncorrectaException Si l'extensió indicada no és .txt, .xml ni .bol
      */
-    public Boolean guardaDocument(String titol, String autor, TipusExtensio ext, String contingut, String path)
+    public String guardaDocument(String titol, String autor, TipusExtensio ext, String contingut, String path)
             throws FitxerNoEliminatExeption, CarpetaNoCreadaException, TipusExtensioIncorrectaException {
-        // Primer mirem si ja existeix el document, i si existeix l'elimniem
-        // d'aquesta manera, podem canviar el format dels documents a més a més
-        if(existeixFixter(path)) eliminaFitxer(path);
-        String new_path = path.substring(0,path.length()-3);
+        // Primer obtenim el path del document i mirem si ja existeix el document, si existeix l'eliminem,
+        // d'aquesta manera podem canviar el format dels documents.
+        File doc = buscaDocument(titol,autor,path);
+        Integer num_doc;
+
+        if(doc == null) {   // Document nou per guardar
+            // Li assignem un nou número al document
+            num_doc = nDocs;
+        }
+        else {  // Document que existeix per modificar
+            // Li assignem el número que tenia el document
+            num_doc = Integer.parseInt(doc.getName().split("_")[0]);
+
+            eliminaFitxer(doc.getPath());
+        }
+
+        // Creem el path del document
+        String new_path = getPath(path,num_doc,titol,autor,ext);
 
         // Guardem el document
         switch(ext.toString()) {
@@ -617,7 +652,7 @@ public class GestorDades {
             default:
                 throw new TipusExtensioIncorrectaException(ext.toString());
         }
-        return true;
+        return new_path;
     }
 
     public void eliminaDocument(String titol, String autor, String path) {
@@ -654,7 +689,7 @@ public class GestorDades {
      *
      * @param titol Indica el títol del document
      * @param autor Indica l'autor del document
-     * @return Retorna el document que té com a títol i autor els indicats
+     * @return Retorna el document que té com a títol i autor els indicats, si no existeix retorna null
      */
     public File buscaDocument(String titol, String autor, String path) {
         try {
@@ -710,7 +745,7 @@ public class GestorDades {
         return null;
     }
 
-    public Integer nombre_documents(String path) {
+    public void nombre_documents(String path) {
         File dir = new File(path);
 
         File[] docs = dir.listFiles();
@@ -727,6 +762,6 @@ public class GestorDades {
                 if(num > num_doc) num_doc = num;
             }
         }
-        return num_doc;
+        nDocs = num_doc;
     }
 }
