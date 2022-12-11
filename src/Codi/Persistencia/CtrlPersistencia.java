@@ -80,22 +80,6 @@ public class CtrlPersistencia {
         } catch (IOException e) {System.out.println(e.toString());}
     }
 
-    public void escriuExpressio(String expr, String path, Boolean primera){
-        Path PATH = Paths.get(path);
-        gestorDades.escriuExpressio(expr, PATH, primera);
-    }
-
-    public void guardaExpressions(ArrayList<String> expressions, String path){
-        gestorDades.guardaExpressions(expressions,path);
-    }
-
-    public void guardaExpressio(String expr, String path) throws ExpressioBooleanaJaExistentException {
-        gestorDades.guardaExpressio(expr, path);
-    }
-
-    public void modificaExpressio(String exprAnt, String exprNova, String path) throws FitxerNoEliminatExeption, FitxerNoCreatException, ExpressioBooleanaInexistentException {
-        gestorDades.modificaExpressio(exprAnt, exprNova, path);
-    }
 
     public ArrayList<DocumentLlegit> carregaDocuments() throws CarpetaNoCreadaException,
             CarpetaBuidaException, TipusExtensioIncorrectaException{
