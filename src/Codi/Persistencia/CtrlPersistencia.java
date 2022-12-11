@@ -96,8 +96,8 @@ public class CtrlPersistencia {
         return path_nou;
     }
 
-    public void eliminaDocument(String titol, String autor, String path){
-        gestorDades.eliminaDocument(titol,autor,path);
+    public void eliminaDocument(String path){
+        gestorDades.eliminaFitxer(path);
     }
 
 
