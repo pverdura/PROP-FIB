@@ -652,7 +652,7 @@ public class GestorDades {
             default:
                 throw new TipusExtensioIncorrectaException(ext.toString());
         }
-        return "";
+        return new_path;
     }
 
     public void eliminaDocument(String titol, String autor, String path) {
