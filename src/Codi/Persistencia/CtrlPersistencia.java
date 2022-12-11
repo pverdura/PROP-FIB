@@ -26,21 +26,24 @@ public class CtrlPersistencia {
     public ArrayList<DocumentLlegit> importarDocument(ArrayList<File> files){
         ArrayList<DocumentLlegit> docs = new ArrayList<>();
         DocumentLlegit doc;
-        String path;
         if (files.size() > 1){
             for(File f: files){
-                path = f.getAbsolutePath();
-                doc = gestorDades.llegeixDocument(path);
-                gestorDades.guardaDocument(doc.getTitol(), doc.getAutor(), doc.getExtensio(), doc.getContingut(), doc.getPath());
+                doc = importa(f);
                 docs.add(doc);
             }
         } else{
-            path = files.get(0).getAbsolutePath();
-            doc = gestorDades.llegeixDocument(path);
-            gestorDades.guardaDocument(doc.getTitol(), doc.getAutor(), doc.getExtensio(), doc.getContingut(), doc.getPath());
+            doc = importa(files.get(0));
             docs.add(doc);
         }
         return docs;
+    }
+
+    private DocumentLlegit importa(File file){
+        String path = file.getAbsolutePath();
+        DocumentLlegit doc;
+        doc = gestorDades.llegeixDocument(path);
+        gestorDades.guardaDocument(doc.getTitol(), doc.getAutor(), doc.getExtensio(), doc.getContingut(), doc.getPath());
+        return doc;
     }
 
     public void exportarDocument(ArrayList<SimpleEntry<String,String>> id, File file) throws FileNoExisteixException{
