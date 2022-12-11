@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public class CtrlPersistencia {
 
     private GestorDades gestorDades;
-    private int numDocs;
     private final String path = new File("src/Codi/Persistencia/Documents").getAbsolutePath();
     private final String path_stopWords = new File("src/Codi/stop_words.txt").getAbsolutePath();
 
@@ -48,19 +47,9 @@ public class CtrlPersistencia {
         return doc;
     }
 
-    public void exportarDocuments(ArrayList<SimpleEntry<String,String>> id, File file) throws FileNoExisteixException{
-        try{
-            if (id.size() > 1){
-                for (SimpleEntry<String,String> s: id){
-                    exporta(s.getKey(), s.getValue(), path, file);
-                }
 
-            } else {exporta(id.get(0).getKey(), id.get(0).getValue(), path, file); }
-        } catch (IOException e) { System.out.println(e.toString());
-        }
-    }
 
-    private void exporta(String titol, String autor, String path, File file) throws FileNoExisteixException{
+    public void exportaDocument(String titol, String autor, File file) throws FileNoExisteixException{
         try{
             if (!file.exists()) throw new FileNoExisteixException(file);
 
