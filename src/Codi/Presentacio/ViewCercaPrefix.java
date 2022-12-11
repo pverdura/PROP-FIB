@@ -1,5 +1,6 @@
 package Codi.Presentacio;
 
+import Codi.Excepcions.PrefixNoExisteixException;
 import Codi.Util.TipusOrdenacio;
 
 import javax.swing.*;
@@ -15,11 +16,11 @@ public class ViewCercaPrefix {
     private JPanel buttonsPanel;
     private JLabel labelPrefix;
     private JTextField omplirPrefix;
-    private JButton acceptarButton;
+    //private JButton acceptarButton;
+    private JButton cercaButton;
     private JButton cancelarButton;
     private JTextArea resultat;
     private JScrollPane scroll;
-    private JScrollBar bar;
     private JRadioButton asc;
     private JRadioButton des;
 
@@ -42,14 +43,14 @@ public class ViewCercaPrefix {
     }
 
 
-    public void enviarDades(ArrayList<String> l){
+    public void enviarDades(ArrayList<String> res_cerca){
 
     }
 
     /////////////////////////// ASSIGNACIÓ DE LISTENERS
 
     private void assignarListeners(){
-        acceptarButton.addActionListener(new ActionListener() {
+        cercaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String prefix = omplirPrefix.getText();
@@ -59,12 +60,32 @@ public class ViewCercaPrefix {
                 ctrlPresentacio.cercaPrefix(prefix, t);
             }
         });
+
+        cercaButton.addKeyListener(new KeyListener() {
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) cercaButton.doClick();
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
         cancelarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ferVisible(false);
             }
         });
+
+
 
         asc.addItemListener(new ItemListener() {
             @Override
@@ -84,6 +105,12 @@ public class ViewCercaPrefix {
     }
 
 
+    private class Teclas extends KeyAdapter{
+        @Override
+        public void keyPressed(KeyEvent e) {
+            super.keyPressed(e);
+        }
+    }
 
     ////////////////////////// RESTA DE MÈTODES PRIVATS
     private void inicialitza() {
@@ -101,12 +128,13 @@ public class ViewCercaPrefix {
         resultatPanel = new JPanel();
         buttonsPanel = new JPanel();
         cancelarButton = new JButton("Cancel·lar");
-        acceptarButton = new JButton("Acceptar");
+        //acceptarButton = new JButton("Acceptar");
+        cercaButton = new JButton("Cercar");
         omplirPrefix = new JTextField();
         labelPrefix = new JLabel("Prefix: ");
-        resultat = new JTextArea(20,35);
-        scroll = new JScrollPane();
-        bar = new JScrollBar();
+        resultat = new JTextArea(25,35);
+        scroll = new JScrollPane(resultat);
+        scroll.setHorizontalScrollBar(null);
         asc = new JRadioButton("Ascendent");
         des = new JRadioButton("Descendent");
     }
@@ -125,22 +153,21 @@ public class ViewCercaPrefix {
     private void configPrefixPanel(){
         prefixPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-        omplirPrefix.setMinimumSize(new Dimension(250,30));
+        omplirPrefix.setMinimumSize(new Dimension(230,30));
         omplirPrefix.setPreferredSize(omplirPrefix.getMinimumSize());
 
         prefixPanel.add(labelPrefix);
         prefixPanel.add(omplirPrefix);
+        prefixPanel.add(cercaButton);
     }
 
     private void configResultatPanel(){
         resultatPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-        resultat.setVisible(true);
-        resultat.setEditable(false);
+        scroll.setPreferredSize(new Dimension(350,325));
         scroll.setViewportView(resultat);
 
-        resultatPanel.add(resultat, BorderLayout.CENTER);
-        resultat.add(bar, BorderLayout.AFTER_LINE_ENDS);
+        resultatPanel.add(scroll, BorderLayout.CENTER);
     }
 
     private void configButtonsPanel(){
@@ -150,10 +177,14 @@ public class ViewCercaPrefix {
         innerPanel.add(asc, BorderLayout.WEST);
         innerPanel.add(des, BorderLayout.EAST);
 
+        innerPanel.setPreferredSize(new Dimension(150,30));
+
         asc.setSelected(true);
 
-        buttonsPanel.add(cancelarButton, BorderLayout.WEST);
-        buttonsPanel.add(innerPanel, BorderLayout.CENTER);
-        buttonsPanel.add(acceptarButton, BorderLayout.EAST);
+        buttonsPanel.add(asc, BorderLayout.WEST);
+        buttonsPanel.add(des, BorderLayout.CENTER);
+        buttonsPanel.add(cancelarButton, BorderLayout.EAST);
+        //buttonsPanel.add(innerPanel, BorderLayout.CENTER);
+        //buttonsPanel.add(acceptarButton, BorderLayout.EAST);
     }
 }

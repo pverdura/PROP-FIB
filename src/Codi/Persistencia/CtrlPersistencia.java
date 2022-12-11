@@ -21,7 +21,7 @@ public class CtrlPersistencia {
 
     public CtrlPersistencia(){
         gestorDades = new GestorDades();
-        gestorDades.nombre_documents(path);
+        //gestorDades.nombre_documents(path);
     }
 
     public ArrayList<DocumentLlegit> importarDocuments(ArrayList<File> files){
