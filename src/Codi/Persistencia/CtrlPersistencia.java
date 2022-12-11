@@ -24,7 +24,7 @@ public class CtrlPersistencia {
         //gestorDades.nombre_documents(path);
     }
 
-    public ArrayList<DocumentLlegit> importarDocuments(ArrayList<File> files){
+    public ArrayList<DocumentLlegit> importarDocuments(ArrayList<File> files) throws FitxerNoEliminatExeption, TipusExtensioIncorrectaException, FitxerNoCreatException {
         ArrayList<DocumentLlegit> docs = new ArrayList<>();
         DocumentLlegit doc;
         if (files.size() > 1){
@@ -39,7 +39,7 @@ public class CtrlPersistencia {
         return docs;
     }
 
-    private DocumentLlegit importa(File file){
+    private DocumentLlegit importa(File file) throws FitxerNoEliminatExeption, TipusExtensioIncorrectaException, FitxerNoCreatException{
         String path = file.getAbsolutePath();
         DocumentLlegit doc;
         doc = gestorDades.llegeixDocument(path);
@@ -87,7 +87,7 @@ public class CtrlPersistencia {
     }
 
     public String guardaDocument(String titol, String autor, TipusExtensio ext, String contingut, String path)
-            throws FitxerNoEliminatExeption, CarpetaNoCreadaException, TipusExtensioIncorrectaException{
+            throws FitxerNoEliminatExeption, TipusExtensioIncorrectaException, FitxerNoCreatException{
         String path_nou = path;
 
         if (path.isEmpty()) path_nou = gestorDades.guardaDocument(titol,autor,ext,contingut,this.path,true);
@@ -96,17 +96,19 @@ public class CtrlPersistencia {
         return path_nou;
     }
 
-    public void eliminaDocument(String path){
+    public void eliminaDocument(String path) throws FitxerNoEliminatExeption{
         gestorDades.eliminaFitxer(path);
     }
 
 
     public void guardaExpressioBool(String exprAnt, String exprNova)
-            throws ExpressioBooleanaJaExistentException, ExpressioBooleanaInexistentException{
+            throws ExpressioBooleanaJaExistentException, ExpressioBooleanaInexistentException, FitxerNoCreatException,
+            FitxerNoEliminatExeption{
         gestorDades.guardaExpressioBool(exprAnt,exprNova,path);
     }
 
-    public void eliminaExpressioBool(String expr, String path) throws ExpressioBooleanaInexistentException{
+    public void eliminaExpressioBool(String expr, String path) throws ExpressioBooleanaInexistentException,
+            FitxerNoEliminatExeption, FitxerNoCreatException{
         gestorDades.eliminaExpressio(expr,path);
     }
 
