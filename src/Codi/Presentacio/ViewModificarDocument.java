@@ -25,6 +25,7 @@ public class ViewModificarDocument {
     private String titol;
     private String autor;
     private String contingut;
+    private TipusExtensio tExtensio;
     private final String[] extensions = {"TXT", "XML", "BOL"};
     private boolean documentNou;
     public ViewModificarDocument (CtrlPresentacio cp) {
@@ -62,7 +63,7 @@ public class ViewModificarDocument {
     }
 
     private void inicializarComponents () {
-        frame = new JFrame("Editor de documents");
+        frame = new JFrame("Editor de documents -"+titol);
         panellSuperior = new JPanel();
         panellMig = new JPanel();
         panellInferior = new JPanel();
@@ -129,12 +130,7 @@ public class ViewModificarDocument {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (VistaDialeg.confirmDialog("Segur que vols desar el document?")) {
-                    SimpleEntry<String, String> idVell;
-                    if (documentNou) idVell = null;
-                    else idVell = new SimpleEntry<>(titol, autor);
-                    SimpleEntry<String, String> idNou = new SimpleEntry<>(textTitol.getText(), textAutor.getText());
-
-                    ctrlPresentacio.guardarDocument(idVell, idNou, textContingut.getText(), getTipusExtensio());
+                    guardarDocument();
                 }
             }
         });
@@ -142,20 +138,40 @@ public class ViewModificarDocument {
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (modificat() && VistaDialeg.confirmDialog("Hi ha canvis no guardats. Vols desar el document abans de tancar l'aplicació?")) {
+                    guardarDocument();
+                }
                 ctrlPresentacio.tancarDocument();
             }
         });
     }
-
-    public TipusExtensio getTipusExtensio () {
+    private TipusExtensio getTipusExtensio () {
         String ext = (String) tipusExtensio.getSelectedItem();
         if (ext == "TXT") return TipusExtensio.TXT;
         else if (ext == "XML") return TipusExtensio.XML;
         else return TipusExtensio.BOL;
     }
     private void setExtensio (TipusExtensio te) {
+        this.tExtensio = te;
         if (te.equals(TipusExtensio.TXT)) tipusExtensio.setSelectedIndex(0);
         else if (te.equals(TipusExtensio.XML)) tipusExtensio.setSelectedIndex(1);
         else tipusExtensio.setSelectedIndex(2);
+    }
+    private void guardarDocument () {
+        SimpleEntry<String, String> idVell;
+        if (documentNou) idVell = null;
+        else idVell = new SimpleEntry<>(titol, autor);
+
+        titol = textTitol.getText();
+        autor = textAutor.getText();
+        contingut = textContingut.getText();
+        setExtensio(getTipusExtensio());
+        SimpleEntry<String, String> idNou = new SimpleEntry<>(titol, autor);
+
+        ctrlPresentacio.guardarDocument(idVell, idNou, contingut, tExtensio);
+    }
+    private boolean modificat () {
+        return (!titol.equals(textTitol.getText())) || (!autor.equals(textAutor.getText())) ||
+                (!contingut.equals(textContingut.getText())) || tExtensio != getTipusExtensio();
     }
 }
