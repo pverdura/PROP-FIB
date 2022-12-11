@@ -26,6 +26,7 @@ public class CtrlPresentacio {
     private final ArrayList<TipusExtensio> resultatPrincipalExtensio;
     private TipusCerca ultimaCerca;
     private TipusOrdenacio tipusOrdenacio;
+    private int nDocumentsOberts;
 
     public CtrlPresentacio () {
 
@@ -51,6 +52,7 @@ public class CtrlPresentacio {
 
         viewMenuPrincipal.ferVisible();
         mostrarDocuments();
+        nDocumentsOberts = 0;
     }
 
     private void enviarPrincipal () {
@@ -97,8 +99,10 @@ public class CtrlPresentacio {
 
     //documents
     public void crearDocument () {
-        ViewModificarDocument v = new ViewModificarDocument(this);
-        v.ferVisible(true);
+        if (obrirDocument()) {
+            ViewModificarDocument v = new ViewModificarDocument(this);
+            v.ferVisible(true);
+        }
     }
 
     public void importarDocuments (ArrayList<File> fitxers) {
@@ -115,10 +119,10 @@ public class CtrlPresentacio {
         viewMenuPrincipal.tancarVista();
     }
 
-    public void exportarDocuments (ArrayList<String> titols, ArrayList<String> autors, File path) {
+    public void exportarDocument (String titol, String autor, File path) {
         //exportar document id a path
         try {
-            ctrlDomini.exportarDocuments(titols, autors, path);
+            ctrlDomini.exportarDocument(titol, autor, path);
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
@@ -255,8 +259,10 @@ public class CtrlPresentacio {
         viewGestioExprBool.ferVisible();
     }
     public void modificarDocument (String titol, String autor) {
-        ViewModificarDocument v = new ViewModificarDocument(this, titol, autor, ctrlDomini.getContingut(titol, autor), ctrlDomini.getExtensio(titol, autor));
-        v.ferVisible(true);
+        if (obrirDocument()) {
+            ViewModificarDocument v = new ViewModificarDocument(this, titol, autor, ctrlDomini.getContingut(titol, autor), ctrlDomini.getExtensio(titol, autor));
+            v.ferVisible(true);
+        }
     }
     public void obrirCercaTitol () {
         if (viewCercaTitol == null) viewCercaTitol = new ViewCercaTitol(this);
@@ -281,6 +287,18 @@ public class CtrlPresentacio {
     public void obrirCercaParaules () {
         if (viewCercaParaules == null) viewCercaParaules = new ViewCercaParaules(this);
         viewCercaParaules.ferVisible(true);
+    }
+    private boolean obrirDocument () {
+        if (nDocumentsOberts < 20) {
+            nDocumentsOberts += 1;
+            return true;
+        } else {
+            VistaDialeg.messageDialog("Massa documents oberts", "Tens massa documents oberts. Tanca'n algun abans de continuar");
+            return false;
+        }
+    }
+    public void tancarDocument () {
+        nDocumentsOberts -= 1;
     }
 }
 
