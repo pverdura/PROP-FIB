@@ -106,7 +106,7 @@ public class CtrlPersistencia {
         gestorDades.guardaExpressioBool(exprAnt,exprNova,path);
     }
 
-    public void eliminaExpressioBool(String expr, String path){
+    public void eliminaExpressioBool(String expr, String path) throws ExpressioBooleanaInexistentException{
         gestorDades.eliminaExpressio(expr,path);
     }
 
