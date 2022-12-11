@@ -43,7 +43,7 @@ public class CtrlPersistencia {
         String path = file.getAbsolutePath();
         DocumentLlegit doc;
         doc = gestorDades.llegeixDocument(path);
-        gestorDades.guardaDocument(doc.getTitol(), doc.getAutor(), doc.getExtensio(), doc.getContingut(), doc.getPath());
+        gestorDades.guardaDocument(doc.getTitol(), doc.getAutor(), doc.getExtensio(), doc.getContingut(), doc.getPath(), true);
         return doc;
     }
 
