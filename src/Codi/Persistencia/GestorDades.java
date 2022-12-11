@@ -591,11 +591,12 @@ public class GestorDades {
      * @param ext Indica l'extensió del document que volem guardar
      * @param contingut Indica el contingut del document que volem guardar
      * @param path Indica el path del fitxer on guardarem el document
+     * @return Retorna
      * @throws FitxerNoEliminatExeption Si s'ha intentat eliminar el fitxer i no s'ha pogut
      * @throws CarpetaNoCreadaException Si s'ha intentat crear la carpeta i no s'ha pogut
      * @throws TipusExtensioIncorrectaException Si l'extensió indicada no és .txt, .xml ni .bol
      */
-    public void guardaDocument(String titol, String autor, TipusExtensio ext, String contingut, String path)
+    public Boolean guardaDocument(String titol, String autor, TipusExtensio ext, String contingut, String path)
             throws FitxerNoEliminatExeption, CarpetaNoCreadaException, TipusExtensioIncorrectaException {
         // Primer mirem si ja existeix el document, i si existeix l'elimniem
         // d'aquesta manera, podem canviar el format dels documents a més a més
@@ -616,6 +617,11 @@ public class GestorDades {
             default:
                 throw new TipusExtensioIncorrectaException(ext.toString());
         }
+        return true;
+    }
+
+    public void eliminaDocument(String titol, String autor, String path) {
+
     }
 
     /**
@@ -635,6 +641,10 @@ public class GestorDades {
         else {  // La expressió és modificada
             modificaExpressio(exprAnt,exprNova,path);
         }
+    }
+
+    public void eliminaExpressio(String expr, String path) {
+
     }
 
     /**
