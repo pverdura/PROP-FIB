@@ -6,9 +6,12 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
@@ -19,31 +22,39 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
     private JMenuItem miGestioBool;
     private JMenuItem miCercaTitol, miCercaAutor, miCercaTitolAutor, miCercaPrefix, miCercaParaules, miCercaSemblant;
     private JMenuItem miOrdreAlfAsc, miOrdreAlfDesc, miOrdrePesAsc, miOrdrePesDesc;
+    private JPopupMenu rightClickMenu;
+    private JMenuItem miExportar, miModificarDoc, miEliminarDoc;
 
     private final CtrlPresentacio ctrlPresentacio;
     private final DefaultListModel<String> dlm;
+    private final JList<String> llistaCerques;
     private TipusOrdenacio tipus_ordenacio;
 
     public ViewMenuPrincipal(CtrlPresentacio ctrlPresentacio) {
+
+        //Assignar presentacio i ordenacio per defecte
+        this.ctrlPresentacio = ctrlPresentacio;
+        this.tipus_ordenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
+
         //Inicialitzar components principals de la vista
         setContentPane(this.mainPanel);
         setTitle("Menú Principal");
         setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        this.ctrlPresentacio = ctrlPresentacio;
-        this.cleanButton.addActionListener(this);
-        this.tipus_ordenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
-
         //Iniciar elements per carregar a la vista tots els documents guardats
         this.dlm = new DefaultListModel<>();
-        JList<String> llistaCerques = new JList<>(dlm);
-        llistaCerques.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        llistaCerques.setSelectedIndex(0);
-        this.scroll.setViewportView(llistaCerques);
+        this.llistaCerques = new JList<>(dlm);
+        this.llistaCerques.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        this.llistaCerques.setSelectedIndex(0);
+        this.scroll.setViewportView(this.llistaCerques);
 
-        //Crear menus vista
+        //Activar listener boto neteja
+        this.cleanButton.addActionListener(this);
+
+        //Crear menus vista i inicialitzar popMenu
         crearMenus();
+        initPopMenu();
     }
 
     private void crearMenus() {
@@ -64,8 +75,11 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         miSortir.addActionListener(this);
 
         menuFitxer.add(miCreaDoc);
+        menuFitxer.addSeparator();
         menuFitxer.add(miImportaDoc);
+        menuFitxer.addSeparator();
         menuFitxer.add(miAjuda);
+        menuFitxer.addSeparator();
         menuFitxer.add(miSortir);
 
         //Afegir menu expressio bool
@@ -94,10 +108,15 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         miCercaSemblant.addActionListener(this);
 
         menuCerca.add(miCercaTitol);
+        menuCerca.addSeparator();
         menuCerca.add(miCercaAutor);
+        menuCerca.addSeparator();
         menuCerca.add(miCercaTitolAutor);
+        menuCerca.addSeparator();
         menuCerca.add(miCercaPrefix);
+        menuCerca.addSeparator();
         menuCerca.add(miCercaParaules);
+        menuCerca.addSeparator();
         menuCerca.add(miCercaSemblant);
 
         //Afegir menu ordre
@@ -114,9 +133,31 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         miOrdrePesDesc.addActionListener(this);
 
         menuOrdre.add(miOrdreAlfAsc);
+        menuOrdre.addSeparator();
         menuOrdre.add(miOrdreAlfDesc);
+        menuOrdre.addSeparator();
         menuOrdre.add(miOrdrePesAsc);
+        menuOrdre.addSeparator();
         menuOrdre.add(miOrdrePesDesc);
+
+        //TODO: Borrar tot lo d'abaix a partir d'aqui (proves)
+        /*
+            ArrayList<SimpleEntry<String,String>> at = new ArrayList<>();
+            at.add(new SimpleEntry<String,String>("hayday","pau"));
+            at.add(new SimpleEntry<String,String>("tetris","jordi"));
+            at.add(new SimpleEntry<String,String>("crossfit","judit"));
+            at.add(new SimpleEntry<String,String>("croissants","pol"));
+
+            ArrayList<Integer> p = new ArrayList<>();
+            p.add(3); p.add(2); p.add(1); p.add(5);
+
+            ArrayList<TipusExtensio> e = new ArrayList<>();
+            e.add(TipusExtensio.TXT); e.add(TipusExtensio.BOL);
+            e.add(TipusExtensio.XML); e.add(TipusExtensio.TXT);
+
+            actualitzarResultat(at, p, e);
+         */
+
     }
 
     @Override
@@ -124,28 +165,12 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
         Object source = e.getSource();
 
-        //Aplicar funcionalitats associades al menu + buidar cerques de la vista
+        //Aplicar funcionalitats associades als items del Menu principal
         if (source == miCreaDoc) {
             ctrlPresentacio.crearDocument();
 
         } else if (source == miImportaDoc) {
-
-            FileNameExtensionFilter filtre = new FileNameExtensionFilter("Fitxers app",
-
-                    TipusExtensio.BOL.toString(),
-                    TipusExtensio.TXT.toString(),
-                    TipusExtensio.XML.toString());
-
-            JFileChooser fc = new JFileChooser();
-            fc.setFileFilter(filtre);
-
-            int seleccionat = fc.showOpenDialog(this);
-
-            if (seleccionat == JFileChooser.APPROVE_OPTION) {
-                File f = fc.getSelectedFile();
-                File[] files = new File[]{f};
-                ctrlPresentacio.importarDocument(files);
-            }
+            seleccionarFitxersNav();
 
         } else if (source == miAjuda) {
             ctrlPresentacio.obrirAjuda();
@@ -190,8 +215,23 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
             tipus_ordenacio = TipusOrdenacio.PES_DESCENDENT;
             ctrlPresentacio.ordenar(tipus_ordenacio);
 
-        } else if (source == cleanButton) {
-            dlm.removeAllElements();
+        }
+        //Aplicar funcionalitats associades als items del PopUp Menu
+        else if (source == miExportar) {
+            //ctrlPresentacio.exportarDocuments();
+
+        } else if (source == miModificarDoc) {
+            String[] fila = llistaCerques.getSelectedValue().split("  ");
+            ctrlPresentacio.modificarDocument(fila[0], fila[1]);
+
+        } else if (source == miEliminarDoc) {
+            String[] fila = llistaCerques.getSelectedValue().split("  ");
+            ctrlPresentacio.esborrarDocument(fila[0], fila[1]);
+        }
+
+        //Aplicar funcionalitat associades al Mostra Tot
+        else if (source == cleanButton) {
+            ctrlPresentacio.mostrarDocuments();
         }
     }
 
@@ -199,13 +239,13 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         dlm.removeAllElements();
         int size = titolsAutors.size();
 
-        System.out.println(size);
-
         //Afegir a la llista que es mostra per pantalla tots els documents que arriben
         for (int i = 0; i < size;  i++) {
             dlm.addElement(titolsAutors.get(i).getKey()+"  "+titolsAutors.get(i).getValue()+"  "+
                            pesos.get(i).toString()+"  "+extensios.get(i).toString());
         }
+
+        dlm.trimToSize();
     }
 
     //Metode per posar visible la vista
@@ -217,5 +257,62 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
     //Metode que tanca app
     public void tancarVista() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    private void seleccionarFitxersNav() {
+        JFileChooser fc = new JFileChooser();
+
+        //Crear filtre d extensions al importar fitxer
+        FileNameExtensionFilter filtre = new FileNameExtensionFilter("Fitxers app",
+                                                                TipusExtensio.BOL.toString(),
+                                                                TipusExtensio.TXT.toString(),
+                                                                TipusExtensio.XML.toString());
+        fc.setFileFilter(filtre);
+
+        //Aplicar multiples seleccions de fitxers
+        fc.setMultiSelectionEnabled(true);
+
+        int seleccionat = fc.showOpenDialog(this);
+
+        //Comprobar si s han seleccionat els fitxers
+        if (seleccionat == JFileChooser.APPROVE_OPTION) {
+
+            //Obtenir fitxers seleccionats
+            File[] files = fc.getSelectedFiles();
+
+            ArrayList<File> files_par = new ArrayList<>(Arrays.asList(files));
+
+            //Importar fitxers seleccionats
+            ctrlPresentacio.importarDocuments(files_par);
+        }
+    }
+
+    private void initPopMenu() {
+        this.rightClickMenu = new JPopupMenu();
+
+        //Crear items del PopUp Menu
+        miExportar = new JMenuItem("Exportar");
+        miModificarDoc = new JMenuItem("Modificar");
+        miEliminarDoc = new JMenuItem("Eliminar");
+
+        //Afegir opcions menu boto dret
+        this.rightClickMenu.add(miExportar);
+        this.rightClickMenu.add(miModificarDoc);
+        this.rightClickMenu.add(miEliminarDoc);
+
+        //Activar listeners als menuItems
+        miExportar.addActionListener(this);
+        miModificarDoc.addActionListener(this);
+        miEliminarDoc.addActionListener(this);
+
+        //Afegir listener a la llista per mostrar popup menu
+        this.llistaCerques.addMouseListener(new MouseAdapter() {
+            public void mouseReleased(MouseEvent e) {
+                if(e.isPopupTrigger()) {
+                    llistaCerques.setSelectedIndex(llistaCerques.locationToIndex(e.getPoint()));
+                    rightClickMenu.show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+        });
     }
 }
