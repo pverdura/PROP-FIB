@@ -95,12 +95,12 @@ public class CtrlPersistencia {
         return gestorDades.carregaStopWords(path_stopWords);
     }
 
-    public void guardaDocument(String titol, String autor, TipusExtensio ext, String contingut, String path)
+    public void guardaDocument(String titol, String autor, TipusExtensio ext, String contingut)
             throws FitxerNoEliminatExeption, CarpetaNoCreadaException, TipusExtensioIncorrectaException{
         gestorDades.guardaDocument(titol,autor,ext,contingut,path);
     }
 
-    public void guardaExpressioBool(String exprAnt, String exprNova, String path)
+    public void guardaExpressioBool(String exprAnt, String exprNova)
             throws ExpressioBooleanaJaExistentException, ExpressioBooleanaInexistentException{
         gestorDades.guardaExpressioBool(exprAnt,exprNova,path);
     }
