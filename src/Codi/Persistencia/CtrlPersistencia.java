@@ -23,7 +23,7 @@ public class CtrlPersistencia {
         gestorDades = new GestorDades();
     }
 
-    public ArrayList<DocumentLlegit> importarDocument(ArrayList<File> files){
+    public ArrayList<DocumentLlegit> importarDocuments(ArrayList<File> files){
         ArrayList<DocumentLlegit> docs = new ArrayList<>();
         DocumentLlegit doc;
         if (files.size() > 1){
@@ -46,7 +46,7 @@ public class CtrlPersistencia {
         return doc;
     }
 
-    public void exportarDocument(ArrayList<SimpleEntry<String,String>> id, File file) throws FileNoExisteixException{
+    public void exportarDocuments(ArrayList<SimpleEntry<String,String>> id, File file) throws FileNoExisteixException{
         try{
             if (id.size() > 1){
                 for (SimpleEntry<String,String> s: id){
