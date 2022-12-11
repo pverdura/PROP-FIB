@@ -50,7 +50,7 @@ public class GestorDades {
      * @param path Indica on està situal el fitxer que volem eliminar
      * @throws FitxerNoEliminatExeption Si no s'ha pogut eliminar el fitxer
      */
-    private void eliminaFitxer(String path) throws FitxerNoEliminatExeption {
+    public void eliminaFitxer(String path) throws FitxerNoEliminatExeption {
         File doc = new File(path);
 
         // No hi ha cap problema en eliminar el fitxer
@@ -657,12 +657,6 @@ public class GestorDades {
                 throw new TipusExtensioIncorrectaException(ext.toString());
         }
         return new_path;
-    }
-
-    public void eliminaDocument(String titol, String autor, String path) throws FitxerNoEliminatExeption {
-        File doc = buscaDocument(titol,autor,path);
-        String path_doc = doc.getPath();
-        eliminaFitxer(path_doc);
     }
 
     /**
