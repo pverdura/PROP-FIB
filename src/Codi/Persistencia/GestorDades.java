@@ -163,26 +163,25 @@ public class GestorDades {
             while ((linia = lector.readLine()) != null) {
                 if(linia.startsWith("\t<autor>") && linia.endsWith("</autor>")) {
                     // Agafem el text que està entre <autor> i </autor>
-                    D.setTitol(linia.substring(7,linia.length()-8));
+                    D.setTitol(linia.substring(8,linia.length()-8));
                 }
                 else if(linia.startsWith("\t<titol>") && linia.endsWith("</titol>")) {
                     // Agafem el text que està entre <titol> i </titol>
-                    D.setAutor(linia.substring(7,linia.length()-8));
+                    D.setAutor(linia.substring(8,linia.length()-8));
                 }
                 else if(linia.startsWith("\t<contingut>")) {
                     c = true;
                 }
                 else if (c) { // Concatenem les línies per obtenir el contingut
                     if(!linia.endsWith("</contingut>")) {
-                        // Si hi ha la tabulació la treiem
-                        if(linia.startsWith("\t\t")) linia = linia.substring(2);
+                        // Treiem la tabulació
+                        linia = linia.substring(2);
 
                         if(contingut.equals("")) contingut = linia;
                         else contingut = contingut + "\n" + linia;
                     }
                     else c = false;
                 }
-                else break;
             }
             D.setContingut(contingut);
             D.setExtensio(TipusExtensio.XML);

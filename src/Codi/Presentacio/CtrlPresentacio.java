@@ -64,9 +64,6 @@ public class CtrlPresentacio {
             resultatPrincipalExtensio.add(ctrlDomini.getExtensio(t, a));
         }
 
-        resultatPrincipal.add(new SimpleEntry<>("bon dia", "manel vilaro"));
-        resultatPrincipalExtensio.add(TipusExtensio.TXT);
-        resultatPrincipalPes.add(12);
         viewMenuPrincipal.actualitzarResultat(resultatPrincipal, resultatPrincipalPes, resultatPrincipalExtensio);
     }
 
@@ -155,16 +152,18 @@ public class CtrlPresentacio {
     }
 
     public void guardarDocument (SimpleEntry<String, String> idVell, SimpleEntry<String, String> idNou, String contingut, TipusExtensio te) {
-        //actualitzar id (si cal, canviant idVell i idNou (nou mètode: modificar identificador, que modifica títol i autor alhora?
-        //actualitzar classe
-        //guardar físicament
-        //si hi ha cerca semblant o paraules, actualitzar-ne resultat, si s'ha modificat el títol/autor, també potser
-
-
-        if (idVell == null) {
-            //document nou
-        } else {
-            //document modificat, potser
+        try {
+            if (idVell == null) {
+                //document nou
+                ctrlDomini.creaDocument(idNou.getKey(), idNou.getValue(), contingut, te);
+            } else {
+                //document modificat
+                ctrlDomini.modificarIdentificador(idVell, idNou);
+                ctrlDomini.setContingut(idNou.getKey(), idNou.getValue(), contingut);
+                ctrlDomini.setExtensio(idNou.getKey(), idNou.getValue(), te);
+            }
+        } catch (Exception e) {
+            VistaDialeg.errorDialog(e.toString());
         }
     }
 
