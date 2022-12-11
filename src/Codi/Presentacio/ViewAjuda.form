@@ -38,7 +38,7 @@
           </grid>
         </constraints>
         <properties>
-          <text value="Si vols fer una cerca, cal fer blablabla"/>
+          <text value=""/>
         </properties>
       </component>
       <hspacer id="288de">

@@ -163,29 +163,28 @@ public class GestorDades {
 
             // Llegim el document mentre hi hagi línies
             while ((linia = lector.readLine()) != null) {
-                if(linia.startsWith("\t<autor>") && linia.endsWith("</autor>")) {
-                    // Agafem el text que està entre <autor> i </autor>
-                    D.setTitol(linia.substring(8,linia.length()-8));
-                }
-                else if(linia.startsWith("\t<titol>") && linia.endsWith("</titol>")) {
-                    // Agafem el text que està entre <titol> i </titol>
-                    D.setAutor(linia.substring(8,linia.length()-8));
-                }
-                else if(linia.startsWith("\t<contingut>")) {
-                    c = true;
-                }
-                else if (c) { // Concatenem les línies per obtenir el contingut
-                    if(!linia.endsWith("</contingut>")) {
+                if (c) { // Concatenem les línies per obtenir el contingut
+                    if(linia.endsWith("</contingut>")) {
+                       c = false;
+                    }
+                    else {
                         // Treiem la tabulació
                         linia = linia.substring(2);
-
-                        if(contingut.equals("")) contingut = linia;
-                        else {
-                            String aux = contingut + "\n" + linia;
-                            contingut = aux;
-                        }
+                        contingut = contingut + "\n" + linia;
                     }
-                    else c = false;
+                }
+                else {
+                    if(linia.contains("<autor>") && linia.contains("</autor>")) {
+                        // Agafem el text que està entre <autor> i </autor>
+                        D.setAutor(linia.substring(8,linia.length()-8));
+                    }
+                    else if(linia.contains("<titol>") && linia.contains("</titol>")) {
+                        // Agafem el text que està entre <titol> i </titol>
+                        D.setTitol(linia.substring(8,linia.length()-8));
+                    }
+                    else if(linia.contains("\t<contingut>")) {
+                        c = true;
+                    }
                 }
             }
             D.setContingut(contingut);
