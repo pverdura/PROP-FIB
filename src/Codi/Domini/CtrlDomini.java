@@ -7,7 +7,6 @@ import Codi.Excepcions.*;
 import java.io.File;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class CtrlDomini {
@@ -58,37 +57,53 @@ public class CtrlDomini {
         ExpressionsBooleanes = new HashMap<String,ExpressioBooleana>();
     }
 
-    public void inicialitza() throws DocumentJaExisteixException {
+    public void inicialitza() throws DocumentJaExisteixException, ExpressioBooleanaJaExistentException {
         // Llegim els documents
         ArrayList<DocumentLlegit> docs = CP.carregaDocuments();
         for(DocumentLlegit doc : docs) {
             CDdoc.llegirDocument(doc,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
         }
         // Llegim les expression booleanes
-        CP.carregaExpressionsBooleanes();
+        ArrayList<String> ebs = CP.carregaExpressionsBooleanes();
+        for(String eb : ebs) {
+            CDeb.creaExpressioBool(eb,ExpressionsBooleanes);
+        }
         // Llegim lesstopWords
         CDdoc.setStopWords(CP.carregaStopWords());
 
     }
+
 
     ///////////////////////////////////////////////////////////
     ///              FUNCIONS CTRL_PERSISTÈNCIA             ///
     ///////////////////////////////////////////////////////////
 
     public void importarDocuments(ArrayList<File> documents) throws DocumentJaExisteixException {
-        ArrayList<DocumentLlegit> docs = CP.importarDocument(documents);
+        ArrayList<DocumentLlegit> docs = CP.importarDocuments(documents);
         for(DocumentLlegit doc : docs) {
             CDdoc.llegirDocument(doc,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
         }
     }
 
-    public void exportarDocuments(ArrayList<String> titols, ArrayList<String> autors, File path) {
-        //CP.exportarDocument(titols,autors,path);
+    public void exportarDocument(String titol, String autor, File file) throws FileNoExisteixException{
+        CP.exportarDocument(titol,autor,file);
     }
 
     ///////////////////////////////////////////////////////////
     ///            FUNCIONS CTRL_DOMINI_DOCUMENT            ///
     ///////////////////////////////////////////////////////////
+
+    /*
+    public void creaDocument(String titol, String autor, String contingut, TipusExtensio ext) throws DocumentJaExisteixException {
+        // Posem el document en les estructures de dades
+        CDdoc.creaDocument(titol,autor,Documents,Autors,DocumentsAutor,TitolAutors);
+        CDdoc.setContingut(titol,autor,contingut, Documents,Paraules);
+        CDdoc.setExtensio(titol,autor,ext,Documents);
+
+        // Guardem el document en el sistema
+        CP.guardaDocument(titol,autor,ext,contingut,"");
+    }
+    */
 
     /**
      * Afegeix un nou document al sistema identificat per titol i autor
@@ -110,11 +125,16 @@ public class CtrlDomini {
      */
     public void eliminaDocument(String titol, String autor) throws DocumentInexistentException {
         CDdoc.eliminaDocument(titol,autor,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
+
     }
 
     public void modificarIdentificador(SimpleEntry<String,String> idVell, SimpleEntry<String,String> idNou)
             throws DocumentJaExisteixException, DocumentInexistentException {
         CDdoc.modificarIdentificador(idVell,idNou,Documents,DocumentsAutor,Autors,TitolAutors,Paraules);
+    }
+
+    public void guardarDocument() {
+
     }
 
     /**
@@ -139,30 +159,6 @@ public class CtrlDomini {
      */
     public String getContingut(String titol, String autor) throws DocumentInexistentException {
         return CDdoc.getContingut(titol,autor,Documents);
-    }
-
-    /**
-     * Modifica el path del document identificat per titol i autor
-     *
-     * @param titol Indica el titol que identifica el document
-     * @param autor Indica l'autor que identifica el document
-     * @param path Indica el path on estarà el document
-     * @throws DocumentInexistentException Si el document identificat per titol i autor no existeix
-     */
-    public void setPath(String titol, String autor, String path) throws DocumentInexistentException {
-        CDdoc.setPath(titol,autor,path,Documents);
-    }
-
-    /**
-     * Obté el path del document identificat per titol i autor
-     *
-     * @param titol Indica el titol que identifica el document
-     * @param autor Indica l'autor que identifica el document
-     * @return Retorna el path on està el document
-     * @throws DocumentInexistentException Si el document identificat per titol i autor no existeix
-     */
-    public String getPath(String titol, String autor) throws DocumentInexistentException {
-        return CDdoc.getPath(titol,autor,Documents);
     }
 
     /**
@@ -202,24 +198,6 @@ public class CtrlDomini {
     }
 
     /**
-     * Obté les StopWords del sistema
-     *
-     * @return Retorna les stop words
-     */
-    public ArrayList<String> getStopWords() {
-        return CDdoc.getStopWords();
-    }
-
-    /**
-     * Modifica les StopWords
-     *
-     * @param StopWords Indica les noves StopWords
-     */
-    public void setStopWords(ArrayList<String> StopWords) {
-        CDdoc.setStopWords(StopWords);
-    }
-
-    /**
      * Obté el nombre de document del sistema
      *
      * @return Retorn el nombre de documents que hi ha en el sistema
@@ -256,19 +234,6 @@ public class CtrlDomini {
     public ArrayList<SimpleEntry<String,String>> cercaTitol(String titol, TipusOrdenacio ord) throws TitolNoExisteixException{
         return CDcer.cercaTitol(titol,TitolAutors,ord,Documents);
     }
-
-    /*
-     * Obté el document identificat per titol i autor
-     *
-     * @param titol Indica el titol que identifica el document
-     * @param autor Indica l'autor que identifica el document
-     * @return Retorna el document identificat per titol i autor
-     * @throws DocumentInexistentException Si el document identificat per titol i autor no existeix
-     *
-    public Document cercaTitolAutor(String titol, String autor) throws DocumentInexistentException {
-        return CDcer.cercaTitolAutor(titol,autor,Documents);
-    }
-     */
 
     /**
      * Llista els autors que contenen el prefix prefix
@@ -353,7 +318,6 @@ public class CtrlDomini {
     }
 
 
-
     ///////////////////////////////////////////////////////////
     ///           FUNCIONS CTRL_DOMINI_EXPR.BOOL.           ///
     ///////////////////////////////////////////////////////////
@@ -364,15 +328,19 @@ public class CtrlDomini {
      * @param expr Indica l'expressió booleana que guardarem en el sistema
      * @throws ExpressioBooleanaJaExistentException Si ja hi ha una expressio booleana formada per l'expressio expr
      */
-    public void creaExpressioBool(String expr) throws ExpressioBooleanaJaExistentException {
+    public void creaExpressioBool(String expr) throws ExpressioBooleanaJaExistentException, ExpressioBooleanaInexistentException {
+        // Guardem l'expressió en les nostes estructures de dades
         CDeb.creaExpressioBool(expr,ExpressionsBooleanes);
+
+        // Guardem l'expressió en el sistema
+        CP.guardaExpressioBool("",expr);
     }
 
     /**
      * Elimina l'expressió booleana formada per el string expr
      *
      * @param expr Indica l'expressió booleana que eliminem del sistema
-     * @throws ExpressioBooleanaJaExistentException Si no hi ha cap expressio booleana formada per l'expressio expr
+     * @throws ExpressioBooleanaInexistentException Si no hi ha cap expressio booleana formada per l'expressio expr
      */
     public void eliminaExpressioBool(String expr) throws ExpressioBooleanaInexistentException {
         CDeb.eliminaExpressioBool(expr,ExpressionsBooleanes);
@@ -387,6 +355,10 @@ public class CtrlDomini {
      * @throws ExpressioBooleanaJaExistentException Si ja hi ha una expressio booleana formada per l'expressio expr
      */
     public void modificaExpressioBool(String exprAnt, String exprNova) throws ExpressioBooleanaInexistentException, ExpressioBooleanaJaExistentException {
+        // Modifiquem l'expressió en les estructures de crtlDomini
         CDeb.modificaExpressioBool(exprAnt,exprNova,ExpressionsBooleanes);
+
+        // Modifiquem l'expressió en el sistema
+        CP.guardaExpressioBool(exprAnt,exprNova);
     }
 }
