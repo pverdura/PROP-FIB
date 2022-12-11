@@ -50,7 +50,7 @@ public class GestorDades {
      * @param path Indica on està situal el fitxer que volem eliminar
      * @throws FitxerNoEliminatExeption Si no s'ha pogut eliminar el fitxer
      */
-    private void eliminaFitxer(String path) {
+    public void eliminaFitxer(String path) throws FitxerNoEliminatExeption {
         File doc = new File(path);
 
         // No hi ha cap problema en eliminar el fitxer
@@ -622,7 +622,7 @@ public class GestorDades {
      * @throws TipusExtensioIncorrectaException Si l'extensió indicada no és .txt, .xml ni .bol
      */
     public String guardaDocument(String titol, String autor, TipusExtensio ext, String contingut, String path, boolean existeix)
-            throws FitxerNoEliminatExeption, CarpetaNoCreadaException, TipusExtensioIncorrectaException {
+            throws FitxerNoEliminatExeption, TipusExtensioIncorrectaException, FitxerNoCreatException {
         // Primer mirem si ja existeix el document, si existeix l'eliminem,
         // d'aquesta manera podem canviar el format dels documents.
         String new_path;
@@ -659,12 +659,6 @@ public class GestorDades {
         return new_path;
     }
 
-    public void eliminaDocument(String titol, String autor, String path) {
-        File doc = buscaDocument(titol,autor,path);
-        String path_doc = doc.getPath();
-        eliminaFitxer(path_doc);
-    }
-
     /**
      * Guarda una expressió booleana en el fitxer indicat
      *
@@ -675,7 +669,8 @@ public class GestorDades {
      * @throws ExpressioBooleanaInexistentException Si no està l'expressió booleana exprAnt abans de modificar el fitxer
      */
     public void guardaExpressioBool(String exprAnt, String exprNova, String path)
-            throws ExpressioBooleanaJaExistentException, ExpressioBooleanaInexistentException {
+            throws ExpressioBooleanaJaExistentException, ExpressioBooleanaInexistentException, FitxerNoCreatException,
+            FitxerNoEliminatExeption {
         if(exprAnt.equals("")) {   // L'expressió és nova
             guardaExpressio(exprNova,path);
         }
@@ -684,7 +679,8 @@ public class GestorDades {
         }
     }
 
-    public void eliminaExpressio(String expr, String path) throws ExpressioBooleanaInexistentException {
+    public void eliminaExpressio(String expr, String path) throws ExpressioBooleanaInexistentException,
+            FitxerNoEliminatExeption, FitxerNoCreatException {
         modificaExpressio(expr,"",path,true);
     }
 

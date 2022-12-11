@@ -1,6 +1,8 @@
 package Codi.Excepcions;
 
-public class CarpetaNoCreadaException extends NullPointerException {
+import java.io.IOException;
+
+public class CarpetaNoCreadaException extends IOException {
     String path;
 
     public CarpetaNoCreadaException(String path) {

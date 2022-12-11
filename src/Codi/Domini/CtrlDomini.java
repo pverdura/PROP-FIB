@@ -57,7 +57,8 @@ public class CtrlDomini {
         ExpressionsBooleanes = new HashMap<String,ExpressioBooleana>();
     }
 
-    public void inicialitza() throws DocumentJaExisteixException, ExpressioBooleanaJaExistentException {
+    public void inicialitza() throws DocumentJaExisteixException, ExpressioBooleanaJaExistentException,
+            TipusExtensioIncorrectaException, CarpetaNoCreadaException, FitxerNoCreatException {
         // Llegim els documents
         ArrayList<DocumentLlegit> docs = CP.carregaDocuments();
         for(DocumentLlegit doc : docs) {
@@ -126,15 +127,12 @@ public class CtrlDomini {
     public void eliminaDocument(String titol, String autor) throws DocumentInexistentException {
         CDdoc.eliminaDocument(titol,autor,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
 
+        //CP.eliminaDocument();
     }
 
     public void modificarIdentificador(SimpleEntry<String,String> idVell, SimpleEntry<String,String> idNou)
             throws DocumentJaExisteixException, DocumentInexistentException {
         CDdoc.modificarIdentificador(idVell,idNou,Documents,DocumentsAutor,Autors,TitolAutors,Paraules);
-    }
-
-    public void guardarDocument() {
-
     }
 
     /**
