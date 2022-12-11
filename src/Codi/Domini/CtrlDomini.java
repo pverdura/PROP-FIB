@@ -7,6 +7,7 @@ import Codi.Excepcions.*;
 import java.io.File;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class CtrlDomini {
@@ -74,8 +75,11 @@ public class CtrlDomini {
     ///              FUNCIONS CTRL_PERSISTÈNCIA             ///
     ///////////////////////////////////////////////////////////
 
-    public void importarDocuments(File[] path) {
-        //ArrayList<DocumentLlegit> docs = CP.importarDocument(File[] path);
+    public void importarDocuments(ArrayList<File> documents) throws DocumentJaExisteixException {
+        ArrayList<DocumentLlegit> docs = CP.importarDocument(documents);
+        for(DocumentLlegit doc : docs) {
+            CDdoc.llegirDocument(doc,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
+        }
     }
 
     public void exportarDocuments(ArrayList<String> titols, ArrayList<String> autors, File path) {
