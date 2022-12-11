@@ -60,7 +60,7 @@ public class ViewCercaPrefix {
                 ctrlPresentacio.cercaPrefix(prefix, t);
             }
         });
-
+/*
         cercaButton.addKeyListener(new KeyListener() {
 
             @Override
@@ -78,6 +78,13 @@ public class ViewCercaPrefix {
 
             }
         });
+
+ */
+        cercaButton.setFocusable(true);
+        cercaButton.addKeyListener(new Teclas());
+
+        frameVista.setFocusable(true);
+        frameVista.addKeyListener(new Teclas());
         cancelarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -108,7 +115,7 @@ public class ViewCercaPrefix {
     private class Teclas extends KeyAdapter{
         @Override
         public void keyPressed(KeyEvent e) {
-            super.keyPressed(e);
+            if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) cercaButton.doClick();
         }
     }
 
@@ -137,6 +144,13 @@ public class ViewCercaPrefix {
         scroll.setHorizontalScrollBar(null);
         asc = new JRadioButton("Ascendent");
         des = new JRadioButton("Descendent");
+
+
+        scroll.setFocusable(false);
+        asc.setFocusable(false);
+        des.setFocusable(false);
+        resultat.setFocusable(false);
+        cancelarButton.setFocusable(false);
     }
 
     private void configurarVista(){
