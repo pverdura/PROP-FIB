@@ -4,10 +4,13 @@ import Codi.Excepcions.*;
 import Codi.Util.DocumentLlegit;
 import Codi.Util.TipusExtensio;
 
+import java.io.*;
+import java.util.AbstractMap.SimpleEntry;
+
 import javax.print.Doc;
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 
 public class CtrlPersistencia {
@@ -40,8 +43,38 @@ public class CtrlPersistencia {
         return docs;
     }
 
-    public void exportarDocument(String titol, String autor, File path){
+    public void exportarDocument(ArrayList<SimpleEntry<String,String>> id, File file) throws FileNoExisteixException{
+        try{
+            if (id.size() > 1){
+                for (SimpleEntry<String,String> s: id){
+                    exporta(s.getKey(), s.getValue(), path, file);
+                }
 
+            } else {exporta(id.get(0).getKey(), id.get(0).getValue(), path, file); }
+        } catch (IOException e) { System.out.println(e.toString());
+        }
+    }
+
+    private void exporta(String titol, String autor, String path, File file) throws FileNoExisteixException{
+        try{
+            if (!file.exists()) throw new FileNoExisteixException(file);
+
+            FileWriter fw = new FileWriter(file.getAbsolutePath());
+
+            File file_or = gestorDades.buscaDocument(titol, autor, path);
+            FileReader fr = new FileReader(file_or);
+
+            String str = "";
+            int i;
+
+            while ((i = fr.read()) != -1){
+                str += (char)i;
+            }
+            fw.write(str);
+
+            fr.close();
+            fw.close();
+        } catch (IOException e) {System.out.println(e.toString());}
     }
 
     public void escriuExpressio(String expr, String path, Boolean primera){
