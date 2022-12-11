@@ -107,9 +107,18 @@ public class CtrlPersistencia {
         return path_nou;
     }
 
+    public void eliminaDocument(String titol, String autor, String path){
+        gestorDades.eliminaDocument(titol,autor,path);
+    }
+
+
     public void guardaExpressioBool(String exprAnt, String exprNova)
             throws ExpressioBooleanaJaExistentException, ExpressioBooleanaInexistentException{
         gestorDades.guardaExpressioBool(exprAnt,exprNova,path);
+    }
+
+    public void eliminaExpressioBool(String expr, String path){
+        gestorDades.eliminaExpressio(expr,path);
     }
 
 }
