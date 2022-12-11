@@ -119,10 +119,10 @@ public class CtrlPresentacio {
         viewMenuPrincipal.tancarVista();
     }
 
-    public void exportarDocuments (ArrayList<String> titols, ArrayList<String> autors, File path) {
+    public void exportarDocument (String titol, String autor, File path) {
         //exportar document id a path
         try {
-            ctrlDomini.exportarDocuments(titols, autors, path);
+            ctrlDomini.exportarDocument(titol, autor, path);
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
