@@ -621,7 +621,9 @@ public class GestorDades {
     }
 
     public void eliminaDocument(String titol, String autor, String path) {
-
+        File doc = buscaDocument(titol,autor,path);
+        String path_doc = doc.getPath();
+        eliminaFitxer(path_doc);
     }
 
     /**
