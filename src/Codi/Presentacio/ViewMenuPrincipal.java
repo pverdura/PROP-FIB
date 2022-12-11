@@ -218,7 +218,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         }
         //Aplicar funcionalitats associades als items del PopUp Menu
         else if (source == miExportar) {
-            //ctrlPresentacio.exportarDocuments();
+            seleccionarDirNav();
 
         } else if (source == miModificarDoc) {
             String[] fila = llistaCerques.getSelectedValue().split("  ");
@@ -284,6 +284,22 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
             //Importar fitxers seleccionats
             ctrlPresentacio.importarDocuments(files_par);
+        }
+    }
+
+    private void seleccionarDirNav() {
+
+        //Crear File Chooser per seleccionar carpeta a exportar el doc seleccionat
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fc.setAcceptAllFileFilterUsed(false);
+
+        //Obrir jFileChooser
+        int res = fc.showOpenDialog(this);
+        if (res == JFileChooser.APPROVE_OPTION) {
+            //Obtenir valors del fitxer seleccionat i exportar-lo
+            String[] fila = llistaCerques.getSelectedValue().split("  ");
+            ctrlPresentacio.exportarDocument(fila[0], fila[1], fc.getCurrentDirectory());
         }
     }
 
