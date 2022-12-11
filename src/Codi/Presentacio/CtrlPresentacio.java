@@ -13,7 +13,6 @@ public class CtrlPresentacio {
     private final CtrlDomini ctrlDomini;
     private final ViewMenuPrincipal viewMenuPrincipal;
     private ViewGestioExprBool viewGestioExprBool;
-    private ViewModificarDocument viewModificarDocument;
     private ViewCercaTitol viewCercaTitol;
     private ViewCercaAutor viewCercaAutor;
     private ViewCercaTitolAutor viewCercaTitolAutor;
@@ -98,13 +97,8 @@ public class CtrlPresentacio {
 
     //documents
     public void crearDocument () {
-        if (viewModificarDocument == null) viewModificarDocument = new ViewModificarDocument(this);
-        viewModificarDocument.setTitol("");
-        viewModificarDocument.setAutor("");
-        viewModificarDocument.setContingut("");
-        viewModificarDocument.setExtensio(TipusExtensio.BOL);
-        viewModificarDocument.setDocumentNou(true);
-        viewModificarDocument.ferVisible(true);
+        ViewModificarDocument v = new ViewModificarDocument(this);
+        v.ferVisible(true);
     }
 
     public void importarDocuments (ArrayList<File> fitxers) {
@@ -155,13 +149,14 @@ public class CtrlPresentacio {
         try {
             if (idVell == null) {
                 //document nou
-                ctrlDomini.creaDocument(idNou.getKey(), idNou.getValue(), contingut, te);
+                ctrlDomini.creaDocument(idNou.getKey(), idNou.getValue());
             } else {
                 //document modificat
                 ctrlDomini.modificarIdentificador(idVell, idNou);
-                ctrlDomini.setContingut(idNou.getKey(), idNou.getValue(), contingut);
-                ctrlDomini.setExtensio(idNou.getKey(), idNou.getValue(), te);
             }
+            ctrlDomini.setContingut(idNou.getKey(), idNou.getValue(), contingut);
+            ctrlDomini.setExtensio(idNou.getKey(), idNou.getValue(), te);
+            //ctrlDomini.guardaDocument(idNou.getKey(), idNou.getValue());
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
@@ -260,14 +255,8 @@ public class CtrlPresentacio {
         viewGestioExprBool.ferVisible();
     }
     public void modificarDocument (String titol, String autor) {
-        if (viewModificarDocument == null)
-            viewModificarDocument = new ViewModificarDocument(this);
-        viewModificarDocument.setTitol(titol);
-        viewModificarDocument.setAutor(autor);
-        viewModificarDocument.setContingut(ctrlDomini.getContingut(titol, autor));
-        viewModificarDocument.setExtensio(ctrlDomini.getExtensio(titol, autor));
-        viewModificarDocument.setDocumentNou(false);
-        viewModificarDocument.ferVisible(true);
+        ViewModificarDocument v = new ViewModificarDocument(this, titol, autor, ctrlDomini.getContingut(titol, autor), ctrlDomini.getExtensio(titol, autor));
+        v.ferVisible(true);
     }
     public void obrirCercaTitol () {
         if (viewCercaTitol == null) viewCercaTitol = new ViewCercaTitol(this);

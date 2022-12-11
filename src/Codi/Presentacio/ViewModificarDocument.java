@@ -24,12 +24,32 @@ public class ViewModificarDocument {
     private final CtrlPresentacio ctrlPresentacio;
     private String titol;
     private String autor;
+    private String contingut;
     private final String[] extensions = {"TXT", "XML", "BOL"};
     private boolean documentNou;
     public ViewModificarDocument (CtrlPresentacio cp) {
+        //constructor per document nou
         this.ctrlPresentacio = cp;
-        inicialitzar();
+        this.titol = "";
+        this.autor = "";
+        this.contingut = "";
         documentNou = true;
+
+        inicialitzar();
+
+        this.setExtensio(TipusExtensio.BOL);
+    }
+
+    public ViewModificarDocument (CtrlPresentacio cp, String titol, String autor, String contingut, TipusExtensio te) {
+        //constructor per modificar un document
+        this.ctrlPresentacio = cp;
+        this.titol = titol;
+        this.autor = autor;
+        this.contingut = contingut;
+        documentNou = false;
+
+        inicialitzar();
+        this.setExtensio(te);
     }
 
     private void inicialitzar () {
@@ -76,6 +96,7 @@ public class ViewModificarDocument {
         tipusExtensio.setSelectedIndex(2);
         textTitol.setMinimumSize(new Dimension(400, 30));
         textTitol.setPreferredSize(textTitol.getMinimumSize());
+        textTitol.setText(titol);
 
         panellSuperior.add(labelTitol);
         panellSuperior.add(textTitol);
@@ -85,6 +106,7 @@ public class ViewModificarDocument {
     public void configurarPanellMig () {
         textAutor.setMinimumSize(new Dimension(400, 30));
         textAutor.setPreferredSize(textAutor.getMinimumSize());
+        textAutor.setText(autor);
 
         panellMig.add(labelAutor);
         panellMig.add(textAutor);
@@ -94,6 +116,7 @@ public class ViewModificarDocument {
     public void configurarPanellInferior () {
         textContingut.setMinimumSize(new Dimension(700, 450));
         textContingut.setPreferredSize(textContingut.getMinimumSize());
+        textContingut.setText(contingut);
 
         JScrollPane panellContingut = new JScrollPane(textContingut);
         panellContingut.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -123,24 +146,9 @@ public class ViewModificarDocument {
         else if (ext == "XML") return TipusExtensio.XML;
         else return TipusExtensio.BOL;
     }
-
-    public void setTitol (String text) {
-        titol = text;
-        textTitol.setText(text);
-    }
-    public void setAutor (String text) {
-        autor = text;
-        textAutor.setText(text);
-    }
-    public void setContingut (String text) {
-        textContingut.setText(text);
-    }
-    public void setExtensio (TipusExtensio te) {
-        if (te == TipusExtensio.TXT) tipusExtensio.setSelectedIndex(0);
-        else if (te == TipusExtensio.XML) tipusExtensio.setSelectedIndex(1);
+    private void setExtensio (TipusExtensio te) {
+        if (te.equals(TipusExtensio.TXT)) tipusExtensio.setSelectedIndex(0);
+        else if (te.equals(TipusExtensio.XML)) tipusExtensio.setSelectedIndex(1);
         else tipusExtensio.setSelectedIndex(2);
-    }
-    public void setDocumentNou (boolean esNou) {
-        documentNou = esNou;
     }
 }
