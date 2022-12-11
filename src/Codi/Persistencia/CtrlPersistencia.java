@@ -107,7 +107,7 @@ public class CtrlPersistencia {
         gestorDades.guardaExpressioBool(exprAnt,exprNova,path);
     }
 
-    public void eliminaExpressioBool(String expr, String path) throws ExpressioBooleanaInexistentException,
+    public void eliminaExpressioBool(String expr) throws ExpressioBooleanaInexistentException,
             FitxerNoEliminatExeption, FitxerNoCreatException{
         gestorDades.eliminaExpressio(expr,path);
     }
