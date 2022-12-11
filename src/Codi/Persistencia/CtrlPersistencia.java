@@ -99,7 +99,7 @@ public class CtrlPersistencia {
 
     public void guardaDocument(String titol, String autor, TipusExtensio ext, String contingut)
             throws FitxerNoEliminatExeption, CarpetaNoCreadaException, TipusExtensioIncorrectaException{
-        gestorDades.guardaDocument(titol,autor,ext,contingut,path);
+        if(gestorDades.guardaDocument(titol,autor,ext,contingut,path)) ++numDocs;
     }
 
     public void guardaExpressioBool(String exprAnt, String exprNova)
