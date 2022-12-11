@@ -1,4 +1,4 @@
-package Codi.Runners;
+/*package Codi.Runners;
 
 import Codi.Tests.CercaTitolAutorTest;
 import org.junit.runner.JUnitCore;
@@ -17,4 +17,4 @@ public class CercaTitolAutorRunner {
             System.out.println("El test de CercaTitolAutor no ha sortit correctament.");
         }
     }
-}
+}*/

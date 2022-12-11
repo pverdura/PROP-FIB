@@ -117,8 +117,8 @@ public class GestorDades {
 
         // Lector que ens llegirà el document
         try (BufferedReader lector = Files.newBufferedReader(PATH,StandardCharsets.UTF_8)) {
-            String contingut = null;    // Concatenació de línies per llegir el contingut
-            String linia = null;        // Ens ajuda a llegir línies del document
+            String contingut = "";      // Concatenació de línies per llegir el contingut
+            String linia;               // Ens ajuda a llegir línies del document
             int num_linia = 0;          // Nombre de línies llegides
 
             // Llegim el document mentre hi hagi línies
@@ -130,7 +130,7 @@ public class GestorDades {
                     D.setTitol(linia);
                 }
                 else {  // En aquestes línies hi ha el contingut
-                    if (contingut != null) contingut = contingut.concat("\n" + linia);
+                    if (!contingut.equals("")) contingut = contingut.concat("\n" + linia);
                     else contingut = linia;
                 }
                 ++num_linia;
@@ -155,8 +155,8 @@ public class GestorDades {
 
         // Lector que ens llegirà el document
         try (BufferedReader lector = Files.newBufferedReader(PATH, StandardCharsets.UTF_8)) {
-            String contingut = null;    // Concatenació de línies per llegir el contingut
-            String linia = null;        // Ens ajuda a llegir línies del document
+            String contingut = "";      // Concatenació de línies per llegir el contingut
+            String linia;               // Ens ajuda a llegir línies del document
             boolean c = false;          // Ens indica si estem llegint el contingut
 
             // Llegim el document mentre hi hagi línies
@@ -177,7 +177,7 @@ public class GestorDades {
                         // Si hi ha la tabulació la treiem
                         if(linia.startsWith("\t\t")) linia = linia.substring(2);
 
-                        if(contingut == null) contingut = linia;
+                        if(contingut.equals("")) contingut = linia;
                         else contingut = contingut + "\n" + linia;
                     }
                     else c = false;
@@ -204,8 +204,8 @@ public class GestorDades {
 
         // Lector que ens llegirà el document
         try (BufferedReader lector = Files.newBufferedReader(PATH, StandardCharsets.UTF_8)) {
-            String contingut = null;    // Concatenació de línies per llegir el contingut
-            String linia = null;        // Ens ajuda a llegir línies del document
+            String contingut = "";      // Concatenació de línies per llegir el contingut
+            String linia;               // Ens ajuda a llegir línies del document
             int espais = 0;             // Ens indica el nombre de "----" que hem llegit
 
             // Llegim el document mentre hi hagi línies
@@ -220,7 +220,7 @@ public class GestorDades {
                     D.setTitol(linia);
                 }
                 else if(espais == 2) {
-                    if (contingut != null) contingut = contingut + "\n" + linia;
+                    if (contingut.equals("")) contingut = contingut + "\n" + linia;
                     else contingut = linia;
                 }
                 else break;
@@ -245,7 +245,7 @@ public class GestorDades {
 
         // Lector que ens llegirà el document
         try (BufferedReader lector = Files.newBufferedReader(PATH, StandardCharsets.UTF_8)) {
-            String linia = null;        // Ens ajuda a llegir línies del document
+            String linia;   // Ens ajuda a llegir línies del document
 
             // Llegim el document mentre hi hagi línies
             while ((linia = lector.readLine()) != null) {
@@ -304,7 +304,7 @@ public class GestorDades {
 
             // Lector que ens llegirà el fitxer
             try (BufferedReader lector = Files.newBufferedReader(PATH,StandardCharsets.UTF_8)) {
-                String linia = null;
+                String linia;
 
                 // Llegim el fitxer mentre hi hagi línies
                 while((linia = lector.readLine()) != null) {
@@ -330,7 +330,7 @@ public class GestorDades {
      * @throws FitxerNoCreatException Si el docuemnt on estan les StopWords s'ha intentat crear i no s'ha pogut
      */
     private ArrayList<String> llegeixStopWords(String path) throws FitxerNoCreatException {
-        ArrayList<String> stopWords = null;
+        ArrayList<String> stopWords = new ArrayList<String>();
 
         // Mirem que el fitxer on guardem les stop words existeixi
         if(existeixFixter(path)) {
@@ -537,7 +537,7 @@ public class GestorDades {
      */
     public ArrayList<DocumentLlegit> carregaDocuments(String path) throws CarpetaNoCreadaException,
             CarpetaBuidaException, TipusExtensioIncorrectaException {
-        ArrayList<DocumentLlegit> documents = null;
+        ArrayList<DocumentLlegit> documents;
         boolean existeix = existeixDirectori(path);
 
         if(existeix) documents = llegeixDocuments(path);
@@ -557,7 +557,7 @@ public class GestorDades {
      */
     public ArrayList<String> carregaExpressionsBooleanes(String path) throws CarpetaNoCreadaException,
             FitxerNoCreatException, CarpetaBuidaException {
-        ArrayList<String> expressions = null;
+        ArrayList<String> expressions;
         boolean existeix = existeixDirectori(path);
 
         if(existeix) expressions = llegeixExpressions(path+"/expressions.txt");
@@ -575,7 +575,7 @@ public class GestorDades {
      * @throws FitxerNoCreatException Si S'ha intentat crear el fitxer i no s'ha pogut
      */
     public ArrayList<String> carregaStopWords(String path) throws CarpetaNoCreadaException, FitxerNoCreatException {
-        ArrayList<String> stopWords = null;
+        ArrayList<String> stopWords;
         boolean existeix = existeixDirectori(path);
 
         if(existeix) stopWords = llegeixStopWords(path+"/stopWords.csv");
@@ -646,8 +646,6 @@ public class GestorDades {
      * @return Retorna el document que té com a títol i autor els indicats
      */
     public File buscaDocument(String titol, String autor, String path) {
-        File f = null;
-
         try {
             String id = titol + "_" + autor;
             File[] candidats = new File(path).listFiles();
@@ -659,7 +657,7 @@ public class GestorDades {
                     // Mirem que
                     if(document.substring(0,document.length()-4).endsWith(id)) {
                         DocumentLlegit D = llegeixDocument(doc.getPath());
-                        if (D.getTitol().equals(titol) && D.getAutor().equals(autor)) f = doc;
+                        if (D.getTitol().equals(titol) && D.getAutor().equals(autor)) return doc;
                     }
                 }
             }
@@ -667,12 +665,10 @@ public class GestorDades {
         catch (Exception e) {
             e.printStackTrace();
         }
-        return f;
+        return null;
     }
 
     public DocumentLlegit llegeixDocument(String path) throws TipusExtensioIncorrectaException {
-        DocumentLlegit D = null;
-
         // Mirem que el document que volem llegir existeixi
         if(existeixFixter(path)) {
             Path PATH = Paths.get(path);
@@ -685,19 +681,16 @@ public class GestorDades {
 
                 switch (ext) {
                     case ".txt":
-                        D = llegeixDocumentTXT(PATH);
-                        break;
+                        return llegeixDocumentTXT(PATH);
                     case ".xml":
-                        D = llegeixDocumentXML(PATH);
-                        break;
+                        return llegeixDocumentXML(PATH);
                     case ".bol":
-                        D = llegeixDocumentBOL(PATH);
-                        break;
+                        return llegeixDocumentBOL(PATH);
                     default:
                         throw new TipusExtensioIncorrectaException(ext);
                 }
             }
         }
-        return D;
+        return null;
     }
 }
