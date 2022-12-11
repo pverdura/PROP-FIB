@@ -49,7 +49,7 @@ public class CtrlPersistencia {
 
 
 
-    public void exportaDocument(String titol, String autor, File file) throws FileNoExisteixException{
+    public void exportarDocument(String titol, String autor, File file) throws FileNoExisteixException{
         try{
             if (!file.exists()) throw new FileNoExisteixException(file);
 
