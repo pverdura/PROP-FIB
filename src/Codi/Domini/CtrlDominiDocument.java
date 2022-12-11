@@ -326,16 +326,8 @@ public class CtrlDominiDocument {
                                 HashMap<String,ArrayList<String>> titolAutors, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentJaExisteixException {
             this.creaDocument(doc.getTitol(), doc.getAutor(), documents, autors, documentsAutor, titolAutors);
             this.setContingut(doc.getTitol(), doc.getAutor(), doc.getContingut(), documents, paraules);
-
-            TipusExtensio te = TipusExtensio.BOL;
-            String path = doc.getPath();
-            String ext = path.substring(path.length() - 3);
-
-            if (ext.equals("txt")) te = TipusExtensio.TXT;
-            else if (ext.equals("xml")) te = TipusExtensio.XML;
-
-            this.setPath(doc.getTitol(), doc.getAutor(), path, documents);
-            this.setExtensio(doc.getTitol(), doc.getAutor(), te, documents);
+            this.setPath(doc.getTitol(), doc.getAutor(), doc.getPath(), documents);
+            this.setExtensio(doc.getTitol(), doc.getAutor(), doc.getExtensio(), documents);
     }
 
     //Obté les stop words.
