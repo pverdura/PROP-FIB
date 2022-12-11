@@ -651,11 +651,16 @@ public class GestorDades {
 
             if (candidats != null) {
                 for (File doc : candidats) {
-                    String document = doc.getPath();
+                    // Obtenim el nom del document
+                    String document = doc.getName();
 
-                    // Mirem que
+                    // Filtrem els possibles documents que puguin tenir com a títol i autor els indicats
+                    // (format dels documents guardats: #doc_titol_autor.extensió).
+                    // Treiem l'extensió i mirem que acabi en titol_autor
                     if(document.substring(0,document.length()-4).endsWith(id)) {
                         DocumentLlegit D = llegeixDocument(doc.getPath());
+
+                        // Mirem que el seu títol i autor siguin els que busquem
                         if (D.getTitol().equals(titol) && D.getAutor().equals(autor)) return doc;
                     }
                 }
@@ -691,5 +696,25 @@ public class GestorDades {
             }
         }
         return null;
+    }
+
+    public Integer nombre_documents(String path) {
+        File dir = new File(path);
+
+        File[] docs = dir.listFiles();
+        int num_doc = 0;
+
+        if(docs != null) {
+            for (File doc : docs) {
+                String nom_doc = doc.getName();
+
+                // Agafem el nombre de documents que hi ha en el nom del document
+                int num = Integer.parseInt(nom_doc.split("_",2)[0]);
+
+                // Si el nombre és més gran que el que hi havia
+                if(num > num_doc) num_doc = num;
+            }
+        }
+        return num_doc;
     }
 }
