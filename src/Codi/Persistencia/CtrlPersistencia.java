@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class CtrlPersistencia {
 
     private GestorDades gestorDades;
-    private final String path = new File("src/Codi/Persistencia/Documents").getAbsolutePath();
+    private final String path = new File("src/Codi/Persistencia/Documents").getPath();
     private final String path_stopWords = new File("src/Codi/stop_words.txt").getAbsolutePath();
 
     public CtrlPersistencia(){
