@@ -1,6 +1,8 @@
 package Codi.Excepcions;
 
-public class FitxerNoCreatException extends NullPointerException {
+import java.io.IOException;
+
+public class FitxerNoCreatException extends IOException {
     String path;
 
     public FitxerNoCreatException(String path) {
