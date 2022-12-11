@@ -180,7 +180,10 @@ public class GestorDades {
                         linia = linia.substring(2);
 
                         if(contingut.equals("")) contingut = linia;
-                        else contingut = contingut + "\n" + linia;
+                        else {
+                            String aux = contingut + "\n" + linia;
+                            contingut = aux;
+                        }
                     }
                     else c = false;
                 }
@@ -504,26 +507,27 @@ public class GestorDades {
      * @param exprAnt Indica l'expressió booleana que volem treure
      * @param exprNova Indica l'expressió booleana que volem posar
      * @param path Indica en quina posició està el document que volem modificar
+     * @param elimina Ens indica si volem eliminar l'expressió exprAnt del fitxer path
      * @throws FitxerNoEliminatExeption Si s'ha intentat eliminar el fitxer on estan les expressions i no s'ha pogut
      * @throws FitxerNoCreatException Si s'ha intentat crear el fitxer on estan les expressions i no s'ha pogut
      * @throws ExpressioBooleanaInexistentException Si no existeix l'expressió exprAnt en el document que volem modificar
      */
-    private void modificaExpressio(String exprAnt, String exprNova, String path) throws FitxerNoEliminatExeption,
-            FitxerNoCreatException, ExpressioBooleanaInexistentException {
+    private void modificaExpressio(String exprAnt, String exprNova, String path, Boolean elimina)
+            throws FitxerNoEliminatExeption, FitxerNoCreatException, ExpressioBooleanaInexistentException {
         // Llegim les expressions per eliminar exprAnt i posar exprNova
         ArrayList<String> expressions = llegeixExpressions(path);
 
         if(!expressions.remove(exprAnt)) {
             throw new ExpressioBooleanaInexistentException(exprAnt);
         }
-        expressions.add(exprNova);  // Afegim l'expressió al llistat d'expressions
+        if(!elimina) expressions.add(exprNova);  // Afegim l'expressió al llistat d'expressions si no es vol eliminar
 
         eliminaFitxer(path);
         creaFitxer(path);
         guardaExpressions(expressions, path);
     }
 
-    private String getPath(String path, Integer num_doc, String titol, String autor, TipusExtensio ext) {
+    private String getPath(String path, String num_doc, String titol, String autor, TipusExtensio ext) {
         String extensio;
 
         switch (ext.toString()) {
@@ -539,7 +543,7 @@ public class GestorDades {
             default:
                 extensio = "";
         }
-        return path + "/" + num_doc.toString() + "_" + titol + "_" + autor + extensio;
+        return path + "/" + num_doc + "_" + titol + "_" + autor + extensio;
     }
 
 
@@ -617,26 +621,26 @@ public class GestorDades {
      * @throws CarpetaNoCreadaException Si s'ha intentat crear la carpeta i no s'ha pogut
      * @throws TipusExtensioIncorrectaException Si l'extensió indicada no és .txt, .xml ni .bol
      */
-    public String guardaDocument(String titol, String autor, TipusExtensio ext, String contingut, String path)
+    public String guardaDocument(String titol, String autor, TipusExtensio ext, String contingut, String path, boolean existeix)
             throws FitxerNoEliminatExeption, CarpetaNoCreadaException, TipusExtensioIncorrectaException {
-        // Primer obtenim el path del document i mirem si ja existeix el document, si existeix l'eliminem,
+        // Primer mirem si ja existeix el document, si existeix l'eliminem,
         // d'aquesta manera podem canviar el format dels documents.
-        File doc = buscaDocument(titol,autor,path);
-        Integer num_doc;
+        String new_path;
 
-        if(doc == null) {   // Document nou per guardar
-            // Li assignem un nou número al document
-            num_doc = nDocs;
+        if(!existeix) {   // Document nou per guardar
+            // Li assignem un nou número al document () i creem el path del document
+            new_path = getPath(path,nDocs.toString(),titol,autor,ext);
         }
         else {  // Document que existeix per modificar
-            // Li assignem el número que tenia el document
-            num_doc = Integer.parseInt(doc.getName().split("_")[0]);
+            // Agafem el número que té assignat el document
+            String[] particions = path.split("/");
+            String num_doc = particions[particions.length-1];
 
-            eliminaFitxer(doc.getPath());
+            eliminaFitxer(path);
+            // Creem el nou path del document (pot ser que s'hagi modificat el títol i l'autor,
+            // per tant, cal actualitzar-ho.
+            new_path = getPath(path.split("/",2)[0],num_doc,titol,autor,ext);
         }
-
-        // Creem el path del document
-        String new_path = getPath(path,num_doc,titol,autor,ext);
 
         // Guardem el document
         switch(ext.toString()) {
@@ -676,12 +680,12 @@ public class GestorDades {
             guardaExpressio(exprNova,path);
         }
         else {  // La expressió és modificada
-            modificaExpressio(exprAnt,exprNova,path);
+            modificaExpressio(exprAnt,exprNova,path,false);
         }
     }
 
-    public void eliminaExpressio(String expr, String path) {
-
+    public void eliminaExpressio(String expr, String path) throws ExpressioBooleanaInexistentException {
+        modificaExpressio(expr,"",path,true);
     }
 
     /**
