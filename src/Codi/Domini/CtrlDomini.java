@@ -127,7 +127,7 @@ public class CtrlDomini {
     public void eliminaDocument(String titol, String autor) throws DocumentInexistentException {
         CDdoc.eliminaDocument(titol,autor,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
 
-        CP.eliminaDocument();
+        //CP.eliminaDocument();
     }
 
     public void modificarIdentificador(SimpleEntry<String,String> idVell, SimpleEntry<String,String> idNou)
