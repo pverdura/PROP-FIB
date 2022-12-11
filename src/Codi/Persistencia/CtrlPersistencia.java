@@ -22,7 +22,7 @@ public class CtrlPersistencia {
 
     public CtrlPersistencia(){
         gestorDades = new GestorDades();
-        numDocs = gestorDades.nombre_documents(path);
+        gestorDades.nombre_documents(path);
     }
 
     public ArrayList<DocumentLlegit> importarDocuments(ArrayList<File> files){
@@ -97,9 +97,14 @@ public class CtrlPersistencia {
         return gestorDades.carregaStopWords(path_stopWords);
     }
 
-    public void guardaDocument(String titol, String autor, TipusExtensio ext, String contingut)
+    public String guardaDocument(String titol, String autor, TipusExtensio ext, String contingut, String path)
             throws FitxerNoEliminatExeption, CarpetaNoCreadaException, TipusExtensioIncorrectaException{
-        if(gestorDades.guardaDocument(titol,autor,ext,contingut,path)) ++numDocs;
+        String path_nou = path;
+
+        if (path.isEmpty()) path_nou = gestorDades.guardaDocument(titol,autor,ext,contingut,this.path,true);
+        else gestorDades.guardaDocument(titol,autor,ext,contingut,path, false);
+
+        return path_nou;
     }
 
     public void guardaExpressioBool(String exprAnt, String exprNova)
