@@ -9,6 +9,6 @@ public class PrefixNoExisteixException extends NullPointerException{
     }
 
     public String toString () {
-        return "Error: no existeix cap autor que comenci pel prefix :" + this.prefix ;
+        return "Error: no existeix cap autor que comenci pel prefix: " + this.prefix ;
     }
 }
