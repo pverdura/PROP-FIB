@@ -1,8 +1,8 @@
 package Codi.Excepcions;
 
-import Codi.Util.TipusExtensio;
+import java.io.IOException;
 
-public class TipusExtensioIncorrectaException extends NullPointerException {
+public class TipusExtensioIncorrectaException extends IOException {
     String extensio;
 
     public TipusExtensioIncorrectaException(String extensio) {
