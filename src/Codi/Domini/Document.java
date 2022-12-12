@@ -94,6 +94,11 @@ public class Document {
     }
     public void setExtensio (TipusExtensio tipusExtensio) {
         this.tipusExtensio = tipusExtensio;
+        String p = getPath();
+        if (tipusExtensio.equals(TipusExtensio.TXT)) p = p.substring(0, p.length()-3)+"txt";
+        else if (tipusExtensio.equals(TipusExtensio.XML)) p = p.substring(0, p.length()-3)+"xml";
+        else p = p.substring(0, p.length()-1)+"bol";
+        setPath(p);
     }
     public TipusExtensio getExtensio () {
         return this.tipusExtensio;
