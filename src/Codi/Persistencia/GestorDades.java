@@ -141,6 +141,7 @@ public class GestorDades {
             }
             D.setContingut(contingut);
             D.setExtensio(TipusExtensio.TXT);
+            D.setPath(PATH.toString());
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -190,6 +191,7 @@ public class GestorDades {
             }
             D.setContingut(contingut);
             D.setExtensio(TipusExtensio.XML);
+            D.setPath(PATH.toString());
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -231,6 +233,7 @@ public class GestorDades {
             }
             D.setContingut(contingut);
             D.setExtensio(TipusExtensio.BOL);
+            D.setPath(PATH.toString());
         }
         catch (IOException e) {
             e.printStackTrace();
