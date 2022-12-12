@@ -164,6 +164,7 @@ public class CtrlPresentacio {
             ctrlDomini.guardaDocument(idNou.getKey(), idNou.getValue());
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
+            e.printStackTrace();
         }
     }
 
