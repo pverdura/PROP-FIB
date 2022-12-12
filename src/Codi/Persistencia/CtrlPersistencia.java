@@ -16,12 +16,13 @@ import java.util.ArrayList;
 public class CtrlPersistencia {
 
     private GestorDades gestorDades;
+    private int numDocs;
     private final String path = new File("src/Codi/Persistencia/Documents").getPath();
     private final String path_stopWords = new File("src/Codi").getAbsolutePath();
 
     public CtrlPersistencia(){
         gestorDades = new GestorDades();
-        //gestorDades.nombre_documents(path);
+        numDocs = gestorDades.nombre_documents(path);
     }
 
     public ArrayList<DocumentLlegit> importarDocuments(ArrayList<File> files) throws FitxerNoEliminatExeption, TipusExtensioIncorrectaException, FitxerNoCreatException {
@@ -43,7 +44,6 @@ public class CtrlPersistencia {
         String path = file.getAbsolutePath();
         DocumentLlegit doc;
         doc = gestorDades.llegeixDocument(path);
-        gestorDades.guardaDocument(doc.getTitol(), doc.getAutor(), doc.getExtensio(), doc.getContingut(), doc.getPath(), true);
         return doc;
     }
 
@@ -92,9 +92,9 @@ public class CtrlPersistencia {
 
         if (path_nou.isEmpty()) {
             doc.setPath(path);
-            path_nou = gestorDades.guardaDocument(doc,true);
+            path_nou = gestorDades.guardaDocument(doc,false);
         }
-        else gestorDades.guardaDocument(doc, false);
+        else gestorDades.guardaDocument(doc, true);
 
         return path_nou;
     }
@@ -115,5 +115,10 @@ public class CtrlPersistencia {
         gestorDades.eliminaExpressio(expr,path);
     }
 
+    public String getNouPath(){
+        int num = gestorDades.nombre_documents(path);
+        String nouPath = path + num + ".nou";
+        return nouPath;
+    }
 }
 
