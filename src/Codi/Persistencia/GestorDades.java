@@ -754,7 +754,7 @@ public class GestorDades {
         return null;
     }
 
-    public void nombre_documents(String path) {
+    public int nombre_documents(String path) {
         File dir = new File(path);
 
         File[] docs = dir.listFiles();
@@ -765,12 +765,12 @@ public class GestorDades {
                 String nom_doc = doc.getName();
 
                 // Agafem el nombre de documents que hi ha en el nom del document
-                int num = Integer.parseInt(nom_doc.split("_",2)[0]);
+                int num = Integer.parseInt(nom_doc.split(".",2)[0]);
 
                 // Si el nombre és més gran que el que hi havia
                 if(num > num_doc) num_doc = num;
             }
         }
-        nDocs = num_doc;
+        return num_doc;
     }
 }

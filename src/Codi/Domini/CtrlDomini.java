@@ -57,12 +57,15 @@ public class CtrlDomini {
         ExpressionsBooleanes = new HashMap<String,ExpressioBooleana>();
     }
 
-    public void inicialitza() throws DocumentJaExisteixException, ExpressioBooleanaJaExistentException,
-            TipusExtensioIncorrectaException, CarpetaNoCreadaException, FitxerNoCreatException {
+    public void inicialitza() throws Exception {
         // Llegim els documents
         ArrayList<DocumentLlegit> docs = CP.carregaDocuments();
         for(DocumentLlegit doc : docs) {
-            CDdoc.llegirDocument(doc,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
+            try {
+                CDdoc.llegirDocument(doc,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
+            } catch (DocumentJaExisteixException e) {
+                CP.eliminaDocument(doc.getPath());
+            }
         }
         // Llegim les expression booleanes
         ArrayList<String> ebs = CP.carregaExpressionsBooleanes();
@@ -83,7 +86,9 @@ public class CtrlDomini {
             TipusExtensioIncorrectaException, FitxerNoEliminatExeption, FitxerNoCreatException {
         ArrayList<DocumentLlegit> docs = CP.importarDocuments(documents);
         for(DocumentLlegit doc : docs) {
+            doc.setPath(CP.getNovaPath());
             CDdoc.llegirDocument(doc,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
+            CP.guardaDocument(doc);
         }
     }
 
@@ -104,6 +109,7 @@ public class CtrlDomini {
      */
     public void creaDocument(String titol, String autor) throws DocumentJaExisteixException {
         CDdoc.creaDocument(titol,autor,Documents,Autors,DocumentsAutor,TitolAutors);
+        CDdoc.setPath(titol, autor, CP.getNovaPath(), documents);
     }
 
     public void guardaDocument(String titol, String autor) throws TipusExtensioIncorrectaException, FitxerNoEliminatExeption,
@@ -116,10 +122,7 @@ public class CtrlDomini {
         DL.setTitol(D.getTitol());
         DL.setExtensio(D.getExtensio());
         DL.setContingut(D.getContingut());
-
-        // Mirem si el document té path
-        if(D.getPath() == null) DL.setPath("");
-        else DL.setPath(D.getPath());
+        DL.setPath(D.getPath());
 
         // Guardem el document i actualitzem el seu path
         D.setPath(CP.guardaDocument(DL));
