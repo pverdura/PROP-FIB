@@ -49,26 +49,8 @@ public class CtrlPersistencia {
 
 
 
-    public void exportarDocument(String titol, String autor, File file) throws FileNoExisteixException{
-        try{
-            if (!file.exists()) throw new FileNoExisteixException(file);
-
-            FileWriter fw = new FileWriter(file.getAbsolutePath());
-
-            File file_or = gestorDades.buscaDocument(titol, autor, path);
-            FileReader fr = new FileReader(file_or);
-
-            String str = "";
-            int i;
-
-            while ((i = fr.read()) != -1){
-                str += (char)i;
-            }
-            fw.write(str);
-
-            fr.close();
-            fw.close();
-        } catch (IOException e) {System.out.println(e.toString());}
+    public void exportarDocument(DocumentLlegit doc) throws FileNoExisteixException{
+        gestorDades.guardaDocument(doc);
     }
 
 
@@ -86,17 +68,9 @@ public class CtrlPersistencia {
         return gestorDades.carregaStopWords(path_stopWords);
     }
 
-    public String guardaDocument(DocumentLlegit doc)
+    public void guardaDocument(DocumentLlegit doc)
             throws FitxerNoEliminatExeption, TipusExtensioIncorrectaException, FitxerNoCreatException{
-        String path_nou = doc.getPath();
-
-        if (path_nou.isEmpty()) {
-            doc.setPath(path);
-            path_nou = gestorDades.guardaDocument(doc,false);
-        }
-        else gestorDades.guardaDocument(doc, true);
-
-        return path_nou;
+        gestorDades.guardaDocument(doc);
     }
 
     public void eliminaDocument(String path) throws FitxerNoEliminatExeption{
