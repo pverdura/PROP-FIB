@@ -119,7 +119,7 @@ public class ViewModificarDocument {
         textContingut.setText(contingut);
 
         JScrollPane panellContingut = new JScrollPane(textContingut);
-        panellContingut.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        panellContingut.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         panellInferior.add(panellContingut, BorderLayout.CENTER);
     }
@@ -168,6 +168,7 @@ public class ViewModificarDocument {
         SimpleEntry<String, String> idNou = new SimpleEntry<>(titol, autor);
 
         ctrlPresentacio.guardarDocument(documentNou, idVell, idNou, contingut, tExtensio);
+        documentNou = false;
     }
     private boolean modificat () {
         return (!titol.equals(textTitol.getText())) || (!autor.equals(textAutor.getText())) ||
