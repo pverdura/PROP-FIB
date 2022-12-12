@@ -36,7 +36,11 @@ public class ViewCercaPrefix {
         omplirPrefix.setText("");
         if (visible) frameVista.pack();
         frameVista.setVisible(visible);
-        enviarDades(new ArrayList<>());
+        esborraCerca();
+    }
+
+    public Boolean esVisible(){
+        return frameVista.isVisible();
     }
 
 
@@ -81,7 +85,7 @@ public class ViewCercaPrefix {
         esborrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                enviarDades(new ArrayList<>());
+                esborraCerca();
             }
         });
         cancelarButton.addActionListener(new ActionListener() {
@@ -203,5 +207,9 @@ public class ViewCercaPrefix {
         buttonsPanel.add(cancelarButton, BorderLayout.EAST);
         buttonsPanel.add(innerPanel, BorderLayout.CENTER);
         buttonsPanel.add(esborrarButton, BorderLayout.WEST);
+    }
+
+    private void esborraCerca(){
+        enviarDades(new ArrayList<>());
     }
 }
