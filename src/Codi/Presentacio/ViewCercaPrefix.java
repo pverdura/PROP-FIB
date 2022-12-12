@@ -67,7 +67,7 @@ public class ViewCercaPrefix {
                 TipusOrdenacio t;
                 if (asc.isSelected()) t = TipusOrdenacio.ALFABETIC_ASCENDENT;
                 else t = TipusOrdenacio.ALFABETIC_DESCENDENT;
-                ctrlPresentacio.cercaPrefix(prefix, t);
+                ctrlPresentacio.cercaPrefix(prefix, t, false);
             }
         });
 
