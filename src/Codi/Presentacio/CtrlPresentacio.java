@@ -24,17 +24,25 @@ public class CtrlPresentacio {
     private ArrayList<SimpleEntry<String, String>> resultatPrincipal;
     private final ArrayList<Integer> resultatPrincipalPes;
     private final ArrayList<TipusExtensio> resultatPrincipalExtensio;
+    private ArrayList<String> resultatPrefix;
     private TipusCerca ultimaCerca;
     private TipusOrdenacio tipusOrdenacio;
     private int nDocumentsOberts;
+    private String auxTitol;
+    private String auxAutor;
+    private String auxPrefix;
+    private String auxExpr;
+    private String auxParaules;
+    private int k;
+    private TipusOrdenacio tipusOrdenacioPrefix;
 
     public CtrlPresentacio () {
-
         ctrlDomini = new CtrlDomini();
 
         resultatPrincipal = new ArrayList<>();
         resultatPrincipalExtensio = new ArrayList<>();
         resultatPrincipalPes = new ArrayList<>();
+        resultatPrefix = new ArrayList<>();
 
         ultimaCerca = TipusCerca.TOTS;
         tipusOrdenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
@@ -172,6 +180,7 @@ public class CtrlPresentacio {
             resultatPrincipal = ctrlDomini.cercaBooleana(expr, tipusOrdenacio);
             enviarPrincipal();
             ultimaCerca = TipusCerca.BOOLEANA;
+            this.auxExpr = expr;
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
@@ -193,6 +202,7 @@ public class CtrlPresentacio {
             resultatPrincipal = ctrlDomini.cercaTitol(titol, tipusOrdenacio);
             enviarPrincipal();
             ultimaCerca = TipusCerca.TITOL;
+            this.auxTitol = titol;
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
@@ -203,6 +213,7 @@ public class CtrlPresentacio {
             resultatPrincipal = ctrlDomini.cercaAutor(autor, tipusOrdenacio);
             enviarPrincipal();
             ultimaCerca = TipusCerca.AUTOR;
+            this.auxAutor = autor;
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
@@ -214,14 +225,24 @@ public class CtrlPresentacio {
             resultatPrincipal.add(new SimpleEntry<>(titol, autor));
             enviarPrincipal();
             ultimaCerca = TipusCerca.TITOLAUTOR;
+            this.auxTitol = titol;
+            this.auxAutor = autor;
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
     }
 
-    public void cercaPrefix (String prefix, TipusOrdenacio to) {
+    public void cercaPrefix (String prefix, TipusOrdenacio to, boolean documentsModificats) {
         try {
-            viewCercaPrefix.enviarDades(ctrlDomini.cercaPrefix(prefix, to));
+            if (documentsModificats || !this.auxPrefix.equals(prefix)) {
+                resultatPrefix = ctrlDomini.cercaPrefix(prefix, to);
+                viewCercaPrefix.enviarDades(resultatPrefix);
+                this.auxPrefix = prefix;
+                this.tipusOrdenacioPrefix = to;
+            } else if (this.tipusOrdenacioPrefix != to) {
+                this.tipusOrdenacioPrefix = to;
+                viewCercaPrefix.enviarDades(ctrlDomini.ordenaCercaPrefix(resultatPrefix, to));
+            }
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
@@ -233,6 +254,8 @@ public class CtrlPresentacio {
             resultatPrincipal = ctrlDomini.cercaParaules(paraules, k);
             enviarPrincipal();
             ultimaCerca = TipusCerca.PARAULES;
+            this.auxParaules = paraules;.
+            this.k = k;
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
@@ -243,6 +266,7 @@ public class CtrlPresentacio {
             resultatPrincipal = ctrlDomini.cercaSemblant(titol, autor, k);
             enviarPrincipal();
             ultimaCerca = TipusCerca.SEMBLANT;
+            this.k = k;
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
@@ -299,6 +323,36 @@ public class CtrlPresentacio {
     }
     public void tancarDocument () {
         nDocumentsOberts -= 1;
+    }
+    private void actualitzarCerca () {
+        switch (ultimaCerca) {
+            case TOTS:
+                this.mostrarDocuments();
+                break;
+            case TITOL:
+                this.cercaTitol(auxTitol);
+                break;
+            case AUTOR:
+                this.cercaAutor(auxAutor);
+                break;
+            case TITOLAUTOR:
+                this.cercaTitolAutor(auxTitol, auxAutor);
+                break;
+            case PARAULES:
+                this.cercaParaules(auxParaules, k, false);
+                break;
+            case SEMBLANT:
+                this.cercaSemblant(auxTitol, auxAutor, k, false);
+                break;
+            case BOOLEANA:
+                this.cercaBooleana(auxExpr);
+                break;
+        }
+
+        //actualitzar prefix si la pantalla és oberta
+        if (viewCercaPrefix != null && viewCercaPrefix.esVisible()) {
+            this.cercaPrefix(auxPrefix, tipusOrdenacioPrefix, true);
+        }
     }
 }
 
