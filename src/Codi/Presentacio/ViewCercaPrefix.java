@@ -37,6 +37,7 @@ public class ViewCercaPrefix {
         if (visible) frameVista.pack();
         frameVista.setVisible(visible);
         esborraCerca();
+        asc.setSelected(true);
     }
 
     public Boolean esVisible(){
