@@ -50,7 +50,7 @@ public class CtrlPersistencia {
 
 
     public void exportarDocument(DocumentLlegit doc) throws FileNoExisteixException{
-        gestorDades.guardaDocument(doc);
+        //gestorDades.guardaDocument(doc);
     }
 
 
@@ -70,7 +70,7 @@ public class CtrlPersistencia {
 
     public void guardaDocument(DocumentLlegit doc)
             throws FitxerNoEliminatExeption, TipusExtensioIncorrectaException, FitxerNoCreatException{
-        gestorDades.guardaDocument(doc);
+        //gestorDades.guardaDocument(doc);
     }
 
     public void eliminaDocument(String path) throws FitxerNoEliminatExeption{
