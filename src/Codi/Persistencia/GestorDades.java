@@ -1,9 +1,11 @@
 package Codi.Persistencia;
 
+import Codi.Domini.Document;
 import Codi.Excepcions.*;
 import Codi.Util.DocumentLlegit;
 import Codi.Util.TipusExtensio;
 
+import javax.print.Doc;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -619,11 +621,12 @@ public class GestorDades {
      * @throws CarpetaNoCreadaException Si s'ha intentat crear la carpeta i no s'ha pogut
      * @throws TipusExtensioIncorrectaException Si l'extensió indicada no és .txt, .xml ni .bol
      */
-    public String guardaDocument(String titol, String autor, TipusExtensio ext, String contingut, String path, boolean existeix)
+    public DocumentLlegit guardaDocument(String titol, String autor, TipusExtensio ext, String contingut, String path, boolean existeix)
             throws FitxerNoEliminatExeption, TipusExtensioIncorrectaException, FitxerNoCreatException {
         // Primer mirem si ja existeix el document, si existeix l'eliminem,
         // d'aquesta manera podem canviar el format dels documents.
         String new_path;
+        DocumentLlegit D = new DocumentLlegit();
 
         if(!existeix) {   // Document nou per guardar
             // Li assignem un nou número al document () i creem el path del document
@@ -654,7 +657,12 @@ public class GestorDades {
             default:
                 throw new TipusExtensioIncorrectaException(ext.toString());
         }
-        return new_path;
+        D.setAutor(autor);
+        D.setTitol(titol);
+        D.setContingut(contingut);
+        D.setExtensio(ext);
+        D.setPath(new_path);
+        return D;
     }
 
     /**
