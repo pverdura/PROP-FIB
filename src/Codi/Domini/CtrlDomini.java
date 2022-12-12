@@ -110,14 +110,19 @@ public class CtrlDomini {
             FitxerNoCreatException {
         // Obtenim el document
         Document D = Documents.get(new SimpleEntry<String,String>(titol,autor));
-        String path;
+        DocumentLlegit DL = new DocumentLlegit();
+
+        DL.setAutor(D.getAutor());
+        DL.setTitol(D.getTitol());
+        DL.setExtensio(D.getExtensio());
+        DL.setContingut(D.getContingut());
 
         // Mirem si el document té path
-        if(D.getPath() == null) path = "";
-        else path = D.getPath();
+        if(D.getPath() == null) DL.setPath("");
+        else DL.setPath(D.getPath());
 
         // Guardem el document i actualitzem el seu path
-        D.setPath(CP.guardaDocument(titol,autor,D.getExtensio(),D.getContingut(),path));
+        D.setPath(CP.guardaDocument(DL));
     }
 
     /**
