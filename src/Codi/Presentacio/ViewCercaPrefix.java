@@ -21,6 +21,7 @@ public class ViewCercaPrefix {
     private JScrollPane scroll;
     private JRadioButton asc;
     private JRadioButton des;
+    private boolean esborrar;
 
     private final CtrlPresentacio ctrlPresentacio;
 
@@ -36,6 +37,7 @@ public class ViewCercaPrefix {
         frameVista.setVisible(visible);
         esborraCerca();
         asc.setSelected(true);
+        esborrar = false;
     }
 
     public Boolean esVisible(){
@@ -143,7 +145,7 @@ public class ViewCercaPrefix {
         scroll.setHorizontalScrollBar(null);
         asc = new JRadioButton("Ascendent");
         des = new JRadioButton("Descendent");
-
+        esborrar = false;
 
         scroll.setFocusable(false);
         asc.setFocusable(false);
@@ -207,10 +209,11 @@ public class ViewCercaPrefix {
         TipusOrdenacio t;
         if (asc.isSelected()) t = TipusOrdenacio.ALFABETIC_ASCENDENT;
         else t = TipusOrdenacio.ALFABETIC_DESCENDENT;
-        ctrlPresentacio.cercaPrefix(prefix, t, false);
+        ctrlPresentacio.cercaPrefix(prefix, t, esborrar);
     }
 
     private void esborraCerca(){
         enviarDades(new ArrayList<>());
+        esborrar = true;
     }
 }
