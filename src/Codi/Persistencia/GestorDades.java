@@ -611,7 +611,7 @@ public class GestorDades {
         return stopWords;
     }
 
-    /**
+    /*
      * Guarda un document amb extensió .txt, .xml o .bol en el directori indicat
      *
      * @param titol Indica el títol del document que volem guardar
@@ -624,12 +624,17 @@ public class GestorDades {
      * @throws CarpetaNoCreadaException Si s'ha intentat crear la carpeta i no s'ha pogut
      * @throws TipusExtensioIncorrectaException Si l'extensió indicada no és .txt, .xml ni .bol
      */
-    public DocumentLlegit guardaDocument(String titol, String autor, TipusExtensio ext, String contingut, String path, boolean existeix)
+    public String guardaDocument(DocumentLlegit D, boolean existeix)
             throws FitxerNoEliminatExeption, TipusExtensioIncorrectaException, FitxerNoCreatException {
+        String path = D.getPath();
+        String autor = D.getAutor();
+        String titol = D.getTitol();
+        TipusExtensio ext = D.getExtensio();
+        String contingut = D.getContingut();
+
         // Primer mirem si ja existeix el document, si existeix l'eliminem,
         // d'aquesta manera podem canviar el format dels documents.
         String new_path;
-        DocumentLlegit D = new DocumentLlegit();
 
         if(!existeix) {   // Document nou per guardar
             // Li assignem un nou número al document () i creem el path del document
@@ -660,12 +665,7 @@ public class GestorDades {
             default:
                 throw new TipusExtensioIncorrectaException(ext.toString());
         }
-        D.setAutor(autor);
-        D.setTitol(titol);
-        D.setContingut(contingut);
-        D.setExtensio(ext);
-        D.setPath(new_path);
-        return D;
+        return new_path;
     }
 
     /**
