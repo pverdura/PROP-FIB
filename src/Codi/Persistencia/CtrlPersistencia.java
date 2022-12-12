@@ -115,7 +115,7 @@ public class CtrlPersistencia {
         gestorDades.eliminaExpressio(expr,path);
     }
 
-    public String getNouPath(){
+    public String getNovaPath(){
         int num = gestorDades.nombre_documents(path);
         String nouPath = path + num + ".nou";
         return nouPath;
