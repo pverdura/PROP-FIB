@@ -16,7 +16,7 @@ public class ViewCercaPrefix {
     private JPanel buttonsPanel;
     private JLabel labelPrefix;
     private JTextField omplirPrefix;
-    //private JButton acceptarButton;
+    private JButton esborrarButton;
     private JButton cercaButton;
     private JButton cancelarButton;
     private JTextArea resultat;
@@ -48,7 +48,7 @@ public class ViewCercaPrefix {
 
         for(String s : res_cerca){
             listModel.addElement(s);
-            listModel.addElement("\n");
+            //listModel.addElement("\n");
         }
         final JList<String> resultat = new JList<>(listModel);
 
@@ -68,31 +68,22 @@ public class ViewCercaPrefix {
                 ctrlPresentacio.cercaPrefix(prefix, t);
             }
         });
-/*
-        cercaButton.addKeyListener(new KeyListener() {
 
-            @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) cercaButton.doClick();
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
-        });
-
- */
         cercaButton.setFocusable(true);
         cercaButton.addKeyListener(new Teclas());
 
         frameVista.setFocusable(true);
         frameVista.addKeyListener(new Teclas());
+
+        omplirPrefix.addKeyListener(new Teclas());
+
+
+        esborrarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                enviarDades(new ArrayList<>());
+            }
+        });
         cancelarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -107,6 +98,7 @@ public class ViewCercaPrefix {
             public void itemStateChanged(ItemEvent e) {
                 if (asc.isSelected()) des.setSelected(false);
                 else des.setSelected(true);
+                cercaButton.doClick();
             }
         });
 
@@ -115,6 +107,7 @@ public class ViewCercaPrefix {
             public void itemStateChanged(ItemEvent e) {
                 if (des.isSelected()) asc.setSelected(false);
                 else asc.setSelected(true);
+                cercaButton.doClick();
             }
         });
     }
@@ -143,7 +136,7 @@ public class ViewCercaPrefix {
         resultatPanel = new JPanel();
         buttonsPanel = new JPanel();
         cancelarButton = new JButton("Cancel·lar");
-        //acceptarButton = new JButton("Acceptar");
+        esborrarButton = new JButton("Esborrar");
         cercaButton = new JButton("Cercar");
         omplirPrefix = new JTextField();
         labelPrefix = new JLabel("Prefix: ");
@@ -160,6 +153,7 @@ public class ViewCercaPrefix {
         des.setFocusable(false);
         resultat.setFocusable(false);
         cancelarButton.setFocusable(false);
+        esborrarButton.setFocusable(false);
     }
 
     private void configurarVista(){
@@ -182,6 +176,8 @@ public class ViewCercaPrefix {
         prefixPanel.add(labelPrefix);
         prefixPanel.add(omplirPrefix);
         prefixPanel.add(cercaButton);
+
+        omplirPrefix.setEditable(true);
     }
 
     private void configResultatPanel(){
@@ -204,10 +200,10 @@ public class ViewCercaPrefix {
 
         asc.setSelected(true);
 
-        buttonsPanel.add(asc, BorderLayout.WEST);
-        buttonsPanel.add(des, BorderLayout.CENTER);
+        //buttonsPanel.add(asc, BorderLayout.WEST);
+        //buttonsPanel.add(des, BorderLayout.CENTER);
         buttonsPanel.add(cancelarButton, BorderLayout.EAST);
-        //buttonsPanel.add(innerPanel, BorderLayout.CENTER);
-        //buttonsPanel.add(acceptarButton, BorderLayout.EAST);
+        buttonsPanel.add(innerPanel, BorderLayout.CENTER);
+        buttonsPanel.add(esborrarButton, BorderLayout.WEST);
     }
 }
