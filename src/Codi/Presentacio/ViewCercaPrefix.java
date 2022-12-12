@@ -67,11 +67,7 @@ public class ViewCercaPrefix {
         cercaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String prefix = omplirPrefix.getText();
-                TipusOrdenacio t;
-                if (asc.isSelected()) t = TipusOrdenacio.ALFABETIC_ASCENDENT;
-                else t = TipusOrdenacio.ALFABETIC_DESCENDENT;
-                ctrlPresentacio.cercaPrefix(prefix, t, false);
+                mostraCerca();
             }
         });
 
@@ -102,7 +98,7 @@ public class ViewCercaPrefix {
             public void itemStateChanged(ItemEvent e) {
                 if (asc.isSelected()) des.setSelected(false);
                 else des.setSelected(true);
-                cercaButton.doClick();
+                mostraCerca();
             }
         });
 
@@ -111,7 +107,7 @@ public class ViewCercaPrefix {
             public void itemStateChanged(ItemEvent e) {
                 if (des.isSelected()) asc.setSelected(false);
                 else asc.setSelected(true);
-                cercaButton.doClick();
+                mostraCerca();
             }
         });
     }
@@ -207,6 +203,14 @@ public class ViewCercaPrefix {
         buttonsPanel.add(cancelarButton, BorderLayout.EAST);
         buttonsPanel.add(innerPanel, BorderLayout.CENTER);
         buttonsPanel.add(esborrarButton, BorderLayout.WEST);
+    }
+
+    private void mostraCerca(){
+        String prefix = omplirPrefix.getText();
+        TipusOrdenacio t;
+        if (asc.isSelected()) t = TipusOrdenacio.ALFABETIC_ASCENDENT;
+        else t = TipusOrdenacio.ALFABETIC_DESCENDENT;
+        ctrlPresentacio.cercaPrefix(prefix, t, false);
     }
 
     private void esborraCerca(){
