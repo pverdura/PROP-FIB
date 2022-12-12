@@ -116,6 +116,7 @@ public class CtrlPresentacio {
     public void importarDocuments (ArrayList<File> fitxers) {
         try {
             ctrlDomini.importarDocuments(fitxers);
+            this.actualitzarCerca();
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
@@ -137,12 +138,9 @@ public class CtrlPresentacio {
     }
 
     public void esborrarDocument (String titol, String autor) {
-        //esborrar document id
         try {
             ctrlDomini.eliminaDocument(titol, autor);
-            //si hi és a la cerca, esborrar de la cerca, tornar a ordenar i actualitzar vista principal
-
-            //si és cerca semblant/paraules, tornar-la a fer
+            this.actualitzarCerca();
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
@@ -168,6 +166,7 @@ public class CtrlPresentacio {
             ctrlDomini.setContingut(idNou.getKey(), idNou.getValue(), contingut);
             ctrlDomini.setExtensio(idNou.getKey(), idNou.getValue(), te);
             ctrlDomini.guardaDocument(idNou.getKey(), idNou.getValue());
+            this.actualitzarCerca();
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
             e.printStackTrace();
@@ -350,7 +349,7 @@ public class CtrlPresentacio {
         }
 
         //actualitzar prefix si la pantalla és oberta
-        if (viewCercaPrefix != null && viewCercaPrefix.esVisible()) {
+        if (viewCercaPrefix != null && viewCercaPrefix.esVisible() && auxPrefix == null) {
             this.cercaPrefix(auxPrefix, tipusOrdenacioPrefix, true);
         }
     }
