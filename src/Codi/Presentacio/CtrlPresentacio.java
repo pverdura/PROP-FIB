@@ -152,10 +152,8 @@ public class CtrlPresentacio {
     public void guardarDocument (boolean nou, SimpleEntry<String, String> idVell, SimpleEntry<String, String> idNou, String contingut, TipusExtensio te) {
         try {
             if (nou) {
-                //document nou
                 ctrlDomini.creaDocument(idNou.getKey(), idNou.getValue());
             } else {
-                //document modificat
                 if (!idVell.equals(idNou))
                     ctrlDomini.modificarIdentificador(idVell, idNou);
             }
