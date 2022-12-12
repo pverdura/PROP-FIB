@@ -44,7 +44,15 @@ public class ViewCercaPrefix {
 
 
     public void enviarDades(ArrayList<String> res_cerca){
+        DefaultListModel<String> listModel = new DefaultListModel<>();
 
+        for(String s : res_cerca){
+            listModel.addElement(s);
+            listModel.addElement("\n");
+        }
+        final JList<String> resultat = new JList<>(listModel);
+
+        scroll.setViewportView(resultat);
     }
 
     /////////////////////////// ASSIGNACIÓ DE LISTENERS
@@ -140,7 +148,8 @@ public class ViewCercaPrefix {
         omplirPrefix = new JTextField();
         labelPrefix = new JLabel("Prefix: ");
         resultat = new JTextArea(25,35);
-        scroll = new JScrollPane(resultat);
+        scroll = new JScrollPane();
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scroll.setHorizontalScrollBar(null);
         asc = new JRadioButton("Ascendent");
         des = new JRadioButton("Descendent");
@@ -178,10 +187,10 @@ public class ViewCercaPrefix {
     private void configResultatPanel(){
         resultatPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
+        resultatPanel.add(resultat);
+        resultatPanel.add(scroll, BorderLayout.CENTER);
         scroll.setPreferredSize(new Dimension(350,325));
         scroll.setViewportView(resultat);
-
-        resultatPanel.add(scroll, BorderLayout.CENTER);
     }
 
     private void configButtonsPanel(){
