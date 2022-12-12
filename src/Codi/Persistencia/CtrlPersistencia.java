@@ -13,11 +13,10 @@ public class CtrlPersistencia {
     private int numDocs;
     private final String path = new File("src/Codi/Persistencia/Documents").getPath();
     private final String path_stopWords = new File("src/Codi").getAbsolutePath();
-    int n;
     public CtrlPersistencia(){
         gestorDades = new GestorDades();
         //numDocs = gestorDades.nombre_documents(path);
-        n = 1;
+        numDocs = 1;
     }
 
     public ArrayList<DocumentLlegit> importarDocuments(ArrayList<File> files) throws FitxerNoEliminatException, TipusExtensioIncorrectaException, FitxerNoCreatException {
@@ -35,7 +34,7 @@ public class CtrlPersistencia {
         return docs;
     }
 
-    private DocumentLlegit importa(File file) throws FitxerNoEliminatException, TipusExtensioIncorrectaException, FitxerNoCreatException{
+    private DocumentLlegit importa(File file) throws TipusExtensioIncorrectaException{
         String path = file.getAbsolutePath();
         DocumentLlegit doc;
         doc = gestorDades.llegeixDocument(path);
@@ -85,8 +84,8 @@ public class CtrlPersistencia {
     }
 
     public String getNovaPath(){
-        ++n;
-        String nouPath = path + n + ".bol";
+        ++numDocs;
+        String nouPath = path + numDocs + ".bol";
         return nouPath;
     }
 }
