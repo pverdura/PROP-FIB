@@ -158,7 +158,7 @@ public class ViewModificarDocument {
     }
     private void guardarDocument () {
         SimpleEntry<String, String> idVell;
-        if (!documentNou) idVell = null;
+        if (documentNou) idVell = null;
         else idVell = new SimpleEntry<>(titol, autor);
 
         titol = textTitol.getText();
