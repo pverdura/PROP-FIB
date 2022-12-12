@@ -210,6 +210,7 @@ public class ViewCercaPrefix {
         if (asc.isSelected()) t = TipusOrdenacio.ALFABETIC_ASCENDENT;
         else t = TipusOrdenacio.ALFABETIC_DESCENDENT;
         ctrlPresentacio.cercaPrefix(prefix, t, esborrar);
+        esborrar = false;
     }
 
     private void esborraCerca(){
