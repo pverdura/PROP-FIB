@@ -167,8 +167,7 @@ public class GestorDades {
                     if(linia.endsWith("</contingut>")) {
                        c = false;
                     }
-                    else {
-                        // Treiem la tabulació
+                    else { // Treiem la tabulació
                         linia = linia.substring(2);
                         contingut = contingut + "\n" + linia;
                     }
@@ -176,11 +175,11 @@ public class GestorDades {
                 else {
                     if(linia.contains("<autor>") && linia.contains("</autor>")) {
                         // Agafem el text que està entre <autor> i </autor>
-                        D.setAutor(linia.substring(8,linia.length()-8));
+                        D.setAutor(linia.substring(11,linia.length()-8));
                     }
                     else if(linia.contains("<titol>") && linia.contains("</titol>")) {
                         // Agafem el text que està entre <titol> i </titol>
-                        D.setTitol(linia.substring(8,linia.length()-8));
+                        D.setTitol(linia.substring(11,linia.length()-8));
                     }
                     else if(linia.contains("\t<contingut>")) {
                         c = true;
