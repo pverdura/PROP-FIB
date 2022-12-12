@@ -25,8 +25,10 @@ public class ViewCercaTitolAutor {
     }
 
     public void ferVisible(boolean visible){
+        omplirTitol.setText("");
+        omplirAutor.setText("");
         if (visible) frameVista.pack();
-        frameVista.setVisible(true);
+        frameVista.setVisible(visible);
     }
 
 

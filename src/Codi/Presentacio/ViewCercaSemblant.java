@@ -28,8 +28,11 @@ public class ViewCercaSemblant {
     }
 
     public void ferVisible(boolean visible){
+        omplirTitol.setText("");
+        omplirAutor.setText("");
+        numDocs.setValue(0);
         if (visible) frameVista.pack();
-        frameVista.setVisible(true);
+        frameVista.setVisible(visible);
     }
 
 

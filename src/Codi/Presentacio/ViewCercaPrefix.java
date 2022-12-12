@@ -33,8 +33,10 @@ public class ViewCercaPrefix {
     }
 
     public void ferVisible(boolean visible){
+        omplirPrefix.setText("");
         if (visible) frameVista.pack();
-        frameVista.setVisible(true);
+        frameVista.setVisible(visible);
+        enviarDades(new ArrayList<>());
     }
 
 
@@ -69,10 +71,8 @@ public class ViewCercaPrefix {
             }
         });
 
-        cercaButton.setFocusable(true);
         cercaButton.addKeyListener(new TeclaEnter());
 
-        frameVista.setFocusable(true);
         frameVista.addKeyListener(new TeclaEnter());
 
         omplirPrefix.addKeyListener(new TeclaEnter());
@@ -177,7 +177,7 @@ public class ViewCercaPrefix {
         prefixPanel.add(omplirPrefix);
         prefixPanel.add(cercaButton);
 
-        omplirPrefix.setEditable(true);
+        //omplirPrefix.setEditable(true);
     }
 
     private void configResultatPanel(){
@@ -200,8 +200,6 @@ public class ViewCercaPrefix {
 
         asc.setSelected(true);
 
-        //buttonsPanel.add(asc, BorderLayout.WEST);
-        //buttonsPanel.add(des, BorderLayout.CENTER);
         buttonsPanel.add(cancelarButton, BorderLayout.EAST);
         buttonsPanel.add(innerPanel, BorderLayout.CENTER);
         buttonsPanel.add(esborrarButton, BorderLayout.WEST);
