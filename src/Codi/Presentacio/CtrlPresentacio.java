@@ -149,18 +149,19 @@ public class CtrlPresentacio {
         }
     }
 
-    public void guardarDocument (SimpleEntry<String, String> idVell, SimpleEntry<String, String> idNou, String contingut, TipusExtensio te) {
+    public void guardarDocument (boolean nou, SimpleEntry<String, String> idVell, SimpleEntry<String, String> idNou, String contingut, TipusExtensio te) {
         try {
-            if (idVell == null) {
+            if (nou) {
                 //document nou
                 ctrlDomini.creaDocument(idNou.getKey(), idNou.getValue());
             } else {
                 //document modificat
-                ctrlDomini.modificarIdentificador(idVell, idNou);
+                if (!idVell.equals(idNou))
+                    ctrlDomini.modificarIdentificador(idVell, idNou);
             }
             ctrlDomini.setContingut(idNou.getKey(), idNou.getValue(), contingut);
             ctrlDomini.setExtensio(idNou.getKey(), idNou.getValue(), te);
-            //ctrlDomini.guardaDocument(idNou.getKey(), idNou.getValue());
+            ctrlDomini.guardaDocument(idNou.getKey(), idNou.getValue());
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
