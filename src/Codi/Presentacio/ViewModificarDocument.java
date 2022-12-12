@@ -37,7 +37,6 @@ public class ViewModificarDocument {
         documentNou = true;
 
         inicialitzar();
-
         this.setExtensio(TipusExtensio.BOL);
     }
 
@@ -159,7 +158,7 @@ public class ViewModificarDocument {
     }
     private void guardarDocument () {
         SimpleEntry<String, String> idVell;
-        if (documentNou) idVell = null;
+        if (!documentNou) idVell = null;
         else idVell = new SimpleEntry<>(titol, autor);
 
         titol = textTitol.getText();
@@ -168,7 +167,7 @@ public class ViewModificarDocument {
         setExtensio(getTipusExtensio());
         SimpleEntry<String, String> idNou = new SimpleEntry<>(titol, autor);
 
-        ctrlPresentacio.guardarDocument(idVell, idNou, contingut, tExtensio);
+        ctrlPresentacio.guardarDocument(documentNou, idVell, idNou, contingut, tExtensio);
     }
     private boolean modificat () {
         return (!titol.equals(textTitol.getText())) || (!autor.equals(textAutor.getText())) ||

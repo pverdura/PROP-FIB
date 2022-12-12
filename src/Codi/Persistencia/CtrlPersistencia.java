@@ -17,7 +17,7 @@ public class CtrlPersistencia {
 
     private GestorDades gestorDades;
     private final String path = new File("src/Codi/Persistencia/Documents").getPath();
-    private final String path_stopWords = new File("src/Codi/stop_words.txt").getAbsolutePath();
+    private final String path_stopWords = new File("src/Codi").getAbsolutePath();
 
     public CtrlPersistencia(){
         gestorDades = new GestorDades();
@@ -86,12 +86,15 @@ public class CtrlPersistencia {
         return gestorDades.carregaStopWords(path_stopWords);
     }
 
-    public String guardaDocument(String titol, String autor, TipusExtensio ext, String contingut, String path)
+    public String guardaDocument(DocumentLlegit doc)
             throws FitxerNoEliminatExeption, TipusExtensioIncorrectaException, FitxerNoCreatException{
-        String path_nou = path;
+        String path_nou = doc.getPath();
 
-        if (path.isEmpty()) path_nou = gestorDades.guardaDocument(titol,autor,ext,contingut,this.path,true);
-        else gestorDades.guardaDocument(titol,autor,ext,contingut,path, false);
+        if (path_nou.isEmpty()) {
+            doc.setPath(path);
+            path_nou = gestorDades.guardaDocument(doc,true);
+        }
+        else gestorDades.guardaDocument(doc, false);
 
         return path_nou;
     }
