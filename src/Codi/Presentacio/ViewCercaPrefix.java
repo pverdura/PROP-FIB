@@ -201,7 +201,7 @@ public class ViewCercaPrefix {
 
         resultatPanel.add(resultat);
         resultatPanel.add(scroll, BorderLayout.CENTER);
-        scroll.setPreferredSize(new Dimension(350,325));
+        scroll.setPreferredSize(new Dimension(350,300));
         scroll.setViewportView(resultat);
     }
 
