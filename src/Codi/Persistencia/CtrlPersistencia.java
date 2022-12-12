@@ -19,13 +19,14 @@ public class CtrlPersistencia {
     private int numDocs;
     private final String path = new File("src/Codi/Persistencia/Documents").getPath();
     private final String path_stopWords = new File("src/Codi").getAbsolutePath();
-
+    int n;
     public CtrlPersistencia(){
         gestorDades = new GestorDades();
         //numDocs = gestorDades.nombre_documents(path);
+        n = 1;
     }
 
-    public ArrayList<DocumentLlegit> importarDocuments(ArrayList<File> files) throws FitxerNoEliminatExeption, TipusExtensioIncorrectaException, FitxerNoCreatException {
+    public ArrayList<DocumentLlegit> importarDocuments(ArrayList<File> files) throws FitxerNoEliminatException, TipusExtensioIncorrectaException, FitxerNoCreatException {
         ArrayList<DocumentLlegit> docs = new ArrayList<>();
         DocumentLlegit doc;
         if (files.size() > 1){
@@ -40,7 +41,7 @@ public class CtrlPersistencia {
         return docs;
     }
 
-    private DocumentLlegit importa(File file) throws FitxerNoEliminatExeption, TipusExtensioIncorrectaException, FitxerNoCreatException{
+    private DocumentLlegit importa(File file) throws FitxerNoEliminatException, TipusExtensioIncorrectaException, FitxerNoCreatException{
         String path = file.getAbsolutePath();
         DocumentLlegit doc;
         doc = gestorDades.llegeixDocument(path);
@@ -69,29 +70,29 @@ public class CtrlPersistencia {
     }
 
     public void guardaDocument(DocumentLlegit doc)
-            throws FitxerNoEliminatExeption, TipusExtensioIncorrectaException, FitxerNoCreatException{
+            throws FitxerNoEliminatException, TipusExtensioIncorrectaException, FitxerNoCreatException{
         //gestorDades.guardaDocument(doc);
     }
 
-    public void eliminaDocument(String path) throws FitxerNoEliminatExeption{
+    public void eliminaDocument(String path) throws FitxerNoEliminatException{
         gestorDades.eliminaFitxer(path);
     }
 
 
     public void guardaExpressioBool(String exprAnt, String exprNova)
             throws ExpressioBooleanaJaExistentException, ExpressioBooleanaInexistentException, FitxerNoCreatException,
-            FitxerNoEliminatExeption{
+            FitxerNoEliminatException{
         gestorDades.guardaExpressioBool(exprAnt,exprNova,path);
     }
 
     public void eliminaExpressioBool(String expr) throws ExpressioBooleanaInexistentException,
-            FitxerNoEliminatExeption, FitxerNoCreatException{
+            FitxerNoEliminatException, FitxerNoCreatException{
         gestorDades.eliminaExpressio(expr,path);
     }
 
     public String getNovaPath(){
-        int num = gestorDades.nombre_documents(path);
-        String nouPath = path + num + ".nou";
+        ++n;
+        String nouPath = path + n + ".bol";
         return nouPath;
     }
 }
