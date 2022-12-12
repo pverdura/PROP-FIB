@@ -233,17 +233,18 @@ public class CtrlPresentacio {
 
     public void cercaPrefix (String prefix, TipusOrdenacio to, boolean documentsModificats) {
         try {
-            if (documentsModificats || !this.auxPrefix.equals(prefix)) {
+            if (documentsModificats || (auxPrefix != null && !this.auxPrefix.equals(prefix))) {
                 resultatPrefix = ctrlDomini.cercaPrefix(prefix, to);
                 viewCercaPrefix.enviarDades(resultatPrefix);
                 this.auxPrefix = prefix;
                 this.tipusOrdenacioPrefix = to;
             } else if (this.tipusOrdenacioPrefix != to) {
+                //viewCercaPrefix.enviarDades(ctrlDomini.ordenaCercaPrefix(resultatPrefix, to));
                 this.tipusOrdenacioPrefix = to;
-                viewCercaPrefix.enviarDades(ctrlDomini.ordenaCercaPrefix(resultatPrefix, to));
             }
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -253,7 +254,7 @@ public class CtrlPresentacio {
             resultatPrincipal = ctrlDomini.cercaParaules(paraules, k);
             enviarPrincipal();
             ultimaCerca = TipusCerca.PARAULES;
-            this.auxParaules = paraules;.
+            this.auxParaules = paraules;
             this.k = k;
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
