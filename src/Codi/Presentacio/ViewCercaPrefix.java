@@ -21,7 +21,9 @@ public class ViewCercaPrefix {
     private JScrollPane scroll;
     private JRadioButton asc;
     private JRadioButton des;
+    private JCheckBox totsAutors;
     private boolean esborrar;
+    private boolean tots;
 
     private final CtrlPresentacio ctrlPresentacio;
 
@@ -54,7 +56,6 @@ public class ViewCercaPrefix {
 
         for(String s : res_cerca){
             listModel.addElement(s);
-            //listModel.addElement("\n");
         }
         final JList<String> resultat = new JList<>(listModel);
 
@@ -67,7 +68,7 @@ public class ViewCercaPrefix {
         cercaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mostraCerca();
+                mostrarCerca();
             }
         });
 
@@ -97,7 +98,7 @@ public class ViewCercaPrefix {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 des.setSelected(!asc.isSelected());
-                mostraCerca();
+                mostrarCerca();
             }
         });
 
@@ -105,7 +106,21 @@ public class ViewCercaPrefix {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 asc.setSelected(!des.isSelected());
-                mostraCerca();
+                mostrarCerca();
+            }
+        });
+
+        totsAutors.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (totsAutors.isSelected()) {
+                    tots = true;
+                    mostrarCerca();
+                }
+                else {
+                    tots = false;
+                    esborraCerca();
+                }
             }
         });
     }
@@ -114,7 +129,7 @@ public class ViewCercaPrefix {
     private class TeclaEnter extends KeyAdapter{
         @Override
         public void keyPressed(KeyEvent e) {
-            if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) mostraCerca();
+            if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) mostrarCerca();
         }
     }
 
@@ -144,6 +159,7 @@ public class ViewCercaPrefix {
         scroll.setHorizontalScrollBar(null);
         asc = new JRadioButton("Ascendent");
         des = new JRadioButton("Descendent");
+        totsAutors = new JCheckBox("Mostra tots els autors");
         esborrar = false;
 
         scroll.setFocusable(false);
@@ -152,12 +168,16 @@ public class ViewCercaPrefix {
         resultat.setFocusable(false);
         cancelarButton.setFocusable(false);
         esborrarButton.setFocusable(false);
+        totsAutors.setFocusable(false);
     }
 
     private void configurarVista(){
         frameVista.setLayout(new BorderLayout());
         frameVista.add(prefixPanel, BorderLayout.NORTH);
-        frameVista.add(resultatPanel, BorderLayout.CENTER);
+        JPanel auxPanel = new JPanel(new BorderLayout());
+        auxPanel.add(resultatPanel, BorderLayout.NORTH);
+        auxPanel.add(totsAutors, BorderLayout.SOUTH);
+        frameVista.add(auxPanel, BorderLayout.CENTER);
         frameVista.add(buttonsPanel, BorderLayout.SOUTH);
 
         frameVista.setMinimumSize(new Dimension(400, 475));
@@ -174,8 +194,6 @@ public class ViewCercaPrefix {
         prefixPanel.add(labelPrefix);
         prefixPanel.add(omplirPrefix);
         prefixPanel.add(cercaButton);
-
-        //omplirPrefix.setEditable(true);
     }
 
     private void configResultatPanel(){
@@ -194,7 +212,7 @@ public class ViewCercaPrefix {
         innerPanel.add(asc, BorderLayout.WEST);
         innerPanel.add(des, BorderLayout.EAST);
 
-        innerPanel.setPreferredSize(new Dimension(150,30));
+        innerPanel.setPreferredSize(new Dimension(150, 30));
 
         asc.setSelected(true);
 
@@ -203,8 +221,19 @@ public class ViewCercaPrefix {
         buttonsPanel.add(esborrarButton, BorderLayout.WEST);
     }
 
-    private void mostraCerca(){
+    private void mostrarCerca(){
         String prefix = omplirPrefix.getText();
+        if (!prefix.isEmpty()) {
+            totsAutors.setSelected(false);
+            totsAutors.setEnabled(false);
+            mostraCerca(prefix);
+            tots = false;
+        }
+        else if (tots) mostraCerca(prefix);
+        else esborraCerca();
+    }
+
+    private void mostraCerca(String prefix){
         TipusOrdenacio t;
         if (asc.isSelected()) t = TipusOrdenacio.ALFABETIC_ASCENDENT;
         else t = TipusOrdenacio.ALFABETIC_DESCENDENT;
@@ -215,5 +244,8 @@ public class ViewCercaPrefix {
     private void esborraCerca(){
         enviarDades(new ArrayList<>());
         esborrar = true;
+        totsAutors.setEnabled(true);
+        totsAutors.setSelected(false);
+        omplirPrefix.setText("");
     }
 }
