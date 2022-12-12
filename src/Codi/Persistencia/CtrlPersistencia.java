@@ -17,7 +17,7 @@ public class CtrlPersistencia {
 
     private GestorDades gestorDades;
     private final String path = new File("src/Codi/Persistencia/Documents").getPath();
-    private final String path_stopWords = new File("src/Codi/stop_words.txt").getAbsolutePath();
+    private final String path_stopWords = new File("src/Codi").getAbsolutePath();
 
     public CtrlPersistencia(){
         gestorDades = new GestorDades();
