@@ -1,10 +1,8 @@
 package Codi.Presentacio;
 
-import Codi.Excepcions.PrefixNoExisteixException;
 import Codi.Util.TipusOrdenacio;
 
 import javax.swing.*;
-import javax.swing.plaf.BorderUIResource;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -97,8 +95,7 @@ public class ViewCercaPrefix {
         asc.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if (asc.isSelected()) des.setSelected(false);
-                else des.setSelected(true);
+                des.setSelected(!asc.isSelected());
                 mostraCerca();
             }
         });
@@ -106,8 +103,7 @@ public class ViewCercaPrefix {
         des.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if (des.isSelected()) asc.setSelected(false);
-                else asc.setSelected(true);
+                asc.setSelected(!des.isSelected());
                 mostraCerca();
             }
         });
@@ -117,7 +113,7 @@ public class ViewCercaPrefix {
     private class TeclaEnter extends KeyAdapter{
         @Override
         public void keyPressed(KeyEvent e) {
-            if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) cercaButton.doClick();
+            if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) mostraCerca();
         }
     }
 
