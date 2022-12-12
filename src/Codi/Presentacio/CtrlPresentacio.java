@@ -232,14 +232,15 @@ public class CtrlPresentacio {
     }
 
     public void cercaPrefix (String prefix, TipusOrdenacio to, boolean documentsModificats) {
+        print(prefix+" " + to.toString() + " " + documentsModificats);
         try {
-            if (documentsModificats || (auxPrefix != null && !this.auxPrefix.equals(prefix))) {
+            if (documentsModificats || auxPrefix == null || !this.auxPrefix.equals(prefix)) {
                 resultatPrefix = ctrlDomini.cercaPrefix(prefix, to);
                 viewCercaPrefix.enviarDades(resultatPrefix);
                 this.auxPrefix = prefix;
                 this.tipusOrdenacioPrefix = to;
             } else if (this.tipusOrdenacioPrefix != to) {
-                //viewCercaPrefix.enviarDades(ctrlDomini.ordenaCercaPrefix(resultatPrefix, to));
+                viewCercaPrefix.enviarDades(ctrlDomini.ordenarCercaSimple(resultatPrefix, to));
                 this.tipusOrdenacioPrefix = to;
             }
         } catch (Exception e) {
@@ -354,5 +355,6 @@ public class CtrlPresentacio {
             this.cercaPrefix(auxPrefix, tipusOrdenacioPrefix, true);
         }
     }
+    private void print (String s) {System.out.println(s);}
 }
 
