@@ -2,15 +2,9 @@ package Codi.Persistencia;
 
 import Codi.Excepcions.*;
 import Codi.Util.DocumentLlegit;
-import Codi.Util.TipusExtensio;
 
 import java.io.*;
-import java.util.AbstractMap.SimpleEntry;
 
-import javax.print.Doc;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.AbstractMap;
 import java.util.ArrayList;
 
 public class CtrlPersistencia {

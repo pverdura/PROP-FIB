@@ -1,11 +1,9 @@
 package Codi.Persistencia;
 
-import Codi.Domini.Document;
 import Codi.Excepcions.*;
 import Codi.Util.DocumentLlegit;
 import Codi.Util.TipusExtensio;
 
-import javax.print.Doc;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -16,8 +14,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GestorDades {
-
-    Integer nDocs;
 
     ///////////////////////////////////////////////////////////
     ///                 FUNCIONS PRIVADES                   ///
@@ -50,16 +46,16 @@ public class GestorDades {
      * Elimina el fitxer amb el path indicat
      *
      * @param path Indica on està situal el fitxer que volem eliminar
-     * @throws FitxerNoEliminatExeption Si no s'ha pogut eliminar el fitxer
+     * @throws FitxerNoEliminatException Si no s'ha pogut eliminar el fitxer
      */
-    public void eliminaFitxer(String path) throws FitxerNoEliminatExeption {
+    public void eliminaFitxer(String path) throws FitxerNoEliminatException {
         File doc = new File(path);
 
         // No hi ha cap problema en eliminar el fitxer
         if (doc.delete()) {
             System.out.println("S'ha eliminat el fitxer " + path + " correctament");
         } else {  // Hi ha hagut algun problema en eliminar el fitxer
-            throw new FitxerNoEliminatExeption(path);
+            throw new FitxerNoEliminatException(path);
         }
     }
 
@@ -511,12 +507,12 @@ public class GestorDades {
      * @param exprNova Indica l'expressió booleana que volem posar
      * @param path Indica en quina posició està el document que volem modificar
      * @param elimina Ens indica si volem eliminar l'expressió exprAnt del fitxer path
-     * @throws FitxerNoEliminatExeption Si s'ha intentat eliminar el fitxer on estan les expressions i no s'ha pogut
+     * @throws FitxerNoEliminatException Si s'ha intentat eliminar el fitxer on estan les expressions i no s'ha pogut
      * @throws FitxerNoCreatException Si s'ha intentat crear el fitxer on estan les expressions i no s'ha pogut
      * @throws ExpressioBooleanaInexistentException Si no existeix l'expressió exprAnt en el document que volem modificar
      */
     private void modificaExpressio(String exprAnt, String exprNova, String path, Boolean elimina)
-            throws FitxerNoEliminatExeption, FitxerNoCreatException, ExpressioBooleanaInexistentException {
+            throws FitxerNoEliminatException, FitxerNoCreatException, ExpressioBooleanaInexistentException {
         // Llegim les expressions per eliminar exprAnt i posar exprNova
         ArrayList<String> expressions = llegeixExpressions(path);
 
@@ -623,9 +619,9 @@ public class GestorDades {
      * @throws FitxerNoEliminatExeption Si s'ha intentat eliminar el fitxer i no s'ha pogut
      * @throws CarpetaNoCreadaException Si s'ha intentat crear la carpeta i no s'ha pogut
      * @throws TipusExtensioIncorrectaException Si l'extensió indicada no és .txt, .xml ni .bol
-     */
+     *
     public String guardaDocument(DocumentLlegit D, boolean existeix)
-            throws FitxerNoEliminatExeption, TipusExtensioIncorrectaException, FitxerNoCreatException {
+            throws FitxerNoEliminatException, TipusExtensioIncorrectaException, FitxerNoCreatException {
         String path = D.getPath();
         String autor = D.getAutor();
         String titol = D.getTitol();
@@ -666,7 +662,7 @@ public class GestorDades {
                 throw new TipusExtensioIncorrectaException(ext.toString());
         }
         return new_path;
-    }
+    }*/
 
     /**
      * Guarda una expressió booleana en el fitxer indicat
@@ -679,7 +675,7 @@ public class GestorDades {
      */
     public void guardaExpressioBool(String exprAnt, String exprNova, String path)
             throws ExpressioBooleanaJaExistentException, ExpressioBooleanaInexistentException, FitxerNoCreatException,
-            FitxerNoEliminatExeption {
+            FitxerNoEliminatException {
         if(exprAnt.equals("")) {   // L'expressió és nova
             guardaExpressio(exprNova,path);
         }
@@ -689,7 +685,7 @@ public class GestorDades {
     }
 
     public void eliminaExpressio(String expr, String path) throws ExpressioBooleanaInexistentException,
-            FitxerNoEliminatExeption, FitxerNoCreatException {
+            FitxerNoEliminatException, FitxerNoCreatException {
         modificaExpressio(expr,"",path,true);
     }
 
@@ -752,25 +748,5 @@ public class GestorDades {
             }
         }
         return null;
-    }
-
-    public int nombre_documents(String path) {
-        File dir = new File(path);
-
-        File[] docs = dir.listFiles();
-        int num_doc = 0;
-
-        if(docs != null) {
-            for (File doc : docs) {
-                String nom_doc = doc.getName();
-
-                // Agafem el nombre de documents que hi ha en el nom del document
-                int num = Integer.parseInt(nom_doc.split(".",2)[0]);
-
-                // Si el nombre és més gran que el que hi havia
-                if(num > num_doc) num_doc = num;
-            }
-        }
-        return num_doc;
     }
 }
