@@ -22,7 +22,7 @@ public class CtrlPersistencia {
 
     public CtrlPersistencia(){
         gestorDades = new GestorDades();
-        numDocs = gestorDades.nombre_documents(path);
+        //numDocs = gestorDades.nombre_documents(path);
     }
 
     public ArrayList<DocumentLlegit> importarDocuments(ArrayList<File> files) throws FitxerNoEliminatExeption, TipusExtensioIncorrectaException, FitxerNoCreatException {
