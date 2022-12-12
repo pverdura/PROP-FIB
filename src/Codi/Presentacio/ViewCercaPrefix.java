@@ -70,12 +70,12 @@ public class ViewCercaPrefix {
         });
 
         cercaButton.setFocusable(true);
-        cercaButton.addKeyListener(new Teclas());
+        cercaButton.addKeyListener(new TeclaEnter());
 
         frameVista.setFocusable(true);
-        frameVista.addKeyListener(new Teclas());
+        frameVista.addKeyListener(new TeclaEnter());
 
-        omplirPrefix.addKeyListener(new Teclas());
+        omplirPrefix.addKeyListener(new TeclaEnter());
 
 
         esborrarButton.addActionListener(new ActionListener() {
@@ -113,7 +113,7 @@ public class ViewCercaPrefix {
     }
 
 
-    private class Teclas extends KeyAdapter{
+    private class TeclaEnter extends KeyAdapter{
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) cercaButton.doClick();
