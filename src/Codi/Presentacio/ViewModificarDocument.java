@@ -161,8 +161,8 @@ public class ViewModificarDocument {
         if (documentNou) idVell = null;
         else idVell = new SimpleEntry<>(titol, autor);
 
-        titol = textTitol.getText();
-        autor = textAutor.getText();
+        titol = textTitol.getText().trim();
+        autor = textAutor.getText().trim();
         contingut = textContingut.getText();
         setExtensio(getTipusExtensio());
         SimpleEntry<String, String> idNou = new SimpleEntry<>(titol, autor);
