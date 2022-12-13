@@ -14,7 +14,7 @@ public class CtrlPersistencia {
     private GestorDades gestorDades;
     private int numDocs;
     private final String path = new File("src/Codi/Persistencia/Documents").getPath();
-    private final String path_stopWords = new File("src/Codi").getAbsolutePath();
+    private final String pathStopWords = new File("src/Codi/stop_words.txt").getAbsolutePath();
     public CtrlPersistencia(){
         gestorDades = new GestorDades();
         numDocs = 1;
@@ -115,9 +115,9 @@ public class CtrlPersistencia {
      */
     public ArrayList<String> carregaStopWords() throws CarpetaNoCreadaException, FitxerNoCreatException{
         ArrayList<String> stopWords;
-        boolean existeix = gestorDades.existeixDirectori(path);
+        boolean existeix = gestorDades.existeixDirectori(pathStopWords);
 
-        if(existeix) stopWords = gestorDades.llegeixStopWords(path_stopWords);
+        if(existeix) stopWords = gestorDades.llegeixStopWords(pathStopWords);
         else throw new CarpetaBuidaException();
 
         return stopWords;
