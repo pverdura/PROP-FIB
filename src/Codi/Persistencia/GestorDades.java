@@ -124,10 +124,10 @@ public class GestorDades {
             // Llegim el document mentre hi hagi línies
             while ((linia = lector.readLine()) != null) {
                 if (num_linia == 0) {   // En aquesta línia hi ha l'autor
-                    D.setAutor(linia);
+                    D.setAutor(linia.trim());
                 }
                 else if (num_linia == 1) {   // En aquesta línia hi ha el títol
-                    D.setTitol(linia);
+                    D.setTitol(linia.trim());
                 }
                 else {  // En aquestes línies hi ha el contingut
                     if (!contingut.equals("")) contingut = contingut.concat("\n" + linia);
@@ -174,11 +174,11 @@ public class GestorDades {
                 else {
                     if(linia.contains("<autor>") && linia.contains("</autor>")) {
                         // Agafem el text que està entre <autor> i </autor>
-                        D.setAutor(linia.substring(11,linia.length()-8));
+                        D.setAutor(linia.substring(11,linia.length()-8).trim());
                     }
                     else if(linia.contains("<titol>") && linia.contains("</titol>")) {
                         // Agafem el text que està entre <titol> i </titol>
-                        D.setTitol(linia.substring(11,linia.length()-8));
+                        D.setTitol(linia.substring(11,linia.length()-8).trim());
                     }
                     else if(linia.contains("\t<contingut>")) {
                         c = true;
@@ -216,10 +216,10 @@ public class GestorDades {
                     ++espais;
                 }
                 else if(espais == 0) {
-                    D.setAutor(linia);
+                    D.setAutor(linia.trim());
                 }
                 else if(espais == 1) {
-                    D.setTitol(linia);
+                    D.setTitol(linia.trim());
                 }
                 else if(espais == 2) {
                     if (contingut.equals("")) contingut = contingut + "\n" + linia;
