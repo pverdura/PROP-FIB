@@ -128,12 +128,7 @@ public class CtrlDomini {
      */
     public void creaDocument(String titol, String autor) throws DocumentJaExisteixException {
         CDdoc.creaDocument(titol,autor,Documents,Autors,DocumentsAutor,TitolAutors);
-        try {
-            CDdoc.setPath(titol, autor, CP.getNovaPath(), Documents);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        CDdoc.setPath(titol, autor, CP.getNovaPath(), Documents);
     }
 
     public void guardaDocument(String titol, String autor) throws TipusExtensioIncorrectaException, FitxerNoEliminatException,
