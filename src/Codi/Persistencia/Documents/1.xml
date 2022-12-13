@@ -1,10 +1,13 @@
 <document>
-    <autor>Pol </autor>
-    <titol>Boles d'en Pol </titol>
-    <contingut>
-        linia 1 contingut
-        linia 2 contingut
-        ...
-        linia n contingut
-    </contingut>
+	<autor>Pol</autor>
+	<titol>Boles d'en Pol</titol>
+	<contingut>
+		contingut
+		en 
+		format
+		correcte
+		de
+		caràcters
+		amagadets
+	</contingut>
 </document>
