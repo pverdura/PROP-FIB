@@ -144,7 +144,7 @@ public class CtrlPersistencia {
     }
 
     public String getNovaPath(){
-        return path + "/" + ++numDocs + "/" + ".bol";
+        return path + "/" + ++numDocs + ".bol";
     }
 }
 
