@@ -155,9 +155,8 @@ public class CtrlDomini {
      * @throws DocumentInexistentException Si el document identificat per titol i autor no existeix
      */
     public void eliminaDocument(String titol, String autor) throws DocumentInexistentException, FitxerNoEliminatException {
+        CP.eliminaDocument(CDdoc.getPath(titol,autor,Documents));
         CDdoc.eliminaDocument(titol,autor,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
-        String path = "";
-        CP.eliminaDocument(path);
     }
 
     public void modificarIdentificador(SimpleEntry<String,String> idVell, SimpleEntry<String,String> idNou)

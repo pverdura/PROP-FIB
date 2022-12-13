@@ -333,7 +333,7 @@ public class GestorDades {
      * @return Retorna un array de paraules, on cada paraula és una StopWord
      * @throws FitxerNoCreatException Si el docuemnt on estan les StopWords s'ha intentat crear i no s'ha pogut
      */
-    private ArrayList<String> llegeixStopWords(String path) throws FitxerNoCreatException {
+    public ArrayList<String> llegeixStopWords(String path) throws FitxerNoCreatException {
         ArrayList<String> stopWords = new ArrayList<String>();
 
         // Mirem que el fitxer on guardem les stop words existeixi
