@@ -5,13 +5,11 @@ import Codi.Util.DocumentLlegit;
 
 import java.io.*;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class CtrlPersistencia {
 
-    private GestorDades gestorDades;
+    private final GestorDades gestorDades;
     private int numDocs;
     private final String path = new File("src/Codi/Persistencia/Documents").getPath();
     private final String pathStopWords = new File("src/Codi/stop_words.txt").getAbsolutePath();
@@ -20,7 +18,7 @@ public class CtrlPersistencia {
         numDocs = 1;
     }
 
-    public ArrayList<DocumentLlegit> importarDocuments(ArrayList<File> files) throws FitxerNoEliminatException, TipusExtensioIncorrectaException, FitxerNoCreatException {
+    public ArrayList<DocumentLlegit> importarDocuments(ArrayList<File> files) throws TipusExtensioIncorrectaException {
         ArrayList<DocumentLlegit> docs = new ArrayList<>();
         for(File f: files){
             DocumentLlegit doc = importa(f);
@@ -72,7 +70,7 @@ public class CtrlPersistencia {
      *         l'extensió .txt, .xml o .bol
      */
     private ArrayList<DocumentLlegit> llegeixDocuments(String path) throws TipusExtensioIncorrectaException {
-        ArrayList<DocumentLlegit> documents = new ArrayList<DocumentLlegit>();
+        ArrayList<DocumentLlegit> documents = new ArrayList<>();
         File carpeta = new File(path);
         String[] docs = carpeta.list(); // Obtenim tots els documents de la carpeta situada en el path
 
@@ -108,7 +106,7 @@ public class CtrlPersistencia {
     /*
      * Llegeix les StopWords que estan guardades en el path indicat
      *
-     * @param path Indica en quin lloc estàn guardades les stopWords
+     * @param path Indica en quin lloc estan guardades les stopWords
      * @return Retorna un array amb paraules stopWords
      * @throws CarpetaNoCreadaException Si s'ha intentat crear la carpeta i no s'ha pogut
      * @throws FitxerNoCreatException Si S'ha intentat crear el fitxer i no s'ha pogut
@@ -146,9 +144,7 @@ public class CtrlPersistencia {
     }
 
     public String getNovaPath(){
-        ++numDocs;
-        String nouPath = path + numDocs + ".bol";
-        return nouPath;
+        return path + ++numDocs + ".bol";
     }
 }
 
