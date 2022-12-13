@@ -94,7 +94,7 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
             //Si sha clicat sortir en el dialeg -> no realitzara la cerca, en altre cas si
             if (input != null) {
                 ctrlPresentacio.cercaBooleana(input);
-                mostrarAllExpressions();
+                //TODO: Actualitzar pantalla
             }
         }
     }

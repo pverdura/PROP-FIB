@@ -64,7 +64,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         JMenu menuFitxer = new JMenu("Fitxer");
         barraMenu.add(menuFitxer);
 
-        miCreaDoc = new JMenuItem("Crea / Modifica");
+        miCreaDoc = new JMenuItem("Crea");
         miCreaDoc.addActionListener(this);
         miImportaDoc = new JMenuItem("Importa");
         miImportaDoc.addActionListener(this);
@@ -124,7 +124,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
         miOrdreAlfAsc = new JMenuItem("Alfabètic Ascendent");
         miOrdreAlfAsc.addActionListener(this);
-        miOrdreAlfDesc = new JMenuItem("Alfabètic Ascendent");
+        miOrdreAlfDesc = new JMenuItem("Alfabètic Descendent");
         miOrdreAlfDesc.addActionListener(this);
         miOrdrePesAsc = new JMenuItem("Pes Ascendent");
         miOrdrePesAsc.addActionListener(this);
