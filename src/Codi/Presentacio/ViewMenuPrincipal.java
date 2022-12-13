@@ -29,8 +29,8 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
     private final CtrlPresentacio ctrlPresentacio;
     private TipusOrdenacio tipus_ordenacio;
 
-    private final JTable taula;
-    private final DefaultTableModel dtm;
+    private JTable taula;
+    private DefaultTableModel dtm;
     int fila_seleccionada;
 
     public ViewMenuPrincipal(CtrlPresentacio ctrlPresentacio) {
@@ -45,27 +45,15 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //Iniciar elements per carregar a la vista tots els documents guardats
-        String[] header = new String[]{"Títol", "Autor", "Pes", "Extensió"};
-        this.dtm = new DefaultTableModel(null, header)  {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-
-        this.taula = new JTable(this.dtm);
-        this.taula.setShowHorizontalLines(true);
-        this.taula.setRowSelectionAllowed(true);
-        this.taula.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.scroll.setViewportView(this.taula);
-
-        //Activar listener boto neteja
-        this.cleanButton.addActionListener(this);
+        //Inicialitzar taula per mostrar cerques
+        init_taula();
 
         //Crear menus vista i inicialitzar popMenu
         crearMenus();
         initPopMenu();
+
+        //Activar listener boto neteja
+        this.cleanButton.addActionListener(this);
     }
 
     private void crearMenus() {
@@ -227,6 +215,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         }
     }
 
+
     public void actualitzarResultat(ArrayList<SimpleEntry<String,String>> titolsAutors, ArrayList<Integer> pesos, ArrayList<TipusExtensio> extensios) {
 
         int size_row = dtm.getRowCount();
@@ -294,6 +283,23 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
             ctrlPresentacio.exportarDocument(taula.getModel().getValueAt(fila_seleccionada,0).toString(),
                     taula.getModel().getValueAt(fila_seleccionada,1).toString(), fc.getSelectedFile());
         }
+    }
+
+    private void init_taula() {
+        //Iniciar elements per carregar a la vista tots els documents guardats
+        String[] header = new String[]{"Títol", "Autor", "Pes", "Extensió"};
+        this.dtm = new DefaultTableModel(null, header)  {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        this.taula = new JTable(this.dtm);
+        this.taula.setShowHorizontalLines(true);
+        this.taula.setRowSelectionAllowed(true);
+        this.taula.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.scroll.setViewportView(this.taula);
     }
 
     private void initPopMenu() {
