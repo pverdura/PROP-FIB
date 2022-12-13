@@ -4,6 +4,7 @@ import Codi.Util.TipusExtensio;
 import Codi.Util.TipusOrdenacio;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -26,9 +27,11 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
     private JMenuItem miExportar, miModificarDoc, miEliminarDoc;
 
     private final CtrlPresentacio ctrlPresentacio;
-    private final DefaultListModel<String> dlm;
-    private final JList<String> llistaCerques;
     private TipusOrdenacio tipus_ordenacio;
+
+    private final JTable taula;
+    private final DefaultTableModel dtm;
+    int fila_seleccionada;
 
     public ViewMenuPrincipal(CtrlPresentacio ctrlPresentacio) {
 
@@ -43,11 +46,13 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Iniciar elements per carregar a la vista tots els documents guardats
-        this.dlm = new DefaultListModel<>();
-        this.llistaCerques = new JList<>(dlm);
-        this.llistaCerques.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        this.llistaCerques.setSelectedIndex(0);
-        this.scroll.setViewportView(this.llistaCerques);
+        String[] header = new String[]{"Títol", "Autor", "Pes", "Extensió"};
+        this.dtm = new DefaultTableModel(null, header);
+        this.taula = new JTable(this.dtm);
+        this.taula.setShowHorizontalLines(true);
+        this.taula.setRowSelectionAllowed(true);
+        this.taula.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.scroll.setViewportView(this.taula);
 
         //Activar listener boto neteja
         this.cleanButton.addActionListener(this);
@@ -139,25 +144,6 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         menuOrdre.add(miOrdrePesAsc);
         menuOrdre.addSeparator();
         menuOrdre.add(miOrdrePesDesc);
-
-        //TODO: Borrar tot lo d'abaix a partir d'aqui (proves)
-        /*
-            ArrayList<SimpleEntry<String,String>> at = new ArrayList<>();
-            at.add(new SimpleEntry<String,String>("hayday","pau"));
-            at.add(new SimpleEntry<String,String>("tetris","jordi"));
-            at.add(new SimpleEntry<String,String>("crossfit","judit"));
-            at.add(new SimpleEntry<String,String>("croissants","pol"));
-
-            ArrayList<Integer> p = new ArrayList<>();
-            p.add(3); p.add(2); p.add(1); p.add(5);
-
-            ArrayList<TipusExtensio> e = new ArrayList<>();
-            e.add(TipusExtensio.TXT); e.add(TipusExtensio.BOL);
-            e.add(TipusExtensio.XML); e.add(TipusExtensio.TXT);
-
-            actualitzarResultat(at, p, e);
-         */
-
     }
 
     @Override
@@ -221,12 +207,12 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
             seleccionarDirNav();
 
         } else if (source == miModificarDoc) {
-            String[] fila = llistaCerques.getSelectedValue().split("  ");
-            ctrlPresentacio.modificarDocument(fila[0], fila[1]);
+            ctrlPresentacio.modificarDocument(taula.getModel().getValueAt(fila_seleccionada,0).toString(),
+                    taula.getModel().getValueAt(fila_seleccionada,1).toString());
 
         } else if (source == miEliminarDoc) {
-            String[] fila = llistaCerques.getSelectedValue().split("  ");
-            ctrlPresentacio.esborrarDocument(fila[0], fila[1]);
+            ctrlPresentacio.esborrarDocument(taula.getModel().getValueAt(fila_seleccionada,0).toString(),
+                                             taula.getModel().getValueAt(fila_seleccionada,1).toString());
         }
 
         //Aplicar funcionalitat associades al Mostra Tot
@@ -236,16 +222,19 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
     }
 
     public void actualitzarResultat(ArrayList<SimpleEntry<String,String>> titolsAutors, ArrayList<Integer> pesos, ArrayList<TipusExtensio> extensios) {
-        dlm.removeAllElements();
-        int size = titolsAutors.size();
 
-        //Afegir a la llista que es mostra per pantalla tots els documents que arriben
-        for (int i = 0; i < size;  i++) {
-            dlm.addElement(titolsAutors.get(i).getKey()+"  "+titolsAutors.get(i).getValue()+"  "+
-                           pesos.get(i).toString()+"  "+extensios.get(i).toString());
+        int size_row = dtm.getRowCount();
+        if (size_row > 0) {
+            for (int i = size_row-1; i > -1; i--) dtm.removeRow(i);
         }
 
-        dlm.trimToSize();
+        int size = titolsAutors.size();
+        for (int i = 0; i < size; i++) {
+            dtm.addRow(new Object[]{ titolsAutors.get(i).getKey(),
+                                     titolsAutors.get(i).getValue(),
+                                     String.valueOf(pesos.get(i)),
+                                     String.valueOf(extensios.get(i))});
+        }
     }
 
     //Metode per posar visible la vista
@@ -288,7 +277,6 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
     }
 
     private void seleccionarDirNav() {
-
         //Crear File Chooser per seleccionar carpeta a exportar el doc seleccionat
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -297,9 +285,8 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         //Obrir jFileChooser
         int res = fc.showOpenDialog(this);
         if (res == JFileChooser.APPROVE_OPTION) {
-            //Obtenir valors del fitxer seleccionat i exportar-lo
-            String[] fila = llistaCerques.getSelectedValue().split("  ");
-            ctrlPresentacio.exportarDocument(fila[0], fila[1], fc.getSelectedFile());
+            ctrlPresentacio.exportarDocument(taula.getModel().getValueAt(fila_seleccionada,0).toString(),
+                    taula.getModel().getValueAt(fila_seleccionada,1).toString(), fc.getSelectedFile());
         }
     }
 
@@ -321,11 +308,11 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         miModificarDoc.addActionListener(this);
         miEliminarDoc.addActionListener(this);
 
-        //Afegir listener a la llista per mostrar popup menu
-        this.llistaCerques.addMouseListener(new MouseAdapter() {
+        //Afegir listener a la taula per mostrar popup menu
+        this.taula.addMouseListener(new MouseAdapter() {
             public void mouseReleased(MouseEvent e) {
                 if(e.isPopupTrigger()) {
-                    llistaCerques.setSelectedIndex(llistaCerques.locationToIndex(e.getPoint()));
+                    fila_seleccionada = taula.getSelectedRow();
                     rightClickMenu.show(e.getComponent(), e.getX(), e.getY());
                 }
             }
