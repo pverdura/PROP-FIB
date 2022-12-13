@@ -646,6 +646,7 @@ public class GestorDades {
             path = path_doc + "_" + num_copia + ext;
             ++num_copia;
         }
+        D.setPath(path);
         // Guardem el document
         guardaDocumentLlegit(D);
     }
