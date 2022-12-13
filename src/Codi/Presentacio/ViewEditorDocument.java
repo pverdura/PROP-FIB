@@ -10,7 +10,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.AbstractMap.SimpleEntry;
 
-public class ViewModificarDocument {
+public class ViewEditorDocument {
     private JFrame frame;
     private JPanel panellSuperior;
     private JPanel panellMig;
@@ -30,7 +30,7 @@ public class ViewModificarDocument {
     private TipusExtensio tExtensio;
     private final String[] extensions = {"TXT", "XML", "BOL"};
     private boolean documentNou;
-    public ViewModificarDocument (CtrlPresentacio cp) {
+    public ViewEditorDocument(CtrlPresentacio cp) {
         //constructor per document nou
         this.ctrlPresentacio = cp;
         this.titol = "";
@@ -42,7 +42,7 @@ public class ViewModificarDocument {
         this.setExtensio(TipusExtensio.BOL);
     }
 
-    public ViewModificarDocument (CtrlPresentacio cp, String titol, String autor, String contingut, TipusExtensio te) {
+    public ViewEditorDocument(CtrlPresentacio cp, String titol, String autor, String contingut, TipusExtensio te) {
         //constructor per modificar un document
         this.ctrlPresentacio = cp;
         this.titol = titol;
