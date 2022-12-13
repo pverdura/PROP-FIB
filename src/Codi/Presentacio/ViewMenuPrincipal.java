@@ -299,7 +299,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         if (res == JFileChooser.APPROVE_OPTION) {
             //Obtenir valors del fitxer seleccionat i exportar-lo
             String[] fila = llistaCerques.getSelectedValue().split("  ");
-            ctrlPresentacio.exportarDocument(fila[0], fila[1], fc.getCurrentDirectory());
+            ctrlPresentacio.exportarDocument(fila[0], fila[1], fc.getSelectedFile());
         }
     }
 
