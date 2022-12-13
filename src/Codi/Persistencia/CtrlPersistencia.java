@@ -13,7 +13,7 @@ public class CtrlPersistencia {
     private int numDocs;
     private final String path = new File("src/Codi/Persistencia/Documents").getPath();
     private final String pathStopWords = new File("src/Codi/stopWords.csv").getAbsolutePath();
-    private final String pathExpressions = new File("src/Codi/Persistencia/Documents/expressions.txt").getPath();
+    private final String pathExpressions = new File("src/Codi/Persistencia/expressions.csv").getPath();
     public CtrlPersistencia(){
         gestorDades = new GestorDades();
         numDocs = 0;
