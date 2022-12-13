@@ -25,7 +25,7 @@ public class GestorDades {
      * @param path Indica el lloc on es crea el fitxer
      * @throws FitxerNoCreatException Si no s'ha pogut crear el fitxer
      */
-    private void creaFitxer(String path) throws FitxerNoCreatException {
+    public void creaFitxer(String path) throws FitxerNoCreatException {
         File F = new File(path);
         try {
             boolean creada = F.createNewFile();
@@ -65,7 +65,7 @@ public class GestorDades {
      * @param path Indica el fitxer que volem saber si existeix
      * @return Retorna true si existeix el fitxer en el path indicat, false altrament
      */
-    private Boolean existeixFixter(String path) {
+    public Boolean existeixFixter(String path) {
         File doc = new File(path);
         return doc.exists() && doc.isFile();
     }
@@ -77,7 +77,7 @@ public class GestorDades {
      * @param carpeta Objecte del directori que es vol crear
      * @throws CarpetaNoCreadaException Si no s'ha pogut crear la carpeta en el path indicat
      */
-    private void creaDirectori(String path, File carpeta) throws CarpetaNoCreadaException {
+    public void creaDirectori(String path, File carpeta) throws CarpetaNoCreadaException {
         // No hi ha cap error en crear el directori
         if(carpeta.mkdirs()) {
             System.out.println("S'ha creat el fitxer correctament");
@@ -93,7 +93,7 @@ public class GestorDades {
      * @return Retorna true si existeix el fitxer en el path indicat, false altrament
      * @throws CarpetaNoCreadaException Si s'ha intentat crear el directori i no s'ha pogut crear
      */
-    private Boolean existeixDirectori(String path) throws CarpetaNoCreadaException {
+    public Boolean existeixDirectori(String path) throws CarpetaNoCreadaException {
         File carpeta = new File(path);
         boolean existeix = false;
 
@@ -263,7 +263,7 @@ public class GestorDades {
         return doc;
     }
 
-    /**
+    /*
      * Funció que llegeix tots els documents d'un directori
      *
      * @param path Indica el directori on estan situats els documents
@@ -271,7 +271,7 @@ public class GestorDades {
      *         el document llegit
      * @throws TipusExtensioIncorrectaException Si hi ha algun document en el directori path que no té
      *         l'extensió .txt, .xml o .bol
-     */
+     *
     private ArrayList<DocumentLlegit> llegeixDocuments(String path) throws TipusExtensioIncorrectaException {
         ArrayList<DocumentLlegit> documents = new ArrayList<DocumentLlegit>();
         File carpeta = new File(path);
@@ -289,6 +289,7 @@ public class GestorDades {
         }
         return documents;
     }
+     */
 
     /**
      * Llegeix el contingut del fitxer expressions.csv per a obtenir les expressions booleanes guardades
@@ -441,7 +442,7 @@ public class GestorDades {
      * @param PATH Indica en quina posició està emmagatzemat el document
      * @param primera Indica si és la primera expressió booleana del docu
      */
-    private void escriuExpressio(String expr, Path PATH, Boolean primera) {
+    public void escriuExpressio(String expr, Path PATH, Boolean primera) {
         try (BufferedWriter escriptor = Files.newBufferedWriter(PATH, StandardCharsets.UTF_8)) {
             if(primera) {
                 escriptor.write(expr);
@@ -477,7 +478,7 @@ public class GestorDades {
      * @throws ExpressioBooleanaJaExistentException Si l'expressió booleana expr ja està guardada en el document
      * @throws FitxerNoCreatException Si s'ha intentat crear el fitxer i no s'ha pogut
      */
-    private void guardaExpressio(String expr, String path) throws ExpressioBooleanaJaExistentException,
+    public void guardaExpressio(String expr, String path) throws ExpressioBooleanaJaExistentException,
             FitxerNoCreatException {
         Path PATH = Paths.get(path);
         boolean buit = false;
@@ -511,7 +512,7 @@ public class GestorDades {
      * @throws FitxerNoCreatException Si s'ha intentat crear el fitxer on estan les expressions i no s'ha pogut
      * @throws ExpressioBooleanaInexistentException Si no existeix l'expressió exprAnt en el document que volem modificar
      */
-    private void modificaExpressio(String exprAnt, String exprNova, String path, Boolean elimina)
+    public void modificaExpressio(String exprAnt, String exprNova, String path, Boolean elimina)
             throws FitxerNoEliminatException, FitxerNoCreatException, ExpressioBooleanaInexistentException {
         // Llegim les expressions per eliminar exprAnt i posar exprNova
         ArrayList<String> expressions = llegeixExpressions(path);
@@ -526,38 +527,19 @@ public class GestorDades {
         guardaExpressions(expressions, path);
     }
 
-    private String getPath(String path, String num_doc, String titol, String autor, TipusExtensio ext) {
-        String extensio;
-
-        switch (ext.toString()) {
-            case("TXT"):
-                extensio = ".txt";
-                break;
-            case("XML"):
-                extensio = ".xml";
-                break;
-            case("BOL"):
-                extensio = ".bol";
-                break;
-            default:
-                extensio = "";
-        }
-        return path + "/" + num_doc + "_" + titol + "_" + autor + extensio;
-    }
-
 
     ///////////////////////////////////////////////////////////
     ///                 FUNCIONS PÚBLIQUES                  ///
     ///////////////////////////////////////////////////////////
 
-    /**
+    /*
      * Llegeix els documents guardats en la carpeta path, i si no existeix, crea la carpeta
      *
      * @param path Indica el path relatiu de la carpeta on estan situats els documents
      * @return Retorna un array amb els documents guardats si existeix algun en la carpeta path, altrament retorna null
      * @throws CarpetaNoCreadaException Si no s'ha pogut crear la carpeta en el path indicat
      * @throws TipusExtensioIncorrectaException Si hi ha algun document amb una extensió no coneguda
-     */
+     *
     public ArrayList<DocumentLlegit> carregaDocuments(String path) throws CarpetaNoCreadaException,
             CarpetaBuidaException, TipusExtensioIncorrectaException {
         ArrayList<DocumentLlegit> documents;
@@ -568,6 +550,8 @@ public class GestorDades {
 
         return documents;
     }
+    */
+
 
     /**
      * Llegeix el contingut del fitxer expressions.csv per a obtenir les expressions booleanes guardades

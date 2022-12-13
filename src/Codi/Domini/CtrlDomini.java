@@ -126,7 +126,7 @@ public class CtrlDomini {
      * @param autor Indica l'autor del document
      * @throws DocumentJaExisteixException Si el document identificat per títol i autor ja existeix
      */
-    public void creaDocument(String titol, String autor) throws DocumentJaExisteixException {
+    public void creaDocument(String titol, String autor) throws DocumentJaExisteixException, DocumentInexistentException {
         CDdoc.creaDocument(titol,autor,Documents,Autors,DocumentsAutor,TitolAutors);
         CDdoc.setPath(titol, autor, CP.getNovaPath(), Documents);
     }
