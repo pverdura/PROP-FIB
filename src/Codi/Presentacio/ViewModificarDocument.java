@@ -119,7 +119,7 @@ public class ViewModificarDocument {
         textContingut.setText(contingut);
 
         JScrollPane panellContingut = new JScrollPane(textContingut);
-        panellContingut.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        panellContingut.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         panellInferior.add(panellContingut, BorderLayout.CENTER);
     }
