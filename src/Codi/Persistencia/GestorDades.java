@@ -386,7 +386,7 @@ public class GestorDades {
         Path PATH = Paths.get(path);
 
         try (BufferedWriter escriptor = Files.newBufferedWriter(PATH,StandardCharsets.UTF_8)) {
-            escriptor.write("<document>");
+            escriptor.write("<document>\n");
             escriptor.write("\t<autor>" + autor + "</autor>\n");
             escriptor.write("\t<titol>" + titol + "</titol>\n");
             escriptor.write("\t<contingut>");
