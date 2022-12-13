@@ -299,7 +299,7 @@ public class GestorDades {
      * @return Retorna un array de les expressions booleanes guardades
      * @throws FitxerNoCreatException Si s'ha intentat crear el fitxer expressions.csv i no s'ha pogut
      */
-    private ArrayList<String> llegeixExpressions(String path) throws FitxerNoCreatException {
+    public ArrayList<String> llegeixExpressions(String path) throws FitxerNoCreatException {
         ArrayList<String> expressions = new ArrayList<String>();
 
         // Mirem que el fitxer on guardem les expressions existeixi
@@ -460,7 +460,7 @@ public class GestorDades {
      * @param expressions Array d'expressions booleanes
      * @param path Indica en quina posició està emmagatzemat el document
      */
-    private void guardaExpressions(ArrayList<String> expressions, String path) {
+    public void guardaExpressions(ArrayList<String> expressions, String path) {
         Path PATH = Paths.get(path);
         boolean primera = true;
 
@@ -603,8 +603,8 @@ public class GestorDades {
      * @throws FitxerNoEliminatExeption Si s'ha intentat eliminar el fitxer i no s'ha pogut
      * @throws CarpetaNoCreadaException Si s'ha intentat crear la carpeta i no s'ha pogut
      * @throws TipusExtensioIncorrectaException Si l'extensió indicada no és .txt, .xml ni .bol
-     *
-    public String guardaDocument(DocumentLlegit D, boolean existeix)
+     */
+    public void guardaDocument(DocumentLlegit D)
             throws FitxerNoEliminatException, TipusExtensioIncorrectaException, FitxerNoCreatException {
         String path = D.getPath();
         String autor = D.getAutor();
@@ -612,41 +612,26 @@ public class GestorDades {
         TipusExtensio ext = D.getExtensio();
         String contingut = D.getContingut();
 
-        // Primer mirem si ja existeix el document, si existeix l'eliminem,
-        // d'aquesta manera podem canviar el format dels documents.
-        String new_path;
-
-        if(!existeix) {   // Document nou per guardar
-            // Li assignem un nou número al document () i creem el path del document
-            new_path = getPath(path,nDocs.toString(),titol,autor,ext);
-        }
-        else {  // Document que existeix per modificar
-            // Agafem el número que té assignat el document
-            String[] particions = path.split("/");
-            String num_doc = particions[particions.length-1];
-
+        File doc = new File(path);
+        if(existeixFixter(path)) { // El document existeix i, per tant, cal eliminar-lo per actualitzar-ho
             eliminaFitxer(path);
-            // Creem el nou path del document (pot ser que s'hagi modificat el títol i l'autor,
-            // per tant, cal actualitzar-ho.
-            new_path = getPath(path.split("/",2)[0],num_doc,titol,autor,ext);
         }
 
         // Guardem el document
         switch(ext.toString()) {
             case("TXT"):
-                guardaDocumentTXT(titol,autor,contingut,new_path);
+                guardaDocumentTXT(titol,autor,contingut,path);
                 break;
             case("XML"):
-                guardaDocumentXML(titol,autor,contingut,new_path);
+                guardaDocumentXML(titol,autor,contingut,path);
                 break;
             case("BOL"):
-                guardaDocumentBOL(titol,autor,contingut,new_path);
+                guardaDocumentBOL(titol,autor,contingut,path);
                 break;
             default:
                 throw new TipusExtensioIncorrectaException(ext.toString());
         }
-        return new_path;
-    }*/
+    }
 
     /**
      * Guarda una expressió booleana en el fitxer indicat
