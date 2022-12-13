@@ -637,7 +637,7 @@ public class GestorDades {
     public void exportarDocument(DocumentLlegit D) throws TipusExtensioIncorrectaException, FitxerNoCreatException {
         String path = D.getPath();
         int longitud_path = path.length();
-        String path_doc = path.substring(0,longitud_path-4);
+        String path_doc = path.substring(0,longitud_path-3);
         String ext = D.getExtensio().toString().toLowerCase();
         int num_copia = 1;
 
@@ -696,7 +696,7 @@ public class GestorDades {
                     // Filtrem els possibles documents que puguin tenir com a títol i autor els indicats
                     // (format dels documents guardats: #doc_titol_autor.extensió).
                     // Treiem l'extensió i mirem que acabi en titol_autor
-                    if(document.substring(0,document.length()-4).endsWith(id)) {
+                    if(document.substring(0,document.length()-3).endsWith(id)) {
                         DocumentLlegit D = llegeixDocument(doc.getPath());
 
                         // Mirem que el seu títol i autor siguin els que busquem
@@ -720,7 +720,7 @@ public class GestorDades {
             int l = path.length();
             // Mirem que no siguin backups creats per emacs, nano o vi
             if(!path.endsWith("~")) {
-                String ext = path.substring(l - 4, l);
+                String ext = path.substring(l-4,l);
 
                 switch (ext) {
                     case ".txt":
