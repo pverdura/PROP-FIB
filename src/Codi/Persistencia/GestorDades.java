@@ -353,12 +353,11 @@ public class GestorDades {
      * @param titol Indica el títol que identifica el document
      * @param autor Indica l'autor que identifica el document
      * @param contingut Indica el contingut del document
-     * @param new_path Indica el path del fitxer que volem escriure
+     * @param path Indica el path del fitxer que volem escriure
      * @throws FitxerNoCreatException Si no s'ha pogut crear el fitxer on es guarda el document
      */
-    private void guardaDocumentTXT(String titol, String autor, String contingut, String new_path) throws
+    private void guardaDocumentTXT(String titol, String autor, String contingut, String path) throws
             FitxerNoCreatException {
-        String path = new_path + "txt";
         creaFitxer(path);
 
         Path PATH = Paths.get(path);
@@ -377,12 +376,11 @@ public class GestorDades {
      * @param titol Indica el títol que identifica el document
      * @param autor Indica l'autor que identifica el document
      * @param contingut Indica el contingut del document
-     * @param new_path Indica el path del fitxer que volem escriure
+     * @param path Indica el path del fitxer que volem escriure
      * @throws FitxerNoCreatException Si no s'ha pogut crear el fitxer on es guarda el document
      */
-    private void guardaDocumentXML(String titol, String autor, String contingut, String new_path) throws
+    private void guardaDocumentXML(String titol, String autor, String contingut, String path) throws
             FitxerNoCreatException {
-        String path = new_path + "xml";
         creaFitxer(path);
 
         Path PATH = Paths.get(path);
@@ -413,12 +411,11 @@ public class GestorDades {
      * @param titol Indica el títol que identifica el document
      * @param autor Indica l'autor que identifica el document
      * @param contingut Indica el contingut del document
-     * @param new_path Indica el path del fitxer que volem escriure
+     * @param path Indica el path del fitxer que volem escriure
      * @throws FitxerNoCreatException Si no s'ha pogut crear el fitxer on es guarda el document
      */
-    private void guardaDocumentBOL(String titol, String autor, String contingut, String new_path) throws
+    private void guardaDocumentBOL(String titol, String autor, String contingut, String path) throws
             FitxerNoCreatException {
-        String path = new_path + "bol";
         creaFitxer(path);
 
         Path PATH = Paths.get(path);
