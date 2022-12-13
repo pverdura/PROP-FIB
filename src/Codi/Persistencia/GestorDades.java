@@ -637,13 +637,13 @@ public class GestorDades {
     public void exportarDocument(DocumentLlegit D) throws TipusExtensioIncorrectaException, FitxerNoCreatException {
         String path = D.getPath();
         int longitud_path = path.length();
-        String path_doc = path.substring(0,longitud_path-3);
+        String path_doc = path.substring(0,longitud_path-4);
         String ext = D.getExtensio().toString().toLowerCase();
         int num_copia = 1;
 
         while(existeixFitxer(path)) {
             // El document existeix i, per tant, cal modificar el seu path per a no eliminar el document existent
-            path = path_doc + "_" + num_copia + ext;
+            path = path_doc + "_" + num_copia + "." + ext;
             ++num_copia;
         }
         D.setPath(path);
