@@ -38,8 +38,8 @@ public class CtrlPersistencia {
 
 
 
-    public void exportarDocument(DocumentLlegit doc) throws FileNoExisteixException{
-        //gestorDades.guardaDocument(doc);
+    public void exportarDocument(DocumentLlegit doc) throws FitxerNoEliminatException, TipusExtensioIncorrectaException, FitxerNoCreatException{
+        gestorDades.exportarDocument(doc);
     }
 
     /*
