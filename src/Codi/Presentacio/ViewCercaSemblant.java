@@ -47,11 +47,10 @@ public class ViewCercaSemblant {
         acceptarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ferCerca();
+                ferCercaSemblant();
             }
         });
 
-        //acceptarButton.addKeyListener(new TeclaEnter());
         omplirAutor.addKeyListener(new Tecles());
         omplirTitol.addKeyListener(new Tecles());
         frameVista.addKeyListener(new Tecles());
@@ -76,7 +75,7 @@ public class ViewCercaSemblant {
         @Override
         public void keyPressed(KeyEvent e) {
             if(e.getExtendedKeyCode() == KeyEvent.VK_ENTER){
-                ferCerca();
+                ferCercaSemblant();
             }
             else if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) ferVisible(false);
         }
@@ -170,7 +169,7 @@ public class ViewCercaSemblant {
         buttonsPanel.add(acceptarButton, BorderLayout.EAST);
     }
 
-    private void ferCerca(){
+    private void ferCercaSemblant(){
         String titol = omplirTitol.getText();
         String autor = omplirAutor.getText();
         int k = (int)numDocs.getValue();

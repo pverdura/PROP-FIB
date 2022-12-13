@@ -44,10 +44,9 @@ public class ViewCercaTitolAutor {
     private void assignarListeners(){
         acceptarButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) { ferCerca(); }
+            public void actionPerformed(ActionEvent e) { ferCercaTitolAutor(); }
         });
 
-        //acceptarButton.addKeyListener(new Tecles());
         omplirAutor.addKeyListener(new Tecles());
         omplirTitol.addKeyListener(new Tecles());
         frameVista.addKeyListener(new Tecles());
@@ -62,7 +61,7 @@ public class ViewCercaTitolAutor {
     private class Tecles extends KeyAdapter{
         @Override
         public void keyPressed(KeyEvent e) {
-            if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) ferCerca();
+            if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) ferCercaTitolAutor();
             else if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) ferVisible(false);
         }
     }
@@ -129,7 +128,7 @@ public class ViewCercaTitolAutor {
         buttonsPanel.add(acceptarButton, BorderLayout.EAST);
     }
 
-    private void ferCerca(){
+    private void ferCercaTitolAutor(){
         String titol = omplirTitol.getText();
         String autor = omplirAutor.getText();
         ctrlPresentacio.cercaTitolAutor(titol, autor);
