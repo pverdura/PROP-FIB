@@ -13,6 +13,7 @@ public class CtrlPersistencia {
     private int numDocs;
     private final String path = new File("src/Codi/Persistencia/Documents").getPath();
     private final String pathStopWords = new File("src/Codi/stopWords.csv").getAbsolutePath();
+    private final String pathExpressions = new File("src/Codi/Persistencia/Documents/expressions.txt").getPath();
     public CtrlPersistencia(){
         gestorDades = new GestorDades();
         numDocs = 0;
@@ -97,9 +98,9 @@ public class CtrlPersistencia {
     public ArrayList<String> carregaExpressionsBooleanes() throws CarpetaNoCreadaException,
             FitxerNoCreatException, CarpetaBuidaException{
         ArrayList<String> expressions;
-        boolean existeix = gestorDades.existeixDirectori(path);
+        boolean existeix = gestorDades.existeixFitxer(pathExpressions);
 
-        if(existeix) expressions = gestorDades.llegeixExpressions(path+"/expressions.txt");
+        if(existeix) expressions = gestorDades.llegeixExpressions(pathExpressions);
         else throw new CarpetaBuidaException();
 
         return expressions;
@@ -135,12 +136,12 @@ public class CtrlPersistencia {
     public void guardaExpressioBool(String exprAnt, String exprNova)
             throws ExpressioBooleanaJaExistentException, ExpressioBooleanaInexistentException, FitxerNoCreatException,
             FitxerNoEliminatException{
-        gestorDades.guardaExpressioBool(exprAnt,exprNova,path);
+        gestorDades.guardaExpressioBool(exprAnt,exprNova,pathExpressions);
     }
 
     public void eliminaExpressioBool(String expr) throws ExpressioBooleanaInexistentException,
             FitxerNoEliminatException, FitxerNoCreatException{
-        gestorDades.eliminaExpressio(expr,path);
+        gestorDades.eliminaExpressio(expr,pathExpressions);
     }
 
     public String getNovaPath(){
