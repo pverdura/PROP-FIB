@@ -12,7 +12,7 @@ public class CtrlPersistencia {
     private final GestorDades gestorDades;
     private int numDocs;
     private final String path = new File("src/Codi/Persistencia/Documents").getPath();
-    private final String pathStopWords = new File("src/Codi/stop_words.txt").getAbsolutePath();
+    private final String pathStopWords = new File("src/Codi/stopWords.csv").getAbsolutePath();
     public CtrlPersistencia(){
         gestorDades = new GestorDades();
         numDocs = 0;
@@ -81,7 +81,7 @@ public class CtrlPersistencia {
                     DocumentLlegit D = gestorDades.llegeixDocument(path + "/" + doc);
                     try {
                         String[] s = doc.split("\\.");
-                        int n = Integer.getInteger(s[0]);
+                        int n = Integer.parseInt(s[0]);
                         if (n > numDocs) numDocs = n;
                         if (D != null) documents.add(D);
                     } catch (Exception e){}
@@ -113,12 +113,10 @@ public class CtrlPersistencia {
      * @throws CarpetaNoCreadaException Si s'ha intentat crear la carpeta i no s'ha pogut
      * @throws FitxerNoCreatException Si S'ha intentat crear el fitxer i no s'ha pogut
      */
-    public ArrayList<String> carregaStopWords() throws CarpetaNoCreadaException, FitxerNoCreatException{
+    public ArrayList<String> carregaStopWords() throws FitxerNoCreatException{
         ArrayList<String> stopWords;
-        boolean existeix = gestorDades.existeixDirectori(pathStopWords);
 
-        if(existeix) stopWords = gestorDades.llegeixStopWords(pathStopWords);
-        else throw new CarpetaBuidaException();
+        stopWords = gestorDades.llegeixStopWords(pathStopWords);
 
         return stopWords;
     }
@@ -146,7 +144,7 @@ public class CtrlPersistencia {
     }
 
     public String getNovaPath(){
-        return path + ++numDocs + ".bol";
+        return path + "/" + ++numDocs + "/" + ".bol";
     }
 }
 
