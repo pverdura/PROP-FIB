@@ -23,13 +23,8 @@ public class CtrlPersistencia {
     public ArrayList<DocumentLlegit> importarDocuments(ArrayList<File> files) throws FitxerNoEliminatException, TipusExtensioIncorrectaException, FitxerNoCreatException {
         ArrayList<DocumentLlegit> docs = new ArrayList<>();
         DocumentLlegit doc;
-        if (files.size() > 1){
-            for(File f: files){
-                doc = importa(f);
-                docs.add(doc);
-            }
-        } else{
-            doc = importa(files.get(0));
+        for(File f: files){
+            doc = importa(f);
             docs.add(doc);
         }
         return docs;
@@ -123,7 +118,7 @@ public class CtrlPersistencia {
         ArrayList<String> stopWords;
         boolean existeix = gestorDades.existeixDirectori(path);
 
-        if(existeix) stopWords = gestorDades.llegeixStopWords(path+"/stopWords.csv");
+        if(existeix) stopWords = gestorDades.llegeixStopWords(path_stopWords);
         else throw new CarpetaBuidaException();
 
         return stopWords;
