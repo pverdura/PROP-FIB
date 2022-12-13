@@ -4,6 +4,7 @@ import Codi.Persistencia.CtrlPersistencia;
 import Codi.Util.*;
 import Codi.Excepcions.*;
 
+import javax.print.Doc;
 import java.io.File;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
@@ -92,6 +93,7 @@ public class CtrlDomini {
             doc.setPath(CP.getNovaPath());
             // Llegim el document i ho posem en les nostres estructures
             CDdoc.llegirDocument(doc,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
+            doc.setPath(CDdoc.getPath(doc.getTitol(), doc.getAutor(), Documents));
             // Guardem el document el el sistema
             CP.guardaDocument(doc);
         }
