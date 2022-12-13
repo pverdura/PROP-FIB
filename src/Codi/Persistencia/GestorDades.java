@@ -70,6 +70,20 @@ public class GestorDades {
         return doc.exists() && doc.isFile();
     }
 
+    public void esborraFitxer(String path) throws FitxerNoEliminatException {
+        String path_doc = path.substring(0, path.length()-3);
+
+        if(existeixFitxer(path_doc+"txt")) {
+            eliminaFitxer(path_doc+"txt");
+        }
+        else if(existeixFitxer(path_doc+"xml")) {
+            eliminaFitxer(path_doc+"xml");
+        }
+        else if(existeixFitxer(path_doc+"bol")) {
+            eliminaFitxer(path_doc+"bol");
+        }
+    }
+
     /**
      * Crea el directori amb el path indicat
      *
@@ -627,9 +641,8 @@ public class GestorDades {
             throws FitxerNoEliminatException, TipusExtensioIncorrectaException, FitxerNoCreatException {
         String path = D.getPath();
 
-        if(existeixFitxer(path)) { // El document existeix i, per tant, cal eliminar-lo per actualitzar-ho
-            eliminaFitxer(path);
-        }
+        esborraFitxer(path);    // Si el document existeix, cal eliminar-lo per actualitzar-ho
+
         // Guardem el document
         guardaDocumentLlegit(D);
     }
