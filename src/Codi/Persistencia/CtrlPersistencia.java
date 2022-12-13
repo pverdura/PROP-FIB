@@ -5,6 +5,8 @@ import Codi.Util.DocumentLlegit;
 
 import java.io.*;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class CtrlPersistencia {
@@ -15,7 +17,6 @@ public class CtrlPersistencia {
     private final String path_stopWords = new File("src/Codi").getAbsolutePath();
     public CtrlPersistencia(){
         gestorDades = new GestorDades();
-        //numDocs = gestorDades.nombre_documents(path);
         numDocs = 1;
     }
 
@@ -47,24 +48,91 @@ public class CtrlPersistencia {
         //gestorDades.guardaDocument(doc);
     }
 
-
+    /*
+     * Llegeix els documents guardats en la carpeta path, i si no existeix, crea la carpeta
+     *
+     * @param path Indica el path relatiu de la carpeta on estan situats els documents
+     * @return Retorna un array amb els documents guardats si existeix algun en la carpeta path, altrament retorna null
+     * @throws CarpetaNoCreadaException Si no s'ha pogut crear la carpeta en el path indicat
+     * @throws TipusExtensioIncorrectaException Si hi ha algun document amb una extensió no coneguda
+     */
     public ArrayList<DocumentLlegit> carregaDocuments() throws CarpetaNoCreadaException,
             CarpetaBuidaException, TipusExtensioIncorrectaException{
-        return gestorDades.carregaDocuments(path);
+        ArrayList<DocumentLlegit> documents;
+        boolean existeix = gestorDades.existeixDirectori(path);
+
+        if(existeix) documents = llegeixDocuments(path);
+        else throw new CarpetaBuidaException();
+
+        return documents;
+    }
+
+
+    /**
+     * Funció que llegeix tots els documents d'un directori
+     *
+     * @param path Indica el directori on estan situats els documents
+     * @return Retorna un array de DocumentsLlegits on en cada objecte hi ha l'autor, títol, format i contingut
+     *         el document llegit
+     * @throws TipusExtensioIncorrectaException Si hi ha algun document en el directori path que no té
+     *         l'extensió .txt, .xml o .bol
+     */
+    private ArrayList<DocumentLlegit> llegeixDocuments(String path) throws TipusExtensioIncorrectaException {
+        ArrayList<DocumentLlegit> documents = new ArrayList<DocumentLlegit>();
+        File carpeta = new File(path);
+        String[] docs = carpeta.list(); // Obtenim tots els documents de la carpeta situada en el path
+
+        if(docs != null && docs.length != 0) {
+            // Llegim tots els documents que estan en la carpeta situada en el path
+            for (String doc : docs) {
+                if (!doc.equals("expressions.txt")) {
+                    DocumentLlegit D = gestorDades.llegeixDocument(path + "/" + doc);
+                    String[] s = doc.split(".");
+                    int n = Integer.getInteger(s[0]);
+                    if (n > numDocs) numDocs = n;
+                    if (D != null) documents.add(D);
+                }
+            }
+        }
+        else {
+            throw new CarpetaBuidaException();
+        }
+        return documents;
     }
 
     public ArrayList<String> carregaExpressionsBooleanes() throws CarpetaNoCreadaException,
             FitxerNoCreatException, CarpetaBuidaException{
-        return gestorDades.carregaExpressionsBooleanes(path);
+        ArrayList<String> expressions;
+        boolean existeix = gestorDades.existeixDirectori(path);
+
+        if(existeix) expressions = gestorDades.llegeixExpressions(path+"/expressions.txt");
+        else throw new CarpetaBuidaException();
+
+        return expressions;
     }
 
+    /*
+     * Llegeix les StopWords que estan guardades en el path indicat
+     *
+     * @param path Indica en quin lloc estàn guardades les stopWords
+     * @return Retorna un array amb paraules stopWords
+     * @throws CarpetaNoCreadaException Si s'ha intentat crear la carpeta i no s'ha pogut
+     * @throws FitxerNoCreatException Si S'ha intentat crear el fitxer i no s'ha pogut
+     */
     public ArrayList<String> carregaStopWords() throws CarpetaNoCreadaException, FitxerNoCreatException{
-        return gestorDades.carregaStopWords(path_stopWords);
+        ArrayList<String> stopWords;
+        boolean existeix = gestorDades.existeixDirectori(path);
+
+        if(existeix) stopWords = gestorDades.llegeixStopWords(path+"/stopWords.csv");
+        else throw new CarpetaBuidaException();
+
+        return stopWords;
     }
+
 
     public void guardaDocument(DocumentLlegit doc)
             throws FitxerNoEliminatException, TipusExtensioIncorrectaException, FitxerNoCreatException{
-        //gestorDades.guardaDocument(doc);
+        gestorDades.guardaDocument(doc);
     }
 
     public void eliminaDocument(String path) throws FitxerNoEliminatException{
