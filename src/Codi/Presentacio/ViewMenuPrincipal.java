@@ -47,7 +47,13 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
         //Iniciar elements per carregar a la vista tots els documents guardats
         String[] header = new String[]{"Títol", "Autor", "Pes", "Extensió"};
-        this.dtm = new DefaultTableModel(null, header);
+        this.dtm = new DefaultTableModel(null, header)  {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
         this.taula = new JTable(this.dtm);
         this.taula.setShowHorizontalLines(true);
         this.taula.setRowSelectionAllowed(true);
