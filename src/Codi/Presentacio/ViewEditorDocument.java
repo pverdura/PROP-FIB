@@ -14,7 +14,7 @@ public class ViewEditorDocument {
     private JFrame frame;
     private JPanel panellSuperior;
     private JPanel panellMig;
-    //private JPanel panellInferior;
+    private JScrollPane panellInferior;
     private JLabel labelTitol;
     private JLabel labelAutor;
     private JButton btGuardar;
@@ -22,7 +22,6 @@ public class ViewEditorDocument {
     private JTextField textAutor;
     private JTextArea textContingut;
     private JComboBox<String> tipusExtensio;
-    private JScrollPane panellInferior;
 
     private final CtrlPresentacio ctrlPresentacio;
     private String titol;
@@ -68,7 +67,6 @@ public class ViewEditorDocument {
         frame = new JFrame("Editor de documents -"+titol);
         panellSuperior = new JPanel();
         panellMig = new JPanel();
-        //panellInferior = new JPanel();
         labelAutor = new JLabel("Autor: ");
         labelTitol = new JLabel("Títol: ");
         btGuardar = new JButton("Desar");
@@ -79,10 +77,8 @@ public class ViewEditorDocument {
     }
 
     private void configurarVista () {
-        //frame.setLayout(new BorderLayout());
         frame.add(panellSuperior, BorderLayout.NORTH);
         frame.add(panellMig, BorderLayout.CENTER);
-        //frame.add(panellInferior, BorderLayout.SOUTH);
 
         frame.setMinimumSize(new Dimension(800, 600));
         frame.setPreferredSize(frame.getMinimumSize());
@@ -122,11 +118,10 @@ public class ViewEditorDocument {
         textContingut.setText(contingut);
 
         panellInferior = new JScrollPane(textContingut);
-        panellInferior.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        panellInferior.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        panellInferior.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        panellInferior.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         panellInferior.setPreferredSize(new Dimension(800, 450));
 
-        //panellInferior.add(panellContingut, BorderLayout.CENTER);
         frame.add(panellInferior, BorderLayout.SOUTH);
     }
 
