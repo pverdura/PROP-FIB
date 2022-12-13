@@ -97,7 +97,7 @@ public class CtrlDomini {
         }
     }
 
-    public void exportarDocument(String titol, String autor, File file) {
+    public void exportarDocument(String titol, String autor, File file) throws FileNoExisteixException, TipusExtensioIncorrectaException, FitxerNoEliminatException, FitxerNoCreatException {
         Document D = Documents.get(new SimpleEntry<String,String>(titol,autor));
         DocumentLlegit DL = new DocumentLlegit();
 
@@ -105,14 +105,8 @@ public class CtrlDomini {
         DL.setAutor(autor);
         DL.setExtensio(D.getExtensio());
         DL.setContingut(D.getContingut());
-        DL.setPath(D.getPath());
-
-        try {
-            CP.exportarDocument(DL);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        DL.setPath(file.getPath()+"/"+titol+"_"+autor+"."+D.getExtensio().toString().toLowerCase());
+        CP.exportarDocument(DL);
     }
 
     ///////////////////////////////////////////////////////////
