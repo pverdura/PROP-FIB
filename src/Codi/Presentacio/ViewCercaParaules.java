@@ -88,10 +88,7 @@ public class ViewCercaParaules {
         btAcceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String text = textParaules.getText();
-                int k = (int)textNombreDocuments.getValue();
-                boolean tots = totsDocuments.isSelected();
-                ctrlPresentacio.cercaParaules(text, k, tots);
+                ferCerca();
             }
         });
 
@@ -108,6 +105,9 @@ public class ViewCercaParaules {
                 textNombreDocuments.setEnabled(!totsDocuments.isSelected());
             }
         });
+        frame.addKeyListener(new Tecles());
+        textParaules.addKeyListener(new Tecles());
+        textNombreDocuments.addKeyListener(new Tecles());
     }
 
     public void ferVisible (boolean visible) {
@@ -117,7 +117,28 @@ public class ViewCercaParaules {
         frame.setVisible(visible);
     }
 
-    public void tancarVista () {
-        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+    private void ferCerca () {
+        String text = textParaules.getText();
+        int k = (int)textNombreDocuments.getValue();
+        boolean tots = totsDocuments.isSelected();
+        ctrlPresentacio.cercaParaules(text, k, tots);
+    }
+
+    private int max (int a, int b) {if (a > b) return a; return b;}
+
+    private class Tecles extends KeyAdapter {
+        private boolean control = false;
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) {
+                ferCerca();
+            } else if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) {
+                ferVisible(false);
+            } else if (e.getExtendedKeyCode() == KeyEvent.VK_UP) {
+                textNombreDocuments.setValue((int)textNombreDocuments.getValue()+1);
+            } else if (e.getExtendedKeyCode() == KeyEvent.VK_DOWN) {
+                textNombreDocuments.setValue(max((int)textNombreDocuments.getValue()-1, 0));
+            }
+        }
     }
 }

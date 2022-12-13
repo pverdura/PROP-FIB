@@ -146,7 +146,6 @@ public class ViewModificarDocument {
             }
         });
 
-        btGuardar.addKeyListener(new Tecles());
         frame.addKeyListener(new Tecles());
         textContingut.addKeyListener(new Tecles());
         textTitol.addKeyListener(new Tecles());

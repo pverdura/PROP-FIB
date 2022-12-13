@@ -2,9 +2,7 @@ package Codi.Presentacio;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 public class ViewCercaAutor {
     private final CtrlPresentacio ctrlPresentacio;
@@ -69,8 +67,7 @@ public class ViewCercaAutor {
         btAcceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String text = textAutor.getText();
-                ctrlPresentacio.cercaAutor(text);
+                ctrlPresentacio.cercaAutor(textAutor.getText());
             }
         });
 
@@ -80,7 +77,8 @@ public class ViewCercaAutor {
                 ferVisible(false);
             }
         });
-
+        frame.addKeyListener(new Tecles());
+        textAutor.addKeyListener(new Tecles());
     }
 
     public void ferVisible (boolean visible) {
@@ -89,7 +87,15 @@ public class ViewCercaAutor {
         frame.setVisible(visible);
     }
 
-    public void tancarVista () {
-        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+    private class Tecles extends KeyAdapter {
+        private boolean control = false;
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) {
+                ctrlPresentacio.cercaAutor(textAutor.getText());
+            } else if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) {
+                ferVisible(false);
+            }
+        }
     }
 }
