@@ -65,7 +65,7 @@ public class GestorDades {
      * @param path Indica el fitxer que volem saber si existeix
      * @return Retorna true si existeix el fitxer en el path indicat, false altrament
      */
-    public Boolean existeixFixter(String path) {
+    public Boolean existeixFitxer(String path) {
         File doc = new File(path);
         return doc.exists() && doc.isFile();
     }
@@ -303,7 +303,7 @@ public class GestorDades {
         ArrayList<String> expressions = new ArrayList<String>();
 
         // Mirem que el fitxer on guardem les expressions existeixi
-        if(existeixFixter(path)) {
+        if(existeixFitxer(path)) {
             Path PATH = Paths.get(path);
 
             // Lector que ens llegirà el fitxer
@@ -337,7 +337,7 @@ public class GestorDades {
         ArrayList<String> stopWords = new ArrayList<String>();
 
         // Mirem que el fitxer on guardem les stop words existeixi
-        if(existeixFixter(path)) {
+        if(existeixFitxer(path)) {
             Path PATH = Paths.get(path);
             stopWords = llegeixDocumentCSV(PATH);
         }
@@ -483,7 +483,7 @@ public class GestorDades {
         Path PATH = Paths.get(path);
         boolean buit = false;
 
-        if(!existeixFixter(path)) { // El document no existeix i, per tant, el creem
+        if(!existeixFitxer(path)) { // El document no existeix i, per tant, el creem
             creaFitxer(path);
             //Com el document és buit no cal comprovar repeticions
             buit = true;
@@ -591,6 +591,28 @@ public class GestorDades {
         return stopWords;
     }
 
+    private void guardaDocumentLlegit(DocumentLlegit D) throws FitxerNoCreatException, TipusExtensioIncorrectaException {
+        String autor = D.getAutor();
+        String titol = D.getTitol();
+        TipusExtensio ext = D.getExtensio();
+        String contingut = D.getContingut();
+        String path = D.getPath();
+
+        switch(ext.toString()) {
+            case("TXT"):
+                guardaDocumentTXT(titol,autor,contingut,path);
+                break;
+            case("XML"):
+                guardaDocumentXML(titol,autor,contingut,path);
+                break;
+            case("BOL"):
+                guardaDocumentBOL(titol,autor,contingut,path);
+                break;
+            default:
+                throw new TipusExtensioIncorrectaException(ext.toString());
+        }
+    }
+
     /*
      * Guarda un document amb extensió .txt, .xml o .bol en el directori indicat
      *
@@ -607,30 +629,28 @@ public class GestorDades {
     public void guardaDocument(DocumentLlegit D)
             throws FitxerNoEliminatException, TipusExtensioIncorrectaException, FitxerNoCreatException {
         String path = D.getPath();
-        String autor = D.getAutor();
-        String titol = D.getTitol();
-        TipusExtensio ext = D.getExtensio();
-        String contingut = D.getContingut();
 
-        File doc = new File(path);
-        if(existeixFixter(path)) { // El document existeix i, per tant, cal eliminar-lo per actualitzar-ho
+        if(existeixFitxer(path)) { // El document existeix i, per tant, cal eliminar-lo per actualitzar-ho
             eliminaFitxer(path);
         }
-
         // Guardem el document
-        switch(ext.toString()) {
-            case("TXT"):
-                guardaDocumentTXT(titol,autor,contingut,path);
-                break;
-            case("XML"):
-                guardaDocumentXML(titol,autor,contingut,path);
-                break;
-            case("BOL"):
-                guardaDocumentBOL(titol,autor,contingut,path);
-                break;
-            default:
-                throw new TipusExtensioIncorrectaException(ext.toString());
+        guardaDocumentLlegit(D);
+    }
+
+    public void exportarDocument(DocumentLlegit D) throws TipusExtensioIncorrectaException, FitxerNoCreatException {
+        String path = D.getPath();
+        int longitud_path = path.length();
+        String path_doc = path.substring(0,longitud_path-4);
+        String ext = D.getExtensio().toString().toLowerCase();
+        int num_copia = 1;
+
+        while(existeixFitxer(path)) {
+            // El document existeix i, per tant, cal modificar el seu path per a no eliminar el document existent
+            path = path_doc + "_" + num_copia + ext;
+            ++num_copia;
         }
+        // Guardem el document
+        guardaDocumentLlegit(D);
     }
 
     /**
@@ -695,7 +715,7 @@ public class GestorDades {
 
     public DocumentLlegit llegeixDocument(String path) throws TipusExtensioIncorrectaException {
         // Mirem que el document que volem llegir existeixi
-        if(existeixFixter(path)) {
+        if(existeixFitxer(path)) {
             Path PATH = Paths.get(path);
 
             // Mirem el tipus d'extensió del document
