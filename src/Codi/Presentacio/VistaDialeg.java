@@ -22,13 +22,15 @@ public class VistaDialeg {
         return null;
     }
 
-    public  static SimpleEntry<String,String> twoInputDialog(String titol, String label1, String label2, Object[] options) {
+    public  static SimpleEntry<String,String> twoInputDialog(String titol, String label1, String label2, String textInp1, Object[] options) {
 
         //Crear panel inputs
         JPanel panel = new JPanel();
 
         panel.add(new JLabel(label1));
         JTextField tf1 = new JTextField(10);
+        tf1.setText(textInp1);
+        tf1.setEditable(false);
         panel.add(tf1);
 
         JTextField tf2 = new JTextField(10);

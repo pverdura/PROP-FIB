@@ -46,7 +46,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Inicialitzar taula per mostrar cerques
-        init_taula();
+        configurar_taula_docs();
 
         //Crear menus vista i inicialitzar popMenu
         crearMenus();
@@ -151,6 +151,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
         } else if (source == miImportaDoc) {
             seleccionarFitxersNav();
+            //TODO: MIssatge importat
 
         } else if (source == miAjuda) {
             ctrlPresentacio.obrirAjuda();
@@ -199,14 +200,17 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         //Aplicar funcionalitats associades als items del PopUp Menu
         else if (source == miExportar) {
             seleccionarDirNav();
+            //TODO: Missatge exportat
 
         } else if (source == miModificarDoc) {
             ctrlPresentacio.modificarDocument(taula.getModel().getValueAt(fila_seleccionada,0).toString(),
                     taula.getModel().getValueAt(fila_seleccionada,1).toString());
+            //TODO: Missatge modificat
 
         } else if (source == miEliminarDoc) {
             ctrlPresentacio.esborrarDocument(taula.getModel().getValueAt(fila_seleccionada,0).toString(),
                                              taula.getModel().getValueAt(fila_seleccionada,1).toString());
+            //TODO: Missatge eliminacio
         }
 
         //Aplicar funcionalitat associades al Mostra Tot
@@ -285,7 +289,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         }
     }
 
-    private void init_taula() {
+    private void configurar_taula_docs() {
         //Iniciar elements per carregar a la vista tots els documents guardats
         String[] header = new String[]{"Títol", "Autor", "Pes", "Extensió"};
         this.dtm = new DefaultTableModel(null, header)  {
@@ -310,7 +314,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         miModificarDoc = new JMenuItem("Modificar");
         miEliminarDoc = new JMenuItem("Eliminar");
 
-        //Afegir opcions menu boto dret
+        //Afegir opcions menu boto dret ratoli
         this.rightClickMenu.add(miExportar);
         this.rightClickMenu.add(miModificarDoc);
         this.rightClickMenu.add(miEliminarDoc);
