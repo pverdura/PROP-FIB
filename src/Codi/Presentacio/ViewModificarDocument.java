@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.AbstractMap.SimpleEntry;
 
 public class ViewModificarDocument {
@@ -143,6 +145,13 @@ public class ViewModificarDocument {
                 ctrlPresentacio.tancarDocument();
             }
         });
+
+        btGuardar.addKeyListener(new Tecles());
+        frame.addKeyListener(new Tecles());
+        textContingut.addKeyListener(new Tecles());
+        textTitol.addKeyListener(new Tecles());
+        textAutor.addKeyListener(new Tecles());
+        tipusExtensio.addKeyListener(new Tecles());
     }
     private TipusExtensio getTipusExtensio () {
         String ext = (String) tipusExtensio.getSelectedItem();
@@ -173,5 +182,24 @@ public class ViewModificarDocument {
     private boolean modificat () {
         return (!titol.equals(textTitol.getText())) || (!autor.equals(textAutor.getText())) ||
                 (!contingut.equals(textContingut.getText())) || tExtensio != getTipusExtensio();
+    }
+
+    private class Tecles extends KeyAdapter {
+        private boolean control = false;
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getExtendedKeyCode() == KeyEvent.VK_CONTROL) {
+                control = true;
+            } else if (e.getExtendedKeyCode() == KeyEvent.VK_S && control) {
+                guardarDocument();
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            if (e.getExtendedKeyCode() == KeyEvent.VK_CONTROL) {
+                control = false;
+            }
+        }
     }
 }
