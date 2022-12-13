@@ -11,8 +11,23 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ *  Classe per gestionar els documents a la capa de domini
+ */
+
 public class CtrlDominiDocument {
-    //Crea un document a partir del títol i de l’autor.
+
+    /**
+     * Crea un document a partir del seu títol i autor i l'afegeix a les estructures de dades
+     *
+     * @param titol Títol del document
+     * @param autor Autor del document
+     * @param documents Estructura de dades {@code HashMap<SimpleEntry<String, String>>} dels documents
+     * @param autors Estructura de dades {@code Trie} dels autors
+     * @param documentsAutor Estructura de dades {@code HashMap<String, ArrayList<String>>} dels documents que ha creat cada autor
+     * @param titolAutors Estructura de dades dels {@code HashMap<String, ArrayList<String>>} autors que han creat un document de cada títol
+     * @throws DocumentJaExisteixException si ja existeix un document amb el mateix títol i autor
+     */
     public void creaDocument (String titol, String autor, HashMap<SimpleEntry<String, String>, Document> documents,
                               Trie<String> autors, HashMap<String,ArrayList<String>> documentsAutor,
                               HashMap<String,ArrayList<String>> titolAutors) throws DocumentJaExisteixException {
@@ -20,7 +35,6 @@ public class CtrlDominiDocument {
         if (documents.containsKey(id)) throw new DocumentJaExisteixException(titol, autor);
 
         Document doc = new Document(titol, autor);
-
         documents.put(id, doc);     //afegir document a documents
 
         //afegir autor al trie de prefixos
@@ -47,6 +61,83 @@ public class CtrlDominiDocument {
         }
     }
 
+    /**
+     * Crea un document a partir d'un {@link DocumentLlegit}
+     *
+     * @param doc {@code DocumentLlegit}
+     * @param documents Estructura de dades {@code HashMap<SimpleEntry<String, String>>} dels documents
+     * @param autors Estructura de dades {@code Trie} dels autors
+     * @param documentsAutor Estructura de dades {@code HashMap<String, ArrayList<String>>} dels documents que ha creat cada autor
+     * @param titolAutors Estructura de dades dels {@code HashMap<String, ArrayList<String>>} autors que han creat un document de cada títol
+     * @param paraules Estructura de dades {HashMap<String, ArrayList<SimpleEntry<String, String>>>} de quins documents contenen cada paraula
+     * @throws DocumentJaExisteixException si ja existeix un document amb el títol i l'autor del {@code DocumentLlegit}
+     */
+    public void llegirDocument (DocumentLlegit doc, HashMap<SimpleEntry<String, String>, Document> documents,
+                                Trie<String> autors, HashMap<String,ArrayList<String>> documentsAutor,
+                                HashMap<String,ArrayList<String>> titolAutors, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentJaExisteixException {
+        this.creaDocument(doc.getTitol(), doc.getAutor(), documents, autors, documentsAutor, titolAutors);
+        this.setContingut(doc.getTitol(), doc.getAutor(), doc.getContingut(), documents, paraules);
+        this.setPath(doc.getTitol(), doc.getAutor(), doc.getPath(), documents);
+        this.setExtensio(doc.getTitol(), doc.getAutor(), doc.getExtensio(), documents);
+    }
+
+    /**
+     * Elimina un document i les seves aparicions a les estructures de dades
+     *
+     * @param titol Títol del document a eliminar
+     * @param autor Autor del document a eliminar
+     * @param documents Estructura de dades {@code HashMap<SimpleEntry<String, String>>} dels documents
+     * @param autors Estructura de dades {@code Trie} dels autors
+     * @param documentsAutor Estructura de dades {@code HashMap<String, ArrayList<String>>} dels documents que ha creat cada autor
+     * @param titolAutors Estructura de dades dels {@code HashMap<String, ArrayList<String>>} autors que han creat un document de cada títol
+     * @param paraules Estructura de dades {HashMap<String, ArrayList<SimpleEntry<String, String>>>} de quins documents contenen cada paraula
+     * @throws DocumentInexistentException si el document que s'intenta eliminar no existeix
+     */
+    public void eliminaDocument (String titol, String autor, HashMap<SimpleEntry<String, String>, Document> documents,
+                                 Trie<String> autors, HashMap<String,ArrayList<String>> documentsAutor,
+                                 HashMap<String,ArrayList<String>> titolAutors, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentInexistentException {
+        SimpleEntry<String, String> id = new SimpleEntry<>(titol, autor);
+        if (!documents.containsKey(id)) throw new DocumentInexistentException(titol, autor);
+
+        //eliminar autor de titolAutors
+        titolAutors.get(titol).remove(autor);
+        if (titolAutors.get(titol).size() == 0) titolAutors.remove(titol);
+
+        //eliminar document de documentsAutor
+        documentsAutor.get(autor).remove(titol);
+        if (documentsAutor.get(autor).size() == 0) {
+            documentsAutor.remove(autor);
+            autors.esborrar(autor);  //si cal, eliminar autor del trie
+        }
+
+        //eliminar paraules
+        ArrayList<String> p = documents.get(id).getParaules();
+
+        for (String paraula : p) {
+            if (paraules.containsKey(paraula)) {
+                paraules.get(paraula).remove(id);
+                if (paraules.get(paraula).size() == 0) {
+                    paraules.remove(paraula);
+                }
+            }
+        }
+
+        documents.remove(id); //eliminar document de documents
+    }
+
+    /**
+     * Modifica el títol i/o l'autor d'un document
+     *
+     * @param idVell Antic identificador del document
+     * @param idNou Nou identificador del document
+     * @param documents Estructura de dades {@code HashMap<SimpleEntry<String, String>>} dels documents
+     * @param documentsAutor Estructura de dades {@code HashMap<String, ArrayList<String>>} dels documents que ha creat cada autor
+     * @param autors Estructura de dades {@code Trie} dels autors
+     * @param titolAutors Estructura de dades dels {@code HashMap<String, ArrayList<String>>} autors que han creat un document de cada títol
+     * @param paraules Estructura de dades {HashMap<String, ArrayList<SimpleEntry<String, String>>>} de quins documents contenen cada paraula
+     * @throws DocumentJaExisteixException si ja existeix un document amb l'identificador nou
+     * @throws DocumentInexistentException si no existeix cap document amb l'identificador vell
+     */
     public void modificarIdentificador (SimpleEntry<String, String> idVell, SimpleEntry<String, String> idNou, HashMap<SimpleEntry<String, String>, Document> documents,
                                         HashMap<String,ArrayList<String>> documentsAutor, Trie<String> autors,
                                         HashMap<String,ArrayList<String>> titolAutors, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentJaExisteixException, DocumentInexistentException {
@@ -120,89 +211,16 @@ public class CtrlDominiDocument {
         documents.put(idNou, d);
     }
 
-/*
-    public void setTitol (String titolVell, String titolNou, String autor, HashMap<SimpleEntry<String, String>, Document> documents,
-                          HashMap<String,ArrayList<String>> documentsAutor,
-                          HashMap<String,ArrayList<String>> titolAutors, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentJaExisteixException, DocumentInexistentException {
-        SimpleEntry<String, String> idNou = new SimpleEntry<>(titolNou, autor);
-        if (documents.containsKey(idNou)) throw new DocumentJaExisteixException(titolNou, autor);
-
-        SimpleEntry<String, String> idVell = new SimpleEntry<>(titolVell, autor);
-        if (!documents.containsKey(idVell)) throw new DocumentInexistentException(titolVell, autor);
-        Document d = documents.get(idVell);
-        d.setTitol(titolNou);
-
-        //actualitzar documentsAutor
-        documentsAutor.get(autor).remove(titolVell);
-        documentsAutor.get(autor).add(titolNou);
-
-        //actualitzar titolAutors
-        if (titolAutors.containsKey(titolNou)) {
-            ArrayList<String> aux = titolAutors.get(titolVell);
-            titolAutors.remove(titolVell);
-            titolAutors.get(titolNou).addAll(aux);
-        } else {
-            ArrayList<String> aux = titolAutors.get(titolVell);
-            titolAutors.remove(titolVell);
-            titolAutors.put(titolNou, aux);
-        }
-
-        //actualitzar paraules
-        ArrayList<String> p = documents.get(idVell).getParaules();
-
-        for (String paraula : p) {
-            paraules.get(paraula).remove(idVell);
-            paraules.get(paraula).add(idNou);
-        }
-
-        documents.remove(idVell);
-        documents.put(idNou, d);
-    }*/
-
-/*
-    public void setAutor (String titol, String autorVell, String autorNou, HashMap<SimpleEntry<String, String>, Document> documents,
-                          Trie<String> autors, HashMap<String,ArrayList<String>> documentsAutor,
-                          HashMap<String,ArrayList<String>> titolAutors, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentJaExisteixException, DocumentInexistentException {
-        SimpleEntry<String, String> idNou = new SimpleEntry<>(titol, autorNou);
-        if (documents.containsKey(idNou)) throw new DocumentJaExisteixException(titol, autorNou);
-
-        SimpleEntry<String, String> idVell = new SimpleEntry<>(titol, autorVell);
-        if (!documents.containsKey(idVell)) throw new DocumentInexistentException(titol, autorVell);
-        Document d = documents.get(idVell);
-        d.setAutor(autorNou);
-
-        //actualitzar trie
-        autors.esborrar(autorVell);
-        autors.afegir(autorNou);
-
-        //actualitzar documentsAutor
-        if (documentsAutor.containsKey(autorNou)) {
-            ArrayList<String> aux = documentsAutor.get(autorVell);
-            documentsAutor.remove(autorVell);
-            documentsAutor.get(autorNou).addAll(aux);
-        } else {
-            ArrayList<String> aux = documentsAutor.get(autorVell);
-            documentsAutor.remove(autorVell);
-            documentsAutor.put(autorNou, aux);
-        }
-
-        //actualitzar titolAutors
-        titolAutors.get(titol).remove(autorVell);
-        titolAutors.get(titol).add(autorNou);
-
-        //actualitzar paraules
-        ArrayList<String> p = documents.get(idVell).getParaules();
-
-        for (String paraula : p) {
-            paraules.get(paraula).remove(idVell);
-            paraules.get(paraula).add(idNou);
-        }
-
-        documents.remove(idVell);
-        documents.put(idNou, d);
-    }*/
-
-    //Modifica el contingut d’un document.
+    /**
+     * Modifica el contingut d'un document
+     *
+     * @param titol Títol del document
+     * @param autor Autor del document
+     * @param contingut Nou contingut del document
+     * @param documents Estructura de dades {@code HashMap<SimpleEntry<String, String>>} dels documents
+     * @param paraules Estructura de dades {HashMap<String, ArrayList<SimpleEntry<String, String>>>} de quins documents contenen cada paraula
+     * @throws DocumentInexistentException si el document el contingut del qual s'intenta modificar no existeix
+     */
     public void setContingut (String titol, String autor, String contingut, HashMap<SimpleEntry<String, String>, Document> documents,
                               HashMap<String, ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentInexistentException {
         SimpleEntry<String, String> id = new SimpleEntry<>(titol, autor);
@@ -240,7 +258,15 @@ public class CtrlDominiDocument {
         }
     }
 
-    //Obté el contingut d’un document.
+    /**
+     * Obté el contingut d'un document
+     *
+     * @param titol Títol del document
+     * @param autor Autor del document
+     * @param documents Estructura de dades {@code HashMap<SimpleEntry<String, String>>} dels documents
+     * @return  El contingut del document
+     * @throws DocumentInexistentException si el document el contingut del qual s'intenta obtenir no existeix
+     */
     public String getContingut (String titol, String autor, HashMap<SimpleEntry<String, String>, Document> documents) throws DocumentInexistentException {
         SimpleEntry<String, String> id = new SimpleEntry<>(titol, autor);
         if (!documents.containsKey(id)) throw new DocumentInexistentException(titol, autor);
@@ -248,7 +274,15 @@ public class CtrlDominiDocument {
         return documents.get(id).getContingut();
     }
 
-    //Modifica la path d'un document.
+    /**
+     * Modifica la path d'un document
+     *
+     * @param titol Títol del document
+     * @param autor Autor del document
+     * @param path Nova path del document
+     * @param documents Estructura de dades {@code HashMap<SimpleEntry<String, String>>} dels documents
+     * @throws DocumentInexistentException si el document la path del qual s'intenta modificar no existeix
+     */
     public void setPath (String titol, String autor, String path, HashMap<SimpleEntry<String, String>, Document> documents) throws DocumentInexistentException {
         SimpleEntry<String, String> id = new SimpleEntry<>(titol, autor);
         if (!documents.containsKey(id)) throw new DocumentInexistentException(titol, autor);
@@ -256,7 +290,15 @@ public class CtrlDominiDocument {
         documents.get(id).setPath(path);
     }
 
-    //Obté la path d’un document.
+    /**
+     * Obté la path d'un document
+     *
+     * @param titol Títol del document
+     * @param autor Autor del document
+     * @param documents Estructura de dades {@code HashMap<SimpleEntry<String, String>>} dels documents
+     * @return La path del document
+     * @throws DocumentInexistentException si el document la path del qual s'intenta obtenir no existeix
+     */
     public String getPath (String titol, String autor, HashMap<SimpleEntry<String, String>, Document> documents) throws DocumentInexistentException {
         SimpleEntry<String, String> id = new SimpleEntry<>(titol, autor);
         if (!documents.containsKey(id)) throw new DocumentInexistentException(titol, autor);
@@ -264,7 +306,15 @@ public class CtrlDominiDocument {
         return documents.get(id).getPath();
     }
 
-    //Modifica l'extensió d'un document
+    /**
+     * Modifica l'extensió d'un document
+     *
+     * @param titol Títol del document
+     * @param autor Autor del document
+     * @param tipusExtensio Nova {@link TipusExtensio} extensió del document
+     * @param documents Estructura de dades {@code HashMap<SimpleEntry<String, String>>} dels documents
+     * @throws DocumentInexistentException si el document l'extensió del qual s'intenta modificar no existeix
+     */
     public void setExtensio (String titol, String autor, TipusExtensio tipusExtensio, HashMap<SimpleEntry<String, String>, Document> documents) throws DocumentInexistentException {
         SimpleEntry<String, String> id = new SimpleEntry<>(titol, autor);
         if (!documents.containsKey(id)) throw new DocumentInexistentException(titol, autor);
@@ -272,7 +322,15 @@ public class CtrlDominiDocument {
         documents.get(id).setExtensio(tipusExtensio);
     }
 
-    //Obté l'extensió d’un document.
+    /**
+     * Obté l'extensió d'un document
+     *
+     * @param titol Títol del document
+     * @param autor Autor del document
+     * @param documents Estructura de dades {@code HashMap<SimpleEntry<String, String>>} dels documents
+     * @return L'extensió del document
+     * @throws DocumentInexistentException si el document l'extensió del qual s'intenta obtenir no existeix
+     */
     public TipusExtensio getExtensio (String titol, String autor, HashMap<SimpleEntry<String, String>, Document> documents) throws DocumentInexistentException {
         SimpleEntry<String, String> id = new SimpleEntry<>(titol, autor);
         if (!documents.containsKey(id)) throw new DocumentInexistentException(titol, autor);
@@ -280,7 +338,15 @@ public class CtrlDominiDocument {
         return documents.get(id).getExtensio();
     }
 
-    //Obté el pes d’un document.
+    /**
+     * Obté el pes d'un document
+     *
+     * @param titol
+     * @param autor
+     * @param documents Estructura de dades {@code HashMap<SimpleEntry<String, String>>} dels documents
+     * @return El pes (quantitat de caràcters) d'un document
+     * @throws DocumentInexistentException si el document el pes del qual s'intenta obtenir no existeix
+     */
     public int getPes (String titol, String autor, HashMap<SimpleEntry<String, String>, Document> documents) throws DocumentInexistentException {
         SimpleEntry<String, String> id = new SimpleEntry<>(titol, autor);
         if (!documents.containsKey(id)) throw new DocumentInexistentException(titol, autor);
@@ -288,57 +354,30 @@ public class CtrlDominiDocument {
         return documents.get(id).getPes();
     }
 
-    //Elimina un document.
-    public void eliminaDocument (String titol, String autor, HashMap<SimpleEntry<String, String>, Document> documents,
-                                 Trie<String> autors, HashMap<String,ArrayList<String>> documentsAutor,
-                                 HashMap<String,ArrayList<String>> titolAutors, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentInexistentException {
-        SimpleEntry<String, String> id = new SimpleEntry<>(titol, autor);
-        if (!documents.containsKey(id)) throw new DocumentInexistentException(titol, autor);
-
-        //eliminar autor de titolAutors
-        titolAutors.get(titol).remove(autor);
-        if (titolAutors.get(titol).size() == 0) titolAutors.remove(titol);
-
-        //eliminar document de documentsAutor
-        documentsAutor.get(autor).remove(titol);
-        if (documentsAutor.get(autor).size() == 0) {
-            documentsAutor.remove(autor);
-            autors.esborrar(autor);  //si cal, eliminar autor del trie
-        }
-
-        //eliminar paraules
-        ArrayList<String> p = documents.get(id).getParaules();
-
-        for (String paraula : p) {
-            if (paraules.containsKey(paraula)) {
-                paraules.get(paraula).remove(id);
-                if (paraules.get(paraula).size() == 0) {
-                    paraules.remove(paraula);
-                }
-            }
-        }
-
-        documents.remove(id); //eliminar document de documents
-    }
-
-    public void llegirDocument (DocumentLlegit doc, HashMap<SimpleEntry<String, String>, Document> documents,
-                                Trie<String> autors, HashMap<String,ArrayList<String>> documentsAutor,
-                                HashMap<String,ArrayList<String>> titolAutors, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentJaExisteixException {
-            this.creaDocument(doc.getTitol(), doc.getAutor(), documents, autors, documentsAutor, titolAutors);
-            this.setContingut(doc.getTitol(), doc.getAutor(), doc.getContingut(), documents, paraules);
-            this.setPath(doc.getTitol(), doc.getAutor(), doc.getPath(), documents);
-            this.setExtensio(doc.getTitol(), doc.getAutor(), doc.getExtensio(), documents);
-    }
-
-    //Obté les stop words.
+    /**
+     * Obté les stop words dels documents
+     *
+     * @return Les stop words
+     */
     public ArrayList<String> getStopWords () {
         return Document.getStopWords();
     }
 
+    /**
+     * Modifica les stop words dels documents
+     *
+     * @param s {@code ArrayList<String>} noves stop words
+     */
     public void setStopWords (ArrayList<String> s) {
         Document.setStopWords(s);
     }
 
+    /**
+     * Obté el nombre de documents existents a l'aplicació
+     *
+     * @param documents Estructura de dades {@code HashMap<SimpleEntry<String, String>>} dels documents
+     * @return El nombre de documents existents a l'aplicació
+     */
     public int getNombreDocuments (HashMap<SimpleEntry<String, String>, Document> documents) {
         return documents.size();
     }
