@@ -108,7 +108,7 @@ public class CtrlPresentacio {
     //documents
     public void crearDocument () {
         if (obrirDocument()) {
-            ViewModificarDocument v = new ViewModificarDocument(this);
+            ViewEditorDocument v = new ViewEditorDocument(this);
             v.ferVisible(true);
         }
     }
@@ -285,7 +285,7 @@ public class CtrlPresentacio {
     }
     public void modificarDocument (String titol, String autor) {
         if (obrirDocument()) {
-            ViewModificarDocument v = new ViewModificarDocument(this, titol, autor, ctrlDomini.getContingut(titol, autor), ctrlDomini.getExtensio(titol, autor));
+            ViewEditorDocument v = new ViewEditorDocument(this, titol, autor, ctrlDomini.getContingut(titol, autor), ctrlDomini.getExtensio(titol, autor));
             v.ferVisible(true);
         }
     }

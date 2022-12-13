@@ -29,8 +29,8 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
     private final CtrlPresentacio ctrlPresentacio;
     private TipusOrdenacio tipus_ordenacio;
 
-    private final JTable taula;
-    private final DefaultTableModel dtm;
+    private JTable taula;
+    private DefaultTableModel dtm;
     int fila_seleccionada;
 
     public ViewMenuPrincipal(CtrlPresentacio ctrlPresentacio) {
@@ -45,27 +45,15 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //Iniciar elements per carregar a la vista tots els documents guardats
-        String[] header = new String[]{"Títol", "Autor", "Pes", "Extensió"};
-        this.dtm = new DefaultTableModel(null, header)  {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-
-        this.taula = new JTable(this.dtm);
-        this.taula.setShowHorizontalLines(true);
-        this.taula.setRowSelectionAllowed(true);
-        this.taula.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.scroll.setViewportView(this.taula);
-
-        //Activar listener boto neteja
-        this.cleanButton.addActionListener(this);
+        //Inicialitzar taula per mostrar cerques
+        configurar_taula_docs();
 
         //Crear menus vista i inicialitzar popMenu
         crearMenus();
         initPopMenu();
+
+        //Activar listener boto neteja
+        this.cleanButton.addActionListener(this);
     }
 
     private void crearMenus() {
@@ -76,7 +64,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         JMenu menuFitxer = new JMenu("Fitxer");
         barraMenu.add(menuFitxer);
 
-        miCreaDoc = new JMenuItem("Crea / Modifica");
+        miCreaDoc = new JMenuItem("Crea");
         miCreaDoc.addActionListener(this);
         miImportaDoc = new JMenuItem("Importa");
         miImportaDoc.addActionListener(this);
@@ -136,7 +124,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
         miOrdreAlfAsc = new JMenuItem("Alfabètic Ascendent");
         miOrdreAlfAsc.addActionListener(this);
-        miOrdreAlfDesc = new JMenuItem("Alfabètic Ascendent");
+        miOrdreAlfDesc = new JMenuItem("Alfabètic Descendent");
         miOrdreAlfDesc.addActionListener(this);
         miOrdrePesAsc = new JMenuItem("Pes Ascendent");
         miOrdrePesAsc.addActionListener(this);
@@ -163,6 +151,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
         } else if (source == miImportaDoc) {
             seleccionarFitxersNav();
+            //TODO: MIssatge importat
 
         } else if (source == miAjuda) {
             ctrlPresentacio.obrirAjuda();
@@ -211,14 +200,17 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         //Aplicar funcionalitats associades als items del PopUp Menu
         else if (source == miExportar) {
             seleccionarDirNav();
+            //TODO: Missatge exportat
 
         } else if (source == miModificarDoc) {
             ctrlPresentacio.modificarDocument(taula.getModel().getValueAt(fila_seleccionada,0).toString(),
                     taula.getModel().getValueAt(fila_seleccionada,1).toString());
+            //TODO: Missatge modificat
 
         } else if (source == miEliminarDoc) {
             ctrlPresentacio.esborrarDocument(taula.getModel().getValueAt(fila_seleccionada,0).toString(),
                                              taula.getModel().getValueAt(fila_seleccionada,1).toString());
+            //TODO: Missatge eliminacio
         }
 
         //Aplicar funcionalitat associades al Mostra Tot
@@ -226,6 +218,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
             ctrlPresentacio.mostrarDocuments();
         }
     }
+
 
     public void actualitzarResultat(ArrayList<SimpleEntry<String,String>> titolsAutors, ArrayList<Integer> pesos, ArrayList<TipusExtensio> extensios) {
 
@@ -296,6 +289,23 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         }
     }
 
+    private void configurar_taula_docs() {
+        //Iniciar elements per carregar a la vista tots els documents guardats
+        String[] header = new String[]{"Títol", "Autor", "Pes", "Extensió"};
+        this.dtm = new DefaultTableModel(null, header)  {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        this.taula = new JTable(this.dtm);
+        this.taula.setShowHorizontalLines(true);
+        this.taula.setRowSelectionAllowed(true);
+        this.taula.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.scroll.setViewportView(this.taula);
+    }
+
     private void initPopMenu() {
         this.rightClickMenu = new JPopupMenu();
 
@@ -304,7 +314,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         miModificarDoc = new JMenuItem("Modificar");
         miEliminarDoc = new JMenuItem("Eliminar");
 
-        //Afegir opcions menu boto dret
+        //Afegir opcions menu boto dret ratoli
         this.rightClickMenu.add(miExportar);
         this.rightClickMenu.add(miModificarDoc);
         this.rightClickMenu.add(miEliminarDoc);

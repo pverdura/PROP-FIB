@@ -2,9 +2,7 @@ package Codi.Presentacio;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 public class ViewCercaTitol {
     private final CtrlPresentacio ctrlPresentacio;
@@ -70,18 +68,17 @@ public class ViewCercaTitol {
         btAcceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String text = textTitol.getText();
-                ctrlPresentacio.cercaTitol(text);
+                ctrlPresentacio.cercaTitol(textTitol.getText());
             }
         });
-
         btCancelar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ferVisible(false);
             }
         });
-
+        frame.addKeyListener(new Tecles());
+        textTitol.addKeyListener(new Tecles());
     }
 
     public void ferVisible (boolean visible) {
@@ -90,7 +87,15 @@ public class ViewCercaTitol {
         frame.setVisible(visible);
     }
 
-    public void tancarVista () {
-        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+    private class Tecles extends KeyAdapter {
+        private boolean control = false;
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) {
+                ctrlPresentacio.cercaTitol(textTitol.getText());
+            } else if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) {
+                ferVisible(false);
+            }
+        }
     }
 }
