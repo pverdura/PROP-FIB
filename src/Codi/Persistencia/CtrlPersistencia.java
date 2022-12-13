@@ -79,10 +79,12 @@ public class CtrlPersistencia {
             for (String doc : docs) {
                 if (!doc.equals("expressions.txt")) {
                     DocumentLlegit D = gestorDades.llegeixDocument(path + "/" + doc);
-                    String[] s = doc.split("\\.");
-                    int n = Integer.getInteger(s[0]);
-                    if (n > numDocs) numDocs = n;
-                    if (D != null) documents.add(D);
+                    try {
+                        String[] s = doc.split("\\.");
+                        int n = Integer.getInteger(s[0]);
+                        if (n > numDocs) numDocs = n;
+                        if (D != null) documents.add(D);
+                    } catch (Exception e){}
                 }
             }
         }
