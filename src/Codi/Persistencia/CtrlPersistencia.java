@@ -22,9 +22,8 @@ public class CtrlPersistencia {
 
     public ArrayList<DocumentLlegit> importarDocuments(ArrayList<File> files) throws FitxerNoEliminatException, TipusExtensioIncorrectaException, FitxerNoCreatException {
         ArrayList<DocumentLlegit> docs = new ArrayList<>();
-        DocumentLlegit doc;
         for(File f: files){
-            doc = importa(f);
+            DocumentLlegit doc = importa(f);
             docs.add(doc);
         }
         return docs;
