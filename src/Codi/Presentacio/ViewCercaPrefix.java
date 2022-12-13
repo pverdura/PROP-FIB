@@ -157,7 +157,7 @@ public class ViewCercaPrefix {
         resultat = new JTextArea(25,35);
         scroll = new JScrollPane();
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scroll.setHorizontalScrollBar(null);
+        scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         asc = new JRadioButton("Ascendent");
         des = new JRadioButton("Descendent");
         totsAutors = new JCheckBox("Mostra tots els autors");
