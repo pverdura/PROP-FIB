@@ -14,7 +14,7 @@ public class ViewEditorDocument {
     private JFrame frame;
     private JPanel panellSuperior;
     private JPanel panellMig;
-    private JPanel panellInferior;
+    //private JPanel panellInferior;
     private JLabel labelTitol;
     private JLabel labelAutor;
     private JButton btGuardar;
@@ -22,6 +22,7 @@ public class ViewEditorDocument {
     private JTextField textAutor;
     private JTextArea textContingut;
     private JComboBox<String> tipusExtensio;
+    private JScrollPane panellInferior;
 
     private final CtrlPresentacio ctrlPresentacio;
     private String titol;
@@ -67,7 +68,7 @@ public class ViewEditorDocument {
         frame = new JFrame("Editor de documents -"+titol);
         panellSuperior = new JPanel();
         panellMig = new JPanel();
-        panellInferior = new JPanel();
+        //panellInferior = new JPanel();
         labelAutor = new JLabel("Autor: ");
         labelTitol = new JLabel("Títol: ");
         btGuardar = new JButton("Desar");
@@ -81,7 +82,7 @@ public class ViewEditorDocument {
         //frame.setLayout(new BorderLayout());
         frame.add(panellSuperior, BorderLayout.NORTH);
         frame.add(panellMig, BorderLayout.CENTER);
-        frame.add(panellInferior, BorderLayout.SOUTH);
+        //frame.add(panellInferior, BorderLayout.SOUTH);
 
         frame.setMinimumSize(new Dimension(800, 600));
         frame.setPreferredSize(frame.getMinimumSize());
@@ -116,14 +117,17 @@ public class ViewEditorDocument {
     }
 
     public void configurarPanellInferior () {
-        textContingut.setMinimumSize(new Dimension(700, 450));
+        textContingut.setMinimumSize(new Dimension(800, 450));
         textContingut.setPreferredSize(textContingut.getMinimumSize());
         textContingut.setText(contingut);
 
-        JScrollPane panellContingut = new JScrollPane(textContingut);
-        panellContingut.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        panellInferior = new JScrollPane(textContingut);
+        panellInferior.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        panellInferior.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        panellInferior.setPreferredSize(new Dimension(800, 450));
 
-        panellInferior.add(panellContingut, BorderLayout.CENTER);
+        //panellInferior.add(panellContingut, BorderLayout.CENTER);
+        frame.add(panellInferior, BorderLayout.SOUTH);
     }
 
     public void assignarListeners () {
