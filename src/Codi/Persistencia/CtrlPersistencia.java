@@ -15,7 +15,7 @@ public class CtrlPersistencia {
     private final String pathStopWords = new File("src/Codi/stop_words.txt").getAbsolutePath();
     public CtrlPersistencia(){
         gestorDades = new GestorDades();
-        numDocs = 1;
+        numDocs = 0;
     }
 
     public ArrayList<DocumentLlegit> importarDocuments(ArrayList<File> files) throws TipusExtensioIncorrectaException {
