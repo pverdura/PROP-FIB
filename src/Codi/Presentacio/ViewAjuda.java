@@ -2,11 +2,11 @@ package Codi.Presentacio;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
-public class ViewAjuda {
-    private JPanel panell;
+public class ViewAjuda implements KeyListener {
+    private JPanel panellSuperior;
+    private JPanel panellInferior;
     private JButton tancar_button;
     private JLabel text_ajuda;
     private JFrame frame;
@@ -18,24 +18,24 @@ public class ViewAjuda {
     }
 
     private String setText() {
-        return "Text d'ajuda";
+        return "AJUDA";
     }
 
     private void inicialitzarComponents() {
         frame = new JFrame("Ajuda");
-        panell = new JPanel();
+        panellSuperior = new JPanel();
+        panellInferior = new JPanel();
         tancar_button = new JButton("Tancar");
         text_ajuda = new JLabel(setText());
     }
 
     private void configurarVista() {
         frame.setLayout(new BorderLayout());
-        frame.add(panell,BorderLayout.CENTER);
+        frame.add(panellSuperior,BorderLayout.NORTH);
+        frame.add(panellInferior,BorderLayout.SOUTH);
 
-        BorderLayout border = new BorderLayout();
-        panell.setLayout(border);
-        panell.add(tancar_button,BorderLayout.EAST);
-        panell.add(text_ajuda,BorderLayout.CENTER);
+        panellSuperior.add(text_ajuda,BorderLayout.CENTER);
+        panellInferior.add(tancar_button,BorderLayout.SOUTH);
 
         frame.setMinimumSize(new Dimension(400,400));
         frame.setPreferredSize(frame.getMinimumSize());
@@ -54,4 +54,17 @@ public class ViewAjuda {
     public void ferVisible() {
         frame.setVisible(true);
     }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getExtendedKeyCode() == KeyEvent.VK_ENTER) {
+            frame.setVisible(false);
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {}
+
+    @Override
+    public void keyTyped(KeyEvent e) {}
 }

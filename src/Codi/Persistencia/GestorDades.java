@@ -29,10 +29,7 @@ public class GestorDades {
         try {
             boolean creada = F.createNewFile();
 
-            if(creada && F.isFile()) {  // Mirem si s'ha creat el fitxer
-                System.out.println("S'ha creat el fitxer "+ path +" correctament");
-            }
-            else {  // Hi ha hagut un problema en crear el fitxer
+            if(!(creada && F.isFile())) {  // Mirem si s'ha creat el fitxer
                 throw new FitxerNoCreatException(path);
             }
         }
@@ -50,9 +47,7 @@ public class GestorDades {
     public void creaDirectori(String path) throws CarpetaNoCreadaException {
         // No hi ha cap error en crear el directori
         File dir = new File(path);
-        if(dir.mkdirs()) {
-            System.out.println("S'ha creat el fitxer correctament");
-        } else {  // Hi ha un error al crear el directori
+        if(!dir.mkdirs()) { // Hi ha un error al crear el directori
             throw new CarpetaNoCreadaException(path);
         }
     }
@@ -67,9 +62,7 @@ public class GestorDades {
         File doc = new File(path);
 
         // No hi ha cap problema en eliminar el fitxer
-        if (doc.delete()) {
-            System.out.println("S'ha eliminat el fitxer " + path + " correctament");
-        } else {  // Hi ha hagut algun problema en eliminar el fitxer
+        if (!doc.delete()) {
             throw new FitxerNoEliminatException(path);
         }
     }
@@ -499,7 +492,6 @@ public class GestorDades {
         try (BufferedWriter escriptor = Files.newBufferedWriter(PATH, StandardCharsets.UTF_8)) {
             for(String expressio : expressions) {
                 escriptor.write(expressio+'\n');
-                System.out.println(expressio);
             }
 
         }
