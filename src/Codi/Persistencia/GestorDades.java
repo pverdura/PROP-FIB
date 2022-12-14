@@ -88,12 +88,12 @@ public class GestorDades {
      * Crea el directori amb el path indicat
      *
      * @param path Indica el path del directori que es vol crear
-     * @param carpeta Objecte del directori que es vol crear
      * @throws CarpetaNoCreadaException Si no s'ha pogut crear la carpeta en el path indicat
      */
-    public void creaDirectori(String path, File carpeta) throws CarpetaNoCreadaException {
+    public void creaDirectori(String path) throws CarpetaNoCreadaException {
         // No hi ha cap error en crear el directori
-        if(carpeta.mkdirs()) {
+        File dir = new File(path);
+        if(dir.mkdirs()) {
             System.out.println("S'ha creat el fitxer correctament");
         } else {  // Hi ha un error al crear el directori
             throw new CarpetaNoCreadaException(path);
@@ -109,15 +109,9 @@ public class GestorDades {
      */
     public Boolean existeixDirectori(String path) throws CarpetaNoCreadaException {
         File carpeta = new File(path);
-        boolean existeix = false;
 
         // Primer mirem si existeix el directori on guardem els documents, expressions i stopWords
-        if(carpeta.exists() && carpeta.isDirectory()) {
-            existeix = true;
-        } else {  // Si no existeix el directori, el creem
-            creaDirectori(path,carpeta);
-        }
-        return existeix;
+        return (carpeta.exists() && carpeta.isDirectory());
     }
 
     /**
@@ -488,47 +482,22 @@ public class GestorDades {
     public ArrayList<String> llegeixExpressions(String path) throws FitxerNoCreatException {
         ArrayList<String> expressions = new ArrayList<String>();
 
-        // Mirem que el fitxer on guardem les expressions existeixi
-        if(existeixFitxer(path)) {
-            Path PATH = Paths.get(path);
+        Path PATH = Paths.get(path);
 
-            // Lector que ens llegirà el fitxer
-            try (BufferedReader lector = Files.newBufferedReader(PATH,StandardCharsets.UTF_8)) {
-                String linia;
+        // Lector que ens llegirà el fitxer
+        try (BufferedReader lector = Files.newBufferedReader(PATH,StandardCharsets.UTF_8)) {
+            String linia;
 
-                // Llegim el fitxer mentre hi hagi línies
-                while((linia = lector.readLine()) != null) {
-                    // Afegim l'expressió en el llistat
-                    expressions.add(linia);
-                }
+            // Llegim el fitxer mentre hi hagi línies
+            while((linia = lector.readLine()) != null) {
+                // Afegim l'expressió en el llistat
+                expressions.add(linia);
             }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        else {  // Si no existeix, el creem
-            creaFitxer(path);
-        }
-        return expressions;
-    }
-
-    /**
-     * Escriu l' expressió booleana expr en el document situat a path
-     *
-     * @param expr Indica l'expressió booleana que volem guardar
-     * @param PATH Indica en quina posició està emmagatzemat el document
-     * @param primera Indica si és la primera expressió booleana del docu
-     */
-    public void escriuExpressio(String expr, Path PATH, Boolean primera) {
-        try (BufferedWriter escriptor = Files.newBufferedWriter(PATH, StandardCharsets.UTF_8)) {
-            if(primera) {
-                escriptor.write(expr);
-            }
-            else escriptor.write("\n" + expr);
         }
         catch (IOException e) {
             e.printStackTrace();
         }
+        return expressions;
     }
 
     /**
@@ -539,11 +508,14 @@ public class GestorDades {
      */
     public void guardaExpressions(ArrayList<String> expressions, String path) {
         Path PATH = Paths.get(path);
-        boolean primera = true;
 
         for(String expressio : expressions) {
-            escriuExpressio(expressio,PATH,primera);
-            if(primera) primera = false;
+            try (BufferedWriter escriptor = Files.newBufferedWriter(PATH, StandardCharsets.UTF_8)) {
+                escriptor.write(expressio+'\n');
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -556,26 +528,34 @@ public class GestorDades {
      * @throws FitxerNoCreatException Si s'ha intentat crear el fitxer i no s'ha pogut
      */
     public void guardaExpressio(String expr, String path) throws ExpressioBooleanaJaExistentException,
-            FitxerNoCreatException {
-        Path PATH = Paths.get(path);
-        boolean buit = false;
+            FitxerNoCreatException, FitxerNoEliminatException {
+        // El document existeix i, per tant, cal comprobar si ja existeix l'expressió en el document
+        ArrayList<String> expressions = llegeixExpressions(path);
 
-        if(!existeixFitxer(path)) { // El document no existeix i, per tant, el creem
-            creaFitxer(path);
-            //Com el document és buit no cal comprovar repeticions
-            buit = true;
-        }
-        else {  // El document existeix i, per tant, cal comprobar si ja existeix l'expressió en el document
-            ArrayList<String> expressions = llegeixExpressions(path);
-            for(String expressio : expressions) {
-                if(expressio.equals(expr)) {    // Ja existeix l'expressió
+        if(expressions.size() != 0) {
+            for (String expressio : expressions) {
+                System.out.println(expressio);
+                if (expressio.equals(expr)) {    // Ja existeix l'expressió
                     throw new ExpressioBooleanaJaExistentException(expr);
                 }
             }
-            // L'expressió no existeix i, per tant, es pot afegir
-            if(expressions.size() == 0) buit = true;
+            eliminaFitxer(path);
+            creaFitxer(path);
+            // L'expressió no existeix, l'afegim
+            expressions.add(expr);
+            guardaExpressions(expressions,path);
         }
-        escriuExpressio(expr,PATH,buit);
+        else {
+            Path PATH = Paths.get(path);
+
+            try (BufferedWriter escriptor = Files.newBufferedWriter(PATH, StandardCharsets.UTF_8)) {
+                escriptor.write(expr + '\n');
+            } catch (IOException e) {System.out.println("Hola");
+
+
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -619,7 +599,7 @@ public class GestorDades {
         if(exprAnt.equals("")) {   // L'expressió és nova
             guardaExpressio(exprNova,path);
         }
-        else {  // La expressió és modificada
+        else {  // L'expressió és modificada
             modificaExpressio(exprAnt,exprNova,path,false);
         }
     }
@@ -630,23 +610,28 @@ public class GestorDades {
     }
 
     /**
-     * Llegeix el contingut del fitxer expressions.csv per a obtenir les expressions booleanes guardades
-     * en aquest fitxer, i si no existeix, crea els fitxers
+     * Guarda totes les expressions de l'array en el document situat en el path
      *
-     * @param path Indica el path relatiu de la carpeta on està situat el fitxer amb les expressions booleanes
-     * @return Retorna un array amb les expressions guardades si existeix el fitxer
-     * @throws CarpetaNoCreadaException Si no s'ha pogut crear la carpeta en el path indicat
-     * @throws FitxerNoCreatException Si no s'ha pogut crear el fitxer en la carpeta del path indicat
+     * @param expressions Array d'expressions booleanes
+     * @param path Indica en quina posició està emmagatzemat el document
      */
-    public ArrayList<String> carregaExpressionsBooleanes(String path) throws CarpetaNoCreadaException,
-            FitxerNoCreatException, CarpetaBuidaException {
-        ArrayList<String> expressions;
-        boolean existeix = existeixDirectori(path);
+    public void guardaExpressionsBooleanes(ArrayList<String> expressions, String path) throws FitxerNoCreatException, FitxerNoEliminatException {
+        // Si existeix el document l'eliminem per sobre escriure les expressions
+        if(existeixFitxer(path)) {
+            eliminaFitxer(path);
+        }
+        // El tornem a crear
+        creaFitxer(path);
+        Path PATH = Paths.get(path);
 
-        if(existeix) expressions = llegeixExpressions(path+"/expressions.txt");
-        else throw new CarpetaBuidaException();
-
-        return expressions;
+        for(String expressio : expressions) {
+            try (BufferedWriter escriptor = Files.newBufferedWriter(PATH, StandardCharsets.UTF_8)) {
+                escriptor.write(expressio+'\n');
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 

@@ -363,8 +363,10 @@ public class CtrlDomini {
         // Guardem l'expressió en les nostes estructures de dades
         CDeb.creaExpressioBool(expr,ExpressionsBooleanes);
 
+        ArrayList<String> expressions = new ArrayList<String>(ExpressionsBooleanes.keySet());
+
         // Guardem l'expressió en el sistema
-        CP.guardaExpressioBool("",expr);
+        CP.guardaExpressionsBooleanes(expressions);
     }
 
     /**
@@ -374,9 +376,12 @@ public class CtrlDomini {
      * @throws ExpressioBooleanaInexistentException Si no hi ha cap expressio booleana formada per l'expressio expr
      */
     public void eliminaExpressioBool(String expr) throws ExpressioBooleanaInexistentException, FitxerNoEliminatException,
-            FitxerNoCreatException {
+            FitxerNoCreatException, ExpressioBooleanaJaExistentException {
         CDeb.eliminaExpressioBool(expr,ExpressionsBooleanes);
-        CP.eliminaExpressioBool(expr);
+
+        ArrayList<String> expressions = new ArrayList<String>(ExpressionsBooleanes.keySet());
+
+        CP.guardaExpressionsBooleanes(expressions);
     }
 
     /**
@@ -392,7 +397,8 @@ public class CtrlDomini {
         // Modifiquem l'expressió en les estructures de crtlDomini
         CDeb.modificaExpressioBool(exprAnt,exprNova,ExpressionsBooleanes);
 
-        // Modifiquem l'expressió en el sistema
-        CP.guardaExpressioBool(exprAnt,exprNova);
+        ArrayList<String> expressions = new ArrayList<String>(ExpressionsBooleanes.keySet());
+
+        CP.guardaExpressionsBooleanes(expressions);
     }
 }
