@@ -49,7 +49,6 @@ public class ViewCercaSemblant {
         omplirAutor.addKeyListener(new Tecles());
         omplirTitol.addKeyListener(new Tecles());
         frameVista.addKeyListener(new Tecles());
-        numDocs.addKeyListener(new Tecles());
         cancelarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
