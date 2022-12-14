@@ -64,6 +64,14 @@ public class ViewCercaSemblant {
         });
     }
 
+    /**
+     * Retorna el màxim de dos enters
+     *
+     * @param a Primer enter
+     * @param b Segon enter
+     * @return El màxim dels dos enters
+     */
+    private int max (int a, int b) {if (a > b) return a; return b;}
 
     private class Tecles extends KeyAdapter{
         @Override
@@ -72,6 +80,11 @@ public class ViewCercaSemblant {
                 ferCercaSemblant();
             }
             else if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) ferVisible(false);
+            else if (e.getExtendedKeyCode() == KeyEvent.VK_UP) {
+                numDocs.setValue((int)numDocs.getValue()+1);
+            } else if (e.getExtendedKeyCode() == KeyEvent.VK_DOWN) {
+                numDocs.setValue(max((int)numDocs.getValue()-1, 0));
+            }
         }
     }
     ////////////////////////// RESTA DE MÈTODES PRIVATS
