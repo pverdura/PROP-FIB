@@ -111,7 +111,7 @@ public class ViewCercaSemblant {
         omplirAutor = new JTextField();
         model = new SpinnerNumberModel();
         model.setValue(0);
-        model.setMinimum(0);
+        model.setMinimum(1);
         model.setStepSize(1);
         numDocs = new JSpinner(model);
         labelTitol = new JLabel("Títol: ");
