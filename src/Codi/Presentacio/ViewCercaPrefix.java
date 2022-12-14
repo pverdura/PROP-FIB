@@ -3,8 +3,6 @@ package Codi.Presentacio;
 import Codi.Util.TipusOrdenacio;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -20,7 +18,6 @@ public class ViewCercaPrefix {
     private JButton cercaButton;
     private JButton cancelarButton;
     private JButton mostraButton;
-    private DefaultListModel listModel;
     private JList resCerca;
     private JScrollPane scroll;
     private JRadioButton asc;
@@ -52,7 +49,7 @@ public class ViewCercaPrefix {
 
 
     public void enviarDades(ArrayList<String> resultatCerca){
-        listModel = new DefaultListModel<>();
+        DefaultListModel listModel = new DefaultListModel<>();
 
         for(String s : resultatCerca){
             listModel.addElement(s);
@@ -72,12 +69,13 @@ public class ViewCercaPrefix {
             }
         });
 
-        //cercaButton.addKeyListener(new Tecles());
-
         frameVista.addKeyListener(new Tecles());
 
         omplirPrefix.addKeyListener(new Tecles());
+
         scroll.addKeyListener(new Tecles());
+
+        resCerca.addKeyListener(new Tecles());
 
 
         esborrarButton.addActionListener(new ActionListener() {
@@ -86,14 +84,13 @@ public class ViewCercaPrefix {
                 esborraCerca();
             }
         });
+
         cancelarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ferVisible(false);
             }
         });
-
-
 
         asc.addItemListener(new ItemListener() {
             @Override
@@ -133,7 +130,7 @@ public class ViewCercaPrefix {
                 ctrlPresentacio.cercaAutor(resCerca.getModel().getElementAt(index).toString());
             }
         });
-    };
+    }
 
 
     private class Tecles extends KeyAdapter{
@@ -188,7 +185,6 @@ public class ViewCercaPrefix {
 
     private void configurarVista(){
         frameVista.setLayout(new BorderLayout());
-        frameVista.add(prefixPanel, BorderLayout.NORTH);
 
         JPanel auxPanel = new JPanel(new BorderLayout());
         auxPanel.add(totsAutors, BorderLayout.WEST);
@@ -198,6 +194,7 @@ public class ViewCercaPrefix {
         auxPanel2.add(resultatPanel, BorderLayout.NORTH);
         auxPanel2.add(auxPanel, BorderLayout.SOUTH);
 
+        frameVista.add(prefixPanel, BorderLayout.NORTH);
         frameVista.add(auxPanel2, BorderLayout.CENTER);
         frameVista.add(buttonsPanel, BorderLayout.SOUTH);
 
