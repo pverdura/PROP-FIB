@@ -101,7 +101,7 @@ public class CtrlPersistencia {
         boolean existeix = gestorDades.existeixFitxer(pathExpressions);
 
         if(existeix) expressions = gestorDades.llegeixExpressions(pathExpressions);
-        else throw new FitxerNoCreatException;
+        else throw new FitxerNoCreatException(pathExpressions);
 
         return expressions;
     }
