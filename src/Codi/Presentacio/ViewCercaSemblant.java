@@ -15,7 +15,6 @@ public class ViewCercaSemblant {
     private JLabel labelTitol;
     private JLabel labelAutor;
     private JLabel labelNumDocs;
-    private SpinnerNumberModel model;
     private JSpinner numDocs;
     private JCheckBox totsDocs;
 
@@ -39,52 +38,25 @@ public class ViewCercaSemblant {
 
 
     private void assignarListeners(){
-        acceptarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ferCercaSemblant();
-            }
-        });
+        acceptarButton.addActionListener(e -> ferCercaSemblant());
 
         omplirAutor.addKeyListener(new Tecles());
         omplirTitol.addKeyListener(new Tecles());
         frameVista.addKeyListener(new Tecles());
-        cancelarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ferVisible(false);
-            }
-        });
 
-        totsDocs.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                numDocs.setEnabled(!totsDocs.isSelected());
-            }
-        });
+        cancelarButton.addActionListener(e -> ferVisible(false));
+
+        totsDocs.addItemListener(e -> numDocs.setEnabled(!totsDocs.isSelected()));
     }
 
-    /**
-     * Retorna el màxim de dos enters
-     *
-     * @param a Primer enter
-     * @param b Segon enter
-     * @return El màxim dels dos enters
-     */
-    private int max (int a, int b) {if (a > b) return a; return b;}
 
     private class Tecles extends KeyAdapter{
         @Override
         public void keyPressed(KeyEvent e) {
-            if(e.getExtendedKeyCode() == KeyEvent.VK_ENTER){
-                ferCercaSemblant();
-            }
+            if(e.getExtendedKeyCode() == KeyEvent.VK_ENTER) ferCercaSemblant();
             else if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) ferVisible(false);
-            else if (e.getExtendedKeyCode() == KeyEvent.VK_UP) {
-                numDocs.setValue((int)numDocs.getValue()+1);
-            } else if (e.getExtendedKeyCode() == KeyEvent.VK_DOWN) {
-                numDocs.setValue(max((int)numDocs.getValue()-1, 1));
-            }
+            else if (e.getExtendedKeyCode() == KeyEvent.VK_UP) numDocs.setValue((int)numDocs.getValue()+1);
+            else if (e.getExtendedKeyCode() == KeyEvent.VK_DOWN) numDocs.setValue(Math.max((int)numDocs.getValue()-1, 1));
         }
     }
     ////////////////////////// RESTA DE MÈTODES PRIVATS
@@ -105,15 +77,19 @@ public class ViewCercaSemblant {
         autorPanel = new JPanel();
         numPanel = new JPanel();
         buttonsPanel = new JPanel();
+
         cancelarButton = new JButton("Cancel·lar");
         acceptarButton = new JButton("Acceptar");
+
         omplirTitol = new JTextField();
         omplirAutor = new JTextField();
-        model = new SpinnerNumberModel();
+
+        SpinnerNumberModel model = new SpinnerNumberModel();
         model.setValue(0);
         model.setMinimum(1);
         model.setStepSize(1);
         numDocs = new JSpinner(model);
+
         labelTitol = new JLabel("Títol: ");
         labelAutor = new JLabel("Autor: ");
         labelNumDocs = new JLabel("Nº documents: ");
@@ -162,8 +138,10 @@ public class ViewCercaSemblant {
 
     private void configNumDocsPanel(){
         numPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+
         numDocs.setMinimumSize(new Dimension(50,25));
         numDocs.setPreferredSize(numDocs.getMinimumSize());
+
         numPanel.add(labelNumDocs);
         numPanel.add(numDocs);
     }
@@ -179,8 +157,10 @@ public class ViewCercaSemblant {
     private void ferCercaSemblant(){
         String titol = omplirTitol.getText();
         String autor = omplirAutor.getText();
+
         int k = (int)numDocs.getValue();
         boolean tots = totsDocs.isSelected();
+
         ctrlPresentacio.cercaSemblant(titol, autor, k, tots);
     }
 }
