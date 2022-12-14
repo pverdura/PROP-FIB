@@ -16,6 +16,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
     private JPanel mainPanel;
     private JButton cleanButton;
     private JScrollPane scroll;
+    private JLabel infoLabel;
     private JMenuItem miCreaDoc, miImportaDoc, miAjuda, miSortir;
     private JMenuItem miGestioBool;
     private JMenuItem miCercaTitol, miCercaAutor, miCercaTitolAutor, miCercaPrefix, miCercaParaules, miCercaSemblant;
@@ -35,6 +36,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         //Assignar presentacio i ordenacio per defecte
         this.ctrlPresentacio = ctrlPresentacio;
         this.tipus_ordenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
+        this.infoLabel = new JLabel("Carregant...");
 
         //Activar listener boto mostrar tot
         this.cleanButton.addActionListener(this);
@@ -219,7 +221,9 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
 
     //Metode per actualitzar els elements que es mostren per pantalla
-    public void actualitzarResultat(ArrayList<SimpleEntry<String,String>> titolsAutors, ArrayList<Integer> pesos, ArrayList<TipusExtensio> extensios) {
+    public void actualitzarResultat(ArrayList<SimpleEntry<String,String>> titolsAutors, ArrayList<Integer> pesos, ArrayList<TipusExtensio> extensios, String info) {
+
+        this.infoLabel.setText(info);
 
         //Eliminar els antics elements visibles
         int size_row = dtm.getRowCount();
@@ -231,9 +235,9 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         int size = titolsAutors.size();
         for (int i = 0; i < size; i++) {
             dtm.addRow(new Object[]{ titolsAutors.get(i).getKey(),
-                                     titolsAutors.get(i).getValue(),
-                                     String.valueOf(pesos.get(i)),
-                                     String.valueOf(extensios.get(i))});
+                    titolsAutors.get(i).getValue(),
+                    String.valueOf(pesos.get(i)),
+                    String.valueOf(extensios.get(i))});
         }
     }
 
@@ -253,9 +257,9 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
         //Crear filtre d extensions al importar fitxer
         FileNameExtensionFilter filtre = new FileNameExtensionFilter("Fitxers app",
-                                                                TipusExtensio.BOL.toString(),
-                                                                TipusExtensio.TXT.toString(),
-                                                                TipusExtensio.XML.toString());
+                TipusExtensio.BOL.toString(),
+                TipusExtensio.TXT.toString(),
+                TipusExtensio.XML.toString());
         fc.setFileFilter(filtre);
 
         //Aplicar multiples seleccions de fitxers

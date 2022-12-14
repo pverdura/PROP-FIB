@@ -20,8 +20,6 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
     private JList<String> llistaBool;
     private DefaultListModel<String> dlm;
 
-    int seleccio_row;
-
     private final CtrlPresentacio ctrlPresentacio;
 
     public ViewGestioExprBool(CtrlPresentacio ctrlPresentacio) {
@@ -88,9 +86,9 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
             //TODO: Missatge modificacio
 
         }
-         else if (source == miCercar) {
+        else if (source == miCercar) {
 
-             if (!llistaBool.isSelectionEmpty()) {
+            if (!llistaBool.isSelectionEmpty()) {
                 ctrlPresentacio.cercaBooleana(llistaBool.getSelectedValue());
                 //TODO: Actualitzar pantalla
             }
