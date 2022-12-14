@@ -14,7 +14,6 @@ public class ViewEditorDocument {
     private JFrame frame;
     private JPanel panellSuperior;
     private JPanel panellMig;
-    private JScrollPane panellInferior;
     private JLabel labelTitol;
     private JLabel labelAutor;
     private JButton btGuardar;
@@ -164,7 +163,7 @@ public class ViewEditorDocument {
         textContingut.setPreferredSize(textContingut.getMinimumSize());
         textContingut.setText(contingut);
 
-        panellInferior = new JScrollPane(textContingut);
+        JScrollPane panellInferior = new JScrollPane(textContingut);
         panellInferior.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         panellInferior.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         panellInferior.setPreferredSize(new Dimension(800, 450));
