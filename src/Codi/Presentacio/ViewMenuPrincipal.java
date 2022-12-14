@@ -193,23 +193,18 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
         //Aplicar funcionalitats associades als items del PopUp Menu
         else if (source == miExportar) {
-            if (!taula.getSelectionModel().isSelectionEmpty()) seleccionarDirNav();
+            seleccionarDirNav();
 
         } else if (source == miModificarDoc) {
-            if (!taula.getSelectionModel().isSelectionEmpty()) {
                 //Modificar document
                 ctrlPresentacio.modificarDocument(taula.getModel().getValueAt(fila_seleccionada, 0).toString(),
                         taula.getModel().getValueAt(fila_seleccionada, 1).toString());
-            }
 
         } else if (source == miEliminarDoc) {
-            if (!taula.getSelectionModel().isSelectionEmpty()) {
-
-                //Menu confirmacio per eliminar doc
-                if (VistaDialeg.confirmDialog("Segur que vols eliminar el document?")) {
-                    ctrlPresentacio.esborrarDocument(taula.getModel().getValueAt(fila_seleccionada, 0).toString(),
-                            taula.getModel().getValueAt(fila_seleccionada, 1).toString());
-                }
+            //Menu confirmacio per eliminar doc
+            if (VistaDialeg.confirmDialog("Segur que vols eliminar el document?")) {
+                ctrlPresentacio.esborrarDocument(taula.getModel().getValueAt(fila_seleccionada, 0).toString(),
+                        taula.getModel().getValueAt(fila_seleccionada, 1).toString());
             }
         }
 
@@ -341,7 +336,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         //Afegir listener a la taula per mostrar popup menu
         this.taula.addMouseListener(new MouseAdapter() {
             public void mouseReleased(MouseEvent e) {
-                if(e.isPopupTrigger()) {
+                if(e.isPopupTrigger() && !taula.getSelectionModel().isSelectionEmpty()) {
                     fila_seleccionada = taula.getSelectedRow();
                     rightClickMenu.show(e.getComponent(), e.getX(), e.getY());
                 }
