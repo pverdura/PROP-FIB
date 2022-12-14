@@ -51,11 +51,11 @@ public class CtrlPersistencia {
      */
     public ArrayList<DocumentLlegit> carregaDocuments() throws CarpetaNoCreadaException,
             CarpetaBuidaException, TipusExtensioIncorrectaException{
-        ArrayList<DocumentLlegit> documents;
+        ArrayList<DocumentLlegit> documents = new ArrayList<>();
         boolean existeix = gestorDades.existeixDirectori(path);
 
         if(existeix) documents = llegeixDocuments(path);
-        else throw new CarpetaBuidaException();
+        else gestorDades.creaDirectori(path);
 
         return documents;
     }
@@ -89,19 +89,16 @@ public class CtrlPersistencia {
                 }
             }
         }
-        else {
-            throw new CarpetaBuidaException();
-        }
         return documents;
     }
 
     public ArrayList<String> carregaExpressionsBooleanes() throws
             FitxerNoCreatException, CarpetaBuidaException{
-        ArrayList<String> expressions;
+        ArrayList<String> expressions = new ArrayList<>();
         boolean existeix = gestorDades.existeixFitxer(pathExpressions);
 
         if(existeix) expressions = gestorDades.llegeixExpressions(pathExpressions);
-        else throw new FitxerNoCreatException(pathExpressions);
+        else gestorDades.creaFitxer(pathExpressions);
 
         return expressions;
     }
