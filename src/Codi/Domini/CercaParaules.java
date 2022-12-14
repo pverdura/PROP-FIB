@@ -3,7 +3,6 @@ package Codi.Domini;
 import Codi.Excepcions.ArrayDeParaulesBuitException;
 import Codi.Excepcions.NombreMassaPetitDocumentsException;
 
-import javax.swing.text.html.parser.DocumentParser;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
