@@ -36,6 +36,7 @@ public class CtrlPresentacio {
     private String auxParaules;
     private int k;
     private TipusOrdenacio tipusOrdenacioPrefix;
+    String informacio;
 
     /**
      * Constructor
@@ -259,6 +260,7 @@ public class CtrlPresentacio {
             enviarPrincipal();
             ultimaCerca = TipusCerca.TITOL;
             this.auxTitol = titol;
+            informacio = "Documents de títol: "+this.auxTitol;
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
@@ -275,6 +277,7 @@ public class CtrlPresentacio {
             enviarPrincipal();
             ultimaCerca = TipusCerca.AUTOR;
             this.auxAutor = autor;
+            informacio = "Documents creats per l'autor: "+this.auxAutor;
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
@@ -294,6 +297,7 @@ public class CtrlPresentacio {
             ultimaCerca = TipusCerca.TITOLAUTOR;
             this.auxTitol = titol;
             this.auxAutor = autor;
+            informacio = "Document de títol: "+this.auxTitol+" i autor: "+this.auxAutor;
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
@@ -337,6 +341,7 @@ public class CtrlPresentacio {
             ultimaCerca = TipusCerca.PARAULES;
             this.auxParaules = paraules;
             this.k = k;
+            informacio = "Els "+k+" documents més rellevants per les paraules "+this.auxParaules;
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
@@ -356,7 +361,10 @@ public class CtrlPresentacio {
             resultatPrincipal = ctrlDomini.cercaSemblant(titol, autor, k);
             enviarPrincipal();
             ultimaCerca = TipusCerca.SEMBLANT;
+            this.auxTitol = titol;
+            this.auxAutor = autor;
             this.k = k;
+            informacio = "Els "+k+" documents més semblants al document de títol: "+this.auxTitol+" i autor: "+this.auxAutor;
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
@@ -373,6 +381,7 @@ public class CtrlPresentacio {
             enviarPrincipal();
             ultimaCerca = TipusCerca.BOOLEANA;
             this.auxExpr = expr;
+            informacio = "Els documents que compleixen l'expressió "+this.auxExpr;
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
         }
@@ -498,7 +507,7 @@ public class CtrlPresentacio {
             resultatPrincipalExtensio.add(ctrlDomini.getExtensio(t, a));
         }
 
-        viewMenuPrincipal.actualitzarResultat(resultatPrincipal, resultatPrincipalPes, resultatPrincipalExtensio);
+        viewMenuPrincipal.actualitzarResultat(resultatPrincipal, resultatPrincipalPes, resultatPrincipalExtensio, informacio);
     }
 
     /**
