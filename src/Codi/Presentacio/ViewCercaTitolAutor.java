@@ -32,13 +32,6 @@ public class ViewCercaTitolAutor {
     }
 
 
-    public void tancarVista(){
-        frameVista.dispatchEvent(new WindowEvent(frameVista, WindowEvent.WINDOW_CLOSING));
-    }
-
-
-
-
     /////////////////////////// ASSIGNACIÓ DE LISTENERS
 
     private void assignarListeners(){
