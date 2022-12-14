@@ -431,9 +431,8 @@ public class GestorDades {
      * Exporta un document fora del sistema
      *
      * @param D Indica el document que es vol exportar
-     * @throws FitxerNoCreatException Si s'ha intentat crear el document i no s'ha pogut
      */
-    public void exportarDocument(DocumentLlegit D) throws FitxerNoCreatException {
+    public void exportarDocument(DocumentLlegit D) {
         String path = D.getPath();
         int longitud_path = path.length();
         String path_doc = path.substring(0,longitud_path-4);

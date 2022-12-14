@@ -4,7 +4,6 @@ import Codi.Persistencia.CtrlPersistencia;
 import Codi.Util.*;
 import Codi.Excepcions.*;
 
-import javax.print.Doc;
 import java.io.File;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
@@ -99,7 +98,7 @@ public class CtrlDomini {
         }
     }
 
-    public void exportarDocument(String titol, String autor, File file) throws TipusExtensioIncorrectaException, FitxerNoCreatException {
+    public void exportarDocument(String titol, String autor, File file) throws FitxerNoCreatException {
         Document D = Documents.get(new SimpleEntry<String,String>(titol,autor));
         DocumentLlegit DL = new DocumentLlegit();
 
@@ -127,7 +126,7 @@ public class CtrlDomini {
         CDdoc.setPath(titol, autor, CP.getNovaPath(), Documents);
     }
 
-    public void guardaDocument(String titol, String autor) throws TipusExtensioIncorrectaException, FitxerNoEliminatException,
+    public void guardaDocument(String titol, String autor) throws FitxerNoEliminatException,
             FitxerNoCreatException {
         // Obtenim el document
         Document D = Documents.get(new SimpleEntry<String,String>(titol,autor));
@@ -359,7 +358,7 @@ public class CtrlDomini {
      * @throws ExpressioBooleanaJaExistentException Si ja hi ha una expressio booleana formada per l'expressio expr
      */
     public void creaExpressioBool(String expr) throws ExpressioBooleanaJaExistentException,
-            ExpressioBooleanaInexistentException, FitxerNoCreatException, FitxerNoEliminatException {
+            FitxerNoCreatException, FitxerNoEliminatException {
         // Guardem l'expressió en les nostes estructures de dades
         CDeb.creaExpressioBool(expr,ExpressionsBooleanes);
 
@@ -376,7 +375,7 @@ public class CtrlDomini {
      * @throws ExpressioBooleanaInexistentException Si no hi ha cap expressio booleana formada per l'expressio expr
      */
     public void eliminaExpressioBool(String expr) throws ExpressioBooleanaInexistentException, FitxerNoEliminatException,
-            FitxerNoCreatException, ExpressioBooleanaJaExistentException {
+            FitxerNoCreatException {
         CDeb.eliminaExpressioBool(expr,ExpressionsBooleanes);
 
         ArrayList<String> expressions = new ArrayList<String>(ExpressionsBooleanes.keySet());

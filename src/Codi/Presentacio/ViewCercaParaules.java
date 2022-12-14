@@ -66,7 +66,7 @@ public class ViewCercaParaules {
         textParaules = new JTextField();
         SpinnerNumberModel model = new SpinnerNumberModel();
         model.setValue(0);
-        model.setMinimum(0);
+        model.setMinimum(1);
         model.setStepSize(1);
         textNombreDocuments = new JSpinner(model);
         label1 = new JLabel("Paraules: ");
@@ -194,7 +194,7 @@ public class ViewCercaParaules {
             } else if (e.getExtendedKeyCode() == KeyEvent.VK_UP) {
                 textNombreDocuments.setValue((int)textNombreDocuments.getValue()+1);
             } else if (e.getExtendedKeyCode() == KeyEvent.VK_DOWN) {
-                textNombreDocuments.setValue(max((int)textNombreDocuments.getValue()-1, 0));
+                textNombreDocuments.setValue(max((int)textNombreDocuments.getValue()-1, 1));
             }
         }
     }
