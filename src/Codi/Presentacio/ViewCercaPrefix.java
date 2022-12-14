@@ -120,7 +120,10 @@ public class ViewCercaPrefix {
             }
         });
 
+        //!taula.getSelectionModel().isSelectionEmpty()
 
+        //nomes mostrar boto si aixo fals
+        //!resCerca.getSelectionModel().isSelectionEmpty();
         mostraButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -240,11 +243,11 @@ public class ViewCercaPrefix {
             totsAutors.setEnabled(false);
             mostraCerca(prefix);
             tots = false;
-            mostraButton.setEnabled(true);
+            //mostraButton.setEnabled(true);
         }
         else if (tots) {
             mostraCerca(prefix);
-            mostraButton.setEnabled(true);
+            //mostraButton.setEnabled(true);
         }
         else esborraCerca();
     }
