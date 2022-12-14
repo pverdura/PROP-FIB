@@ -58,6 +58,15 @@ public class ViewCercaPrefix {
         }
         resCerca = new JList<>(listModel);
         resCerca.addKeyListener(new Tecles());
+        resCerca.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!resCerca.getSelectionModel().isSelectionEmpty() && e.getSource()==resCerca && e.getValueIsAdjusting()){
+                    mostraButton.setEnabled(true);
+                    System.out.println("hola");
+                }
+            }
+        });
 
         scroll.setViewportView(resCerca);
     }
@@ -139,9 +148,35 @@ public class ViewCercaPrefix {
         resCerca.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if (resCerca.getSelectionModel().isSelectionEmpty()){ mostraButton.setEnabled(true);}
+                if (!resCerca.getSelectionModel().isSelectionEmpty() && e.getSource()==resCerca && e.getValueIsAdjusting()){
+                    mostraButton.setEnabled(true);
+                    System.out.println("hola");
+                }
             }
         });
+/*
+        resCerca.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getSource() == resCerca && !resCerca.getSelectionModel().isSelectionEmpty() && e.getClickCount()==1){
+                    mostraButton.setEnabled(true);
+                    System.out.println("hola");
+                }
+            }
+        });
+
+
+/*
+        scroll.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1 && !resCerca.getSelectionModel().isSelectionEmpty()){ mostraButton.setEnabled(true);}
+                //else mostraButton.setEnabled(false);
+                System.out.println("hola");
+            }
+        });
+
+ */
     }
 
 
@@ -228,9 +263,8 @@ public class ViewCercaPrefix {
 
     private void configResultatPanel(){
         resultatPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-
-        resultatPanel.add(scroll, BorderLayout.CENTER);
         scroll.setPreferredSize(new Dimension(350,300));
+        resultatPanel.add(scroll, BorderLayout.CENTER);
     }
 
     private void configButtonsPanel(){
@@ -254,11 +288,11 @@ public class ViewCercaPrefix {
             totsAutors.setEnabled(false);
             mostraCerca(prefix);
             tots = false;
-            mostraButton.setEnabled(true);
+            //mostraButton.setEnabled(true);
         }
         else if (tots) {
             mostraCerca(prefix);
-            mostraButton.setEnabled(true);
+            //mostraButton.setEnabled(true);
         }
         else esborraCerca();
     }
