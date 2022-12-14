@@ -155,35 +155,6 @@ public class CtrlPresentacio {
     }
 
     /**
-     * Obre la vista editor de documents per editar un document nou
-     */
-    public void crearDocument () {
-        String id = Integer.toString(idDocumentEditat);
-        if (obrirDocument(id, id)) {
-            ViewEditorDocument v = new ViewEditorDocument(this, idDocumentEditat);
-            v.ferVisible(true);
-
-            editors.put(new SimpleEntry<>(id, id), v);
-            ++idDocumentEditat;
-        }
-    }
-
-    /**
-     * Obre la vista de modificar un document
-     *
-     * @param titol Títol del document que es modifica
-     * @param autor Autor del document que es modifica
-     */
-    public void modificarDocument (String titol, String autor) {
-        if (obrirDocument(titol, autor)) {
-            ViewEditorDocument v = new ViewEditorDocument(this, titol, autor, ctrlDomini.getContingut(titol, autor), ctrlDomini.getExtensio(titol, autor));
-            v.ferVisible(true);
-
-            editors.put(new SimpleEntry<>(titol, autor), v);
-        }
-    }
-
-    /**
      * Importa una sèrie de documents
      *
      * @param fitxers {@code ArrayList<File>} dels fitxers que s'han d'importar
