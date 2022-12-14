@@ -15,34 +15,29 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
     private JButton searchButton;
     private JScrollPane scroll;
 
-    private JMenuItem miEliminar, miModificar;
 
+    private JMenuItem miEliminar, miModificar;
     private JPopupMenu rightClickMenu;
     private JList<String> llistaBool;
     private DefaultListModel<String> dlm;
-
-
 
     private final CtrlPresentacio ctrlPresentacio;
 
     public ViewGestioExprBool(CtrlPresentacio ctrlPresentacio) {
         this.ctrlPresentacio = ctrlPresentacio;
 
-        //Inicialitzar components principals de la vista
-        setContentPane(this.boolPanel);
-        setTitle("Gestió d'Expressions Booleanes");
-        setSize(500, 500);
-
         //Afegir listeners per detectar quan es clica cada boto
         createButton.addActionListener(this);
         searchButton.addActionListener(this);
 
+        //Configurar inicialment la vista
+        configurar_vista();
+
         //Afegir totes les expressions booleanes al text area
         configurar_llista_expressions();
 
-        //Configurar menu del click dret del ratoli
+        //Configurar menu del click dret del ratoli i mostrar expressions per pantalla
         configure_pop_menu();
-
         mostrarAllExpressions();
     }
 
@@ -101,6 +96,8 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
 
     //Metode per afegir les expressions booleanes a la vista
     private void mostrarAllExpressions() {
+        dlm.removeAllElements();
+
         ArrayList<String> expressions = ctrlPresentacio.getExpressionsBooleanes();
         for (String e: expressions) dlm.addElement(e);
     }
@@ -111,6 +108,7 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
         setVisible(true);
     }
 
+    //Metode per configurar la llista que mostrara les expressions per pantalla
     private void configurar_llista_expressions() {
         //Inicialitzar llista de expressions booleanes
         this.dlm = new DefaultListModel<>();
@@ -120,6 +118,15 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
         this.scroll.setViewportView(this.llistaBool);
     }
 
+    //Metode per configurar la vista
+    private void configurar_vista() {
+        setContentPane(this.boolPanel);
+        setTitle("Gestió d'Expressions Booleanes");
+        setSize(500, 500);
+        setResizable(false);
+    }
+
+    //Metode per configurar el menu del boto dret del ratoli
     private void configure_pop_menu() {
         this.rightClickMenu = new JPopupMenu();
 
@@ -142,10 +149,6 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
                 }
             }
         });
-
-
-
-
     }
 }
 

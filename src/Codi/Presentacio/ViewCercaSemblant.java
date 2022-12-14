@@ -35,11 +35,6 @@ public class ViewCercaSemblant {
         frameVista.setVisible(visible);
     }
 
-
-    public void tancarVista(){
-        frameVista.dispatchEvent(new WindowEvent(frameVista, WindowEvent.WINDOW_CLOSING));
-    }
-
     /////////////////////////// ASSIGNACIÓ DE LISTENERS
 
 

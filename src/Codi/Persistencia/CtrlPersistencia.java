@@ -126,7 +126,7 @@ public class CtrlPersistencia {
     }
 
     public void eliminaDocument(String path) throws FitxerNoEliminatException{
-        gestorDades.eliminaFitxer(path);
+        gestorDades.esborraFitxer(path);
     }
 
 
