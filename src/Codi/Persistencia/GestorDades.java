@@ -505,7 +505,34 @@ public class GestorDades {
      *
      * @param expressions Array d'expressions booleanes
      * @param path Indica en quina posició està emmagatzemat el document
+     *
      */
+    public void guardaExpressionsBooleanes(ArrayList<String> expressions, String path) throws FitxerNoCreatException, FitxerNoEliminatException {
+        // Si existeix el document l'eliminem per sobre escriure les expressions
+        if(existeixFitxer(path)) {
+            eliminaFitxer(path);
+        }
+        // El tornem a crear
+        creaFitxer(path);
+        Path PATH = Paths.get(path);
+        try (BufferedWriter escriptor = Files.newBufferedWriter(PATH, StandardCharsets.UTF_8)) {
+            for(String expressio : expressions) {
+                escriptor.write(expressio+'\n');
+                System.out.println(expressio);
+            }
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+     * Guarda totes les expressions de l'array en el document situat en el path
+     *
+     * @param expressions Array d'expressions booleanes
+     * @param path Indica en quina posició està emmagatzemat el document
+     *
     public void guardaExpressions(ArrayList<String> expressions, String path) {
         Path PATH = Paths.get(path);
 
@@ -517,16 +544,16 @@ public class GestorDades {
                 e.printStackTrace();
             }
         }
-    }
+    }*/
 
-    /**
+    /*
      * Guarda una sola expressió booleana en el document situat en el path
      *
      * @param expr Indica una expressió booleana que es guardarà
      * @param path Indica en quina posició està emmagatzemat el document
      * @throws ExpressioBooleanaJaExistentException Si l'expressió booleana expr ja està guardada en el document
      * @throws FitxerNoCreatException Si s'ha intentat crear el fitxer i no s'ha pogut
-     */
+     *
     public void guardaExpressio(String expr, String path) throws ExpressioBooleanaJaExistentException,
             FitxerNoCreatException, FitxerNoEliminatException {
         // El document existeix i, per tant, cal comprobar si ja existeix l'expressió en el document
@@ -568,7 +595,7 @@ public class GestorDades {
      * @throws FitxerNoEliminatException Si s'ha intentat eliminar el fitxer on estan les expressions i no s'ha pogut
      * @throws FitxerNoCreatException Si s'ha intentat crear el fitxer on estan les expressions i no s'ha pogut
      * @throws ExpressioBooleanaInexistentException Si no existeix l'expressió exprAnt en el document que volem modificar
-     */
+     *
     public void modificaExpressio(String exprAnt, String exprNova, String path, Boolean elimina)
             throws FitxerNoEliminatException, FitxerNoCreatException, ExpressioBooleanaInexistentException {
         // Llegim les expressions per eliminar exprAnt i posar exprNova
@@ -584,7 +611,8 @@ public class GestorDades {
         guardaExpressions(expressions, path);
     }
 
-    /**
+     */
+    /*
      * Guarda una expressió booleana en el fitxer indicat
      *
      * @param exprAnt Indica la expressió que volem modificar, o null si és una expressió nova
@@ -592,10 +620,9 @@ public class GestorDades {
      * @param path Indica en quin lloc està el fitxer on guardem les expressions
      * @throws ExpressioBooleanaJaExistentException Si ja hi ha l'expressió booleana exprNova en el fitxer
      * @throws ExpressioBooleanaInexistentException Si no està l'expressió booleana exprAnt abans de modificar el fitxer
-     */
-    public void guardaExpressioBool(String exprAnt, String exprNova, String path)
-            throws ExpressioBooleanaJaExistentException, ExpressioBooleanaInexistentException, FitxerNoCreatException,
-            FitxerNoEliminatException {
+     *
+    public void guardaExpressioBool(String exprAnt, String exprNova, String path) throws ExpressioBooleanaJaExistentException,
+            ExpressioBooleanaInexistentException, FitxerNoCreatException, FitxerNoEliminatException {
         if(exprAnt.equals("")) {   // L'expressió és nova
             guardaExpressio(exprNova,path);
         }
@@ -604,35 +631,12 @@ public class GestorDades {
         }
     }
 
+
     public void eliminaExpressio(String expr, String path) throws ExpressioBooleanaInexistentException,
             FitxerNoEliminatException, FitxerNoCreatException {
         modificaExpressio(expr,"",path,true);
     }
-
-    /**
-     * Guarda totes les expressions de l'array en el document situat en el path
-     *
-     * @param expressions Array d'expressions booleanes
-     * @param path Indica en quina posició està emmagatzemat el document
-     */
-    public void guardaExpressionsBooleanes(ArrayList<String> expressions, String path) throws FitxerNoCreatException, FitxerNoEliminatException {
-        // Si existeix el document l'eliminem per sobre escriure les expressions
-        if(existeixFitxer(path)) {
-            eliminaFitxer(path);
-        }
-        // El tornem a crear
-        creaFitxer(path);
-        Path PATH = Paths.get(path);
-
-        for(String expressio : expressions) {
-            try (BufferedWriter escriptor = Files.newBufferedWriter(PATH, StandardCharsets.UTF_8)) {
-                escriptor.write(expressio+'\n');
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+    */
 
 
     ///////////////////////////////////////////////////////////
