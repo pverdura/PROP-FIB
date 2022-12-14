@@ -228,7 +228,6 @@ public class ViewCercaPrefix {
             mostraCerca(prefix);
         }
         else esborraCerca();
-        mostraButton.setEnabled(false);
     }
 
     private void mostraCerca(String prefix){
@@ -237,6 +236,7 @@ public class ViewCercaPrefix {
         else t = TipusOrdenacio.ALFABETIC_DESCENDENT;
         ctrlPresentacio.cercaPrefix(prefix, t, esborrar);
         esborrar = false;
+        mostraButton.setEnabled(false);
     }
 
     private void esborraCerca(){
@@ -245,6 +245,7 @@ public class ViewCercaPrefix {
         totsAutors.setEnabled(true);
         totsAutors.setSelected(false);
         omplirPrefix.setText("");
+        mostraButton.setEnabled(false);
     }
 
 }
