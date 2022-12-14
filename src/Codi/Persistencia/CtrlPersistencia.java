@@ -131,7 +131,7 @@ public class CtrlPersistencia {
 
 
     public void guardaExpressionsBooleanes (ArrayList<String> expressions)
-            throws ExpressioBooleanaJaExistentException, ExpressioBooleanaInexistentException, FitxerNoCreatException,
+            throws FitxerNoCreatException,
             FitxerNoEliminatException{
         gestorDades.guardaExpressionsBooleanes(expressions, pathExpressions);
     }
