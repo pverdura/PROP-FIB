@@ -28,7 +28,7 @@ public class CtrlPersistencia {
         return docs;
     }
 
-    private DocumentLlegit importa(File file) throws TipusExtensioIncorrectaException{
+    private DocumentLlegit importa(File file) {
         String path = file.getAbsolutePath();
         DocumentLlegit doc;
         doc = gestorDades.llegeixDocument(path);
@@ -37,7 +37,7 @@ public class CtrlPersistencia {
 
 
 
-    public void exportarDocument(DocumentLlegit doc) throws TipusExtensioIncorrectaException, FitxerNoCreatException{
+    public void exportarDocument(DocumentLlegit doc) throws FitxerNoCreatException{
         gestorDades.exportarDocument(doc);
     }
 
@@ -50,7 +50,7 @@ public class CtrlPersistencia {
      * @throws TipusExtensioIncorrectaException Si hi ha algun document amb una extensió no coneguda
      */
     public ArrayList<DocumentLlegit> carregaDocuments() throws CarpetaNoCreadaException,
-            CarpetaBuidaException, TipusExtensioIncorrectaException{
+            CarpetaBuidaException{
         ArrayList<DocumentLlegit> documents = new ArrayList<>();
         boolean existeix = gestorDades.existeixDirectori(path);
 
@@ -70,7 +70,7 @@ public class CtrlPersistencia {
      * @throws TipusExtensioIncorrectaException Si hi ha algun document en el directori path que no té
      *         l'extensió .txt, .xml o .bol
      */
-    private ArrayList<DocumentLlegit> llegeixDocuments(String path) throws TipusExtensioIncorrectaException {
+    private ArrayList<DocumentLlegit> llegeixDocuments(String path) {
         ArrayList<DocumentLlegit> documents = new ArrayList<>();
         File carpeta = new File(path);
         String[] docs = carpeta.list(); // Obtenim tots els documents de la carpeta situada en el path
@@ -92,8 +92,7 @@ public class CtrlPersistencia {
         return documents;
     }
 
-    public ArrayList<String> carregaExpressionsBooleanes() throws
-            FitxerNoCreatException, CarpetaBuidaException{
+    public ArrayList<String> carregaExpressionsBooleanes() {
         ArrayList<String> expressions = new ArrayList<>();
         boolean existeix = gestorDades.existeixFitxer(pathExpressions);
 
@@ -111,7 +110,7 @@ public class CtrlPersistencia {
      * @throws CarpetaNoCreadaException Si s'ha intentat crear la carpeta i no s'ha pogut
      * @throws FitxerNoCreatException Si S'ha intentat crear el fitxer i no s'ha pogut
      */
-    public ArrayList<String> carregaStopWords() throws FitxerNoCreatException{
+    public ArrayList<String> carregaStopWords() {
         ArrayList<String> stopWords;
 
         stopWords = gestorDades.llegeixStopWords(pathStopWords);
@@ -121,7 +120,7 @@ public class CtrlPersistencia {
 
 
     public void guardaDocument(DocumentLlegit doc)
-            throws FitxerNoEliminatException, TipusExtensioIncorrectaException, FitxerNoCreatException{
+            throws FitxerNoEliminatException, FitxerNoCreatException{
         gestorDades.guardaDocument(doc);
     }
 
