@@ -175,12 +175,7 @@ public class ViewEditorDocument {
      * Assigna els listeners als components de la vista
      */
     private void assignarListeners () {
-        btGuardar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                guardarDocument();
-            }
-        });
+        btGuardar.addActionListener(e -> guardarDocument());
 
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override

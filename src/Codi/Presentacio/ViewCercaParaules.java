@@ -126,26 +126,9 @@ public class ViewCercaParaules {
      * Assigna els listeners als components de la vista
      */
     private void assignarListeners () {
-        btAcceptar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ferCerca();
-            }
-        });
-
-        btCancelar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ferVisible(false);
-            }
-        });
-
-        totsDocuments.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged (ItemEvent e) {
-                textNombreDocuments.setEnabled(!totsDocuments.isSelected());
-            }
-        });
+        btAcceptar.addActionListener(e -> ferCerca());
+        btCancelar.addActionListener(e -> ferVisible(false));
+        totsDocuments.addItemListener(e -> textNombreDocuments.setEnabled(!totsDocuments.isSelected()));
         frame.addKeyListener(new Tecles());
         textParaules.addKeyListener(new Tecles());
         textNombreDocuments.addKeyListener(new Tecles());

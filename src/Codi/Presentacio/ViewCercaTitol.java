@@ -102,18 +102,8 @@ public class ViewCercaTitol {
      *  Assigna els listeners als components de la vista
      */
     private void assignarListeners () {
-        btAcceptar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ctrlPresentacio.cercaTitol(textTitol.getText());
-            }
-        });
-        btCancelar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ferVisible(false);
-            }
-        });
+        btAcceptar.addActionListener(e -> ctrlPresentacio.cercaTitol(textTitol.getText()));
+        btCancelar.addActionListener(e -> ferVisible(false));
         frame.addKeyListener(new Tecles());
         textTitol.addKeyListener(new Tecles());
     }

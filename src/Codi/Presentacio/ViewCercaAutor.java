@@ -103,19 +103,8 @@ public class ViewCercaAutor {
      * Assigna els listeners als components de la vista
      */
     private void assignarListeners () {
-        btAcceptar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ctrlPresentacio.cercaAutor(textAutor.getText());
-            }
-        });
-
-        btCancelar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ferVisible(false);
-            }
-        });
+        btAcceptar.addActionListener(e -> ctrlPresentacio.cercaAutor(textAutor.getText()));
+        btCancelar.addActionListener(e -> ferVisible(false));
         frame.addKeyListener(new Tecles());
         textAutor.addKeyListener(new Tecles());
     }
