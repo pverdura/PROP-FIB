@@ -89,9 +89,6 @@ public class CtrlPersistencia {
                 }
             }
         }
-        else {
-            throw new CarpetaBuidaException();
-        }
         return documents;
     }
 
