@@ -83,7 +83,7 @@ public class ViewCercaSemblant {
             else if (e.getExtendedKeyCode() == KeyEvent.VK_UP) {
                 numDocs.setValue((int)numDocs.getValue()+1);
             } else if (e.getExtendedKeyCode() == KeyEvent.VK_DOWN) {
-                numDocs.setValue(max((int)numDocs.getValue()-1, 0));
+                numDocs.setValue(max((int)numDocs.getValue()-1, 1));
             }
         }
     }
