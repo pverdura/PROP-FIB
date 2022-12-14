@@ -19,7 +19,7 @@ public class CtrlPersistencia {
         numDocs = 0;
     }
 
-    public ArrayList<DocumentLlegit> importarDocuments(ArrayList<File> files) throws TipusExtensioIncorrectaException {
+    public ArrayList<DocumentLlegit> importarDocuments(ArrayList<File> files) {
         ArrayList<DocumentLlegit> docs = new ArrayList<>();
         for(File f: files){
             DocumentLlegit doc = importa(f);
@@ -37,7 +37,7 @@ public class CtrlPersistencia {
 
 
 
-    public void exportarDocument(DocumentLlegit doc) throws FitxerNoCreatException{
+    public void exportarDocument(DocumentLlegit doc) {
         gestorDades.exportarDocument(doc);
     }
 
@@ -61,7 +61,7 @@ public class CtrlPersistencia {
     }
 
 
-    /**
+    /*
      * Funció que llegeix tots els documents d'un directori
      *
      * @param path Indica el directori on estan situats els documents
@@ -129,9 +129,7 @@ public class CtrlPersistencia {
     }
 
 
-    public void guardaExpressionsBooleanes (ArrayList<String> expressions)
-            throws FitxerNoCreatException,
-            FitxerNoEliminatException{
+    public void guardaExpressionsBooleanes (ArrayList<String> expressions) throws FitxerNoEliminatException{
         gestorDades.guardaExpressionsBooleanes(expressions, pathExpressions);
     }
 
