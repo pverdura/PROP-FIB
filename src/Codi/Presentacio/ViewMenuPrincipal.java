@@ -47,9 +47,6 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
         configurar_vista();
         configurar_taula_docs();
 
-        //Configurar listener ratoli double click
-        configurar_double_click_selection();
-
         //Crear menus vista i inicialitzar popMenu
         crearMenus();
         configurarPopMenu();
@@ -292,9 +289,9 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
     private void configurar_vista() {
         setContentPane(this.mainPanel);
         setTitle("Menú Principal");
+        addKeyListener(this);
         setSize(600, 600);
         setResizable(false);
-        addKeyListener(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -314,10 +311,8 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
         this.taula.setRowSelectionAllowed(true);
         this.taula.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.scroll.setViewportView(this.taula);
-    }
 
-    private void configurar_double_click_selection() {
-        taula.addMouseListener(new MouseAdapter(){
+        this.taula.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
                 if(e.getSource() == taula && !taula.getSelectionModel().isSelectionEmpty() && e.getClickCount()==2 ) {
