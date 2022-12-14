@@ -135,16 +135,22 @@ public class CtrlPresentacio {
     ///                MÈTODES DE DOCUMENTS                 ///
     ///////////////////////////////////////////////////////////
 
-    /**
-     * Obre la vista editor de documents per editar un document nou
-     */
-    public void crearDocument () {
-        if (obrirDocument()) {
-            ViewEditorDocument v = new ViewEditorDocument(this, idDocumentEditat);
+    public void obrirEditorDocuments (String titol, String autor, boolean crear) {
+        if (crear) {
+            titol = Integer.toString(idDocumentEditat);
+            autor = titol;
+        }
+        if (obrirDocument(titol, autor)) {
+            ViewEditorDocument v;
+
+            if (crear) {
+                v = new ViewEditorDocument(this, idDocumentEditat);
+                ++idDocumentEditat;
+            }
+            else v = new ViewEditorDocument(this, titol, autor, ctrlDomini.getContingut(titol, autor), ctrlDomini.getExtensio(titol, autor));
             v.ferVisible(true);
 
-            editors.put(new SimpleEntry<>(Integer.toString(idDocumentEditat), Integer.toString(idDocumentEditat)), v);
-            ++idDocumentEditat;
+            editors.put(new SimpleEntry<>(titol, autor), v);
         }
     }
 
@@ -209,7 +215,7 @@ public class CtrlPresentacio {
      * @param contingut Contingut nou del document
      * @param te Tipus d'extensió nova del document
      */
-    public void guardarDocument (boolean nou, SimpleEntry<String, String> idVell, SimpleEntry<String, String> idNou, String contingut, TipusExtensio te) {
+    public void guardarDocument (boolean nou, boolean modificat, SimpleEntry<String, String> idVell, SimpleEntry<String, String> idNou, String contingut, TipusExtensio te) {
         try {
             if (nou) {
                 ctrlDomini.creaDocument(idNou.getKey(), idNou.getValue());
@@ -219,8 +225,10 @@ public class CtrlPresentacio {
             }
             ctrlDomini.setContingut(idNou.getKey(), idNou.getValue(), contingut);
             ctrlDomini.setExtensio(idNou.getKey(), idNou.getValue(), te);
-            ctrlDomini.guardaDocument(idNou.getKey(), idNou.getValue());
-            this.actualitzarCerca();
+            if (modificat) {
+                ctrlDomini.guardaDocument(idNou.getKey(), idNou.getValue());
+                this.actualitzarCerca();
+            }
 
             if (editors.containsKey(idVell))    {
                 ViewEditorDocument aux = editors.get(idVell);
@@ -312,14 +320,12 @@ public class CtrlPresentacio {
      * @param documentsModificats {@code true} si s'han modificat els documents de l'aplicació
      */
     public void cercaPrefix (String prefix, TipusOrdenacio to, boolean documentsModificats) {
-        print("crida "+prefix+" "+to.toString()+ ""+documentsModificats);
         try {
             if (documentsModificats || auxPrefix == null || !this.auxPrefix.equals(prefix)) {
                 resultatPrefix = ctrlDomini.cercaPrefix(prefix, to);
                 viewCercaPrefix.enviarDades(resultatPrefix);
                 this.auxPrefix = prefix;
                 this.tipusOrdenacioPrefix = to;
-                print("hola");
             } else if (this.tipusOrdenacioPrefix != to) {
                 viewCercaPrefix.enviarDades(ctrlDomini.ordenarCercaSimple(resultatPrefix, to));
                 this.tipusOrdenacioPrefix = to;
@@ -406,19 +412,6 @@ public class CtrlPresentacio {
     ///////////////////////////////////////////////////////////
     ///             MÈTODES PER OBRIR VISTES                ///
     ///////////////////////////////////////////////////////////
-
-    /**
-     * Obre la vista de modificar un document
-     *
-     * @param titol Títol del document que es modifica
-     * @param autor Autor del document que es modifica
-     */
-    public void modificarDocument (String titol, String autor) {
-        if (obrirDocument()) {
-            ViewEditorDocument v = new ViewEditorDocument(this, titol, autor, ctrlDomini.getContingut(titol, autor), ctrlDomini.getExtensio(titol, autor));
-            v.ferVisible(true);
-        }
-    }
 
     /**
      * Obre la vista de cerca per títol
@@ -518,8 +511,14 @@ public class CtrlPresentacio {
      *
      * @return {@code true} si hi ha menys de 20 documents oberts
      */
-    private boolean obrirDocument () {
-        if (editors.size() < 20) return true;
+    private boolean obrirDocument (String titol, String autor) {
+        if (editors.size() < 20) {
+            if (editors.containsKey(new SimpleEntry<>(titol, autor))) {
+                VistaDialeg.messageDialog("Ja és obert", "El document de títol: "+titol+" i autor: "+
+                        " ja és obert en un editor");
+                return false;
+            } else return true;
+        }
         else {
             VistaDialeg.messageDialog("Massa documents oberts", "Tens massa documents oberts. Tanca'n algun abans de continuar");
             return false;
@@ -555,8 +554,6 @@ public class CtrlPresentacio {
         }
 
         //actualitzar prefix si la pantalla és oberta
-        boolean v = viewCercaPrefix != null && viewCercaPrefix.esVisible() && auxPrefix == null;
-        print(Boolean.toString(v));
         if (viewCercaPrefix != null && viewCercaPrefix.esVisible() && auxPrefix != null) {
             this.cercaPrefix(auxPrefix, tipusOrdenacioPrefix, true);
         }

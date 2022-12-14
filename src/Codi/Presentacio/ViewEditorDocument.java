@@ -229,6 +229,7 @@ public class ViewEditorDocument {
     private void guardarDocument () {
         if (VistaDialeg.confirmDialog("Segur que vols desar el document?")) {
             SimpleEntry<String, String> idVell = new SimpleEntry<>(titol, autor);
+            boolean m = modificat();
 
             titol = textTitol.getText().trim();
             autor = textAutor.getText().trim();
@@ -236,7 +237,7 @@ public class ViewEditorDocument {
             setExtensio(getTipusExtensio());
             SimpleEntry<String, String> idNou = new SimpleEntry<>(titol, autor);
 
-            ctrlPresentacio.guardarDocument(documentNou, idVell, idNou, contingut, tExtensio);
+            ctrlPresentacio.guardarDocument(documentNou, m, idVell, idNou, contingut, tExtensio);
             documentNou = false;
             frame.setTitle("Editor de documents - "+titol);
         }
