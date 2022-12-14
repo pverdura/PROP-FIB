@@ -58,6 +58,7 @@ public class ViewCercaPrefix {
         }
         resCerca = new JList<>(listModel);
         resCerca.addKeyListener(new Tecles());
+
         resCerca.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
