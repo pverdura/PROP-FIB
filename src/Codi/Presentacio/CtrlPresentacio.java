@@ -312,12 +312,14 @@ public class CtrlPresentacio {
      * @param documentsModificats {@code true} si s'han modificat els documents de l'aplicació
      */
     public void cercaPrefix (String prefix, TipusOrdenacio to, boolean documentsModificats) {
+        print("crida "+prefix+" "+to.toString()+ ""+documentsModificats);
         try {
             if (documentsModificats || auxPrefix == null || !this.auxPrefix.equals(prefix)) {
                 resultatPrefix = ctrlDomini.cercaPrefix(prefix, to);
                 viewCercaPrefix.enviarDades(resultatPrefix);
                 this.auxPrefix = prefix;
                 this.tipusOrdenacioPrefix = to;
+                print("hola");
             } else if (this.tipusOrdenacioPrefix != to) {
                 viewCercaPrefix.enviarDades(ctrlDomini.ordenarCercaSimple(resultatPrefix, to));
                 this.tipusOrdenacioPrefix = to;
@@ -553,7 +555,9 @@ public class CtrlPresentacio {
         }
 
         //actualitzar prefix si la pantalla és oberta
-        if (viewCercaPrefix != null && viewCercaPrefix.esVisible() && auxPrefix == null) {
+        boolean v = viewCercaPrefix != null && viewCercaPrefix.esVisible() && auxPrefix == null;
+        print(Boolean.toString(v));
+        if (viewCercaPrefix != null && viewCercaPrefix.esVisible() && auxPrefix != null) {
             this.cercaPrefix(auxPrefix, tipusOrdenacioPrefix, true);
         }
     }
