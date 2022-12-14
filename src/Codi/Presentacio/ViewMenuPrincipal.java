@@ -5,10 +5,7 @@ import Codi.Util.TipusOrdenacio;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.File;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
@@ -39,21 +36,16 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         this.ctrlPresentacio = ctrlPresentacio;
         this.tipus_ordenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
 
-        //Inicialitzar components principals de la vista
-        setContentPane(this.mainPanel);
-        setTitle("Menú Principal");
-        setSize(600, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //Activar listener boto mostrar tot
+        this.cleanButton.addActionListener(this);
 
-        //Inicialitzar taula per mostrar cerques
+        //Configurar vista
+        configurar_vista();
         configurar_taula_docs();
 
         //Crear menus vista i inicialitzar popMenu
         crearMenus();
         initPopMenu();
-
-        //Activar listener boto neteja
-        this.cleanButton.addActionListener(this);
     }
 
     private void crearMenus() {
@@ -85,7 +77,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         JMenu menuBool = new JMenu("Expressió Bool");
         barraMenu.add(menuBool);
 
-        miGestioBool = new JMenuItem("Gestió");
+        miGestioBool = new JMenuItem("Gestionar expressions");
         miGestioBool.addActionListener(this);
         menuBool.add(miGestioBool);
 
@@ -220,13 +212,16 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
     }
 
 
+    //Metode per actualitzar els elements que es mostren per pantalla
     public void actualitzarResultat(ArrayList<SimpleEntry<String,String>> titolsAutors, ArrayList<Integer> pesos, ArrayList<TipusExtensio> extensios) {
 
+        //Eliminar els antics elements visibles
         int size_row = dtm.getRowCount();
         if (size_row > 0) {
             for (int i = size_row-1; i > -1; i--) dtm.removeRow(i);
         }
 
+        //Afegir els nous elements a visualitzar
         int size = titolsAutors.size();
         for (int i = 0; i < size; i++) {
             dtm.addRow(new Object[]{ titolsAutors.get(i).getKey(),
@@ -244,7 +239,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
     //Metode que tanca app
     public void tancarVista() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
 
     private void seleccionarFitxersNav() {
@@ -287,6 +282,15 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
             ctrlPresentacio.exportarDocument(taula.getModel().getValueAt(fila_seleccionada,0).toString(),
                     taula.getModel().getValueAt(fila_seleccionada,1).toString(), fc.getSelectedFile());
         }
+    }
+
+    //Metode per configurar la vista
+    private void configurar_vista() {
+        setContentPane(this.mainPanel);
+        setTitle("Menú Principal");
+        setSize(600, 600);
+        setResizable(false);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private void configurar_taula_docs() {
