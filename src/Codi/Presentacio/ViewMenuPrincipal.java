@@ -11,7 +11,7 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ViewMenuPrincipal extends JFrame implements ActionListener {
+public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyListener {
 
     private JPanel mainPanel;
     private JButton cleanButton;
@@ -29,13 +29,16 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
     private JTable taula;
     private DefaultTableModel dtm;
-    int fila_seleccionada;
+    private int fila_seleccionada;
+    private Boolean control_selected;
+
 
     public ViewMenuPrincipal(CtrlPresentacio ctrlPresentacio) {
 
         //Assignar presentacio i ordenacio per defecte
         this.ctrlPresentacio = ctrlPresentacio;
         this.tipus_ordenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
+        this.control_selected = false;
 
         //Activar listener boto mostrar tot
         this.cleanButton.addActionListener(this);
@@ -44,9 +47,12 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         configurar_vista();
         configurar_taula_docs();
 
+        //Configurar listener ratoli double click
+        configurar_double_click_selection();
+
         //Crear menus vista i inicialitzar popMenu
         crearMenus();
-        initPopMenu();
+        configurarPopMenu();
     }
 
     private void crearMenus() {
@@ -195,16 +201,10 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
             seleccionarDirNav();
 
         } else if (source == miModificarDoc) {
-                //Modificar document
-                ctrlPresentacio.modificarDocument(taula.getModel().getValueAt(fila_seleccionada, 0).toString(),
-                        taula.getModel().getValueAt(fila_seleccionada, 1).toString());
+            modificarDoc();
 
         } else if (source == miEliminarDoc) {
-            //Menu confirmacio per eliminar doc
-            if (VistaDialeg.confirmDialog("Segur que vols eliminar el document?")) {
-                ctrlPresentacio.esborrarDocument(taula.getModel().getValueAt(fila_seleccionada, 0).toString(),
-                        taula.getModel().getValueAt(fila_seleccionada, 1).toString());
-            }
+            eliminarDoc();
         }
 
         //Aplicar funcionalitat associades al Mostra Tot
@@ -291,6 +291,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
     //Metode per configurar la vista
     private void configurar_vista() {
         setContentPane(this.mainPanel);
+        addKeyListener(this);
         setTitle("Menú Principal");
         setSize(600, 600);
         setResizable(false);
@@ -308,13 +309,25 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         };
 
         this.taula = new JTable(this.dtm);
+        this.taula.addKeyListener(this);
         this.taula.setShowHorizontalLines(true);
         this.taula.setRowSelectionAllowed(true);
         this.taula.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.scroll.setViewportView(this.taula);
     }
 
-    private void initPopMenu() {
+    private void configurar_double_click_selection() {
+        taula.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                if(e.getSource() == taula && !taula.getSelectionModel().isSelectionEmpty() && e.getClickCount()==2 ) {
+                    modificarDoc();
+                }
+            }
+        });
+    }
+
+    private void configurarPopMenu() {
         this.rightClickMenu = new JPopupMenu();
 
         //Crear items del PopUp Menu
@@ -342,4 +355,40 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
             }
         });
     }
+
+    private void eliminarDoc() {
+        //Menu confirmacio per eliminar doc
+        if (VistaDialeg.confirmDialog("Segur que vols eliminar el document?")) {
+            ctrlPresentacio.esborrarDocument(taula.getModel().getValueAt(fila_seleccionada, 0).toString(),
+                    taula.getModel().getValueAt(fila_seleccionada, 1).toString());
+        }
+    }
+
+    private void modificarDoc() {
+        ctrlPresentacio.modificarDocument(taula.getModel().getValueAt(fila_seleccionada, 0).toString(),
+                taula.getModel().getValueAt(fila_seleccionada, 1).toString());
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int key = e.getKeyCode();
+
+        if (key == KeyEvent.VK_CONTROL) {
+            this.control_selected = true;
+
+        } else if (control_selected && key == KeyEvent.VK_N) {
+            ctrlPresentacio.crearDocument();
+
+        } else if (key == KeyEvent.VK_DELETE && !taula.getSelectionModel().isSelectionEmpty()) {
+            eliminarDoc();
+        }
+    }
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
+            this.control_selected = false;
+        }
+    }
+    @Override
+    public void keyTyped(KeyEvent e) {}
 }
