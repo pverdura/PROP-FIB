@@ -3,8 +3,6 @@ package Codi.Presentacio;
 import Codi.Util.TipusOrdenacio;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -20,7 +18,7 @@ public class ViewCercaPrefix {
     private JButton cercaButton;
     private JButton cancelarButton;
     private JButton mostraButton;
-    private JList resCerca;
+    private JList<Object> resCerca;
     private JScrollPane scroll;
     private JRadioButton asc;
     private JRadioButton des;
@@ -51,7 +49,7 @@ public class ViewCercaPrefix {
 
 
     public void enviarDades(ArrayList<String> resultatCerca){
-        DefaultListModel listModel = new DefaultListModel<>();
+        DefaultListModel<Object> listModel = new DefaultListModel<>();
 
         for(String s : resultatCerca){
             listModel.addElement(s);
@@ -59,13 +57,9 @@ public class ViewCercaPrefix {
         resCerca = new JList<>(listModel);
         resCerca.addKeyListener(new Tecles());
 
-        resCerca.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!resCerca.getSelectionModel().isSelectionEmpty() && e.getSource()==resCerca && e.getValueIsAdjusting()){
-                    mostraButton.setEnabled(true);
-                    System.out.println("hola");
-                }
+        resCerca.addListSelectionListener(e -> {
+            if (!resCerca.getSelectionModel().isSelectionEmpty() && e.getSource()==resCerca && e.getValueIsAdjusting()){
+                mostraButton.setEnabled(true);
             }
         });
 
@@ -75,12 +69,7 @@ public class ViewCercaPrefix {
     /////////////////////////// ASSIGNACIÓ DE LISTENERS
 
     private void assignarListeners(){
-        cercaButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mostrarCerca();
-            }
-        });
+        cercaButton.addActionListener(e -> mostrarCerca());
 
         frameVista.addKeyListener(new Tecles());
 
@@ -88,96 +77,38 @@ public class ViewCercaPrefix {
 
         scroll.addKeyListener(new Tecles());
 
-        esborrarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        esborrarButton.addActionListener(e -> esborraCerca());
+
+        cancelarButton.addActionListener(e -> ferVisible(false));
+
+        asc.addItemListener(e -> {
+            des.setSelected(!asc.isSelected());
+            mostrarCerca();
+        });
+
+        des.addItemListener(e -> {
+            asc.setSelected(!des.isSelected());
+            mostrarCerca();
+        });
+
+        totsAutors.addActionListener(e -> {
+            if (totsAutors.isSelected()) {
+                tots = true;
+                mostrarCerca();
+            }
+            else {
+                tots = false;
                 esborraCerca();
             }
         });
 
-        cancelarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ferVisible(false);
+        mostraButton.addActionListener(e -> {
+            if (!resCerca.getSelectionModel().isSelectionEmpty()){
+                index = resCerca.getSelectedIndex();
+                ctrlPresentacio.cercaAutor(resCerca.getModel().getElementAt(index).toString());
             }
         });
 
-        asc.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                des.setSelected(!asc.isSelected());
-                mostrarCerca();
-            }
-        });
-
-        des.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                asc.setSelected(!des.isSelected());
-                mostrarCerca();
-            }
-        });
-
-        totsAutors.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (totsAutors.isSelected()) {
-                    tots = true;
-                    mostrarCerca();
-                }
-                else {
-                    tots = false;
-                    esborraCerca();
-                }
-            }
-        });
-
-        //!taula.getSelectionModel().isSelectionEmpty()
-
-        //nomes mostrar boto si aixo fals
-        //!resCerca.getSelectionModel().isSelectionEmpty();
-        mostraButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!resCerca.getSelectionModel().isSelectionEmpty()){
-                    index = resCerca.getSelectedIndex();
-                    ctrlPresentacio.cercaAutor(resCerca.getModel().getElementAt(index).toString());
-                }
-            }
-        });
-
-        resCerca.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!resCerca.getSelectionModel().isSelectionEmpty() && e.getSource()==resCerca && e.getValueIsAdjusting()){
-                    mostraButton.setEnabled(true);
-                    System.out.println("hola");
-                }
-            }
-        });
-/*
-        resCerca.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getSource() == resCerca && !resCerca.getSelectionModel().isSelectionEmpty() && e.getClickCount()==1){
-                    mostraButton.setEnabled(true);
-                    System.out.println("hola");
-                }
-            }
-        });
-
-
-/*
-        scroll.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 1 && !resCerca.getSelectionModel().isSelectionEmpty()){ mostraButton.setEnabled(true);}
-                //else mostraButton.setEnabled(false);
-                System.out.println("hola");
-            }
-        });
-
- */
     }
 
 
@@ -205,18 +136,22 @@ public class ViewCercaPrefix {
         prefixPanel = new JPanel();
         resultatPanel = new JPanel();
         buttonsPanel = new JPanel();
+
         cancelarButton = new JButton("Cancel·lar");
         esborrarButton = new JButton("Esborrar");
         cercaButton = new JButton("Cercar");
         mostraButton = new JButton("Mostra els documents de l'autor");
+
         omplirPrefix = new JTextField();
         labelPrefix = new JLabel("Prefix: ");
+
         resCerca = new JList<>();
         resCerca.setSelectedIndex(0);
         resCerca.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         scroll = new JScrollPane();
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
         asc = new JRadioButton("Ascendent");
         des = new JRadioButton("Descendent");
         totsAutors = new JCheckBox("Mostra tots els autors");
@@ -284,18 +219,16 @@ public class ViewCercaPrefix {
 
     private void mostrarCerca(){
         String prefix = omplirPrefix.getText();
-        if (!prefix.isEmpty()) {
-            totsAutors.setSelected(false);
-            totsAutors.setEnabled(false);
+        if (!prefix.isEmpty() || tots) {
+            if(!prefix.isEmpty()) {
+                totsAutors.setSelected(false);
+                totsAutors.setEnabled(false);
+                tots = false;
+            }
             mostraCerca(prefix);
-            tots = false;
-            //mostraButton.setEnabled(true);
-        }
-        else if (tots) {
-            mostraCerca(prefix);
-            //mostraButton.setEnabled(true);
         }
         else esborraCerca();
+        mostraButton.setEnabled(false);
     }
 
     private void mostraCerca(String prefix){
@@ -312,7 +245,6 @@ public class ViewCercaPrefix {
         totsAutors.setEnabled(true);
         totsAutors.setSelected(false);
         omplirPrefix.setText("");
-        mostraButton.setEnabled(false);
     }
 
 }
