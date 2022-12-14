@@ -92,7 +92,7 @@ public class CtrlPersistencia {
         return documents;
     }
 
-    public ArrayList<String> carregaExpressionsBooleanes() throws CarpetaBuidaException{
+    public ArrayList<String> carregaExpressionsBooleanes() {
         ArrayList<String> expressions = new ArrayList<>();
         boolean existeix = gestorDades.existeixFitxer(pathExpressions);
 
