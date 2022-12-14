@@ -101,6 +101,8 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
 
     //Metode per afegir les expressions booleanes a la vista
     private void mostrarAllExpressions() {
+        dlm.removeAllElements();
+
         ArrayList<String> expressions = ctrlPresentacio.getExpressionsBooleanes();
         for (String e: expressions) dlm.addElement(e);
     }
