@@ -49,8 +49,7 @@ public class CtrlPersistencia {
      * @throws CarpetaNoCreadaException Si no s'ha pogut crear la carpeta en el path indicat
      * @throws TipusExtensioIncorrectaException Si hi ha algun document amb una extensió no coneguda
      */
-    public ArrayList<DocumentLlegit> carregaDocuments() throws CarpetaNoCreadaException,
-            CarpetaBuidaException{
+    public ArrayList<DocumentLlegit> carregaDocuments() throws CarpetaNoCreadaException, CarpetaBuidaException{
         ArrayList<DocumentLlegit> documents = new ArrayList<>();
         boolean existeix = gestorDades.existeixDirectori(path);
 
@@ -72,6 +71,7 @@ public class CtrlPersistencia {
      */
     private ArrayList<DocumentLlegit> llegeixDocuments(String path) {
         ArrayList<DocumentLlegit> documents = new ArrayList<>();
+
         File carpeta = new File(path);
         String[] docs = carpeta.list(); // Obtenim tots els documents de la carpeta situada en el path
 
@@ -112,15 +112,12 @@ public class CtrlPersistencia {
      */
     public ArrayList<String> carregaStopWords() {
         ArrayList<String> stopWords;
-
         stopWords = gestorDades.llegeixStopWords(pathStopWords);
-
         return stopWords;
     }
 
 
-    public void guardaDocument(DocumentLlegit doc)
-            throws FitxerNoEliminatException, FitxerNoCreatException{
+    public void guardaDocument(DocumentLlegit doc) throws FitxerNoEliminatException, FitxerNoCreatException{
         gestorDades.guardaDocument(doc);
     }
 
