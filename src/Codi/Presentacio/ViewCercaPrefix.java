@@ -3,6 +3,8 @@ package Codi.Presentacio;
 import Codi.Util.TipusOrdenacio;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -127,8 +129,17 @@ public class ViewCercaPrefix {
         mostraButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                index = resCerca.getSelectedIndex();
-                ctrlPresentacio.cercaAutor(resCerca.getModel().getElementAt(index).toString());
+                if (!resCerca.getSelectionModel().isSelectionEmpty()){
+                    index = resCerca.getSelectedIndex();
+                    ctrlPresentacio.cercaAutor(resCerca.getModel().getElementAt(index).toString());
+                }
+            }
+        });
+
+        resCerca.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (resCerca.getSelectionModel().isSelectionEmpty()){ mostraButton.setEnabled(true);}
             }
         });
     }
@@ -243,11 +254,11 @@ public class ViewCercaPrefix {
             totsAutors.setEnabled(false);
             mostraCerca(prefix);
             tots = false;
-            //mostraButton.setEnabled(true);
+            mostraButton.setEnabled(true);
         }
         else if (tots) {
             mostraCerca(prefix);
-            //mostraButton.setEnabled(true);
+            mostraButton.setEnabled(true);
         }
         else esborraCerca();
     }
