@@ -13,11 +13,35 @@ public class ViewCercaAutor {
     private JTextField textAutor;
     private JLabel label;
 
+    /**
+     * Constructor
+     *
+     * @param cp Control presentació
+     */
     public ViewCercaAutor (CtrlPresentacio cp) {
         this.ctrlPresentacio = cp;
         inicialitzar();
     }
 
+    /**
+     * Fa la vista visible o invisible
+     *
+     * @param visible si ha de ser visible o no
+     */
+
+    public void ferVisible (boolean visible) {
+        textAutor.setText("");
+        if (visible) frame.pack();
+        frame.setVisible(visible);
+    }
+
+    ///////////////////////////////////////////////////////////
+    ///                  MÈTODES PRIVATS                    ///
+    ///////////////////////////////////////////////////////////
+
+    /**
+     * Inicialitza i configura la vista
+     */
     private void inicialitzar () {
         inicialitzarComponents();
         configurarVista();
@@ -26,6 +50,9 @@ public class ViewCercaAutor {
         assignarListeners();
     }
 
+    /**
+     * Inicialitza els components
+     */
     private void inicialitzarComponents () {
         frame = new JFrame("Cerca per Autor");
         panellSuperior = new JPanel();
@@ -36,6 +63,9 @@ public class ViewCercaAutor {
         label = new JLabel("Autor: ");
     }
 
+    /**
+     * Configura la vista
+     */
     private void configurarVista () {
         frame.setLayout(new BorderLayout());
         frame.add(panellSuperior, BorderLayout.CENTER);
@@ -48,6 +78,9 @@ public class ViewCercaAutor {
         frame.setLocationRelativeTo(null);
     }
 
+    /**
+     * Configura el panell superior
+     */
     private void configurarPanellSuperior () {
         panellSuperior.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         textAutor.setMinimumSize(new Dimension(250, 30));
@@ -56,6 +89,9 @@ public class ViewCercaAutor {
         panellSuperior.add(textAutor);
     }
 
+    /**
+     * Configura el panell inferior
+     */
     private void configurarPanellInferior () {
         BorderLayout bl = new BorderLayout();
         panellInferior.setLayout(bl);
@@ -63,6 +99,9 @@ public class ViewCercaAutor {
         panellInferior.add(btAcceptar, BorderLayout.EAST);
     }
 
+    /**
+     * Assigna els listeners als components de la vista
+     */
     private void assignarListeners () {
         btAcceptar.addActionListener(new ActionListener() {
             @Override
@@ -81,14 +120,19 @@ public class ViewCercaAutor {
         textAutor.addKeyListener(new Tecles());
     }
 
-    public void ferVisible (boolean visible) {
-        textAutor.setText("");
-        if (visible) frame.pack();
-        frame.setVisible(visible);
-    }
-
+    /**
+     * Classe que implementa les dreceres de teclat per la vista
+     */
     private class Tecles extends KeyAdapter {
         private boolean control = false;
+
+        /**
+         * Sobreescriptura del mètode de tecla premuda
+         * Enter fa la cerca
+         * Esc tanca la vista
+         *
+         * @param e l'event a ser processat
+         */
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) {

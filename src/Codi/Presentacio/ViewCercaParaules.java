@@ -6,7 +6,6 @@ import java.awt.event.*;
 
 public class ViewCercaParaules {
     private final CtrlPresentacio ctrlPresentacio;
-
     private JFrame frame;
     private JPanel panellSuperior, panellMig, panellInferior;
     private JButton btCancelar;
@@ -16,11 +15,35 @@ public class ViewCercaParaules {
     private JLabel label1, label2;
     private JCheckBox totsDocuments;
 
+    /**
+     * Constructor
+     *
+     * @param cp Control presentació
+     */
     public ViewCercaParaules (CtrlPresentacio cp) {
         this.ctrlPresentacio = cp;
         inicialitzar();
     }
 
+    /**
+     * Fa la vista visible o invisible
+     *
+     * @param visible si ha de ser visible o no
+     */
+    public void ferVisible (boolean visible) {
+        textParaules.setText("");
+        textNombreDocuments.setValue(0);
+        if (visible) frame.pack();
+        frame.setVisible(visible);
+    }
+
+    ///////////////////////////////////////////////////////////
+    ///                  MÈTODES PRIVATS                    ///
+    ///////////////////////////////////////////////////////////
+
+    /**
+     * Inicialitza i configura la vista
+     */
     private void inicialitzar () {
         inicialitzarComponents();
         configurarVista();
@@ -30,6 +53,9 @@ public class ViewCercaParaules {
         assignarListeners();
     }
 
+    /**
+     * Inicialitza els components
+     */
     private void inicialitzarComponents () {
         frame = new JFrame("Cerca per Paraules");
         panellSuperior = new JPanel();
@@ -48,6 +74,9 @@ public class ViewCercaParaules {
         totsDocuments = new JCheckBox("Tots els documents", false);
     }
 
+    /**
+     * Configura la vista
+     */
     private void configurarVista () {
         frame.setLayout(new BorderLayout());
         frame.add(panellSuperior, BorderLayout.NORTH);
@@ -60,6 +89,9 @@ public class ViewCercaParaules {
         frame.setLocationRelativeTo(null);
     }
 
+    /**
+     * Configura el panell superior
+     */
     private void configurarPanellSuperior () {
         panellSuperior.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         textParaules.setMinimumSize(new Dimension(250, 30));
@@ -68,6 +100,9 @@ public class ViewCercaParaules {
         panellSuperior.add(textParaules);
     }
 
+    /**
+     * Configura el panell del mig
+     */
     private void configurarPanellMig () {
         panellMig.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         textNombreDocuments.setMinimumSize(new Dimension(50, 25));
@@ -76,6 +111,9 @@ public class ViewCercaParaules {
         panellMig.add(textNombreDocuments);
     }
 
+    /**
+     * Configura el panell inferior
+     */
     private void configurarPanellInferior () {
         BorderLayout bl = new BorderLayout();
         panellInferior.setLayout(bl);
@@ -84,6 +122,9 @@ public class ViewCercaParaules {
         panellInferior.add(btAcceptar, BorderLayout.EAST);
     }
 
+    /**
+     * Assigna els listeners als components de la vista
+     */
     private void assignarListeners () {
         btAcceptar.addActionListener(new ActionListener() {
             @Override
@@ -110,13 +151,9 @@ public class ViewCercaParaules {
         textNombreDocuments.addKeyListener(new Tecles());
     }
 
-    public void ferVisible (boolean visible) {
-        textParaules.setText("");
-        textNombreDocuments.setValue(0);
-        if (visible) frame.pack();
-        frame.setVisible(visible);
-    }
-
+    /**
+     * Fa la cerca de paraules
+     */
     private void ferCerca () {
         String text = textParaules.getText();
         int k = (int)textNombreDocuments.getValue();
@@ -124,10 +161,30 @@ public class ViewCercaParaules {
         ctrlPresentacio.cercaParaules(text, k, tots);
     }
 
+    /**
+     * Retorna el màxim de dos enters
+     *
+     * @param a Primer enter
+     * @param b Segon enter
+     * @return El màxim dels dos enters
+     */
     private int max (int a, int b) {if (a > b) return a; return b;}
 
+    /**
+     * Classe que implementa les dreceres de teclat per la vista
+     */
     private class Tecles extends KeyAdapter {
         private boolean control = false;
+
+        /**
+         * Sobreescriptura del mètode de tecla premuda
+         * Enter per fer la cerca
+         * Esc per tancar la vista
+         * Fletxa amunt per augmentar el nombre de documents
+         * Fletxa avall per disminuir el nombre de documents
+         *
+         * @param e l'event a ser processat
+         */
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) {

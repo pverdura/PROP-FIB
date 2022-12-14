@@ -12,14 +12,15 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
 
     private JPanel boolPanel;
     private JButton createButton;
-    private JButton searchButton;
     private JScrollPane scroll;
 
 
-    private JMenuItem miEliminar, miModificar;
+    private JMenuItem miEliminar, miModificar, miCercar;
     private JPopupMenu rightClickMenu;
     private JList<String> llistaBool;
     private DefaultListModel<String> dlm;
+
+    int seleccio_row;
 
     private final CtrlPresentacio ctrlPresentacio;
 
@@ -28,7 +29,6 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
 
         //Afegir listeners per detectar quan es clica cada boto
         createButton.addActionListener(this);
-        searchButton.addActionListener(this);
 
         //Configurar inicialment la vista
         configurar_vista();
@@ -54,41 +54,44 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
 
             //Si input != null significa que s ha clicat boto crear en el dialeg
             if (input != null) {
-                ctrlPresentacio.crearExprBool(input);
-                mostrarAllExpressions();
+                if (VistaDialeg.confirmDialog("Segur que vols crear la expressió?")) {
+                    ctrlPresentacio.crearExprBool(input);
+                    mostrarAllExpressions();
+                }
             }
 
-            //TODO: Missatge creacio
-
-
         }else if (source == miEliminar) {
-            //Eliminar expressio seleccionada
-            ctrlPresentacio.eliminarExprBool(llistaBool.getSelectedValue());
-            mostrarAllExpressions();
-            //TODO: Missatge eliminacio
+
+            if (!llistaBool.isSelectionEmpty()) {
+                if (VistaDialeg.confirmDialog("Segur que vols eliminar la expressió")) {
+                    //Eliminar expressio seleccionada
+                    ctrlPresentacio.eliminarExprBool(llistaBool.getSelectedValue());
+                    mostrarAllExpressions();
+                }
+            }
 
         } else if (source == miModificar) {
 
-            Object[] options = {"Modifica", "Sortir"};
-            SimpleEntry<String, String> inputs = VistaDialeg.twoInputDialog("Modificar Expressió Booleana","Antic Valor",
-                                                                            "Nou Valor", llistaBool.getSelectedValue(), options);
+            if (!llistaBool.isSelectionEmpty()) {
+                Object[] options = {"Modifica", "Sortir"};
+                SimpleEntry<String, String> inputs = VistaDialeg.twoInputDialog("Modificar Expressió Booleana", "Antic Valor",
+                        "Nou Valor", llistaBool.getSelectedValue(), options);
 
-            //Si input != null significa que s ha clicat boto modificar en el dialeg
-            if (inputs != null) {
-                ctrlPresentacio.modificarExprBool(inputs.getKey(), inputs.getValue());
-                mostrarAllExpressions();
+                //Si input != null significa que s ha clicat boto modificar en el dialeg
+                if (inputs != null) {
+                    if (VistaDialeg.confirmDialog("Segur que vols modificar la expressió")) {
+                        ctrlPresentacio.modificarExprBool(inputs.getKey(), inputs.getValue());
+                        mostrarAllExpressions();
+                    }
+                }
             }
             //TODO: Missatge modificacio
 
         }
-         else if (source == searchButton) {
+         else if (source == miCercar) {
 
-            Object[] options = {"Cerca", "Sortir"};
-            String input = VistaDialeg.inputDialog("Cercar Expressió Booleana", "Valor", options);
-
-            //Si sha clicat sortir en el dialeg -> no realitzara la cerca, en altre cas si
-            if (input != null) {
-                ctrlPresentacio.cercaBooleana(input);
+             if (!llistaBool.isSelectionEmpty()) {
+                ctrlPresentacio.cercaBooleana(llistaBool.getSelectedValue());
                 //TODO: Actualitzar pantalla
             }
         }
@@ -133,12 +136,16 @@ public class ViewGestioExprBool extends JFrame implements ActionListener{
         //Crear menu al clicar boto dret del ratoli
         this.miEliminar = new JMenuItem("Eliminar");
         this.miModificar = new JMenuItem("Modificar");
+        this.miCercar = new JMenuItem("Cercar");
+
         this.rightClickMenu.add(this.miEliminar);
         this.rightClickMenu.add(this.miModificar);
+        this.rightClickMenu.add(this.miCercar);
 
         //Activar listeners als menuItems
         this.miEliminar.addActionListener(this);
         this.miModificar.addActionListener(this);
+        this.miCercar.addActionListener(this);
 
         //Afegir listener a la llista per mostrar popup menu
         this.llistaBool.addMouseListener(new MouseAdapter() {

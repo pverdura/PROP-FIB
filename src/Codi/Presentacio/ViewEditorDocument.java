@@ -22,7 +22,6 @@ public class ViewEditorDocument {
     private JTextField textAutor;
     private JTextArea textContingut;
     private JComboBox<String> tipusExtensio;
-
     private final CtrlPresentacio ctrlPresentacio;
     private String titol;
     private String autor;
@@ -30,20 +29,35 @@ public class ViewEditorDocument {
     private TipusExtensio tExtensio;
     private final String[] extensions = {"TXT", "XML", "BOL"};
     private boolean documentNou;
-    public ViewEditorDocument(CtrlPresentacio cp) {
-        //constructor per document nou
+
+    /**
+     * Constructor per crear un document nou
+     *
+     * @param cp Control presentació
+     */
+    public ViewEditorDocument (CtrlPresentacio cp, int id) {
         this.ctrlPresentacio = cp;
-        this.titol = "";
-        this.autor = "";
+        this.titol = Integer.toString(id);
+        this.autor = Integer.toString(id);
         this.contingut = "";
         documentNou = true;
 
         inicialitzar();
         this.setExtensio(TipusExtensio.BOL);
+        this.textTitol.setText("");
+        this.textAutor.setText("");
     }
 
-    public ViewEditorDocument(CtrlPresentacio cp, String titol, String autor, String contingut, TipusExtensio te) {
-        //constructor per modificar un document
+    /**
+     * Constructor per modificar un document
+     *
+     * @param cp Control presentació
+     * @param titol Títol del document
+     * @param autor Autor del document
+     * @param contingut Contingut del document
+     * @param te Tipus d'extensió del document
+     */
+    public ViewEditorDocument (CtrlPresentacio cp, String titol, String autor, String contingut, TipusExtensio te) {
         this.ctrlPresentacio = cp;
         this.titol = titol;
         this.autor = autor;
@@ -54,6 +68,29 @@ public class ViewEditorDocument {
         this.setExtensio(te);
     }
 
+    /**
+     * Fa la vista visible o invisible
+     *
+     * @param visible si ha de ser visible o no
+     */
+    public void ferVisible (boolean visible) {
+        if (visible) frame.pack();
+        frame.setVisible(visible);
+    }
+
+    public void documentEliminat (int id) {
+        this.titol = Integer.toString(id);
+        this.autor = Integer.toString(id);
+        documentNou = true;
+    }
+
+    ///////////////////////////////////////////////////////////
+    ///                  MÈTODES PRIVATS                    ///
+    ///////////////////////////////////////////////////////////
+
+    /**
+     * Inicialitza i configura la vista
+     */
     private void inicialitzar () {
         inicializarComponents();
         configurarVista();
@@ -63,8 +100,11 @@ public class ViewEditorDocument {
         assignarListeners();
     }
 
+    /**
+     * Inicialitza els components
+     */
     private void inicializarComponents () {
-        frame = new JFrame("Editor de documents -"+titol);
+        frame = new JFrame("Editor de documents - "+titol);
         panellSuperior = new JPanel();
         panellMig = new JPanel();
         labelAutor = new JLabel("Autor: ");
@@ -76,6 +116,9 @@ public class ViewEditorDocument {
         tipusExtensio = new JComboBox<>(extensions);
     }
 
+    /**
+     * Configura la vista
+     */
     private void configurarVista () {
         frame.add(panellSuperior, BorderLayout.NORTH);
         frame.add(panellMig, BorderLayout.CENTER);
@@ -86,12 +129,10 @@ public class ViewEditorDocument {
         frame.setLocationRelativeTo(null);
     }
 
-    public void ferVisible (boolean visible) {
-        if (visible) frame.pack();
-        frame.setVisible(visible);
-    }
-
-    public void configurarPanellSuperior () {
+    /**
+     * Configura el panell superior
+     */
+    private void configurarPanellSuperior () {
         tipusExtensio.setSelectedIndex(2);
         textTitol.setMinimumSize(new Dimension(400, 30));
         textTitol.setPreferredSize(textTitol.getMinimumSize());
@@ -102,7 +143,10 @@ public class ViewEditorDocument {
         panellSuperior.add(tipusExtensio);
     }
 
-    public void configurarPanellMig () {
+    /**
+     * Configura el panell del mig
+     */
+    private void configurarPanellMig () {
         textAutor.setMinimumSize(new Dimension(400, 30));
         textAutor.setPreferredSize(textAutor.getMinimumSize());
         textAutor.setText(autor);
@@ -112,7 +156,10 @@ public class ViewEditorDocument {
         panellMig.add(btGuardar);
     }
 
-    public void configurarPanellInferior () {
+    /**
+     * Configura el panell inferior
+     */
+    private void configurarPanellInferior () {
         textContingut.setMinimumSize(new Dimension(800, 450));
         textContingut.setPreferredSize(textContingut.getMinimumSize());
         textContingut.setText(contingut);
@@ -125,13 +172,14 @@ public class ViewEditorDocument {
         frame.add(panellInferior, BorderLayout.SOUTH);
     }
 
-    public void assignarListeners () {
+    /**
+     * Assigna els listeners als components de la vista
+     */
+    private void assignarListeners () {
         btGuardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (VistaDialeg.confirmDialog("Segur que vols desar el document?")) {
-                    guardarDocument();
-                }
+                guardarDocument();
             }
         });
 
@@ -141,7 +189,7 @@ public class ViewEditorDocument {
                 if (modificat() && VistaDialeg.confirmDialog("Hi ha canvis no guardats. Vols desar el document abans de tancar l'aplicació?")) {
                     guardarDocument();
                 }
-                ctrlPresentacio.tancarDocument();
+                ctrlPresentacio.tancarDocument(titol, autor);
             }
         });
 
@@ -151,39 +199,72 @@ public class ViewEditorDocument {
         textAutor.addKeyListener(new Tecles());
         tipusExtensio.addKeyListener(new Tecles());
     }
+
+    /**
+     * Retorna el tipus d'extensió seleccionada
+     *
+     * @return El tipus d'extensió seleccionada
+     */
     private TipusExtensio getTipusExtensio () {
         String ext = (String) tipusExtensio.getSelectedItem();
         if (ext == "TXT") return TipusExtensio.TXT;
         else if (ext == "XML") return TipusExtensio.XML;
         else return TipusExtensio.BOL;
     }
+
+    /**
+     * Modifica l'extensió del component visual
+     *
+     * @param te El nou tipus d'extensió
+     */
     private void setExtensio (TipusExtensio te) {
         this.tExtensio = te;
         if (te.equals(TipusExtensio.TXT)) tipusExtensio.setSelectedIndex(0);
         else if (te.equals(TipusExtensio.XML)) tipusExtensio.setSelectedIndex(1);
         else tipusExtensio.setSelectedIndex(2);
     }
+
+    /**
+     * Guarda el document
+     */
     private void guardarDocument () {
-        SimpleEntry<String, String> idVell;
-        if (documentNou) idVell = null;
-        else idVell = new SimpleEntry<>(titol, autor);
+        if (VistaDialeg.confirmDialog("Segur que vols desar el document?")) {
+            SimpleEntry<String, String> idVell = new SimpleEntry<>(titol, autor);
 
-        titol = textTitol.getText().trim();
-        autor = textAutor.getText().trim();
-        contingut = textContingut.getText();
-        setExtensio(getTipusExtensio());
-        SimpleEntry<String, String> idNou = new SimpleEntry<>(titol, autor);
+            titol = textTitol.getText().trim();
+            autor = textAutor.getText().trim();
+            contingut = textContingut.getText();
+            setExtensio(getTipusExtensio());
+            SimpleEntry<String, String> idNou = new SimpleEntry<>(titol, autor);
 
-        ctrlPresentacio.guardarDocument(documentNou, idVell, idNou, contingut, tExtensio);
-        documentNou = false;
+            ctrlPresentacio.guardarDocument(documentNou, idVell, idNou, contingut, tExtensio);
+            documentNou = false;
+            frame.setTitle("Editor de documents - "+titol);
+        }
     }
+
+    /**
+     * Comprova si s'ha modificat el document
+     *
+     * @return {@code true} si s'ha modificat
+     */
     private boolean modificat () {
         return (!titol.equals(textTitol.getText())) || (!autor.equals(textAutor.getText())) ||
                 (!contingut.equals(textContingut.getText())) || tExtensio != getTipusExtensio();
     }
 
+    /**
+     * Classe que implementa les dreceres de teclat per la vista
+     */
     private class Tecles extends KeyAdapter {
         private boolean control = false;
+
+        /**
+         * Sobreescriptura del mètode de tecla premuda
+         * Ctrl + S per desar el document
+         *
+         * @param e l'event a ser processat
+         */
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getExtendedKeyCode() == KeyEvent.VK_CONTROL) {
@@ -193,6 +274,11 @@ public class ViewEditorDocument {
             }
         }
 
+        /**
+         * Sobreescriptura del mètode de tecla alliberada
+         *
+         * @param e l'event a ser processat
+         */
         @Override
         public void keyReleased(KeyEvent e) {
             if (e.getExtendedKeyCode() == KeyEvent.VK_CONTROL) {
