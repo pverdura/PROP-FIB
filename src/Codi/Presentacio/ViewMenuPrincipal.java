@@ -291,10 +291,10 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
     //Metode per configurar la vista
     private void configurar_vista() {
         setContentPane(this.mainPanel);
-        addKeyListener(this);
         setTitle("Menú Principal");
         setSize(600, 600);
         setResizable(false);
+        addKeyListener(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
