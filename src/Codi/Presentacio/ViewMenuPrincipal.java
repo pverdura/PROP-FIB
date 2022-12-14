@@ -143,7 +143,6 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
 
         } else if (source == miImportaDoc) {
             seleccionarFitxersNav();
-            //TODO: MIssatge importat
 
         } else if (source == miAjuda) {
             ctrlPresentacio.obrirAjuda();
@@ -189,20 +188,27 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
             ctrlPresentacio.ordenar(tipus_ordenacio);
 
         }
+
         //Aplicar funcionalitats associades als items del PopUp Menu
         else if (source == miExportar) {
-            seleccionarDirNav();
-            //TODO: Missatge exportat
+            if (!taula.getSelectionModel().isSelectionEmpty()) seleccionarDirNav();
 
         } else if (source == miModificarDoc) {
-            ctrlPresentacio.modificarDocument(taula.getModel().getValueAt(fila_seleccionada,0).toString(),
-                    taula.getModel().getValueAt(fila_seleccionada,1).toString());
-            //TODO: Missatge modificat
+            if (!taula.getSelectionModel().isSelectionEmpty()) {
+                //Modificar document
+                ctrlPresentacio.modificarDocument(taula.getModel().getValueAt(fila_seleccionada, 0).toString(),
+                        taula.getModel().getValueAt(fila_seleccionada, 1).toString());
+            }
 
         } else if (source == miEliminarDoc) {
-            ctrlPresentacio.esborrarDocument(taula.getModel().getValueAt(fila_seleccionada,0).toString(),
-                                             taula.getModel().getValueAt(fila_seleccionada,1).toString());
-            //TODO: Missatge eliminacio
+            if (!taula.getSelectionModel().isSelectionEmpty()) {
+
+                //Menu confirmacio per eliminar doc
+                if (VistaDialeg.confirmDialog("Segur que vols eliminar el document?")) {
+                    ctrlPresentacio.esborrarDocument(taula.getModel().getValueAt(fila_seleccionada, 0).toString(),
+                            taula.getModel().getValueAt(fila_seleccionada, 1).toString());
+                }
+            }
         }
 
         //Aplicar funcionalitat associades al Mostra Tot
