@@ -17,13 +17,15 @@ public class ViewCercaPrefix {
     private JButton esborrarButton;
     private JButton cercaButton;
     private JButton cancelarButton;
-    private JTextArea resultat;
+    private JButton mostraButton;
+    private JList resCerca;
     private JScrollPane scroll;
     private JRadioButton asc;
     private JRadioButton des;
     private JCheckBox totsAutors;
     private boolean esborrar;
     private boolean tots;
+    private int index;
 
     private final CtrlPresentacio ctrlPresentacio;
 
@@ -46,20 +48,15 @@ public class ViewCercaPrefix {
     }
 
 
-    public void tancarVista(){
-        frameVista.dispatchEvent(new WindowEvent(frameVista, WindowEvent.WINDOW_CLOSING));
-    }
+    public void enviarDades(ArrayList<String> resultatCerca){
+        DefaultListModel listModel = new DefaultListModel<>();
 
-
-    public void enviarDades(ArrayList<String> res_cerca){
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-
-        for(String s : res_cerca){
+        for(String s : resultatCerca){
             listModel.addElement(s);
         }
-        final JList<String> resultat = new JList<>(listModel);
+        resCerca = new JList<>(listModel);
 
-        scroll.setViewportView(resultat);
+        scroll.setViewportView(resCerca);
     }
 
     /////////////////////////// ASSIGNACIÓ DE LISTENERS
@@ -72,11 +69,13 @@ public class ViewCercaPrefix {
             }
         });
 
-        cercaButton.addKeyListener(new Tecles());
-
         frameVista.addKeyListener(new Tecles());
 
         omplirPrefix.addKeyListener(new Tecles());
+
+        scroll.addKeyListener(new Tecles());
+
+        resCerca.addKeyListener(new Tecles());
 
 
         esborrarButton.addActionListener(new ActionListener() {
@@ -85,14 +84,13 @@ public class ViewCercaPrefix {
                 esborraCerca();
             }
         });
+
         cancelarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ferVisible(false);
             }
         });
-
-
 
         asc.addItemListener(new ItemListener() {
             @Override
@@ -123,6 +121,15 @@ public class ViewCercaPrefix {
                 }
             }
         });
+
+
+        mostraButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                index = resCerca.getSelectedIndex();
+                ctrlPresentacio.cercaAutor(resCerca.getModel().getElementAt(index).toString());
+            }
+        });
     }
 
 
@@ -133,6 +140,7 @@ public class ViewCercaPrefix {
             else if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) ferVisible(false);
         }
     }
+
 
     ////////////////////////// RESTA DE MÈTODES PRIVATS
     private void inicialitza() {
@@ -152,9 +160,12 @@ public class ViewCercaPrefix {
         cancelarButton = new JButton("Cancel·lar");
         esborrarButton = new JButton("Esborrar");
         cercaButton = new JButton("Cercar");
+        mostraButton = new JButton("Mostra documents autor");
         omplirPrefix = new JTextField();
         labelPrefix = new JLabel("Prefix: ");
-        resultat = new JTextArea(25,35);
+        resCerca = new JList<>();
+        resCerca.setSelectedIndex(0);
+        resCerca.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         scroll = new JScrollPane();
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -166,19 +177,25 @@ public class ViewCercaPrefix {
         scroll.setFocusable(false);
         asc.setFocusable(false);
         des.setFocusable(false);
-        resultat.setFocusable(false);
         cancelarButton.setFocusable(false);
         esborrarButton.setFocusable(false);
         totsAutors.setFocusable(false);
+        mostraButton.setFocusable(false);
     }
 
     private void configurarVista(){
         frameVista.setLayout(new BorderLayout());
-        frameVista.add(prefixPanel, BorderLayout.NORTH);
+
         JPanel auxPanel = new JPanel(new BorderLayout());
-        auxPanel.add(resultatPanel, BorderLayout.NORTH);
-        auxPanel.add(totsAutors, BorderLayout.SOUTH);
-        frameVista.add(auxPanel, BorderLayout.CENTER);
+        auxPanel.add(totsAutors, BorderLayout.WEST);
+        auxPanel.add(mostraButton, BorderLayout.EAST);
+
+        JPanel auxPanel2 = new JPanel(new BorderLayout());
+        auxPanel2.add(resultatPanel, BorderLayout.NORTH);
+        auxPanel2.add(auxPanel, BorderLayout.SOUTH);
+
+        frameVista.add(prefixPanel, BorderLayout.NORTH);
+        frameVista.add(auxPanel2, BorderLayout.CENTER);
         frameVista.add(buttonsPanel, BorderLayout.SOUTH);
 
         frameVista.setMinimumSize(new Dimension(400, 475));
@@ -200,10 +217,8 @@ public class ViewCercaPrefix {
     private void configResultatPanel(){
         resultatPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-        resultatPanel.add(resultat);
         resultatPanel.add(scroll, BorderLayout.CENTER);
         scroll.setPreferredSize(new Dimension(350,300));
-        scroll.setViewportView(resultat);
     }
 
     private void configButtonsPanel(){
@@ -214,8 +229,6 @@ public class ViewCercaPrefix {
         innerPanel.add(des, BorderLayout.EAST);
 
         innerPanel.setPreferredSize(new Dimension(150, 30));
-
-        asc.setSelected(true);
 
         buttonsPanel.add(cancelarButton, BorderLayout.EAST);
         buttonsPanel.add(innerPanel, BorderLayout.CENTER);
@@ -229,8 +242,12 @@ public class ViewCercaPrefix {
             totsAutors.setEnabled(false);
             mostraCerca(prefix);
             tots = false;
+            mostraButton.setEnabled(true);
         }
-        else if (tots) mostraCerca(prefix);
+        else if (tots) {
+            mostraCerca(prefix);
+            mostraButton.setEnabled(true);
+        }
         else esborraCerca();
     }
 
@@ -248,5 +265,7 @@ public class ViewCercaPrefix {
         totsAutors.setEnabled(true);
         totsAutors.setSelected(false);
         omplirPrefix.setText("");
+        mostraButton.setEnabled(false);
     }
+
 }
