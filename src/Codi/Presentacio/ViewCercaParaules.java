@@ -32,7 +32,7 @@ public class ViewCercaParaules {
      */
     public void ferVisible (boolean visible) {
         textParaules.setText("");
-        textNombreDocuments.setValue(0);
+        textNombreDocuments.setValue(1);
         if (visible) frame.pack();
         frame.setVisible(visible);
     }

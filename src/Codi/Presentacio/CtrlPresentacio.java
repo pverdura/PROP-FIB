@@ -275,9 +275,9 @@ public class CtrlPresentacio {
     public void cercaAutor (String autor) {
         try {
             this.resultatPrincipal = ctrlDomini.cercaAutor(autor, tipusOrdenacio);
+            this.auxAutor = autor;
             this.informacio = "Documents creats per l'autor: "+this.auxAutor;
             this.ultimaCerca = TipusCerca.AUTOR;
-            this.auxAutor = autor;
             enviarPrincipal();
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
@@ -294,10 +294,10 @@ public class CtrlPresentacio {
         try {
             resultatPrincipal.clear();
             resultatPrincipal.add(new SimpleEntry<>(titol, autor));
-            this.informacio = "Document de títol: "+this.auxTitol+" i autor: "+this.auxAutor;
             ultimaCerca = TipusCerca.TITOLAUTOR;
             this.auxTitol = titol;
             this.auxAutor = autor;
+            this.informacio = "Document de títol: "+this.auxTitol+" i autor: "+this.auxAutor;
             enviarPrincipal();
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
@@ -340,10 +340,10 @@ public class CtrlPresentacio {
         try {
             if (tots) k = ctrlDomini.getNombreDocuments();
             resultatPrincipal = ctrlDomini.cercaParaules(paraules, k);
-            this.informacio = "Els "+k+" documents més rellevants per les paraules "+this.auxParaules;
             ultimaCerca = TipusCerca.PARAULES;
             this.auxParaules = paraules;
             this.k = k;
+            this.informacio = "Els "+k+" documents més rellevants per les paraules "+this.auxParaules;
             enviarPrincipal();
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
@@ -362,11 +362,11 @@ public class CtrlPresentacio {
         try {
             if (tots) k = ctrlDomini.getNombreDocuments();
             resultatPrincipal = ctrlDomini.cercaSemblant(titol, autor, k);
-            this.informacio = "Els "+k+" documents més semblants al document de títol: "+this.auxTitol+" i autor: "+this.auxAutor;
             ultimaCerca = TipusCerca.SEMBLANT;
             this.auxTitol = titol;
             this.auxAutor = autor;
             this.k = k;
+            this.informacio = "Els "+k+" documents més semblants al document de títol: "+this.auxTitol+" i autor: "+this.auxAutor;
             enviarPrincipal();
         } catch (Exception e) {
             VistaDialeg.errorDialog(e.toString());
