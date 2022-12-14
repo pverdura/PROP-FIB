@@ -124,14 +124,13 @@ public class ViewCercaAutor {
      * Classe que implementa les dreceres de teclat per la vista
      */
     private class Tecles extends KeyAdapter {
-        private boolean control = false;
 
         /**
          * Sobreescriptura del mètode de tecla premuda
          * Enter fa la cerca
          * Esc tanca la vista
          *
-         * @param e l'event a ser processat
+         * @param e l'esdeveniment a ser processat
          */
         @Override
         public void keyPressed(KeyEvent e) {

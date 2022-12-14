@@ -162,19 +162,9 @@ public class ViewCercaParaules {
     }
 
     /**
-     * Retorna el màxim de dos enters
-     *
-     * @param a Primer enter
-     * @param b Segon enter
-     * @return El màxim dels dos enters
-     */
-    private int max (int a, int b) {if (a > b) return a; return b;}
-
-    /**
      * Classe que implementa les dreceres de teclat per la vista
      */
     private class Tecles extends KeyAdapter {
-        private boolean control = false;
 
         /**
          * Sobreescriptura del mètode de tecla premuda
@@ -183,7 +173,7 @@ public class ViewCercaParaules {
          * Fletxa amunt per augmentar el nombre de documents
          * Fletxa avall per disminuir el nombre de documents
          *
-         * @param e l'event a ser processat
+         * @param e l'esdeveniment a ser processat
          */
         @Override
         public void keyPressed(KeyEvent e) {
@@ -194,7 +184,7 @@ public class ViewCercaParaules {
             } else if (e.getExtendedKeyCode() == KeyEvent.VK_UP) {
                 textNombreDocuments.setValue((int)textNombreDocuments.getValue()+1);
             } else if (e.getExtendedKeyCode() == KeyEvent.VK_DOWN) {
-                textNombreDocuments.setValue(max((int)textNombreDocuments.getValue()-1, 1));
+                textNombreDocuments.setValue(Math.max((int)textNombreDocuments.getValue()-1, 1));
             }
         }
     }

@@ -122,7 +122,6 @@ public class ViewCercaTitol {
      *  Classe que implementa les dreceres de teclat per la vista
      */
     private class Tecles extends KeyAdapter {
-        private boolean control = false;
 
         /**
          * Sobreescriptura del mètode de tecla premuda

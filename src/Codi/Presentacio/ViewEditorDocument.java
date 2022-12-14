@@ -8,16 +8,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.AbstractMap.SimpleEntry;
 
 public class ViewEditorDocument {
     private JFrame frame;
     private JPanel panellSuperior;
     private JPanel panellMig;
-    private JPanel aaa;
-    private JScrollPane scrollPane;
+    private JPanel panellInferior;
     private JLabel labelTitol;
     private JLabel labelAutor;
     private JButton btGuardar;
@@ -110,6 +107,7 @@ public class ViewEditorDocument {
         frame = new JFrame("Editor de documents - "+titol);
         panellSuperior = new JPanel();
         panellMig = new JPanel();
+        panellInferior = new JPanel();
         labelAutor = new JLabel("Autor: ");
         labelTitol = new JLabel("Títol: ");
         btGuardar = new JButton("Desar");
@@ -117,8 +115,6 @@ public class ViewEditorDocument {
         textAutor = new JTextField();
         textContingut = new JTextArea();
         tipusExtensio = new JComboBox<>(extensions);
-
-        aaa = new JPanel();
     }
 
     /**
@@ -167,12 +163,12 @@ public class ViewEditorDocument {
     private void configurarPanellInferior () {
         textContingut.setText(contingut);
         textContingut.setMinimumSize(new Dimension(750, 450));
-        scrollPane = new JScrollPane(textContingut);
+        JScrollPane scrollPane = new JScrollPane(textContingut);
         scrollPane.setPreferredSize(textContingut.getMinimumSize());
         scrollPane.setViewportView(textContingut);
-        aaa.add(scrollPane, BorderLayout.CENTER);
-        aaa.setMaximumSize(new Dimension(800, 450));
-        frame.add(aaa, BorderLayout.SOUTH);
+        panellInferior.add(scrollPane, BorderLayout.CENTER);
+        panellInferior.setMaximumSize(new Dimension(800, 450));
+        frame.add(panellInferior, BorderLayout.SOUTH);
     }
 
     /**
@@ -210,8 +206,8 @@ public class ViewEditorDocument {
      */
     private TipusExtensio getTipusExtensio () {
         String ext = (String) tipusExtensio.getSelectedItem();
-        if (ext == "TXT") return TipusExtensio.TXT;
-        else if (ext == "XML") return TipusExtensio.XML;
+        if (ext.equals("TXT")) return TipusExtensio.TXT;
+        else if (ext.equals("XML")) return TipusExtensio.XML;
         else return TipusExtensio.BOL;
     }
 
@@ -267,7 +263,7 @@ public class ViewEditorDocument {
          * Sobreescriptura del mètode de tecla premuda
          * Ctrl + S per desar el document
          *
-         * @param e l'event a ser processat
+         * @param e l'esdeveniment a ser processat
          */
         @Override
         public void keyPressed(KeyEvent e) {
@@ -281,7 +277,7 @@ public class ViewEditorDocument {
         /**
          * Sobreescriptura del mètode de tecla alliberada
          *
-         * @param e l'event a ser processat
+         * @param e l'esdeveniment a ser processat
          */
         @Override
         public void keyReleased(KeyEvent e) {

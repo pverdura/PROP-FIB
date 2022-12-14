@@ -135,6 +135,13 @@ public class CtrlPresentacio {
     ///                MÈTODES DE DOCUMENTS                 ///
     ///////////////////////////////////////////////////////////
 
+    /**
+     * Obre l'editor de documents, sigui per un document nou o per modificar-ne un
+     *
+     * @param titol Títol del document. {@code null} si és un document nou
+     * @param autor Autor del document. {@code null} si és un document nou
+     * @param crear {@code true} si el document és nou
+     */
     public void obrirEditorDocuments (String titol, String autor, boolean crear) {
         if (crear) {
             titol = Integer.toString(idDocumentEditat);
@@ -211,7 +218,7 @@ public class CtrlPresentacio {
      *
      * @param nou {@code true} si el document és nou
      * @param idVell Identificador antic del document
-     * @param idNou Iidentificador nou del document
+     * @param idNou Identificador nou del document
      * @param contingut Contingut nou del document
      * @param te Tipus d'extensió nova del document
      */
