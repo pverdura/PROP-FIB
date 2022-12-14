@@ -35,11 +35,6 @@ public class ViewCercaSemblant {
         frameVista.setVisible(visible);
     }
 
-
-    public void tancarVista(){
-        frameVista.dispatchEvent(new WindowEvent(frameVista, WindowEvent.WINDOW_CLOSING));
-    }
-
     /////////////////////////// ASSIGNACIÓ DE LISTENERS
 
 
@@ -47,13 +42,14 @@ public class ViewCercaSemblant {
         acceptarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String titol = omplirTitol.getText();
-                String autor = omplirAutor.getText();
-                int k = (int)numDocs.getValue();
-                boolean tots = totsDocs.isSelected();
-                ctrlPresentacio.cercaSemblant(titol, autor, k, tots);
+                ferCercaSemblant();
             }
         });
+
+        omplirAutor.addKeyListener(new Tecles());
+        omplirTitol.addKeyListener(new Tecles());
+        frameVista.addKeyListener(new Tecles());
+        numDocs.addKeyListener(new Tecles());
         cancelarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -70,7 +66,15 @@ public class ViewCercaSemblant {
     }
 
 
-
+    private class Tecles extends KeyAdapter{
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if(e.getExtendedKeyCode() == KeyEvent.VK_ENTER){
+                ferCercaSemblant();
+            }
+            else if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) ferVisible(false);
+        }
+    }
     ////////////////////////// RESTA DE MÈTODES PRIVATS
 
     private void inicialitza(){
@@ -102,6 +106,10 @@ public class ViewCercaSemblant {
         labelAutor = new JLabel("Autor: ");
         labelNumDocs = new JLabel("Nº documents: ");
         totsDocs = new JCheckBox("Tots els documents");
+
+        numDocs.setFocusable(false);
+        totsDocs.setFocusable(false);
+        cancelarButton.setFocusable(false);
     }
 
     private void configurarVista(){
@@ -154,5 +162,13 @@ public class ViewCercaSemblant {
         buttonsPanel.add(cancelarButton, BorderLayout.WEST);
         buttonsPanel.add(totsDocs, BorderLayout.CENTER);
         buttonsPanel.add(acceptarButton, BorderLayout.EAST);
+    }
+
+    private void ferCercaSemblant(){
+        String titol = omplirTitol.getText();
+        String autor = omplirAutor.getText();
+        int k = (int)numDocs.getValue();
+        boolean tots = totsDocs.isSelected();
+        ctrlPresentacio.cercaSemblant(titol, autor, k, tots);
     }
 }

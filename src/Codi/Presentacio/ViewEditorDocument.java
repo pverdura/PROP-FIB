@@ -10,11 +10,11 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.AbstractMap.SimpleEntry;
 
-public class ViewModificarDocument {
+public class ViewEditorDocument {
     private JFrame frame;
     private JPanel panellSuperior;
     private JPanel panellMig;
-    private JPanel panellInferior;
+    private JScrollPane panellInferior;
     private JLabel labelTitol;
     private JLabel labelAutor;
     private JButton btGuardar;
@@ -30,7 +30,7 @@ public class ViewModificarDocument {
     private TipusExtensio tExtensio;
     private final String[] extensions = {"TXT", "XML", "BOL"};
     private boolean documentNou;
-    public ViewModificarDocument (CtrlPresentacio cp) {
+    public ViewEditorDocument(CtrlPresentacio cp) {
         //constructor per document nou
         this.ctrlPresentacio = cp;
         this.titol = "";
@@ -42,7 +42,7 @@ public class ViewModificarDocument {
         this.setExtensio(TipusExtensio.BOL);
     }
 
-    public ViewModificarDocument (CtrlPresentacio cp, String titol, String autor, String contingut, TipusExtensio te) {
+    public ViewEditorDocument(CtrlPresentacio cp, String titol, String autor, String contingut, TipusExtensio te) {
         //constructor per modificar un document
         this.ctrlPresentacio = cp;
         this.titol = titol;
@@ -67,7 +67,6 @@ public class ViewModificarDocument {
         frame = new JFrame("Editor de documents -"+titol);
         panellSuperior = new JPanel();
         panellMig = new JPanel();
-        panellInferior = new JPanel();
         labelAutor = new JLabel("Autor: ");
         labelTitol = new JLabel("Títol: ");
         btGuardar = new JButton("Desar");
@@ -78,10 +77,8 @@ public class ViewModificarDocument {
     }
 
     private void configurarVista () {
-        //frame.setLayout(new BorderLayout());
         frame.add(panellSuperior, BorderLayout.NORTH);
         frame.add(panellMig, BorderLayout.CENTER);
-        frame.add(panellInferior, BorderLayout.SOUTH);
 
         frame.setMinimumSize(new Dimension(800, 600));
         frame.setPreferredSize(frame.getMinimumSize());
@@ -116,14 +113,16 @@ public class ViewModificarDocument {
     }
 
     public void configurarPanellInferior () {
-        textContingut.setMinimumSize(new Dimension(700, 450));
+        textContingut.setMinimumSize(new Dimension(800, 450));
         textContingut.setPreferredSize(textContingut.getMinimumSize());
         textContingut.setText(contingut);
 
-        JScrollPane panellContingut = new JScrollPane(textContingut);
-        panellContingut.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        panellInferior = new JScrollPane(textContingut);
+        panellInferior.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        panellInferior.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        panellInferior.setPreferredSize(new Dimension(800, 450));
 
-        panellInferior.add(panellContingut, BorderLayout.CENTER);
+        frame.add(panellInferior, BorderLayout.SOUTH);
     }
 
     public void assignarListeners () {
@@ -146,7 +145,6 @@ public class ViewModificarDocument {
             }
         });
 
-        btGuardar.addKeyListener(new Tecles());
         frame.addKeyListener(new Tecles());
         textContingut.addKeyListener(new Tecles());
         textTitol.addKeyListener(new Tecles());

@@ -51,11 +51,11 @@ public class CtrlPersistencia {
      */
     public ArrayList<DocumentLlegit> carregaDocuments() throws CarpetaNoCreadaException,
             CarpetaBuidaException, TipusExtensioIncorrectaException{
-        ArrayList<DocumentLlegit> documents;
+        ArrayList<DocumentLlegit> documents = new ArrayList<>();
         boolean existeix = gestorDades.existeixDirectori(path);
 
         if(existeix) documents = llegeixDocuments(path);
-        else throw new CarpetaBuidaException();
+        else gestorDades.creaDirectori(path);
 
         return documents;
     }
@@ -89,19 +89,16 @@ public class CtrlPersistencia {
                 }
             }
         }
-        else {
-            throw new CarpetaBuidaException();
-        }
         return documents;
     }
 
-    public ArrayList<String> carregaExpressionsBooleanes() throws CarpetaNoCreadaException,
+    public ArrayList<String> carregaExpressionsBooleanes() throws
             FitxerNoCreatException, CarpetaBuidaException{
-        ArrayList<String> expressions;
+        ArrayList<String> expressions = new ArrayList<>();
         boolean existeix = gestorDades.existeixFitxer(pathExpressions);
 
         if(existeix) expressions = gestorDades.llegeixExpressions(pathExpressions);
-        else throw new CarpetaBuidaException();
+        else gestorDades.creaFitxer(pathExpressions);
 
         return expressions;
     }
@@ -129,20 +126,17 @@ public class CtrlPersistencia {
     }
 
     public void eliminaDocument(String path) throws FitxerNoEliminatException{
-        gestorDades.eliminaFitxer(path);
+        gestorDades.esborraFitxer(path);
     }
 
 
-    public void guardaExpressioBool(String exprAnt, String exprNova)
+    public void guardaExpressionsBooleanes (ArrayList<String> expressions)
             throws ExpressioBooleanaJaExistentException, ExpressioBooleanaInexistentException, FitxerNoCreatException,
             FitxerNoEliminatException{
-        gestorDades.guardaExpressioBool(exprAnt,exprNova,pathExpressions);
+        gestorDades.guardaExpressionsBooleanes(expressions, pathExpressions);
     }
 
-    public void eliminaExpressioBool(String expr) throws ExpressioBooleanaInexistentException,
-            FitxerNoEliminatException, FitxerNoCreatException{
-        gestorDades.eliminaExpressio(expr,pathExpressions);
-    }
+
 
     public String getNovaPath(){
         return path + "/" + ++numDocs + ".bol";
