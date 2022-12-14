@@ -29,10 +29,7 @@ public class GestorDades {
         try {
             boolean creada = F.createNewFile();
 
-            if(creada && F.isFile()) {  // Mirem si s'ha creat el fitxer
-                System.out.println("S'ha creat el fitxer "+ path +" correctament");
-            }
-            else {  // Hi ha hagut un problema en crear el fitxer
+            if(!(creada && F.isFile())) {  // Mirem si s'ha creat el fitxer
                 throw new FitxerNoCreatException(path);
             }
         }
@@ -50,9 +47,7 @@ public class GestorDades {
     public void creaDirectori(String path) throws CarpetaNoCreadaException {
         // No hi ha cap error en crear el directori
         File dir = new File(path);
-        if(dir.mkdirs()) {
-            System.out.println("S'ha creat el fitxer correctament");
-        } else {  // Hi ha un error al crear el directori
+        if(!dir.mkdirs()) { // Hi ha un error al crear el directori
             throw new CarpetaNoCreadaException(path);
         }
     }
@@ -67,9 +62,7 @@ public class GestorDades {
         File doc = new File(path);
 
         // No hi ha cap problema en eliminar el fitxer
-        if (doc.delete()) {
-            System.out.println("S'ha eliminat el fitxer " + path + " correctament");
-        } else {  // Hi ha hagut algun problema en eliminar el fitxer
+        if (!doc.delete()) {
             throw new FitxerNoEliminatException(path);
         }
     }
@@ -192,6 +185,7 @@ public class GestorDades {
             String contingut = "";      // Concatenació de línies per llegir el contingut
             String linia;               // Ens ajuda a llegir línies del document
             boolean c = false;          // Ens indica si estem llegint el contingut
+            boolean primera = true;
 
             // Llegim el document mentre hi hagi línies
             while ((linia = lector.readLine()) != null) {
@@ -201,7 +195,13 @@ public class GestorDades {
                     }
                     else { // Treiem la tabulació
                         linia = linia.substring(2);
-                        contingut = contingut + "\n" + linia;
+                        if(primera) {
+                            primera = false;
+                            contingut = linia;
+                        }
+                        else {
+                            contingut = contingut + "\n" + linia;
+                        }
                     }
                 }
                 else {
@@ -213,7 +213,7 @@ public class GestorDades {
                         // Agafem el text que està entre <titol> i </titol>
                         D.setTitol(linia.substring(8,linia.length()-8).trim());
                     }
-                    else if(linia.contains("\t<contingut>")) {
+                    else if(linia.contains("<contingut>")) {
                         c = true;
                     }
                 }
@@ -288,8 +288,8 @@ public class GestorDades {
                     D.setTitol(linia.trim());
                 }
                 else if(espais == 2) {
-                    if (contingut.equals("")) contingut = contingut + "\n" + linia;
-                    else contingut = linia;
+                    if (contingut.equals("")) contingut = linia;
+                    else contingut = contingut + "\n" + linia;
                 }
                 else break;
             }
@@ -499,7 +499,6 @@ public class GestorDades {
         try (BufferedWriter escriptor = Files.newBufferedWriter(PATH, StandardCharsets.UTF_8)) {
             for(String expressio : expressions) {
                 escriptor.write(expressio+'\n');
-                System.out.println(expressio);
             }
 
         }
