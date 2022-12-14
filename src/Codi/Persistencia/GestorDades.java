@@ -22,7 +22,7 @@ public class GestorDades {
     /**
      * Crea un fitxer en el path indicat
      *
-     * @param path Indica el lloc on es crea el fitxer
+     * @param path Indica el lloc on es crea el fitxer (nom inclòs)
      */
     public void creaFitxer(String path) {
         File F = new File(path);
@@ -58,9 +58,9 @@ public class GestorDades {
     }
 
     /**
-     * Elimina el fitxer amb el path indicat
+     * Elimina el fitxer amb el path indicat (nom inclòs)
      *
-     * @param path Indica on està situal el fitxer que volem eliminar
+     * @param path Indica on està situat el fitxer que volem eliminar
      * @throws FitxerNoEliminatException Si no s'ha pogut eliminar el fitxer
      */
     private void eliminaFitxer(String path) throws FitxerNoEliminatException {
@@ -74,6 +74,12 @@ public class GestorDades {
         }
     }
 
+    /**
+     * Elimina tots els fitxers amb extensions diferents que tinguin com a nom el fitxer del path indicat
+     *
+     * @param path Indica el nom del fitxer que volem eliminar (sense tenir en compte l'extensió del path)
+     * @throws FitxerNoEliminatException Si s'ha intentat eliminar el fitxer i no s'ha pogut
+     */
     public void esborraFitxer(String path) throws FitxerNoEliminatException {
         String path_doc = path.substring(0, path.length()-3);
 
@@ -100,13 +106,12 @@ public class GestorDades {
     }
 
     /**
-     * Indica si existeix el fitxer amb el path indicat
+     * Indica si existeix el directori amb el path indicat
      *
      * @param path Indica el directori que volem saber si existeix
-     * @return Retorna true si existeix el fitxer en el path indicat, false altrament
-     * @throws CarpetaNoCreadaException Si s'ha intentat crear el directori i no s'ha pogut crear
+     * @return Retorna true si existeix el directori en el path indicat, false altrament
      */
-    public Boolean existeixDirectori(String path) throws CarpetaNoCreadaException {
+    public Boolean existeixDirectori(String path) {
         File carpeta = new File(path);
 
         // Primer mirem si existeix el directori on guardem els documents, expressions i stopWords
@@ -117,7 +122,7 @@ public class GestorDades {
      * Llegeix un document en format .txt
      *
      * @param PATH Indica el path del fitxer .txt que es llegirà
-     * @return Retorna un DocumentLlegit que conté l'autor, títol, formai i contingut del fitxer lleegit
+     * @return Retorna un DocumentLlegit que conté l'autor, títol, extensió i contingut del fitxer llegit
      */
     private DocumentLlegit llegeixDocumentTXT(Path PATH) {
         DocumentLlegit D = new DocumentLlegit();
@@ -153,16 +158,14 @@ public class GestorDades {
     }
 
     /**
-     * Escriu en el fitxer doc els paràmetres de la funció (titol,autor,contingut) en format TXT
+     * Escriu en el fitxer amb extensió .txt situat a path, els paràmetres de la funció: titol, autor i contingut
      *
      * @param titol Indica el títol que identifica el document
      * @param autor Indica l'autor que identifica el document
      * @param contingut Indica el contingut del document
-     * @param path Indica el path del fitxer que volem escriure
-     * @throws FitxerNoCreatException Si no s'ha pogut crear el fitxer on es guarda el document
+     * @param path Indica el path del fitxer .txt que volem escriure
      */
-    private void guardaDocumentTXT(String titol, String autor, String contingut, String path) throws
-            FitxerNoCreatException {
+    private void guardaDocumentTXT(String titol, String autor, String contingut, String path) {
         creaFitxer(path);
 
         Path PATH = Paths.get(path);
@@ -179,7 +182,7 @@ public class GestorDades {
      * Llegeix un document en format .xml
      *
      * @param PATH Indica el path del fitxer .xml que es llegirà
-     * @return Retorna un DocumentLlegit que conté l'autor, títol, formai i contingut del fitxer lleegit
+     * @return Retorna un DocumentLlegit que conté l'autor, títol, format i contingut del fitxer llegit
      */
     private DocumentLlegit llegeixDocumentXML(Path PATH) {
         DocumentLlegit D = new DocumentLlegit();
@@ -226,16 +229,14 @@ public class GestorDades {
     }
 
     /**
-     * Escriu en el fitxer doc els paràmetres de la funció (titol,autor,contingut) en format XML
+     * Escriu en el fitxer amb extensió .xml situat a path, els paràmetres de la funció: titol, autor i contingut
      *
      * @param titol Indica el títol que identifica el document
      * @param autor Indica l'autor que identifica el document
      * @param contingut Indica el contingut del document
-     * @param path Indica el path del fitxer que volem escriure
-     * @throws FitxerNoCreatException Si no s'ha pogut crear el fitxer on es guarda el document
+     * @param path Indica el path del fitxer .xml que volem escriure
      */
-    private void guardaDocumentXML(String titol, String autor, String contingut, String path) throws
-            FitxerNoCreatException {
+    private void guardaDocumentXML(String titol, String autor, String contingut, String path) {
         creaFitxer(path);
 
         Path PATH = Paths.get(path);
@@ -264,7 +265,7 @@ public class GestorDades {
      * Llegeix un document en format .bol
      *
      * @param PATH Indica el path del fitxer .bol que es llegirà
-     * @return Retorna un DocumentLlegit que conté l'autor, títol, formai i contingut del fitxer lleegit
+     * @return Retorna un DocumentLlegit que conté l'autor, títol, format i contingut del fitxer llegit
      */
     private DocumentLlegit llegeixDocumentBOL(Path PATH) {
         DocumentLlegit D = new DocumentLlegit();
@@ -303,13 +304,12 @@ public class GestorDades {
     }
 
     /**
-     * Escriu en el fitxer doc els paràmetres de la funció (titol,autor,contingut) en format BOL
+     * Escriu en el fitxer amb extensió .bol situat a path, els paràmetres de la funció: titol, autor i contingut
      *
      * @param titol Indica el títol que identifica el document
      * @param autor Indica l'autor que identifica el document
      * @param contingut Indica el contingut del document
-     * @param path Indica el path del fitxer que volem escriure
-     * @throws FitxerNoCreatException Si no s'ha pogut crear el fitxer on es guarda el document
+     * @param path Indica el path del fitxer .bol que volem escriure
      */
     private void guardaDocumentBOL(String titol, String autor, String contingut, String path) throws
             FitxerNoCreatException {
@@ -355,7 +355,13 @@ public class GestorDades {
         return doc;
     }
 
-    public DocumentLlegit llegeixDocument(String path) throws TipusExtensioIncorrectaException {
+    /**
+     * Llegeix un document en qualsevol extensió (.txt, .xml, .bol)
+     *
+     * @param path Indica el path del document que volem llegir
+     * @return Retorna un DocumentLlegit amb les dades del document
+     */
+    public DocumentLlegit llegeixDocument(String path) {
         // Mirem que el document que volem llegir existeixi
         if(existeixFitxer(path)) {
             Path PATH = Paths.get(path);
@@ -374,14 +380,19 @@ public class GestorDades {
                     case ".bol":
                         return llegeixDocumentBOL(PATH);
                     default:
-                        throw new TipusExtensioIncorrectaException(ext);
                 }
             }
         }
         return null;
     }
 
-    private void guardaDocumentLlegit(DocumentLlegit D) throws FitxerNoCreatException, TipusExtensioIncorrectaException {
+    /**
+     * Guarda un document en qualsevol format en el path indicat el el document
+     *
+     * @param D Indica el document que es vol guardar
+     * @throws FitxerNoCreatException Si s'ha intentat crear el fitxer i no s'ha pogut
+     */
+    private void guardaDocumentLlegit(DocumentLlegit D) throws FitxerNoCreatException {
         String autor = D.getAutor();
         String titol = D.getTitol();
         TipusExtensio ext = D.getExtensio();
@@ -399,12 +410,18 @@ public class GestorDades {
                 guardaDocumentBOL(titol,autor,contingut,path);
                 break;
             default:
-                throw new TipusExtensioIncorrectaException(ext.toString());
         }
     }
 
+    /**
+     * Guarda un document en qualsevol format en el sistema
+     *
+     * @param D Indica el document que es vol guardar
+     * @throws FitxerNoEliminatException Si s'ha intentat eliminar el document i no s'ha pogut
+     * @throws FitxerNoCreatException Si s'ha intentat crear el document i no s'ha pogut
+     */
     public void guardaDocument(DocumentLlegit D)
-            throws FitxerNoEliminatException, TipusExtensioIncorrectaException, FitxerNoCreatException {
+            throws FitxerNoEliminatException, FitxerNoCreatException {
         String path = D.getPath();
         esborraFitxer(path);    // Si el document existeix, cal eliminar-lo per actualitzar-ho
 
@@ -412,7 +429,13 @@ public class GestorDades {
         guardaDocumentLlegit(D);
     }
 
-    public void exportarDocument(DocumentLlegit D) throws TipusExtensioIncorrectaException, FitxerNoCreatException {
+    /**
+     * Exporta un document fora del sistema
+     *
+     * @param D Indica el document que es vol exportar
+     * @throws FitxerNoCreatException Si s'ha intentat crear el document i no s'ha pogut
+     */
+    public void exportarDocument(DocumentLlegit D) throws FitxerNoCreatException {
         String path = D.getPath();
         int longitud_path = path.length();
         String path_doc = path.substring(0,longitud_path-4);
@@ -435,14 +458,13 @@ public class GestorDades {
     ///////////////////////////////////////////////////////////
 
     /**
-     * Llegeix el contingut del fitxer expressions.csv per a obtenir les expressions booleanes guardades
-     * en aquests fitxer
+     * Llegeix el contingut del fitxer en el path indicat per a obtenir les expressions booleanes guardades
+     * en aquest fitxer
      *
-     * @param path Indica el path del fitxer expressions.csv
+     * @param path Indica el path del fitxer on es guarden les expressions
      * @return Retorna un array de les expressions booleanes guardades
-     * @throws FitxerNoCreatException Si s'ha intentat crear el fitxer expressions.csv i no s'ha pogut
      */
-    public ArrayList<String> llegeixExpressions(String path) throws FitxerNoCreatException {
+    public ArrayList<String> llegeixExpressions(String path) {
         ArrayList<String> expressions = new ArrayList<String>();
 
         Path PATH = Paths.get(path);
@@ -464,11 +486,10 @@ public class GestorDades {
     }
 
     /**
-     * Guarda totes les expressions de l'array en el document situat en el path
+     * Guarda totes les expressions de l'array en el fitxer situat en el path
      *
-     * @param expressions Array d'expressions booleanes
-     * @param path Indica en quina posició està emmagatzemat el document
-     *
+     * @param expressions Indica l'array amb les expressions booleanes
+     * @param path Indica en quin fitxer es guarden les expressions booleanes
      */
     public void guardaExpressionsBooleanes(ArrayList<String> expressions, String path) throws FitxerNoCreatException, FitxerNoEliminatException {
         // Si existeix el document l'eliminem per sobre escriure les expressions
@@ -500,9 +521,8 @@ public class GestorDades {
      *
      * @param path Indica el document on estan guardades les StopWords
      * @return Retorna un array de paraules, on cada paraula és una StopWord
-     * @throws FitxerNoCreatException Si el docuemnt on estan les StopWords s'ha intentat crear i no s'ha pogut
      */
-    public ArrayList<String> llegeixStopWords(String path) throws FitxerNoCreatException {
+    public ArrayList<String> llegeixStopWords(String path) {
         ArrayList<String> stopWords = new ArrayList<String>();
 
         // Mirem que el fitxer on guardem les stop words existeixi
