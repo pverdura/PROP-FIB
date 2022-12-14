@@ -6,7 +6,6 @@ import java.awt.event.*;
 
 public class ViewCercaTitol {
     private final CtrlPresentacio ctrlPresentacio;
-
     private JFrame frame;
     private JPanel panellSuperior, panellInferior;
     private JButton btCancelar;
@@ -14,11 +13,34 @@ public class ViewCercaTitol {
     private JTextField textTitol;
     private JLabel label;
 
+    /**
+     * Constructor
+     *
+     * @param cp Control presentació
+     */
     public ViewCercaTitol (CtrlPresentacio cp) {
         this.ctrlPresentacio = cp;
         inicialitzar();
     }
 
+    /**
+     * Fa la vista visible o invisible
+     *
+     * @param visible si ha de ser visible o no
+     */
+    public void ferVisible (boolean visible) {
+        textTitol.setText("");
+        if (visible) frame.pack();
+        frame.setVisible(visible);
+    }
+
+    ///////////////////////////////////////////////////////////
+    ///                  MÈTODES PRIVATS                    ///
+    ///////////////////////////////////////////////////////////
+
+    /**
+     *  Inicialitza i configura la vista
+     */
     private void inicialitzar () {
         inicialitzarComponents();
         configurarVista();
@@ -27,6 +49,9 @@ public class ViewCercaTitol {
         assignarListeners();
     }
 
+    /**
+     * Inicialitza els components
+     */
     private void inicialitzarComponents () {
         frame = new JFrame("Cerca per Títol");
         panellSuperior = new JPanel();
@@ -37,6 +62,9 @@ public class ViewCercaTitol {
         label = new JLabel("Títol: ");
     }
 
+    /**
+     *  Configura la vista
+     */
     private void configurarVista () {
         frame.setLayout(new BorderLayout());
         frame.add(panellSuperior, BorderLayout.CENTER);
@@ -49,6 +77,9 @@ public class ViewCercaTitol {
         frame.setLocationRelativeTo(null);
     }
 
+    /**
+     *  Configura el panell superior
+     */
     private void configurarPanellSuperior () {
         panellSuperior.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         textTitol.setMinimumSize(new Dimension(250, 30));
@@ -57,6 +88,9 @@ public class ViewCercaTitol {
         panellSuperior.add(textTitol);
     }
 
+    /**
+     *  Configura el panell inferior
+     */
     private void configurarPanellInferior () {
         BorderLayout bl = new BorderLayout();
         panellInferior.setLayout(bl);
@@ -64,6 +98,9 @@ public class ViewCercaTitol {
         panellInferior.add(btAcceptar, BorderLayout.EAST);
     }
 
+    /**
+     *  Assigna els listeners als components de la vista
+     */
     private void assignarListeners () {
         btAcceptar.addActionListener(new ActionListener() {
             @Override
@@ -81,14 +118,19 @@ public class ViewCercaTitol {
         textTitol.addKeyListener(new Tecles());
     }
 
-    public void ferVisible (boolean visible) {
-        textTitol.setText("");
-        if (visible) frame.pack();
-        frame.setVisible(visible);
-    }
-
+    /**
+     *  Classe que implementa les dreceres de teclat per la vista
+     */
     private class Tecles extends KeyAdapter {
         private boolean control = false;
+
+        /**
+         * Sobreescriptura del mètode de tecla premuda
+         * Enter fa la cerca
+         * Esc tanca la vista
+         *
+         * @param e the event to be processed
+         */
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) {
