@@ -55,6 +55,7 @@ public class ViewCercaPrefix {
             listModel.addElement(s);
         }
         resCerca = new JList<>(listModel);
+        resCerca.addKeyListener(new Tecles());
 
         scroll.setViewportView(resCerca);
     }
@@ -74,9 +75,6 @@ public class ViewCercaPrefix {
         omplirPrefix.addKeyListener(new Tecles());
 
         scroll.addKeyListener(new Tecles());
-
-        resCerca.addKeyListener(new Tecles());
-
 
         esborrarButton.addActionListener(new ActionListener() {
             @Override
@@ -160,7 +158,7 @@ public class ViewCercaPrefix {
         cancelarButton = new JButton("Cancel·lar");
         esborrarButton = new JButton("Esborrar");
         cercaButton = new JButton("Cercar");
-        mostraButton = new JButton("Mostra documents autor");
+        mostraButton = new JButton("Mostra els documents de l'autor");
         omplirPrefix = new JTextField();
         labelPrefix = new JLabel("Prefix: ");
         resCerca = new JList<>();
