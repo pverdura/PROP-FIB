@@ -99,7 +99,7 @@ public class CtrlDomini {
         }
     }
 
-    public void exportarDocument(String titol, String autor, File file) throws FileNoExisteixException, TipusExtensioIncorrectaException, FitxerNoEliminatException, FitxerNoCreatException {
+    public void exportarDocument(String titol, String autor, File file) throws TipusExtensioIncorrectaException, FitxerNoCreatException {
         Document D = Documents.get(new SimpleEntry<String,String>(titol,autor));
         DocumentLlegit DL = new DocumentLlegit();
 
