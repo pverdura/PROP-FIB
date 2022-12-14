@@ -8,12 +8,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.AbstractMap.SimpleEntry;
 
 public class ViewEditorDocument {
     private JFrame frame;
     private JPanel panellSuperior;
     private JPanel panellMig;
+    private JPanel aaa;
+    private JScrollPane scrollPane;
     private JLabel labelTitol;
     private JLabel labelAutor;
     private JButton btGuardar;
@@ -113,6 +117,8 @@ public class ViewEditorDocument {
         textAutor = new JTextField();
         textContingut = new JTextArea();
         tipusExtensio = new JComboBox<>(extensions);
+
+        aaa = new JPanel();
     }
 
     /**
@@ -159,16 +165,14 @@ public class ViewEditorDocument {
      * Configura el panell inferior
      */
     private void configurarPanellInferior () {
-        textContingut.setMinimumSize(new Dimension(800, 450));
-        textContingut.setPreferredSize(textContingut.getMinimumSize());
         textContingut.setText(contingut);
-
-        JScrollPane panellInferior = new JScrollPane(textContingut);
-        panellInferior.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        panellInferior.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        panellInferior.setPreferredSize(new Dimension(800, 450));
-
-        frame.add(panellInferior, BorderLayout.SOUTH);
+        textContingut.setMinimumSize(new Dimension(750, 450));
+        scrollPane = new JScrollPane(textContingut);
+        scrollPane.setPreferredSize(textContingut.getMinimumSize());
+        scrollPane.setViewportView(textContingut);
+        aaa.add(scrollPane, BorderLayout.CENTER);
+        aaa.setMaximumSize(new Dimension(800, 450));
+        frame.add(aaa, BorderLayout.SOUTH);
     }
 
     /**
