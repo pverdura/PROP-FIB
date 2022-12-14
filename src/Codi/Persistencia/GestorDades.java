@@ -311,8 +311,7 @@ public class GestorDades {
      * @param contingut Indica el contingut del document
      * @param path Indica el path del fitxer .bol que volem escriure
      */
-    private void guardaDocumentBOL(String titol, String autor, String contingut, String path) throws
-            FitxerNoCreatException {
+    private void guardaDocumentBOL(String titol, String autor, String contingut, String path) {
         creaFitxer(path);
 
         Path PATH = Paths.get(path);
@@ -390,9 +389,8 @@ public class GestorDades {
      * Guarda un document en qualsevol format en el path indicat el el document
      *
      * @param D Indica el document que es vol guardar
-     * @throws FitxerNoCreatException Si s'ha intentat crear el fitxer i no s'ha pogut
      */
-    private void guardaDocumentLlegit(DocumentLlegit D) throws FitxerNoCreatException {
+    private void guardaDocumentLlegit(DocumentLlegit D) {
         String autor = D.getAutor();
         String titol = D.getTitol();
         TipusExtensio ext = D.getExtensio();
@@ -491,7 +489,7 @@ public class GestorDades {
      * @param expressions Indica l'array amb les expressions booleanes
      * @param path Indica en quin fitxer es guarden les expressions booleanes
      */
-    public void guardaExpressionsBooleanes(ArrayList<String> expressions, String path) throws FitxerNoCreatException, FitxerNoEliminatException {
+    public void guardaExpressionsBooleanes(ArrayList<String> expressions, String path) throws FitxerNoEliminatException {
         // Si existeix el document l'eliminem per sobre escriure les expressions
         if(existeixFitxer(path)) {
             eliminaFitxer(path);
