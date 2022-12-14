@@ -185,6 +185,7 @@ public class GestorDades {
             String contingut = "";      // Concatenació de línies per llegir el contingut
             String linia;               // Ens ajuda a llegir línies del document
             boolean c = false;          // Ens indica si estem llegint el contingut
+            boolean primera = true;
 
             // Llegim el document mentre hi hagi línies
             while ((linia = lector.readLine()) != null) {
@@ -194,7 +195,13 @@ public class GestorDades {
                     }
                     else { // Treiem la tabulació
                         linia = linia.substring(2);
-                        contingut = contingut + "\n" + linia;
+                        if(primera) {
+                            primera = false;
+                            contingut = linia;
+                        }
+                        else {
+                            contingut = contingut + "\n" + linia;
+                        }
                     }
                 }
                 else {
@@ -206,7 +213,7 @@ public class GestorDades {
                         // Agafem el text que està entre <titol> i </titol>
                         D.setTitol(linia.substring(8,linia.length()-8).trim());
                     }
-                    else if(linia.contains("\t<contingut>")) {
+                    else if(linia.contains("<contingut>")) {
                         c = true;
                     }
                 }
@@ -281,8 +288,8 @@ public class GestorDades {
                     D.setTitol(linia.trim());
                 }
                 else if(espais == 2) {
-                    if (contingut.equals("")) contingut = contingut + "\n" + linia;
-                    else contingut = linia;
+                    if (contingut.equals("")) contingut = linia;
+                    else contingut = contingut + "\n" + linia;
                 }
                 else break;
             }
