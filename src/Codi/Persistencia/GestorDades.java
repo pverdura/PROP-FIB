@@ -16,7 +16,7 @@ import java.util.Arrays;
 public class GestorDades {
 
     ///////////////////////////////////////////////////////////
-    ///                 FUNCIONS PRIVADES                   ///
+    ///                 FUNCIONS DOCUMENT                   ///
     ///////////////////////////////////////////////////////////
 
     /**
@@ -188,11 +188,11 @@ public class GestorDades {
                 else {
                     if(linia.contains("<autor>") && linia.contains("</autor>")) {
                         // Agafem el text que està entre <autor> i </autor>
-                        D.setAutor(linia.substring(11,linia.length()-8).trim());
+                        D.setAutor(linia.substring(8,linia.length()-8).trim());
                     }
                     else if(linia.contains("<titol>") && linia.contains("</titol>")) {
                         // Agafem el text que està entre <titol> i </titol>
-                        D.setTitol(linia.substring(11,linia.length()-8).trim());
+                        D.setTitol(linia.substring(8,linia.length()-8).trim());
                     }
                     else if(linia.contains("\t<contingut>")) {
                         c = true;
@@ -275,90 +275,6 @@ public class GestorDades {
             e.printStackTrace();
         }
         return doc;
-    }
-
-    /*
-     * Funció que llegeix tots els documents d'un directori
-     *
-     * @param path Indica el directori on estan situats els documents
-     * @return Retorna un array de DocumentsLlegits on en cada objecte hi ha l'autor, títol, format i contingut
-     *         el document llegit
-     * @throws TipusExtensioIncorrectaException Si hi ha algun document en el directori path que no té
-     *         l'extensió .txt, .xml o .bol
-     *
-    private ArrayList<DocumentLlegit> llegeixDocuments(String path) throws TipusExtensioIncorrectaException {
-        ArrayList<DocumentLlegit> documents = new ArrayList<DocumentLlegit>();
-        File carpeta = new File(path);
-        String[] docs = carpeta.list(); // Obtenim tots els documents de la carpeta situada en el path
-
-        if(docs != null && docs.length != 0) {
-            // Llegim tots els documents que estan en la carpeta situada en el path
-            for (String doc : docs) {
-                DocumentLlegit D = llegeixDocument(path+"/"+doc);
-                if(D != null) documents.add(D);
-            }
-        }
-        else {
-            throw new CarpetaBuidaException();
-        }
-        return documents;
-    }
-     */
-
-    /**
-     * Llegeix el contingut del fitxer expressions.csv per a obtenir les expressions booleanes guardades
-     * en aquests fitxer
-     *
-     * @param path Indica el path del fitxer expressions.csv
-     * @return Retorna un array de les expressions booleanes guardades
-     * @throws FitxerNoCreatException Si s'ha intentat crear el fitxer expressions.csv i no s'ha pogut
-     */
-    public ArrayList<String> llegeixExpressions(String path) throws FitxerNoCreatException {
-        ArrayList<String> expressions = new ArrayList<String>();
-
-        // Mirem que el fitxer on guardem les expressions existeixi
-        if(existeixFitxer(path)) {
-            Path PATH = Paths.get(path);
-
-            // Lector que ens llegirà el fitxer
-            try (BufferedReader lector = Files.newBufferedReader(PATH,StandardCharsets.UTF_8)) {
-                String linia;
-
-                // Llegim el fitxer mentre hi hagi línies
-                while((linia = lector.readLine()) != null) {
-                    // Afegim l'expressió en el llistat
-                    expressions.add(linia);
-                }
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        else {  // Si no existeix, el creem
-            creaFitxer(path);
-        }
-        return expressions;
-    }
-
-    /**
-     * Llegeix les paraules que es consideren StopWords
-     *
-     * @param path Indica el document on estan guardades les StopWords
-     * @return Retorna un array de paraules, on cada paraula és una StopWord
-     * @throws FitxerNoCreatException Si el docuemnt on estan les StopWords s'ha intentat crear i no s'ha pogut
-     */
-    public ArrayList<String> llegeixStopWords(String path) throws FitxerNoCreatException {
-        ArrayList<String> stopWords = new ArrayList<String>();
-
-        // Mirem que el fitxer on guardem les stop words existeixi
-        if(existeixFitxer(path)) {
-            Path PATH = Paths.get(path);
-            stopWords = llegeixDocumentCSV(PATH);
-        }
-        else {  // Si no existeix, el creem
-            creaFitxer(path);
-        }
-        return stopWords;
     }
 
     /**
@@ -444,6 +360,156 @@ public class GestorDades {
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void guardaDocumentLlegit(DocumentLlegit D) throws FitxerNoCreatException, TipusExtensioIncorrectaException {
+        String autor = D.getAutor();
+        String titol = D.getTitol();
+        TipusExtensio ext = D.getExtensio();
+        String contingut = D.getContingut();
+        String path = D.getPath();
+
+        switch(ext.toString()) {
+            case("TXT"):
+                guardaDocumentTXT(titol,autor,contingut,path);
+                break;
+            case("XML"):
+                guardaDocumentXML(titol,autor,contingut,path);
+                break;
+            case("BOL"):
+                guardaDocumentBOL(titol,autor,contingut,path);
+                break;
+            default:
+                throw new TipusExtensioIncorrectaException(ext.toString());
+        }
+    }
+
+    public void guardaDocument(DocumentLlegit D)
+            throws FitxerNoEliminatException, TipusExtensioIncorrectaException, FitxerNoCreatException {
+        String path = D.getPath();
+
+        esborraFitxer(path);    // Si el document existeix, cal eliminar-lo per actualitzar-ho
+
+        // Guardem el document
+        guardaDocumentLlegit(D);
+    }
+
+    public void exportarDocument(DocumentLlegit D) throws TipusExtensioIncorrectaException, FitxerNoCreatException {
+        String path = D.getPath();
+        int longitud_path = path.length();
+        String path_doc = path.substring(0,longitud_path-4);
+        String ext = D.getExtensio().toString().toLowerCase();
+        int num_copia = 1;
+
+        while(existeixFitxer(path)) {
+            // El document existeix i, per tant, cal modificar el seu path per a no eliminar el document existent
+            path = path_doc + "_" + num_copia + "." + ext;
+            ++num_copia;
+        }
+        D.setPath(path);
+        // Guardem el document
+        guardaDocumentLlegit(D);
+    }
+
+    /**
+     * Busca el document identificat per títol i autor
+     *
+     * @param titol Indica el títol del document
+     * @param autor Indica l'autor del document
+     * @return Retorna el document que té com a títol i autor els indicats, si no existeix retorna null
+     */
+    public File buscaDocument(String titol, String autor, String path) {
+        try {
+            String id = titol + "_" + autor;
+            File[] candidats = new File(path).listFiles();
+
+            if (candidats != null) {
+                for (File doc : candidats) {
+                    // Obtenim el nom del document
+                    String document = doc.getName();
+
+                    // Filtrem els possibles documents que puguin tenir com a títol i autor els indicats
+                    // (format dels documents guardats: #doc_titol_autor.extensió).
+                    // Treiem l'extensió i mirem que acabi en titol_autor
+                    if(document.substring(0,document.length()-3).endsWith(id)) {
+                        DocumentLlegit D = llegeixDocument(doc.getPath());
+
+                        // Mirem que el seu títol i autor siguin els que busquem
+                        if (D.getTitol().equals(titol) && D.getAutor().equals(autor)) return doc;
+                    }
+                }
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public DocumentLlegit llegeixDocument(String path) throws TipusExtensioIncorrectaException {
+        // Mirem que el document que volem llegir existeixi
+        if(existeixFitxer(path)) {
+            Path PATH = Paths.get(path);
+
+            // Mirem el tipus d'extensió del document
+            int l = path.length();
+            // Mirem que no siguin backups creats per emacs, nano o vi
+            if(!path.endsWith("~")) {
+                String ext = path.substring(l-4,l);
+
+                switch (ext) {
+                    case ".txt":
+                        return llegeixDocumentTXT(PATH);
+                    case ".xml":
+                        return llegeixDocumentXML(PATH);
+                    case ".bol":
+                        return llegeixDocumentBOL(PATH);
+                    default:
+                        throw new TipusExtensioIncorrectaException(ext);
+                }
+            }
+        }
+        return null;
+    }
+
+
+    ///////////////////////////////////////////////////////////
+    ///                 FUNCIONS EXPR BOOL                  ///
+    ///////////////////////////////////////////////////////////
+
+    /**
+     * Llegeix el contingut del fitxer expressions.csv per a obtenir les expressions booleanes guardades
+     * en aquests fitxer
+     *
+     * @param path Indica el path del fitxer expressions.csv
+     * @return Retorna un array de les expressions booleanes guardades
+     * @throws FitxerNoCreatException Si s'ha intentat crear el fitxer expressions.csv i no s'ha pogut
+     */
+    public ArrayList<String> llegeixExpressions(String path) throws FitxerNoCreatException {
+        ArrayList<String> expressions = new ArrayList<String>();
+
+        // Mirem que el fitxer on guardem les expressions existeixi
+        if(existeixFitxer(path)) {
+            Path PATH = Paths.get(path);
+
+            // Lector que ens llegirà el fitxer
+            try (BufferedReader lector = Files.newBufferedReader(PATH,StandardCharsets.UTF_8)) {
+                String linia;
+
+                // Llegim el fitxer mentre hi hagi línies
+                while((linia = lector.readLine()) != null) {
+                    // Afegim l'expressió en el llistat
+                    expressions.add(linia);
+                }
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {  // Si no existeix, el creem
+            creaFitxer(path);
+        }
+        return expressions;
     }
 
     /**
@@ -538,132 +604,6 @@ public class GestorDades {
         guardaExpressions(expressions, path);
     }
 
-
-    ///////////////////////////////////////////////////////////
-    ///                 FUNCIONS PÚBLIQUES                  ///
-    ///////////////////////////////////////////////////////////
-
-    /*
-     * Llegeix els documents guardats en la carpeta path, i si no existeix, crea la carpeta
-     *
-     * @param path Indica el path relatiu de la carpeta on estan situats els documents
-     * @return Retorna un array amb els documents guardats si existeix algun en la carpeta path, altrament retorna null
-     * @throws CarpetaNoCreadaException Si no s'ha pogut crear la carpeta en el path indicat
-     * @throws TipusExtensioIncorrectaException Si hi ha algun document amb una extensió no coneguda
-     *
-    public ArrayList<DocumentLlegit> carregaDocuments(String path) throws CarpetaNoCreadaException,
-            CarpetaBuidaException, TipusExtensioIncorrectaException {
-        ArrayList<DocumentLlegit> documents;
-        boolean existeix = existeixDirectori(path);
-
-        if(existeix) documents = llegeixDocuments(path);
-        else throw new CarpetaBuidaException();
-
-        return documents;
-    }
-    */
-
-
-    /**
-     * Llegeix el contingut del fitxer expressions.csv per a obtenir les expressions booleanes guardades
-     * en aquest fitxer, i si no existeix, crea els fitxers
-     *
-     * @param path Indica el path relatiu de la carpeta on està situat el fitxer amb les expressions booleanes
-     * @return Retorna un array amb les expressions guardades si existeix el fitxer
-     * @throws CarpetaNoCreadaException Si no s'ha pogut crear la carpeta en el path indicat
-     * @throws FitxerNoCreatException Si no s'ha pogut crear el fitxer en la carpeta del path indicat
-     */
-    public ArrayList<String> carregaExpressionsBooleanes(String path) throws CarpetaNoCreadaException,
-            FitxerNoCreatException, CarpetaBuidaException {
-        ArrayList<String> expressions;
-        boolean existeix = existeixDirectori(path);
-
-        if(existeix) expressions = llegeixExpressions(path+"/expressions.txt");
-        else throw new CarpetaBuidaException();
-
-        return expressions;
-    }
-
-    /**
-     * Llegeix les StopWords que estan guardades en el path indicat
-     *
-     * @param path Indica en quin lloc estàn guardades les stopWords
-     * @return Retorna un array amb paraules stopWords
-     * @throws CarpetaNoCreadaException Si s'ha intentat crear la carpeta i no s'ha pogut
-     * @throws FitxerNoCreatException Si S'ha intentat crear el fitxer i no s'ha pogut
-     */
-    public ArrayList<String> carregaStopWords(String path) throws CarpetaNoCreadaException, FitxerNoCreatException {
-        ArrayList<String> stopWords;
-        boolean existeix = existeixDirectori(path);
-
-        if(existeix) stopWords = llegeixStopWords(path+"/stopWords.csv");
-        else throw new CarpetaBuidaException();
-
-        return stopWords;
-    }
-
-    private void guardaDocumentLlegit(DocumentLlegit D) throws FitxerNoCreatException, TipusExtensioIncorrectaException {
-        String autor = D.getAutor();
-        String titol = D.getTitol();
-        TipusExtensio ext = D.getExtensio();
-        String contingut = D.getContingut();
-        String path = D.getPath();
-
-        switch(ext.toString()) {
-            case("TXT"):
-                guardaDocumentTXT(titol,autor,contingut,path);
-                break;
-            case("XML"):
-                guardaDocumentXML(titol,autor,contingut,path);
-                break;
-            case("BOL"):
-                guardaDocumentBOL(titol,autor,contingut,path);
-                break;
-            default:
-                throw new TipusExtensioIncorrectaException(ext.toString());
-        }
-    }
-
-    /*
-     * Guarda un document amb extensió .txt, .xml o .bol en el directori indicat
-     *
-     * @param titol Indica el títol del document que volem guardar
-     * @param autor Indica l'autor del document que volem guardar
-     * @param ext Indica l'extensió del document que volem guardar
-     * @param contingut Indica el contingut del document que volem guardar
-     * @param path Indica el path del directori on guardarem el document
-     * @return Retorna el nou path del document
-     * @throws FitxerNoEliminatExeption Si s'ha intentat eliminar el fitxer i no s'ha pogut
-     * @throws CarpetaNoCreadaException Si s'ha intentat crear la carpeta i no s'ha pogut
-     * @throws TipusExtensioIncorrectaException Si l'extensió indicada no és .txt, .xml ni .bol
-     */
-    public void guardaDocument(DocumentLlegit D)
-            throws FitxerNoEliminatException, TipusExtensioIncorrectaException, FitxerNoCreatException {
-        String path = D.getPath();
-
-        esborraFitxer(path);    // Si el document existeix, cal eliminar-lo per actualitzar-ho
-
-        // Guardem el document
-        guardaDocumentLlegit(D);
-    }
-
-    public void exportarDocument(DocumentLlegit D) throws TipusExtensioIncorrectaException, FitxerNoCreatException {
-        String path = D.getPath();
-        int longitud_path = path.length();
-        String path_doc = path.substring(0,longitud_path-4);
-        String ext = D.getExtensio().toString().toLowerCase();
-        int num_copia = 1;
-
-        while(existeixFitxer(path)) {
-            // El document existeix i, per tant, cal modificar el seu path per a no eliminar el document existent
-            path = path_doc + "_" + num_copia + "." + ext;
-            ++num_copia;
-        }
-        D.setPath(path);
-        // Guardem el document
-        guardaDocumentLlegit(D);
-    }
-
     /**
      * Guarda una expressió booleana en el fitxer indicat
      *
@@ -690,63 +630,133 @@ public class GestorDades {
     }
 
     /**
-     * Busca el document identificat per títol i autor
+     * Llegeix el contingut del fitxer expressions.csv per a obtenir les expressions booleanes guardades
+     * en aquest fitxer, i si no existeix, crea els fitxers
      *
-     * @param titol Indica el títol del document
-     * @param autor Indica l'autor del document
-     * @return Retorna el document que té com a títol i autor els indicats, si no existeix retorna null
+     * @param path Indica el path relatiu de la carpeta on està situat el fitxer amb les expressions booleanes
+     * @return Retorna un array amb les expressions guardades si existeix el fitxer
+     * @throws CarpetaNoCreadaException Si no s'ha pogut crear la carpeta en el path indicat
+     * @throws FitxerNoCreatException Si no s'ha pogut crear el fitxer en la carpeta del path indicat
      */
-    public File buscaDocument(String titol, String autor, String path) {
-        try {
-            String id = titol + "_" + autor;
-            File[] candidats = new File(path).listFiles();
+    public ArrayList<String> carregaExpressionsBooleanes(String path) throws CarpetaNoCreadaException,
+            FitxerNoCreatException, CarpetaBuidaException {
+        ArrayList<String> expressions;
+        boolean existeix = existeixDirectori(path);
 
-            if (candidats != null) {
-                for (File doc : candidats) {
-                    // Obtenim el nom del document
-                    String document = doc.getName();
+        if(existeix) expressions = llegeixExpressions(path+"/expressions.txt");
+        else throw new CarpetaBuidaException();
 
-                    // Filtrem els possibles documents que puguin tenir com a títol i autor els indicats
-                    // (format dels documents guardats: #doc_titol_autor.extensió).
-                    // Treiem l'extensió i mirem que acabi en titol_autor
-                    if(document.substring(0,document.length()-3).endsWith(id)) {
-                        DocumentLlegit D = llegeixDocument(doc.getPath());
-
-                        // Mirem que el seu títol i autor siguin els que busquem
-                        if (D.getTitol().equals(titol) && D.getAutor().equals(autor)) return doc;
-                    }
-                }
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        return expressions;
     }
 
-    public DocumentLlegit llegeixDocument(String path) throws TipusExtensioIncorrectaException {
-        // Mirem que el document que volem llegir existeixi
+
+    ///////////////////////////////////////////////////////////
+    ///                FUNCIONS STOP WORDS                  ///
+    ///////////////////////////////////////////////////////////
+
+    /**
+     * Llegeix les paraules que es consideren StopWords
+     *
+     * @param path Indica el document on estan guardades les StopWords
+     * @return Retorna un array de paraules, on cada paraula és una StopWord
+     * @throws FitxerNoCreatException Si el docuemnt on estan les StopWords s'ha intentat crear i no s'ha pogut
+     */
+    public ArrayList<String> llegeixStopWords(String path) throws FitxerNoCreatException {
+        ArrayList<String> stopWords = new ArrayList<String>();
+
+        // Mirem que el fitxer on guardem les stop words existeixi
         if(existeixFitxer(path)) {
             Path PATH = Paths.get(path);
+            stopWords = llegeixDocumentCSV(PATH);
+        }
+        else {  // Si no existeix, el creem
+            creaFitxer(path);
+        }
+        return stopWords;
+    }
 
-            // Mirem el tipus d'extensió del document
-            int l = path.length();
-            // Mirem que no siguin backups creats per emacs, nano o vi
-            if(!path.endsWith("~")) {
-                String ext = path.substring(l-4,l);
+    /**
+     * Llegeix les StopWords que estan guardades en el path indicat
+     *
+     * @param path Indica en quin lloc estàn guardades les stopWords
+     * @return Retorna un array amb paraules stopWords
+     * @throws CarpetaNoCreadaException Si s'ha intentat crear la carpeta i no s'ha pogut
+     * @throws FitxerNoCreatException Si S'ha intentat crear el fitxer i no s'ha pogut
+     */
+    public ArrayList<String> carregaStopWords(String path) throws CarpetaNoCreadaException, FitxerNoCreatException {
+        ArrayList<String> stopWords;
+        boolean existeix = existeixDirectori(path);
 
-                switch (ext) {
-                    case ".txt":
-                        return llegeixDocumentTXT(PATH);
-                    case ".xml":
-                        return llegeixDocumentXML(PATH);
-                    case ".bol":
-                        return llegeixDocumentBOL(PATH);
-                    default:
-                        throw new TipusExtensioIncorrectaException(ext);
-                }
+        if(existeix) stopWords = llegeixStopWords(path+"/stopWords.csv");
+        else throw new CarpetaBuidaException();
+
+        return stopWords;
+    }
+
+
+
+
+
+    /*
+     * Llegeix els documents guardats en la carpeta path, i si no existeix, crea la carpeta
+     *
+     * @param path Indica el path relatiu de la carpeta on estan situats els documents
+     * @return Retorna un array amb els documents guardats si existeix algun en la carpeta path, altrament retorna null
+     * @throws CarpetaNoCreadaException Si no s'ha pogut crear la carpeta en el path indicat
+     * @throws TipusExtensioIncorrectaException Si hi ha algun document amb una extensió no coneguda
+     *
+    public ArrayList<DocumentLlegit> carregaDocuments(String path) throws CarpetaNoCreadaException,
+            CarpetaBuidaException, TipusExtensioIncorrectaException {
+        ArrayList<DocumentLlegit> documents;
+        boolean existeix = existeixDirectori(path);
+
+        if(existeix) documents = llegeixDocuments(path);
+        else throw new CarpetaBuidaException();
+
+        return documents;
+    }
+    */
+
+
+    /*
+     * Funció que llegeix tots els documents d'un directori
+     *
+     * @param path Indica el directori on estan situats els documents
+     * @return Retorna un array de DocumentsLlegits on en cada objecte hi ha l'autor, títol, format i contingut
+     *         el document llegit
+     * @throws TipusExtensioIncorrectaException Si hi ha algun document en el directori path que no té
+     *         l'extensió .txt, .xml o .bol
+     *
+    private ArrayList<DocumentLlegit> llegeixDocuments(String path) throws TipusExtensioIncorrectaException {
+        ArrayList<DocumentLlegit> documents = new ArrayList<DocumentLlegit>();
+        File carpeta = new File(path);
+        String[] docs = carpeta.list(); // Obtenim tots els documents de la carpeta situada en el path
+
+        if(docs != null && docs.length != 0) {
+            // Llegim tots els documents que estan en la carpeta situada en el path
+            for (String doc : docs) {
+                DocumentLlegit D = llegeixDocument(path+"/"+doc);
+                if(D != null) documents.add(D);
             }
         }
-        return null;
+        else {
+            throw new CarpetaBuidaException();
+        }
+        return documents;
     }
+     */
+
+    /*
+     * Guarda un document amb extensió .txt, .xml o .bol en el directori indicat
+     *
+     * @param titol Indica el títol del document que volem guardar
+     * @param autor Indica l'autor del document que volem guardar
+     * @param ext Indica l'extensió del document que volem guardar
+     * @param contingut Indica el contingut del document que volem guardar
+     * @param path Indica el path del directori on guardarem el document
+     * @return Retorna el nou path del document
+     * @throws FitxerNoEliminatExeption Si s'ha intentat eliminar el fitxer i no s'ha pogut
+     * @throws CarpetaNoCreadaException Si s'ha intentat crear la carpeta i no s'ha pogut
+     * @throws TipusExtensioIncorrectaException Si l'extensió indicada no és .txt, .xml ni .bol
+     */
 }
