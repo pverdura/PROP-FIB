@@ -36,7 +36,6 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener {
         //Assignar presentacio i ordenacio per defecte
         this.ctrlPresentacio = ctrlPresentacio;
         this.tipus_ordenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
-        this.infoLabel = new JLabel("Carregant...");
 
         //Activar listener boto mostrar tot
         this.cleanButton.addActionListener(this);
