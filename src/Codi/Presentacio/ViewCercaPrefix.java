@@ -8,6 +8,10 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 public class ViewCercaPrefix {
+
+    ///////////////////////////////////////////////////////////
+    ///                     VARIABLES                       ///
+    ///////////////////////////////////////////////////////////
     private JFrame frameVista;
     private JPanel prefixPanel;
     private JPanel resultatPanel;
@@ -23,18 +27,34 @@ public class ViewCercaPrefix {
     private JRadioButton asc;
     private JRadioButton des;
     private JCheckBox totsAutors;
-    private boolean esborrar;
-    private boolean tots;
-    private int index;
+    private boolean esborrar;       //indica si s'ha esborrat la cerca
+    private boolean tots;           //indica si s'estan ensenyant tots els autors
+    private int index;              //indica l'autor seleccionat
 
     private final CtrlPresentacio ctrlPresentacio;
 
-    /////////////////////////////// CONSTRUCTOR I MÈTODES PÚBLICS
+    ///////////////////////////////////////////////////////////
+    ///                      CONSTRUCTORA                   ///
+    ///////////////////////////////////////////////////////////
+
+    /**
+     * Creadora per defecte
+     * @param ctrlPresentacio Control presentació
+     */
     public ViewCercaPrefix (CtrlPresentacio ctrlPresentacio){
         this.ctrlPresentacio = ctrlPresentacio;
         inicialitza();
     }
 
+    ///////////////////////////////////////////////////////////
+    ///                  MÈTODES PÚBLICS                    ///
+    ///////////////////////////////////////////////////////////
+
+    /**
+     * Fa visible o invisible la vista
+     *
+     * @param visible Indica si ha de ser o no visible
+     */
     public void ferVisible(boolean visible){
         omplirPrefix.setText("");
         if (visible) frameVista.pack();
@@ -43,11 +63,22 @@ public class ViewCercaPrefix {
         asc.setSelected(true);
     }
 
+
+    /**
+     * Indica si la vista és visible
+     *
+     * @return {@code Boolean} Retorna true si és visible, false altrament
+     */
     public Boolean esVisible(){
         return frameVista.isVisible();
     }
 
 
+    /**
+     * Mètode per rebre les dades de la Cerca Prefix
+     *
+     * @param resultatCerca {@code ArrayList<String>} Resultat de la Cerca Prefix
+     */
     public void enviarDades(ArrayList<String> resultatCerca){
         DefaultListModel<Object> listModel = new DefaultListModel<>();
 
@@ -66,8 +97,15 @@ public class ViewCercaPrefix {
         scroll.setViewportView(resCerca);
     }
 
+    ///////////////////////////////////////////////////////////
+    ///                  MÈTODES PRIVATS                    ///
+    ///////////////////////////////////////////////////////////
+
     /////////////////////////// ASSIGNACIÓ DE LISTENERS
 
+    /**
+     * Assigna els listeners als components de la vista
+     */
     private void assignarListeners(){
         cercaButton.addActionListener(e -> mostrarCerca());
 
@@ -112,16 +150,23 @@ public class ViewCercaPrefix {
     }
 
 
+    /**
+     * Classe que implementa les dreceres de teclat per la vista
+     */
     private class Tecles extends KeyAdapter{
         @Override
         public void keyPressed(KeyEvent e) {
-            if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) mostrarCerca();
-            else if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) ferVisible(false);
+            if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) cercaButton.doClick();
+            else if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) cancelarButton.doClick();
         }
     }
 
 
     ////////////////////////// RESTA DE MÈTODES PRIVATS
+
+    /**
+     * Inicialitza i configura la vista
+     */
     private void inicialitza() {
         inicialitzarComponents();
         configurarVista();
@@ -131,6 +176,9 @@ public class ViewCercaPrefix {
         assignarListeners();
     }
 
+    /**
+     * Inicialitza els components
+     */
     private void inicialitzarComponents(){
         frameVista = new JFrame("Cerca per Prefix");
         prefixPanel = new JPanel();
@@ -164,8 +212,12 @@ public class ViewCercaPrefix {
         esborrarButton.setFocusable(false);
         totsAutors.setFocusable(false);
         mostraButton.setFocusable(false);
+        cercaButton.setFocusable(false);
     }
 
+    /**
+     * Configura la vista
+     */
     private void configurarVista(){
         frameVista.setLayout(new BorderLayout());
 
@@ -186,6 +238,9 @@ public class ViewCercaPrefix {
         frameVista.setResizable(false);
     }
 
+    /**
+     * Configura el panell per fer la cerca
+     */
     private void configPrefixPanel(){
         prefixPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
@@ -197,12 +252,18 @@ public class ViewCercaPrefix {
         prefixPanel.add(cercaButton);
     }
 
+    /**
+     * Configura el panell on es mostra el resultat de la cerca
+     */
     private void configResultatPanel(){
         resultatPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         scroll.setPreferredSize(new Dimension(350,300));
         resultatPanel.add(scroll, BorderLayout.CENTER);
     }
 
+    /**
+     * Configura el panell amb els botons
+     */
     private void configButtonsPanel(){
         BorderLayout b = new BorderLayout();
         buttonsPanel.setLayout(b);
@@ -217,6 +278,9 @@ public class ViewCercaPrefix {
         buttonsPanel.add(esborrarButton, BorderLayout.WEST);
     }
 
+    /**
+     * Mostra la cerca
+     */
     private void mostrarCerca(){
         String prefix = omplirPrefix.getText();
         if (!prefix.isEmpty() || tots) {
@@ -230,6 +294,11 @@ public class ViewCercaPrefix {
         else esborraCerca();
     }
 
+    /**
+     * Mostra la Cerca Prefix donat un prefix
+     *
+     * @param prefix Indica el prefix amb el qual es vol fer la cerca
+     */
     private void mostraCerca(String prefix){
         TipusOrdenacio t;
         if (asc.isSelected()) t = TipusOrdenacio.ALFABETIC_ASCENDENT;
@@ -239,6 +308,10 @@ public class ViewCercaPrefix {
         mostraButton.setEnabled(false);
     }
 
+
+    /**
+     * Esborra el resultat de la cerca
+     */
     private void esborraCerca(){
         enviarDades(new ArrayList<>());
         esborrar = true;

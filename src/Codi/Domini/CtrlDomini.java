@@ -9,6 +9,12 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Classe que controla la capa de domini
+ *
+ * @author pol
+ * @since 15/12/2022
+ */
 public class CtrlDomini {
 
     ///////////////////////////////////////////////////////////
@@ -82,8 +88,7 @@ public class CtrlDomini {
     ///              FUNCIONS CTRL_PERSISTÈNCIA             ///
     ///////////////////////////////////////////////////////////
 
-    public void importarDocuments(ArrayList<File> documents) throws DocumentJaExisteixException,
-            TipusExtensioIncorrectaException, FitxerNoEliminatException, FitxerNoCreatException {
+    public void importarDocuments(ArrayList<File> documents) throws DocumentJaExisteixException, FitxerNoCreatException {
         // Llegim els documents importats
         ArrayList<DocumentLlegit> docs = CP.importarDocuments(documents);
 
@@ -98,7 +103,7 @@ public class CtrlDomini {
         }
     }
 
-    public void exportarDocument(String titol, String autor, File file) throws FitxerNoCreatException {
+    public void exportarDocument(String titol, String autor, File file) {
         Document D = Documents.get(new SimpleEntry<String,String>(titol,autor));
         DocumentLlegit DL = new DocumentLlegit();
 
@@ -126,8 +131,7 @@ public class CtrlDomini {
         CDdoc.setPath(titol, autor, CP.getNovaPath(), Documents);
     }
 
-    public void guardaDocument(String titol, String autor) throws FitxerNoEliminatException,
-            FitxerNoCreatException {
+    public void guardaDocument(String titol, String autor) throws FitxerNoCreatException {
         // Obtenim el document
         Document D = Documents.get(new SimpleEntry<String,String>(titol,autor));
         DocumentLlegit DL = new DocumentLlegit();
@@ -149,7 +153,7 @@ public class CtrlDomini {
      * @param autor Indica l'autor del document
      * @throws DocumentInexistentException Si el document identificat per titol i autor no existeix
      */
-    public void eliminaDocument(String titol, String autor) throws DocumentInexistentException, FitxerNoEliminatException {
+    public void eliminaDocument(String titol, String autor) throws DocumentInexistentException {
         CP.eliminaDocument(CDdoc.getPath(titol,autor,Documents));
         CDdoc.eliminaDocument(titol,autor,Documents,Autors,DocumentsAutor,TitolAutors,Paraules);
     }
@@ -172,18 +176,6 @@ public class CtrlDomini {
     }
 
     /**
-     * Obté el contingut del document identificat per titol i autor
-     *
-     * @param titol Indica el titol que identifica el document
-     * @param autor Indica l'autor que identifica el document
-     * @return Retorna el contingut del document identificat per titol i autor
-     * @throws DocumentInexistentException Si el document identificat per titol i autor no existeix
-     */
-    public String getContingut(String titol, String autor) throws DocumentInexistentException {
-        return CDdoc.getContingut(titol,autor,Documents);
-    }
-
-    /**
      * Modifica l'extensió del document identificat per titol i autor
      *
      * @param titol Indica el titol que identifica el document
@@ -193,6 +185,18 @@ public class CtrlDomini {
      */
     public void setExtensio(String titol, String autor, TipusExtensio ext) throws DocumentInexistentException {
         CDdoc.setExtensio(titol,autor,ext,Documents);
+    }
+
+    /**
+     * Obté el contingut del document identificat per titol i autor
+     *
+     * @param titol Indica el titol que identifica el document
+     * @param autor Indica l'autor que identifica el document
+     * @return Retorna el contingut del document identificat per titol i autor
+     * @throws DocumentInexistentException Si el document identificat per titol i autor no existeix
+     */
+    public String getContingut(String titol, String autor) throws DocumentInexistentException {
+        return CDdoc.getContingut(titol,autor,Documents);
     }
 
     /**
@@ -357,8 +361,7 @@ public class CtrlDomini {
      * @param expr Indica l'expressió booleana que guardarem en el sistema
      * @throws ExpressioBooleanaJaExistentException Si ja hi ha una expressio booleana formada per l'expressio expr
      */
-    public void creaExpressioBool(String expr) throws ExpressioBooleanaJaExistentException,
-            FitxerNoCreatException, FitxerNoEliminatException {
+    public void creaExpressioBool(String expr) throws ExpressioBooleanaJaExistentException {
         // Guardem l'expressió en les nostes estructures de dades
         CDeb.creaExpressioBool(expr,ExpressionsBooleanes);
 
@@ -374,8 +377,7 @@ public class CtrlDomini {
      * @param expr Indica l'expressió booleana que eliminem del sistema
      * @throws ExpressioBooleanaInexistentException Si no hi ha cap expressio booleana formada per l'expressio expr
      */
-    public void eliminaExpressioBool(String expr) throws ExpressioBooleanaInexistentException, FitxerNoEliminatException,
-            FitxerNoCreatException {
+    public void eliminaExpressioBool(String expr) throws ExpressioBooleanaInexistentException {
         CDeb.eliminaExpressioBool(expr,ExpressionsBooleanes);
 
         ArrayList<String> expressions = new ArrayList<String>(ExpressionsBooleanes.keySet());
@@ -392,7 +394,7 @@ public class CtrlDomini {
      * @throws ExpressioBooleanaJaExistentException Si ja hi ha una expressio booleana formada per l'expressio expr
      */
     public void modificaExpressioBool(String exprAnt, String exprNova) throws ExpressioBooleanaInexistentException,
-            ExpressioBooleanaJaExistentException, FitxerNoCreatException, FitxerNoEliminatException {
+            ExpressioBooleanaJaExistentException {
         // Modifiquem l'expressió en les estructures de crtlDomini
         CDeb.modificaExpressioBool(exprAnt,exprNova,ExpressionsBooleanes);
 

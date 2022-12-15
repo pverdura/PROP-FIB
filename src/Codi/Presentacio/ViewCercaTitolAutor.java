@@ -54,8 +54,8 @@ public class ViewCercaTitolAutor {
     private class Tecles extends KeyAdapter{
         @Override
         public void keyPressed(KeyEvent e) {
-            if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) ferCercaTitolAutor();
-            else if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) ferVisible(false);
+            if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) acceptarButton.doClick();
+            else if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) cancelarButton.doClick();
         }
     }
 
@@ -81,6 +81,9 @@ public class ViewCercaTitolAutor {
         omplirAutor = new JTextField();
         labelTitol = new JLabel("Títol: ");
         labelAutor = new JLabel("Autor: ");
+
+        acceptarButton.setFocusable(false);
+        cancelarButton.setFocusable(false);
     }
 
     private void configurarVista(){
