@@ -12,10 +12,25 @@ public class CtrlPersistencia {
     ///////////////////////////////////////////////////////////
     ///                     VARIABLES                       ///
     ///////////////////////////////////////////////////////////
+    /**
+     * Instància de la classe de gestor de dades
+     */
     private final GestorDades gestorDades;
+    /**
+     * Indica el nombre de documents creats al Gestor de Documents (des de la primera inicialització)
+     */
     private int numDocs;
+    /**
+     * Path de la Carpeta Documents per guardar documents
+     */
     private final String path = new File("src/Codi/Persistencia/Documents").getPath();
+    /**
+     * Path on estan guardades les StopWords
+     */
     private final String pathStopWords = new File("src/Codi/stopWords.csv").getAbsolutePath();
+    /**
+     * Path on estan guardades les expressions booleanes
+     */
     private final String pathExpressions = new File("src/Codi/Persistencia/Documents/expressions.txt").getPath();
 
     ///////////////////////////////////////////////////////////
@@ -35,7 +50,7 @@ public class CtrlPersistencia {
     ///////////////////////////////////////////////////////////
 
     /**
-     * Importa una sèrie de documents al Gestor de Documents
+     * Importa una sèrie de documents al Gestor de Documents a la carpeta Documents
      *
      * @param files {@code ArrayList<File>} Indica on estan guardats els documents que s'han d'importar
      * @return {@code ArrayList<DocumentLlegit>} Retorna els documents importats
@@ -53,7 +68,7 @@ public class CtrlPersistencia {
     /**
      * Exporta un document fora del Gestor de Documents
      *
-     * @param doc  Indica al document que es vol exportar
+     * @param doc  Indica el document que es vol exportar
      */
     public void exportarDocument(DocumentLlegit doc) {
         gestorDades.exportarDocument(doc);
@@ -63,11 +78,10 @@ public class CtrlPersistencia {
     /**
      * Llegeix els documents guardats en el Gestor de Documents en la carpeta Documents, i si no existeix, la crea
      *
-     * @return  {@code ArrayList<DocumentLlegit>} Retorna els documents guardats en l'aplicació
+     * @return  {@code ArrayList<DocumentLlegit>} Retorna els documents guardats en el Gestor de Documents
      * @throws CarpetaNoCreadaException Si no s'ha pogut crear la carpeta
-     * @throws CarpetaBuidaException Si no hi ha guardat cap document en el sistema
      */
-    public ArrayList<DocumentLlegit> carregaDocuments() throws CarpetaNoCreadaException, CarpetaBuidaException{
+    public ArrayList<DocumentLlegit> carregaDocuments() throws CarpetaNoCreadaException {
         ArrayList<DocumentLlegit> documents = new ArrayList<>();
         boolean existeix = gestorDades.existeixDirectori(path);
 
