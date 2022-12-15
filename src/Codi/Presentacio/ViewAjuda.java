@@ -50,16 +50,16 @@ public class ViewAjuda {
                 frame.setVisible(false);
             }
         });
-        frame.addKeyListener(new Tecla());
-        tancar_button.addKeyListener(new Tecla());
-        text_ajuda.addKeyListener(new Tecla());
+        frame.addKeyListener(new TeclaAjuda());
+        tancar_button.addKeyListener(new TeclaAjuda());
+        text_ajuda.addKeyListener(new TeclaAjuda());
     }
 
     public void ferVisible() {
         frame.setVisible(true);
     }
 
-    private class Tecla extends KeyAdapter {
+    private class TeclaAjuda extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) {

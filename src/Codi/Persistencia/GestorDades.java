@@ -29,18 +29,21 @@ public class GestorDades {
      * Crea un fitxer en el path indicat
      *
      * @param path Indica el lloc on es crea el fitxer (nom inclòs)
+     * @throws FitxerNoCreatException Si no s'ha pogut crear el fitxer en el path indicat
      */
-    public void creaFitxer(String path) {
+    public void creaFitxer(String path) throws FitxerNoCreatException {
         File F = new File(path);
-        try {
-            boolean creada = F.createNewFile();
+        boolean creada = false;
 
-            if(!(creada && F.isFile())) {  // Mirem si s'ha creat el fitxer
-                throw new FitxerNoCreatException(path);
-            }
+        try {
+            creada = F.createNewFile();
         }
         catch (IOException e) {
             e.printStackTrace();
+        }
+
+        if(!(creada && F.isFile())) {  // Mirem si s'ha creat el fitxer
+            throw new FitxerNoCreatException(path);
         }
     }
 
@@ -61,13 +64,15 @@ public class GestorDades {
     /**
      * Elimina el fitxer amb el path indicat (nom inclòs)
      *
-     * @param path Indica on està situat el fitxer que volem eliminar (donem per fet que ja existeix)
+     * @param path Indica on està situat el fitxer que volem eliminar
      */
-    private void eliminaFitxer(String path) {
+    private void eliminaFitxer(String path) throws FitxerNoEliminatException {
         File doc = new File(path);
 
         // S'elimina el fitxer
-        doc.delete();
+        if(!doc.delete()) {
+            throw new FitxerNoEliminatException(path);
+        }
     }
 
     /**
@@ -75,7 +80,7 @@ public class GestorDades {
      *
      * @param path Indica el nom del fitxer que volem eliminar (sense tenir en compte l'extensió del path)
      */
-    public void esborraFitxer(String path) {
+    public void esborraFitxer(String path) throws FitxerNoEliminatException {
         String path_doc = path.substring(0, path.length()-3);
 
         if(existeixFitxer(path_doc+"txt")) {
@@ -160,7 +165,7 @@ public class GestorDades {
      * @param contingut Indica el contingut del document
      * @param path Indica el path del fitxer .txt que volem escriure
      */
-    private void guardaDocumentTXT(String titol, String autor, String contingut, String path) {
+    private void guardaDocumentTXT(String titol, String autor, String contingut, String path) throws FitxerNoCreatException {
         creaFitxer(path);
 
         Path PATH = Paths.get(path);
@@ -238,7 +243,7 @@ public class GestorDades {
      * @param contingut Indica el contingut del document
      * @param path Indica el path del fitxer .xml que volem escriure
      */
-    private void guardaDocumentXML(String titol, String autor, String contingut, String path) {
+    private void guardaDocumentXML(String titol, String autor, String contingut, String path) throws FitxerNoCreatException {
         creaFitxer(path);
 
         Path PATH = Paths.get(path);
@@ -313,7 +318,7 @@ public class GestorDades {
      * @param contingut Indica el contingut del document
      * @param path Indica el path del fitxer .bol que volem escriure
      */
-    private void guardaDocumentBOL(String titol, String autor, String contingut, String path) {
+    private void guardaDocumentBOL(String titol, String autor, String contingut, String path) throws FitxerNoCreatException {
         creaFitxer(path);
 
         Path PATH = Paths.get(path);
@@ -392,7 +397,7 @@ public class GestorDades {
      *
      * @param D Indica el document que es vol guardar
      */
-    private void guardaDocumentLlegit(DocumentLlegit D) {
+    private void guardaDocumentLlegit(DocumentLlegit D) throws FitxerNoCreatException {
         String autor = D.getAutor();
         String titol = D.getTitol();
         TipusExtensio ext = D.getExtensio();
@@ -418,7 +423,7 @@ public class GestorDades {
      *
      * @param D Indica el document que es vol guardar
      */
-    public void guardaDocument(DocumentLlegit D) {
+    public void guardaDocument(DocumentLlegit D) throws FitxerNoCreatException, FitxerNoEliminatException {
         String path = D.getPath();
         esborraFitxer(path);    // Si el document existeix, cal eliminar-lo per actualitzar-ho
 
@@ -431,7 +436,7 @@ public class GestorDades {
      *
      * @param D Indica el document que es vol exportar
      */
-    public void exportarDocument(DocumentLlegit D) {
+    public void exportarDocument(DocumentLlegit D) throws FitxerNoCreatException {
         String path = D.getPath();
         int longitud_path = path.length();
         String path_doc = path.substring(0,longitud_path-4);
@@ -487,7 +492,8 @@ public class GestorDades {
      * @param expressions Indica l'array amb les expressions booleanes
      * @param path Indica en quin fitxer es guarden les expressions booleanes
      */
-    public void guardaExpressionsBooleanes(ArrayList<String> expressions, String path) {
+    public void guardaExpressionsBooleanes(ArrayList<String> expressions, String path) throws FitxerNoCreatException,
+            FitxerNoEliminatException {
         // Si existeix el document l'eliminem per sobre escriure les expressions
         if(existeixFitxer(path)) {
             eliminaFitxer(path);
@@ -516,7 +522,7 @@ public class GestorDades {
      * @param path Indica el document on estan guardades les StopWords
      * @return Retorna un array de paraules, on cada paraula és una StopWord
      */
-    public ArrayList<String> llegeixStopWords(String path) {
+    public ArrayList<String> llegeixStopWords(String path) throws FitxerNoCreatException {
         ArrayList<String> stopWords = new ArrayList<String>();
 
         // Mirem que el fitxer on guardem les stop words existeixi
