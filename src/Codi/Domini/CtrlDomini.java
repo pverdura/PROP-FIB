@@ -22,7 +22,7 @@ public class CtrlDomini {
     ///////////////////////////////////////////////////////////
 
     private final HashMap<SimpleEntry<String,String>,Document> Documents;         // Estructura on es guarden els documents
-    private final Trie<String> Autors;                                            // Estructura on es guarden els autors (serveix per trobar el prefix)
+    private final Trie Autors;                                            // Estructura on es guarden els autors (serveix per trobar el prefix)
     private final HashMap<String,ArrayList<String>> DocumentsAutor;               // Estructura on es guarden els títols dels documents creats per un autor
     private final HashMap<String,ArrayList<String>> TitolAutors;                  // Estructura on es guarden els autors que han creat un document amb un títol en concret
     private final HashMap<String,ArrayList<SimpleEntry<String,String>>> Paraules; // Estructura on es guarden els documents que contenen una paraula en concret
@@ -56,7 +56,7 @@ public class CtrlDomini {
         CP = new CtrlPersistencia();
 
         Documents = new HashMap<SimpleEntry<String,String>,Document>();
-        Autors = new Trie<String>();
+        Autors = new Trie();
         DocumentsAutor = new HashMap<String,ArrayList<String>>();
         TitolAutors = new HashMap<String,ArrayList<String>>();
         Paraules = new HashMap<String,ArrayList<SimpleEntry<String,String>>>();

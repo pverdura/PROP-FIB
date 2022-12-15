@@ -16,7 +16,7 @@ public class CercaPrefix implements Cerca{
      * @return Llista amb noms d'autor que tenen el prefix donat
      * @throws PrefixNoExisteixException Si no existeix cap autor que comenci amb el prefix donat
      */
-    public static ArrayList<String> cercaDoc(String prefix, Trie<String> autors) throws PrefixNoExisteixException {
+    public static ArrayList<String> cercaDoc(String prefix, Trie autors) throws PrefixNoExisteixException {
         ArrayList<String> resultat = autors.getParaules(prefix);
         if (resultat.isEmpty()) throw new PrefixNoExisteixException(prefix);
         return autors.getParaules(prefix);

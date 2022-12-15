@@ -32,7 +32,7 @@ public class CtrlDominiDocument {
      * @throws DocumentJaExisteixException si ja existeix un document amb el mateix títol i autor
      */
     public void creaDocument (String titol, String autor, HashMap<SimpleEntry<String, String>, Document> documents,
-                              Trie<String> autors, HashMap<String,ArrayList<String>> documentsAutor,
+                              Trie autors, HashMap<String,ArrayList<String>> documentsAutor,
                               HashMap<String,ArrayList<String>> titolAutors) throws DocumentJaExisteixException {
         SimpleEntry<String, String> id = new SimpleEntry<>(titol, autor);
         if (documents.containsKey(id)) throw new DocumentJaExisteixException(titol, autor);
@@ -78,7 +78,7 @@ public class CtrlDominiDocument {
      * @throws DocumentInexistentException si no existeix cap document amb l'identificador vell
      */
     public void modificarIdentificador (SimpleEntry<String, String> idVell, SimpleEntry<String, String> idNou, HashMap<SimpleEntry<String, String>, Document> documents,
-                                        HashMap<String,ArrayList<String>> documentsAutor, Trie<String> autors,
+                                        HashMap<String,ArrayList<String>> documentsAutor, Trie autors,
                                         HashMap<String,ArrayList<String>> titolAutors, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentJaExisteixException, DocumentInexistentException {
         String titolVell = idVell.getKey();
         String titolNou = idNou.getKey();
@@ -162,7 +162,7 @@ public class CtrlDominiDocument {
      * @throws DocumentJaExisteixException si ja existeix un document amb el títol i l'autor del {@code DocumentLlegit}
      */
     public void llegirDocument (DocumentLlegit doc, HashMap<SimpleEntry<String, String>, Document> documents,
-                                Trie<String> autors, HashMap<String,ArrayList<String>> documentsAutor,
+                                Trie autors, HashMap<String,ArrayList<String>> documentsAutor,
                                 HashMap<String,ArrayList<String>> titolAutors, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentJaExisteixException {
         this.creaDocument(doc.getTitol(), doc.getAutor(), documents, autors, documentsAutor, titolAutors);
         this.setContingut(doc.getTitol(), doc.getAutor(), doc.getContingut(), documents, paraules);
@@ -183,7 +183,7 @@ public class CtrlDominiDocument {
      * @throws DocumentInexistentException si el document que s'intenta eliminar no existeix
      */
     public void eliminaDocument (String titol, String autor, HashMap<SimpleEntry<String, String>, Document> documents,
-                                 Trie<String> autors, HashMap<String,ArrayList<String>> documentsAutor,
+                                 Trie autors, HashMap<String,ArrayList<String>> documentsAutor,
                                  HashMap<String,ArrayList<String>> titolAutors, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraules) throws DocumentInexistentException {
         SimpleEntry<String, String> id = new SimpleEntry<>(titol, autor);
         if (!documents.containsKey(id)) throw new DocumentInexistentException(titol, autor);
