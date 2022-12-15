@@ -1,22 +1,22 @@
 package Codi.Util;
 
 /**
- * Tipus d'extensions que poden tenir els fitxers que empra l'aplicació
+ * Tipus d'extensions que poden tenir els fitxers que empra l'aplicacio
  *
  * @author Jordi Palomera
  * @since 13-12-2022
  */
 public enum TipusExtensio {
     /**
-     * Extensió de text pla (.txt)
+     * Extensio de text pla (.txt)
      */
     TXT,
     /**
-     * Extensió d'XML (.xml)
+     * Extensio d'XML (.xml)
      */
     XML,
     /**
-     * Extensió pròpia de l'aplicació (.bol)
+     * Extensio propia de l'aplicacio (.bol)
      */
     BOL
 }

@@ -12,7 +12,7 @@ public enum TipusCerca {
      */
     TOTS,
     /**
-     * Cerca pel títol dels documents
+     * Cerca pel titol dels documents
      */
     TITOL,
     /**
@@ -20,7 +20,7 @@ public enum TipusCerca {
      */
     AUTOR,
     /**
-     * Cerca pel títol i l'autor dels documents
+     * Cerca pel titol i l'autor dels documents
      */
     TITOLAUTOR,
     /**
@@ -28,11 +28,11 @@ public enum TipusCerca {
      */
     PARAULES,
     /**
-     * Cerca dels documents més semblants a un document determinat
+     * Cerca dels documents mes semblants a un document determinat
      */
     SEMBLANT,
     /**
-     * Cerca per una expressió booleana
+     * Cerca per una expressio booleana
      */
     BOOLEANA,
     /**

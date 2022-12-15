@@ -15,7 +15,7 @@ public class ViewCercaTitol {
     /**
      * Constructor
      *
-     * @param cp Control presentació
+     * @param cp Control presentacio
      */
     public ViewCercaTitol (CtrlPresentacio cp) {
         this.ctrlPresentacio = cp;
@@ -117,7 +117,7 @@ public class ViewCercaTitol {
          * Enter fa la cerca
          * Esc tanca la vista
          *
-         * @param e the event to be processed
+         * @param e l'esdeveniment a ser processat
          */
         @Override
         public void keyPressed(KeyEvent e) {

@@ -25,7 +25,7 @@ public class ViewEditorDocument {
     /**
      * Constructor per crear un document nou
      *
-     * @param cp Control presentació
+     * @param cp Control presentacio
      */
     public ViewEditorDocument (CtrlPresentacio cp, int id) {
         this.ctrlPresentacio = cp;
@@ -43,11 +43,11 @@ public class ViewEditorDocument {
     /**
      * Constructor per modificar un document
      *
-     * @param cp Control presentació
-     * @param titol Títol del document
+     * @param cp Control presentacio
+     * @param titol Titol del document
      * @param autor Autor del document
      * @param contingut Contingut del document
-     * @param te Tipus d'extensió del document
+     * @param te Tipus d'extensio del document
      */
     public ViewEditorDocument (CtrlPresentacio cp, String titol, String autor, String contingut, TipusExtensio te) {
         this.ctrlPresentacio = cp;
@@ -195,9 +195,9 @@ public class ViewEditorDocument {
     }
 
     /**
-     * Retorna el tipus d'extensió seleccionada
+     * Retorna el tipus d'extensio seleccionada
      *
-     * @return El tipus d'extensió seleccionada
+     * @return El tipus d'extensio seleccionada
      */
     private TipusExtensio getTipusExtensio () {
         String ext = (String) tipusExtensio.getSelectedItem();
@@ -207,9 +207,9 @@ public class ViewEditorDocument {
     }
 
     /**
-     * Modifica l'extensió del component visual
+     * Modifica l'extensio del component visual
      *
-     * @param te El nou tipus d'extensió
+     * @param te El nou tipus d'extensio
      */
     private void setExtensio (TipusExtensio te) {
         this.tExtensio = te;
@@ -255,7 +255,7 @@ public class ViewEditorDocument {
         private boolean control = false;
 
         /**
-         * Sobreescriptura del mètode de tecla premuda
+         * Sobreescriptura del metode de tecla premuda
          * Ctrl + S per desar el document
          *
          * @param e l'esdeveniment a ser processat
@@ -270,7 +270,7 @@ public class ViewEditorDocument {
         }
 
         /**
-         * Sobreescriptura del mètode de tecla alliberada
+         * Sobreescriptura del metode de tecla alliberada
          *
          * @param e l'esdeveniment a ser processat
          */

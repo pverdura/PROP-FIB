@@ -15,7 +15,7 @@ public class ViewCercaAutor {
     /**
      * Constructor
      *
-     * @param cp Control presentació
+     * @param cp Control presentacio
      */
     public ViewCercaAutor (CtrlPresentacio cp) {
         this.ctrlPresentacio = cp;
@@ -114,7 +114,7 @@ public class ViewCercaAutor {
     private class Tecles extends KeyAdapter {
 
         /**
-         * Sobreescriptura del mètode de tecla premuda
+         * Sobreescriptura del metode de tecla premuda
          * Enter fa la cerca
          * Esc tanca la vista
          *

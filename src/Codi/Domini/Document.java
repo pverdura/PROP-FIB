@@ -34,9 +34,9 @@ public class Document {
     }
 
     /**
-     * Constructor d'un document a partir del títol i l'autor
+     * Constructor d'un document a partir del titol i l'autor
      *
-     * @param titol Títol del document
+     * @param titol Titol del document
      * @param autor Autor del document
      */
     public Document (String titol, String autor) {
@@ -45,13 +45,13 @@ public class Document {
     }
 
     /**
-     * Constructor d'un document a partir dels seus atributs bàsics
+     * Constructor d'un document a partir dels seus atributs basics
      *
-     * @param titol Títol del document
+     * @param titol Titol del document
      * @param autor Autor del document
      * @param path  Path del document
      * @param contingut Contingut del document
-     * @param tipusExtensio Tipus d'extensió del document
+     * @param tipusExtensio Tipus d'extensio del document
      */
     public Document (String titol, String autor, String path, String contingut, TipusExtensio tipusExtensio) {
         this(titol, autor);
@@ -61,18 +61,18 @@ public class Document {
     }
 
     /**
-     * Modifica el títol del document
+     * Modifica el titol del document
      *
-     * @param titol Nou títol el document
+     * @param titol Nou titol el document
      */
     public void setTitol (String titol) {
         this.titol = titol;
     }
 
     /**
-     * Obté el títol del document
+     * Obté el titol del document
      *
-     * @return Títol del document
+     * @return Titol del document
      */
     public String getTitol () {
         return this.titol;
@@ -137,9 +137,9 @@ public class Document {
     }
 
     /**
-     * Modifica l'extensió i la path del document
+     * Modifica l'extensio i la path del document
      *
-     * @param tipusExtensio Nova extensió del document
+     * @param tipusExtensio Nova extensio del document
      */
     public void setExtensio (TipusExtensio tipusExtensio) {
         this.tipusExtensio = tipusExtensio;
@@ -153,16 +153,16 @@ public class Document {
     }
 
     /**
-     * Obté l'extensió del document
+     * Obté l'extensio del document
      *
-     * @return L'extensió del document
+     * @return L'extensio del document
      */
     public TipusExtensio getExtensio () {
         return this.tipusExtensio;
     }
 
     /**
-     * Obté el pes (la quantitat de caràcters del contingut) del document
+     * Obté el pes (la quantitat de caracters del contingut) del document
      *
      * @return El pes del document
      */
@@ -211,7 +211,7 @@ public class Document {
     ///////////////////////////////////////////////////////////
 
     /**
-     * Esborra els pronoms febles, els articles i els signes de puntuació d'una paraula
+     * Esborra els pronoms febles, els articles i els signes de puntuacio d'una paraula
      *
      * @param s Cadena de text a tractar
      * @return {@code String} Cadena de text tractada
@@ -224,7 +224,7 @@ public class Document {
         }
 
         n = Document.signesDePuntuacio.length();
-        //eliminar signes de puntuació
+        //eliminar signes de puntuacio
         for (int i = 0; i < n; ++i) {
             s = s.replace(Character.toString(Document.signesDePuntuacio.charAt(i)), "");
         }
@@ -233,7 +233,7 @@ public class Document {
 
     /**
      * Compta les aparicions de cada paraula al contingut del document
-     * Cada paraula és tractada amb el mètode {@link #tractar(String) Tractar}, i no té en compte les stop words
+     * Cada paraula és tractada amb el metode {@link #tractar(String) Tractar}, i no té en compte les stop words
      */
     private void comptarAparicions () {
         String[] aux = this.contingut.toLowerCase().split("[, \n\t.;:]+");

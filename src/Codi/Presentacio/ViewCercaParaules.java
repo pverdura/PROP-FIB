@@ -17,7 +17,7 @@ public class ViewCercaParaules {
     /**
      * Constructor
      *
-     * @param cp Control presentació
+     * @param cp Control presentacio
      */
     public ViewCercaParaules (CtrlPresentacio cp) {
         this.ctrlPresentacio = cp;
@@ -149,7 +149,7 @@ public class ViewCercaParaules {
     private class Tecles extends KeyAdapter {
 
         /**
-         * Sobreescriptura del mètode de tecla premuda
+         * Sobreescriptura del metode de tecla premuda
          * Enter per fer la cerca
          * Esc per tancar la vista
          * Fletxa amunt per augmentar el nombre de documents

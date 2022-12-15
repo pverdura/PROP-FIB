@@ -8,11 +8,11 @@ package Codi.Util;
  */
 public enum TipusOrdenacio {
     /**
-     * Ordenar per ordre alfabètic del títol i, després, de l'autor del document de forma ascendent
+     * Ordenar per ordre alfabetic del titol i, despres, de l'autor del document de forma ascendent
      */
     ALFABETIC_ASCENDENT,
     /**
-     * Ordenar per ordre alfabètic del títol i, després, de l'autor del document de forma descendent
+     * Ordenar per ordre alfabetic del titol i, despres, de l'autor del document de forma descendent
      */
     ALFABETIC_DESCENDENT,
     /**
