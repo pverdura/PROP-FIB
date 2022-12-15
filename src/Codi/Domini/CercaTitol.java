@@ -8,6 +8,9 @@ import java.util.HashMap;
 
 /**
  *  Classe que implementa la cerca de documents pel títol
+ *
+ * @author Jordi Palomera
+ * @since 13-12-2022
  */
 
 public class CercaTitol implements Cerca {

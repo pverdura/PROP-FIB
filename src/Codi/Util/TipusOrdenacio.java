@@ -2,8 +2,10 @@ package Codi.Util;
 
 /**
  * Tipus d'ordenacions de documents que existeixen
+ *
+ * @author Jordi Palomera
+ * @since 13-12-2022
  */
-
 public enum TipusOrdenacio {
     /**
      * Ordenar per ordre alfabètic del títol i, després, de l'autor del document de forma ascendent

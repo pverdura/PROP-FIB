@@ -8,8 +8,7 @@ public class ViewCercaParaules {
     private final CtrlPresentacio ctrlPresentacio;
     private JFrame frame;
     private JPanel panellSuperior, panellMig, panellInferior;
-    private JButton btCancelar;
-    private JButton btAcceptar;
+    private JButton btCancelar, btAcceptar;
     private JTextField textParaules;
     private JSpinner textNombreDocuments;
     private JLabel label1, label2;
