@@ -5,6 +5,10 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class ViewCercaSemblant {
+
+    ///////////////////////////////////////////////////////////
+    ///                     VARIABLES                       ///
+    ///////////////////////////////////////////////////////////
     private JFrame frameVista;
     private JPanel titolPanel, autorPanel, numPanel;
     private JPanel buttonsPanel;
@@ -20,12 +24,28 @@ public class ViewCercaSemblant {
 
     private final CtrlPresentacio ctrlPresentacio;
 
-    ////////////////////////////// CONSTRUCTOR I MÈTODES PÚBLICS
+    ///////////////////////////////////////////////////////////
+    ///                      CONSTRUCTORA                   ///
+    ///////////////////////////////////////////////////////////
+
+    /**
+     * Creadora per defecte
+     * @param ctrlPresentacio Control presentació
+     */
     public ViewCercaSemblant(CtrlPresentacio ctrlPresentacio){
         this.ctrlPresentacio = ctrlPresentacio;
         inicialitza();
     }
 
+    ///////////////////////////////////////////////////////////
+    ///                  MÈTODES PÚBLICS                    ///
+    ///////////////////////////////////////////////////////////
+
+    /**
+     * Fa visible o invisible la vista
+     *
+     * @param visible Indica si ha de ser o no visible
+     */
     public void ferVisible(boolean visible){
         omplirTitol.setText("");
         omplirAutor.setText("");
@@ -34,9 +54,16 @@ public class ViewCercaSemblant {
         frameVista.setVisible(visible);
     }
 
+
+    ///////////////////////////////////////////////////////////
+    ///                  MÈTODES PRIVATS                    ///
+    ///////////////////////////////////////////////////////////
+
     /////////////////////////// ASSIGNACIÓ DE LISTENERS
 
-
+    /**
+     * Assigna els listeners als components de la vista
+     */
     private void assignarListeners(){
         acceptarButton.addActionListener(e -> ferCercaSemblant());
 
@@ -49,7 +76,9 @@ public class ViewCercaSemblant {
         totsDocs.addItemListener(e -> numDocs.setEnabled(!totsDocs.isSelected()));
     }
 
-
+    /**
+     * Classe que implementa les dreceres de teclat per la vista
+     */
     private class Tecles extends KeyAdapter{
         @Override
         public void keyPressed(KeyEvent e) {
@@ -61,6 +90,9 @@ public class ViewCercaSemblant {
     }
     ////////////////////////// RESTA DE MÈTODES PRIVATS
 
+    /**
+     * Inicialitza i configura la vista
+     */
     private void inicialitza(){
         inicialitzarComponents();
         configurarVista();
@@ -71,6 +103,9 @@ public class ViewCercaSemblant {
         assignarListeners();
     }
 
+    /**
+     * Inicialitza els components
+     */
     private void inicialitzarComponents(){
         frameVista = new JFrame("Cerca per Document");
         titolPanel = new JPanel();
@@ -101,6 +136,9 @@ public class ViewCercaSemblant {
         acceptarButton.setFocusable(false);
     }
 
+    /**
+     * Configura la vista
+     */
     private void configurarVista(){
         frameVista.setLayout(new BorderLayout());
 
@@ -117,6 +155,9 @@ public class ViewCercaSemblant {
         frameVista.setResizable(false);
     }
 
+    /**
+     * Configura el panell per escriure el títol
+     */
     private void configTitolPanel(){
         titolPanel.setLayout(new FlowLayout(FlowLayout.CENTER,10, 19));
 
@@ -127,6 +168,9 @@ public class ViewCercaSemblant {
         titolPanel.add(omplirTitol);
     }
 
+    /**
+     * Configura el panell per escriure l'autor
+     */
     private void configAutorPanel(){
         autorPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
@@ -137,6 +181,9 @@ public class ViewCercaSemblant {
         autorPanel.add(omplirAutor);
     }
 
+    /**
+     * Configura el panell per indicar el nombre de documents
+     */
     private void configNumDocsPanel(){
         numPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
@@ -147,6 +194,9 @@ public class ViewCercaSemblant {
         numPanel.add(numDocs);
     }
 
+    /**
+     * Configura el panell amb els botons
+     */
     private void configButtonsPanel(){
         BorderLayout b = new BorderLayout();
         buttonsPanel.setLayout(b);
@@ -155,6 +205,9 @@ public class ViewCercaSemblant {
         buttonsPanel.add(acceptarButton, BorderLayout.EAST);
     }
 
+    /**
+     * Fa la cerca
+     */
     private void ferCercaSemblant(){
         String titol = omplirTitol.getText();
         String autor = omplirAutor.getText();
