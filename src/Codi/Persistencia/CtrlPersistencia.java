@@ -64,13 +64,13 @@ public class CtrlPersistencia {
         return docs;
     }
 
-
     /**
      * Exporta un document fora del Gestor de Documents
      *
      * @param doc  Indica el document que es vol exportar
+     * @throws FitxerNoCreatException Si no s'ha pogut exportar el document
      */
-    public void exportarDocument(DocumentLlegit doc) {
+    public void exportarDocument(DocumentLlegit doc) throws FitxerNoCreatException {
         gestorDades.exportarDocument(doc);
     }
 
@@ -92,12 +92,14 @@ public class CtrlPersistencia {
     }
 
 
+
     /**
      * Llegeix les expressions booleanes guardades en el Gestor de Documents en la carpeta Documents
      *
      * @return {@code ArrayLis<String>} Retorna les expressions booleanes guardades en el Gestor de Documents
+     * @throws FitxerNoCreatException Si no s'ha creat el document on es guarden les expressions
      */
-    public ArrayList<String> carregaExpressionsBooleanes() {
+    public ArrayList<String> carregaExpressionsBooleanes() throws FitxerNoCreatException {
         ArrayList<String> expressions = new ArrayList<>();
         boolean existeix = gestorDades.existeixFitxer(pathExpressions);
 
@@ -108,12 +110,14 @@ public class CtrlPersistencia {
     }
 
 
+
     /**
      * Llegeix les StopWords que estan guardades al Gestor de Documents
      *
      * @return {@code ArrayLis<String>} Retorna les StopWords guardades
+     * @throws FitxerNoCreatException Si no s'ha pogut crear el document on es guarden les StopWords
      */
-    public ArrayList<String> carregaStopWords() {
+    public ArrayList<String> carregaStopWords() throws FitxerNoCreatException {
         ArrayList<String> stopWords;
         stopWords = gestorDades.llegeixStopWords(pathStopWords);
         return stopWords;
@@ -124,8 +128,10 @@ public class CtrlPersistencia {
      * Guarda un document al Gestor de Documents en la carpeta Documents
      *
      * @param doc Indica el document que es vol guardar
+     * @throws FitxerNoEliminatException Si el document ja existia i no s'ha pogut eliminar
+     * @throws FitxerNoCreatException Si no s'ha pogut guardar el document
      */
-    public void guardaDocument(DocumentLlegit doc) {
+    public void guardaDocument(DocumentLlegit doc) throws FitxerNoEliminatException, FitxerNoCreatException {
         gestorDades.guardaDocument(doc);
     }
 
@@ -133,18 +139,22 @@ public class CtrlPersistencia {
      * Elimina un document del Gestor de Documents de la carpeta Documents
      *
      * @param path Indica la path on està guardat el document a eliminar
+     * @throws FitxerNoEliminatException Si no s'ha pogut eliminar el document
      */
-    public void eliminaDocument(String path) {
+    public void eliminaDocument(String path) throws FitxerNoEliminatException {
         gestorDades.esborraFitxer(path);
     }
+
 
 
     /**
      * Guarda les expressions booleanes en el Gestor de Documents en la carpeta Documents
      *
-     * @param expressions {@code ArrayList<String> expressions} Indica les expressions a guardar
+             * @param expressions {@code ArrayList<String> expressions} Indica les expressions a guardar
+     * @throws FitxerNoEliminatException Si no s'ha pogut eliminar el document on es guarden les expressions booleanes
+     * @throws FitxerNoCreatException Si no s'ha pogut guardar el document amb les expressions booleanes
      */
-    public void guardaExpressionsBooleanes (ArrayList<String> expressions) {
+    public void guardaExpressionsBooleanes (ArrayList<String> expressions) throws FitxerNoEliminatException, FitxerNoCreatException {
         gestorDades.guardaExpressionsBooleanes(expressions, pathExpressions);
     }
 
