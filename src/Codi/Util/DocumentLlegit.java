@@ -8,10 +8,10 @@ public class DocumentLlegit {
     private TipusExtensio extensio;
 
     public DocumentLlegit(){
-        titol = new String();
-        autor = new String();
-        contingut = new String();
-        path = new String();
+        titol = "";
+        autor = "";
+        contingut = "";
+        path = "";
     }
 
     public String getTitol(){
