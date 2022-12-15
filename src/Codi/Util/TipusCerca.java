@@ -34,9 +34,5 @@ public enum TipusCerca {
     /**
      * Cerca per una expressio booleana
      */
-    BOOLEANA,
-    /**
-     * Cerca d'autors per prefix
-     */
-    PREFIX
+    BOOLEANA
 }
