@@ -4,6 +4,8 @@ import Codi.Util.TipusExtensio;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.AbstractMap.SimpleEntry;
@@ -28,6 +30,10 @@ public class ViewEditorDocument {
     private TipusExtensio tExtensio;
     private boolean documentNou;
     private final String[] extensions = {"TXT", "XML", "BOL"};
+
+    private JMenuBar barraMenu;
+    private JMenu menuFitxer;
+    private JMenuItem menuCrear, menuDesar, menuExportar, menuSortir;
 
     /**
      * Constructor per crear un document nou
@@ -98,6 +104,7 @@ public class ViewEditorDocument {
     private void inicialitzar () {
         inicializarComponents();
         configurarVista();
+        configurarMenu();
         configurarPanellSuperior();
         configurarPanellMig();
         configurarPanellInferior();
@@ -109,6 +116,12 @@ public class ViewEditorDocument {
      */
     private void inicializarComponents () {
         frame = new JFrame("Editor de documents - "+titol);
+        barraMenu = new JMenuBar();
+        menuFitxer = new JMenu("Fitxer");
+        menuCrear = new JMenuItem("Crear");
+        menuDesar = new JMenuItem("Desar");
+        menuExportar = new JMenuItem("Exportar");
+        menuSortir = new JMenuItem("Sortir");
         panellSuperior = new JPanel();
         panellMig = new JPanel();
         panellInferior = new JPanel();
@@ -132,6 +145,18 @@ public class ViewEditorDocument {
         frame.setPreferredSize(frame.getMinimumSize());
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
+    }
+
+    /**
+     * Configura la barra de menu
+     */
+    private void configurarMenu () {
+        frame.setJMenuBar(barraMenu);
+        barraMenu.add(menuFitxer);
+        menuFitxer.add(menuCrear);
+        menuFitxer.add(menuDesar);
+        menuFitxer.add(menuExportar);
+        menuFitxer.add(menuSortir);
     }
 
     /**
@@ -182,15 +207,37 @@ public class ViewEditorDocument {
      * Assigna els listeners als components de la vista
      */
     private void assignarListeners () {
-        btGuardar.addActionListener(e -> guardarDocument());
+        btGuardar.addActionListener(e -> desarDocument(false));
 
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                if (modificat() && VistaDialeg.confirmDialog("Hi ha canvis no guardats. Vols desar el document abans de tancar l'aplicació?")) {
-                    guardarDocument();
-                }
-                ctrlPresentacio.tancarDocument(titol, autor);
+                tancarVista();
+            }
+        });
+
+        menuCrear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                crearDocument();
+            }
+        });
+        menuDesar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                desarDocument(false);
+            }
+        });
+        menuExportar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exportarDocument();
+            }
+        });
+        menuSortir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tancarVista();
             }
         });
 
@@ -225,11 +272,15 @@ public class ViewEditorDocument {
         else tipusExtensio.setSelectedIndex(2);
     }
 
+    private void crearDocument () {
+        ctrlPresentacio.obrirEditorDocuments(null, null, true);
+    }
+
     /**
      * Guarda el document
      */
-    private void guardarDocument () {
-        if (VistaDialeg.confirmDialog("Segur que vols desar el document?")) {
+    private void desarDocument (boolean segur) {
+        if (segur || VistaDialeg.confirmDialog("Segur que vols desar el document?")) {
             SimpleEntry<String, String> idVell = new SimpleEntry<>(titol, autor);
             boolean m = modificat();
 
@@ -243,6 +294,28 @@ public class ViewEditorDocument {
             documentNou = false;
             frame.setTitle("Editor de documents - "+titol);
         }
+    }
+
+    private void exportarDocument () {
+        desarDocument(true);
+
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fc.setAcceptAllFileFilterUsed(false);
+
+        //Obrir jFileChooser
+        int res = fc.showOpenDialog(frame);
+        if (res == JFileChooser.APPROVE_OPTION) {
+            ctrlPresentacio.exportarDocument(this.titol, this.autor, fc.getSelectedFile());
+        }
+    }
+
+    private void tancarVista () {
+        if (modificat() && VistaDialeg.confirmDialog("Hi ha canvis no guardats. Vols desar el document abans de tancar l'aplicació?")) {
+            desarDocument(true);
+        }
+        ctrlPresentacio.tancarDocument(titol, autor);
+        frame.dispose();
     }
 
     /**
@@ -265,6 +338,8 @@ public class ViewEditorDocument {
          * Sobreescriptura del metode de tecla premuda
          * Ctrl + S per desar el document
          * Ctrl + N per crear un nou document
+         * Ctrl + E per exportar el document
+         * Ctrl + Esc per sortir de l'editor
          *
          * @param e l'esdeveniment a ser processat
          */
@@ -273,9 +348,13 @@ public class ViewEditorDocument {
             if (e.getExtendedKeyCode() == KeyEvent.VK_CONTROL) {
                 control = true;
             } else if (e.getExtendedKeyCode() == KeyEvent.VK_S && control) {
-                guardarDocument();
+                desarDocument(false);
             } else if (e.getExtendedKeyCode() == KeyEvent.VK_N && control) {
-                ctrlPresentacio.obrirEditorDocuments(null, null, true);
+                crearDocument();
+            } else if (e.getExtendedKeyCode() == KeyEvent.VK_E && control) {
+                exportarDocument();
+            } else if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE && control) {
+                tancarVista();
             }
         }
 
