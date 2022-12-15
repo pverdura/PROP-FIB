@@ -13,11 +13,11 @@ public class CtrlPersistencia {
     ///                     VARIABLES                       ///
     ///////////////////////////////////////////////////////////
     /**
-     * Instància de la classe de gestor de dades
+     * Instancia de la classe de gestor de dades
      */
     private final GestorDades gestorDades;
     /**
-     * Indica el nombre de documents creats al Gestor de Documents (des de la primera inicialització)
+     * Indica el nombre de documents creats al Gestor de Documents (des de la primera inicialitzacio)
      */
     private int numDocs;
     /**
@@ -50,7 +50,7 @@ public class CtrlPersistencia {
     ///////////////////////////////////////////////////////////
 
     /**
-     * Importa una sèrie de documents al Gestor de Documents a la carpeta Documents
+     * Importa una serie de documents al Gestor de Documents a la carpeta Documents
      *
      * @param files {@code ArrayList<File>} Indica on estan guardats els documents que s'han d'importar
      * @return {@code ArrayList<DocumentLlegit>} Retorna els documents importats
@@ -138,7 +138,7 @@ public class CtrlPersistencia {
     /**
      * Elimina un document del Gestor de Documents de la carpeta Documents
      *
-     * @param path Indica la path on està guardat el document a eliminar
+     * @param path Indica la path on esta guardat el document a eliminar
      * @throws FitxerNoEliminatException Si no s'ha pogut eliminar el document
      */
     public void eliminaDocument(String path) throws FitxerNoEliminatException {
@@ -175,7 +175,7 @@ public class CtrlPersistencia {
     /**
      * Importa un document al Gestor de Documents
      *
-     * @param file Indica on està guardat el document a importar
+     * @param file Indica on esta guardat el document a importar
      * @return {@code DocumentLlegit} Retorna el document importat
      */
     private DocumentLlegit importa(File file) {

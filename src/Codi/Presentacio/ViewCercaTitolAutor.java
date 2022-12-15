@@ -27,7 +27,7 @@ public class ViewCercaTitolAutor {
 
     /**
      * Creadora per defecte
-     * @param ctrlPresentacio Control presentació
+     * @param ctrlPresentacio Control presentacio
      */
     public ViewCercaTitolAutor (CtrlPresentacio ctrlPresentacio){
         this.ctrlPresentacio = ctrlPresentacio;
@@ -55,7 +55,7 @@ public class ViewCercaTitolAutor {
     ///                  MÈTODES PRIVATS                    ///
     ///////////////////////////////////////////////////////////
 
-    /////////////////////////// ASSIGNACIÓ DE LISTENERS
+    /////////////////////////// ASSIGNACIO DE LISTENERS
 
     /**
      * Assigna els listeners als components de la vista
@@ -130,7 +130,7 @@ public class ViewCercaTitolAutor {
     }
 
     /**
-     * Configura el panell per escriure el títol
+     * Configura el panell per escriure el titol
      */
     private void configTitolPanel(){
         titolPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));

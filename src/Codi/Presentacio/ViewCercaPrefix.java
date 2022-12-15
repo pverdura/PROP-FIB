@@ -39,7 +39,7 @@ public class ViewCercaPrefix {
 
     /**
      * Creadora per defecte
-     * @param ctrlPresentacio Control presentació
+     * @param ctrlPresentacio Control presentacio
      */
     public ViewCercaPrefix (CtrlPresentacio ctrlPresentacio){
         this.ctrlPresentacio = ctrlPresentacio;
@@ -101,7 +101,7 @@ public class ViewCercaPrefix {
     ///                  MÈTODES PRIVATS                    ///
     ///////////////////////////////////////////////////////////
 
-    /////////////////////////// ASSIGNACIÓ DE LISTENERS
+    /////////////////////////// ASSIGNACIO DE LISTENERS
 
     /**
      * Assigna els listeners als components de la vista
