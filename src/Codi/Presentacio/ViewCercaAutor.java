@@ -8,8 +8,7 @@ public class ViewCercaAutor {
     private final CtrlPresentacio ctrlPresentacio;
     private JFrame frame;
     private JPanel panellSuperior, panellInferior;
-    private JButton btCancelar;
-    private JButton btAcceptar;
+    private JButton btCancelar, btAcceptar;
     private JTextField textAutor;
     private JLabel label;
 
