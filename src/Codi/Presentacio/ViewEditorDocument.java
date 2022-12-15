@@ -8,6 +8,13 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.AbstractMap.SimpleEntry;
 
+/**
+ *  Classe que implementa l'editor de documents
+ *
+ * @author Jordi Palomera
+ * @since 13-12-2022
+ */
+
 public class ViewEditorDocument {
     private final CtrlPresentacio ctrlPresentacio;
     private JFrame frame;

@@ -4,6 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ *  Classe que implementa la vista de cerca per paraules destacables
+ *
+ * @author Jordi Palomera
+ * @since 13-12-2022
+ */
+
 public class ViewCercaParaules {
     private final CtrlPresentacio ctrlPresentacio;
     private JFrame frame;

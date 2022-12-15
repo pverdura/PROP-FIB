@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- *  Classe que controla la capa de presentació
+ *  Classe que controla la capa de presentacio
  *
  *  @author Jordi Palomera
  *  @since 13-12-2022

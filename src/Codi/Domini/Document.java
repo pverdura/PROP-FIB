@@ -70,7 +70,7 @@ public class Document {
     }
 
     /**
-     * Obté el titol del document
+     * Obte el titol del document
      *
      * @return Titol del document
      */
@@ -88,7 +88,7 @@ public class Document {
     }
 
     /**
-     * Obté l'autor del document
+     * Obte l'autor del document
      *
      * @return Autor del document
      */
@@ -110,7 +110,7 @@ public class Document {
     }
 
     /**
-     * Obté el contingut del document
+     * Obte el contingut del document
      *
      * @return El contingut del document
      */
@@ -128,7 +128,7 @@ public class Document {
     }
 
     /**
-     * Obté la path del document
+     * Obte la path del document
      *
      * @return Path del document
      */
@@ -153,7 +153,7 @@ public class Document {
     }
 
     /**
-     * Obté l'extensio del document
+     * Obte l'extensio del document
      *
      * @return L'extensio del document
      */
@@ -162,7 +162,7 @@ public class Document {
     }
 
     /**
-     * Obté el pes (la quantitat de caracters del contingut) del document
+     * Obte el pes (la quantitat de caracters del contingut) del document
      *
      * @return El pes del document
      */
@@ -180,7 +180,7 @@ public class Document {
     }
 
     /**
-     *  Obté les stop words
+     *  Obte les stop words
      *
      * @return {@code ArrayList<String>} de les stop words
      */
@@ -189,7 +189,7 @@ public class Document {
     }
 
     /**
-     * Obté la quantitat de cops que apareix cada paraula al contingut del document
+     * Obte la quantitat de cops que apareix cada paraula al contingut del document
      *
      * @return {@code HashMap<String, Integer} on la clau és la paraula i el valor la quantitat d'aparicions de la paraula
      */
@@ -198,7 +198,7 @@ public class Document {
     }
 
     /**
-     * Obté la llista de paraules del contingut del document
+     * Obte la llista de paraules del contingut del document
      *
      * @return {@code ArrayList<String>} de paraules sense repeticions del document
      */

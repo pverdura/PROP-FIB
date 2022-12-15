@@ -4,6 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ *  Classe que implementa la vista de cerca per autor
+ *
+ * @author Jordi Palomera
+ * @since 13-12-2022
+ */
 public class ViewCercaAutor {
     private final CtrlPresentacio ctrlPresentacio;
     private JFrame frame;
