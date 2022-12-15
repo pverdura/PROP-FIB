@@ -64,6 +64,8 @@ public class ViewCercaPrefix {
         if (visible) frameVista.pack();
         frameVista.setVisible(visible);
         esborraCerca();
+        totsAutors.setEnabled(true);
+        totsAutors.doClick();
         asc.setSelected(true);
     }
 
