@@ -264,6 +264,7 @@ public class ViewEditorDocument {
         /**
          * Sobreescriptura del metode de tecla premuda
          * Ctrl + S per desar el document
+         * Ctrl + N per crear un nou document
          *
          * @param e l'esdeveniment a ser processat
          */
@@ -273,6 +274,8 @@ public class ViewEditorDocument {
                 control = true;
             } else if (e.getExtendedKeyCode() == KeyEvent.VK_S && control) {
                 guardarDocument();
+            } else if (e.getExtendedKeyCode() == KeyEvent.VK_N && control) {
+                ctrlPresentacio.obrirEditorDocuments(null, null, true);
             }
         }
 
