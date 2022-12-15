@@ -9,16 +9,37 @@ import java.util.ArrayList;
 
 public class CtrlPersistencia {
 
+    ///////////////////////////////////////////////////////////
+    ///                     VARIABLES                       ///
+    ///////////////////////////////////////////////////////////
     private final GestorDades gestorDades;
     private int numDocs;
     private final String path = new File("src/Codi/Persistencia/Documents").getPath();
     private final String pathStopWords = new File("src/Codi/stopWords.csv").getAbsolutePath();
     private final String pathExpressions = new File("src/Codi/Persistencia/Documents/expressions.txt").getPath();
+
+    ///////////////////////////////////////////////////////////
+    ///                      CONSTRUCTORA                   ///
+    ///////////////////////////////////////////////////////////
+
+    /**
+     * Creadora per defecte
+     */
     public CtrlPersistencia(){
         gestorDades = new GestorDades();
         numDocs = 0;
     }
 
+    ///////////////////////////////////////////////////////////
+    ///                  MÈTODES PÚBLICS                    ///
+    ///////////////////////////////////////////////////////////
+
+    /**
+     * Importa una sèrie de documents al Gestor de Documents
+     *
+     * @param files {@code ArrayList<File>} Indica on estan guardats els documents que s'han d'importar
+     * @return {@code ArrayList<DocumentLlegit>} Retorna els documents importats
+     */
     public ArrayList<DocumentLlegit> importarDocuments(ArrayList<File> files) {
         ArrayList<DocumentLlegit> docs = new ArrayList<>();
         for(File f: files){
@@ -28,26 +49,23 @@ public class CtrlPersistencia {
         return docs;
     }
 
-    private DocumentLlegit importa(File file) {
-        String path = file.getAbsolutePath();
-        DocumentLlegit doc;
-        doc = gestorDades.llegeixDocument(path);
-        return doc;
-    }
 
-
-
+    /**
+     * Exporta un document fora del Gestor de Documents
+     *
+     * @param doc  Indica al document que es vol exportar
+     */
     public void exportarDocument(DocumentLlegit doc) {
         gestorDades.exportarDocument(doc);
     }
 
-    /*
-     * Llegeix els documents guardats en la carpeta path, i si no existeix, crea la carpeta
+
+    /**
+     * Llegeix els documents guardats en el Gestor de Documents en la carpeta Documents, i si no existeix, la crea
      *
-     * @param path Indica el path relatiu de la carpeta on estan situats els documents
-     * @return Retorna un array amb els documents guardats si existeix algun en la carpeta path, altrament retorna null
-     * @throws CarpetaNoCreadaException Si no s'ha pogut crear la carpeta en el path indicat
-     * @throws TipusExtensioIncorrectaException Si hi ha algun document amb una extensió no coneguda
+     * @return  {@code ArrayList<DocumentLlegit>} Retorna els documents guardats en l'aplicació
+     * @throws CarpetaNoCreadaException Si no s'ha pogut crear la carpeta
+     * @throws CarpetaBuidaException Si no hi ha guardat cap document en el sistema
      */
     public ArrayList<DocumentLlegit> carregaDocuments() throws CarpetaNoCreadaException, CarpetaBuidaException{
         ArrayList<DocumentLlegit> documents = new ArrayList<>();
@@ -60,14 +78,95 @@ public class CtrlPersistencia {
     }
 
 
-    /*
-     * Funció que llegeix tots els documents d'un directori
+    /**
+     * Llegeix les expressions booleanes guardades en el Gestor de Documents en la carpeta Documents
      *
-     * @param path Indica el directori on estan situats els documents
-     * @return Retorna un array de DocumentsLlegits on en cada objecte hi ha l'autor, títol, format i contingut
-     *         el document llegit
-     * @throws TipusExtensioIncorrectaException Si hi ha algun document en el directori path que no té
-     *         l'extensió .txt, .xml o .bol
+     * @return {@code ArrayLis<String>} Retorna les expressions booleanes guardades en el Gestor de Documents
+     */
+    public ArrayList<String> carregaExpressionsBooleanes() {
+        ArrayList<String> expressions = new ArrayList<>();
+        boolean existeix = gestorDades.existeixFitxer(pathExpressions);
+
+        if(existeix) expressions = gestorDades.llegeixExpressions(pathExpressions);
+        else gestorDades.creaFitxer(pathExpressions);
+
+        return expressions;
+    }
+
+
+    /**
+     * Llegeix les StopWords que estan guardades al Gestor de Documents
+     *
+     * @return {@code ArrayLis<String>} Retorna les StopWords guardades
+     */
+    public ArrayList<String> carregaStopWords() {
+        ArrayList<String> stopWords;
+        stopWords = gestorDades.llegeixStopWords(pathStopWords);
+        return stopWords;
+    }
+
+
+    /**
+     * Guarda un document al Gestor de Documents en la carpeta Documents
+     *
+     * @param doc Indica el document que es vol guardar
+     */
+    public void guardaDocument(DocumentLlegit doc) {
+        gestorDades.guardaDocument(doc);
+    }
+
+    /**
+     * Elimina un document del Gestor de Documents de la carpeta Documents
+     *
+     * @param path Indica la path on està guardat el document a eliminar
+     */
+    public void eliminaDocument(String path) {
+        gestorDades.esborraFitxer(path);
+    }
+
+
+    /**
+     * Guarda les expressions booleanes en el Gestor de Documents en la carpeta Documents
+     *
+     * @param expressions {@code ArrayList<String> expressions} Indica les expressions a guardar
+     */
+    public void guardaExpressionsBooleanes (ArrayList<String> expressions) {
+        gestorDades.guardaExpressionsBooleanes(expressions, pathExpressions);
+    }
+
+
+    /**
+     * Retorna una nova path per a guardar un nou document
+     *
+     * @return {@code String} Retorna la següent path que es pot utilitzar
+     */
+    public String getNovaPath(){
+        return path + "/" + ++numDocs + ".bol";
+    }
+
+    ///////////////////////////////////////////////////////////
+    ///                  MÈTODES PRIVATS                    ///
+    ///////////////////////////////////////////////////////////
+
+    /**
+     * Importa un document al Gestor de Documents
+     *
+     * @param file Indica on està guardat el document a importar
+     * @return {@code DocumentLlegit} Retorna el document importat
+     */
+    private DocumentLlegit importa(File file) {
+        String path = file.getAbsolutePath();
+        DocumentLlegit doc;
+        doc = gestorDades.llegeixDocument(path);
+        return doc;
+    }
+
+
+    /**
+     * Llegeix tots els documents guardats en el Gestor de Documents en la carpeta Documents
+     *
+     * @param path Indica la path del directori on estan els documents
+     * @return {@code ArrayList<DocumentLlegit>} Retorna els documents guardats en la path indicada
      */
     private ArrayList<DocumentLlegit> llegeixDocuments(String path) {
         ArrayList<DocumentLlegit> documents = new ArrayList<>();
@@ -90,50 +189,6 @@ public class CtrlPersistencia {
             }
         }
         return documents;
-    }
-
-    public ArrayList<String> carregaExpressionsBooleanes() {
-        ArrayList<String> expressions = new ArrayList<>();
-        boolean existeix = gestorDades.existeixFitxer(pathExpressions);
-
-        if(existeix) expressions = gestorDades.llegeixExpressions(pathExpressions);
-        else gestorDades.creaFitxer(pathExpressions);
-
-        return expressions;
-    }
-
-    /*
-     * Llegeix les StopWords que estan guardades en el path indicat
-     *
-     * @param path Indica en quin lloc estan guardades les stopWords
-     * @return Retorna un array amb paraules stopWords
-     * @throws CarpetaNoCreadaException Si s'ha intentat crear la carpeta i no s'ha pogut
-     * @throws FitxerNoCreatException Si S'ha intentat crear el fitxer i no s'ha pogut
-     */
-    public ArrayList<String> carregaStopWords() {
-        ArrayList<String> stopWords;
-        stopWords = gestorDades.llegeixStopWords(pathStopWords);
-        return stopWords;
-    }
-
-
-    public void guardaDocument(DocumentLlegit doc) throws FitxerNoEliminatException, FitxerNoCreatException{
-        gestorDades.guardaDocument(doc);
-    }
-
-    public void eliminaDocument(String path) throws FitxerNoEliminatException{
-        gestorDades.esborraFitxer(path);
-    }
-
-
-    public void guardaExpressionsBooleanes (ArrayList<String> expressions) throws FitxerNoEliminatException{
-        gestorDades.guardaExpressionsBooleanes(expressions, pathExpressions);
-    }
-
-
-
-    public String getNovaPath(){
-        return path + "/" + ++numDocs + ".bol";
     }
 }
 
