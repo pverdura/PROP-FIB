@@ -18,7 +18,6 @@ public class ViewCercaTitolAutor {
     private JTextField omplirAutor;
     private JLabel labelTitol;
     private JLabel labelAutor;
-
     private final CtrlPresentacio ctrlPresentacio;
 
     ///////////////////////////////////////////////////////////
@@ -27,7 +26,7 @@ public class ViewCercaTitolAutor {
 
     /**
      * Creadora per defecte
-     * @param ctrlPresentacio Control presentació
+     * @param ctrlPresentacio Control presentacio
      */
     public ViewCercaTitolAutor (CtrlPresentacio ctrlPresentacio){
         this.ctrlPresentacio = ctrlPresentacio;
@@ -50,12 +49,11 @@ public class ViewCercaTitolAutor {
         frameVista.setVisible(visible);
     }
 
-
     ///////////////////////////////////////////////////////////
     ///                  MÈTODES PRIVATS                    ///
     ///////////////////////////////////////////////////////////
 
-    /////////////////////////// ASSIGNACIÓ DE LISTENERS
+    /////////////////////////// ASSIGNACIO DE LISTENERS
 
     /**
      * Assigna els listeners als components de la vista
@@ -79,7 +77,6 @@ public class ViewCercaTitolAutor {
             else if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) cancelarButton.doClick();
         }
     }
-
 
     ////////////////////////// RESTA DE MÈTODES PRIVATS
 
@@ -114,7 +111,6 @@ public class ViewCercaTitolAutor {
         cancelarButton.setFocusable(false);
     }
 
-
     /**
      * Configura la vista
      */
@@ -130,7 +126,7 @@ public class ViewCercaTitolAutor {
     }
 
     /**
-     * Configura el panell per escriure el títol
+     * Configura el panell per escriure el titol
      */
     private void configTitolPanel(){
         titolPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
@@ -155,7 +151,6 @@ public class ViewCercaTitolAutor {
         autorPanel.add(omplirAutor);
     }
 
-
     /**
      * Configura el panell amb els botons
      */
@@ -165,7 +160,6 @@ public class ViewCercaTitolAutor {
         buttonsPanel.add(cancelarButton, BorderLayout.WEST);
         buttonsPanel.add(acceptarButton, BorderLayout.EAST);
     }
-
 
     /**
      * Fa la cerca

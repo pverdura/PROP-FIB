@@ -30,7 +30,6 @@ public class ViewCercaPrefix {
     private boolean esborrar;       //indica si s'ha esborrat la cerca
     private boolean tots;           //indica si s'estan ensenyant tots els autors
     private int index;              //indica l'autor seleccionat
-
     private final CtrlPresentacio ctrlPresentacio;
 
     ///////////////////////////////////////////////////////////
@@ -39,7 +38,7 @@ public class ViewCercaPrefix {
 
     /**
      * Creadora per defecte
-     * @param ctrlPresentacio Control presentació
+     * @param ctrlPresentacio Control presentacio
      */
     public ViewCercaPrefix (CtrlPresentacio ctrlPresentacio){
         this.ctrlPresentacio = ctrlPresentacio;
@@ -63,7 +62,6 @@ public class ViewCercaPrefix {
         asc.setSelected(true);
     }
 
-
     /**
      * Indica si la vista és visible
      *
@@ -72,7 +70,6 @@ public class ViewCercaPrefix {
     public Boolean esVisible(){
         return frameVista.isVisible();
     }
-
 
     /**
      * Mètode per rebre les dades de la Cerca Prefix
@@ -101,7 +98,7 @@ public class ViewCercaPrefix {
     ///                  MÈTODES PRIVATS                    ///
     ///////////////////////////////////////////////////////////
 
-    /////////////////////////// ASSIGNACIÓ DE LISTENERS
+    /////////////////////////// ASSIGNACIO DE LISTENERS
 
     /**
      * Assigna els listeners als components de la vista
@@ -149,7 +146,6 @@ public class ViewCercaPrefix {
 
     }
 
-
     /**
      * Classe que implementa les dreceres de teclat per la vista
      */
@@ -160,7 +156,6 @@ public class ViewCercaPrefix {
             else if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) cancelarButton.doClick();
         }
     }
-
 
     ////////////////////////// RESTA DE MÈTODES PRIVATS
 
@@ -307,7 +302,6 @@ public class ViewCercaPrefix {
         esborrar = false;
         mostraButton.setEnabled(false);
     }
-
 
     /**
      * Esborra el resultat de la cerca

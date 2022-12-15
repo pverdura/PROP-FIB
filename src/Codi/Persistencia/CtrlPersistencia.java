@@ -12,22 +12,27 @@ public class CtrlPersistencia {
     ///////////////////////////////////////////////////////////
     ///                     VARIABLES                       ///
     ///////////////////////////////////////////////////////////
+
     /**
-     * Instància de la classe de gestor de dades
+     * Instancia de la classe de gestor de dades
      */
     private final GestorDades gestorDades;
+
     /**
-     * Indica el nombre de documents creats al Gestor de Documents (des de la primera inicialització)
+     * Indica el nombre de documents creats al Gestor de Documents (des de la primera inicialitzacio)
      */
     private int numDocs;
+
     /**
      * Path de la Carpeta Documents per guardar documents
      */
     private final String path = new File("src/Codi/Persistencia/Documents").getPath();
+
     /**
      * Path on estan guardades les StopWords
      */
     private final String pathStopWords = new File("src/Codi/stopWords.csv").getAbsolutePath();
+
     /**
      * Path on estan guardades les expressions booleanes
      */
@@ -50,7 +55,7 @@ public class CtrlPersistencia {
     ///////////////////////////////////////////////////////////
 
     /**
-     * Importa una sèrie de documents al Gestor de Documents a la carpeta Documents
+     * Importa una serie de documents al Gestor de Documents a la carpeta Documents
      *
      * @param files {@code ArrayList<File>} Indica on estan guardats els documents que s'han d'importar
      * @return {@code ArrayList<DocumentLlegit>} Retorna els documents importats
@@ -74,7 +79,6 @@ public class CtrlPersistencia {
         gestorDades.exportarDocument(doc);
     }
 
-
     /**
      * Llegeix els documents guardats en el Gestor de Documents en la carpeta Documents, i si no existeix, la crea
      *
@@ -90,8 +94,6 @@ public class CtrlPersistencia {
 
         return documents;
     }
-
-
 
     /**
      * Llegeix les expressions booleanes guardades en el Gestor de Documents en la carpeta Documents
@@ -109,8 +111,6 @@ public class CtrlPersistencia {
         return expressions;
     }
 
-
-
     /**
      * Llegeix les StopWords que estan guardades al Gestor de Documents
      *
@@ -122,7 +122,6 @@ public class CtrlPersistencia {
         stopWords = gestorDades.llegeixStopWords(pathStopWords);
         return stopWords;
     }
-
 
     /**
      * Guarda un document al Gestor de Documents en la carpeta Documents
@@ -138,14 +137,12 @@ public class CtrlPersistencia {
     /**
      * Elimina un document del Gestor de Documents de la carpeta Documents
      *
-     * @param path Indica la path on està guardat el document a eliminar
+     * @param path Indica la path on esta guardat el document a eliminar
      * @throws FitxerNoEliminatException Si no s'ha pogut eliminar el document
      */
     public void eliminaDocument(String path) throws FitxerNoEliminatException {
         gestorDades.esborraFitxer(path);
     }
-
-
 
     /**
      * Guarda les expressions booleanes en el Gestor de Documents en la carpeta Documents
@@ -157,7 +154,6 @@ public class CtrlPersistencia {
     public void guardaExpressionsBooleanes (ArrayList<String> expressions) throws FitxerNoEliminatException, FitxerNoCreatException {
         gestorDades.guardaExpressionsBooleanes(expressions, pathExpressions);
     }
-
 
     /**
      * Retorna una nova path per a guardar un nou document
@@ -175,7 +171,7 @@ public class CtrlPersistencia {
     /**
      * Importa un document al Gestor de Documents
      *
-     * @param file Indica on està guardat el document a importar
+     * @param file Indica on esta guardat el document a importar
      * @return {@code DocumentLlegit} Retorna el document importat
      */
     private DocumentLlegit importa(File file) {
@@ -184,7 +180,6 @@ public class CtrlPersistencia {
         doc = gestorDades.llegeixDocument(path);
         return doc;
     }
-
 
     /**
      * Llegeix tots els documents guardats en el Gestor de Documents en la carpeta Documents

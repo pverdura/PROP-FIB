@@ -21,7 +21,6 @@ public class ViewCercaSemblant {
     private JLabel labelNumDocs;
     private JSpinner numDocs;
     private JCheckBox totsDocs;
-
     private final CtrlPresentacio ctrlPresentacio;
 
     ///////////////////////////////////////////////////////////
@@ -30,7 +29,7 @@ public class ViewCercaSemblant {
 
     /**
      * Creadora per defecte
-     * @param ctrlPresentacio Control presentació
+     * @param ctrlPresentacio Control presentacio
      */
     public ViewCercaSemblant(CtrlPresentacio ctrlPresentacio){
         this.ctrlPresentacio = ctrlPresentacio;
@@ -54,12 +53,11 @@ public class ViewCercaSemblant {
         frameVista.setVisible(visible);
     }
 
-
     ///////////////////////////////////////////////////////////
     ///                  MÈTODES PRIVATS                    ///
     ///////////////////////////////////////////////////////////
 
-    /////////////////////////// ASSIGNACIÓ DE LISTENERS
+    /////////////////////////// ASSIGNACIO DE LISTENERS
 
     /**
      * Assigna els listeners als components de la vista
@@ -88,6 +86,7 @@ public class ViewCercaSemblant {
             else if (e.getExtendedKeyCode() == KeyEvent.VK_DOWN) numDocs.setValue(Math.max((int)numDocs.getValue()-1, 1));
         }
     }
+
     ////////////////////////// RESTA DE MÈTODES PRIVATS
 
     /**
@@ -156,7 +155,7 @@ public class ViewCercaSemblant {
     }
 
     /**
-     * Configura el panell per escriure el títol
+     * Configura el panell per escriure el titol
      */
     private void configTitolPanel(){
         titolPanel.setLayout(new FlowLayout(FlowLayout.CENTER,10, 19));
