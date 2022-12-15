@@ -13,6 +13,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Classe que llegeix i escriu documents, expressions booleanes i stop words en fitxers físics
+ *
+ * @author pol
+ * @since 15/12/2022
+ */
 public class GestorDades {
 
     ///////////////////////////////////////////////////////////
@@ -55,25 +61,21 @@ public class GestorDades {
     /**
      * Elimina el fitxer amb el path indicat (nom inclòs)
      *
-     * @param path Indica on està situat el fitxer que volem eliminar
-     * @throws FitxerNoEliminatException Si no s'ha pogut eliminar el fitxer
+     * @param path Indica on està situat el fitxer que volem eliminar (donem per fet que ja existeix)
      */
-    private void eliminaFitxer(String path) throws FitxerNoEliminatException {
+    private void eliminaFitxer(String path) {
         File doc = new File(path);
 
-        // No hi ha cap problema en eliminar el fitxer
-        if (!doc.delete()) {
-            throw new FitxerNoEliminatException(path);
-        }
+        // S'elimina el fitxer
+        doc.delete();
     }
 
     /**
      * Elimina tots els fitxers amb extensions diferents que tinguin com a nom el fitxer del path indicat
      *
      * @param path Indica el nom del fitxer que volem eliminar (sense tenir en compte l'extensió del path)
-     * @throws FitxerNoEliminatException Si s'ha intentat eliminar el fitxer i no s'ha pogut
      */
-    public void esborraFitxer(String path) throws FitxerNoEliminatException {
+    public void esborraFitxer(String path) {
         String path_doc = path.substring(0, path.length()-3);
 
         if(existeixFitxer(path_doc+"txt")) {
@@ -415,11 +417,8 @@ public class GestorDades {
      * Guarda un document en qualsevol format en el sistema
      *
      * @param D Indica el document que es vol guardar
-     * @throws FitxerNoEliminatException Si s'ha intentat eliminar el document i no s'ha pogut
-     * @throws FitxerNoCreatException Si s'ha intentat crear el document i no s'ha pogut
      */
-    public void guardaDocument(DocumentLlegit D)
-            throws FitxerNoEliminatException, FitxerNoCreatException {
+    public void guardaDocument(DocumentLlegit D) {
         String path = D.getPath();
         esborraFitxer(path);    // Si el document existeix, cal eliminar-lo per actualitzar-ho
 
@@ -488,7 +487,7 @@ public class GestorDades {
      * @param expressions Indica l'array amb les expressions booleanes
      * @param path Indica en quin fitxer es guarden les expressions booleanes
      */
-    public void guardaExpressionsBooleanes(ArrayList<String> expressions, String path) throws FitxerNoEliminatException {
+    public void guardaExpressionsBooleanes(ArrayList<String> expressions, String path) {
         // Si existeix el document l'eliminem per sobre escriure les expressions
         if(existeixFitxer(path)) {
             eliminaFitxer(path);
@@ -500,7 +499,6 @@ public class GestorDades {
             for(String expressio : expressions) {
                 escriptor.write(expressio+'\n');
             }
-
         }
         catch (IOException e) {
             e.printStackTrace();
