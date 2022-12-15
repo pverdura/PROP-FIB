@@ -53,8 +53,8 @@ public class ViewCercaSemblant {
     private class Tecles extends KeyAdapter{
         @Override
         public void keyPressed(KeyEvent e) {
-            if(e.getExtendedKeyCode() == KeyEvent.VK_ENTER) ferCercaSemblant();
-            else if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) ferVisible(false);
+            if(e.getExtendedKeyCode() == KeyEvent.VK_ENTER) acceptarButton.doClick();
+            else if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) cancelarButton.doClick();
             else if (e.getExtendedKeyCode() == KeyEvent.VK_UP) numDocs.setValue((int)numDocs.getValue()+1);
             else if (e.getExtendedKeyCode() == KeyEvent.VK_DOWN) numDocs.setValue(Math.max((int)numDocs.getValue()-1, 1));
         }

@@ -115,8 +115,8 @@ public class ViewCercaPrefix {
     private class Tecles extends KeyAdapter{
         @Override
         public void keyPressed(KeyEvent e) {
-            if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) mostrarCerca();
-            else if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) ferVisible(false);
+            if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) cercaButton.doClick();
+            else if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) cancelarButton.doClick();
         }
     }
 
