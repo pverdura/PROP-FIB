@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Classe que implementa la vista de cerca titol i autor
+ *
+ * @author Judit Serna
+ */
 public class ViewCercaTitolAutor {
 
     ///////////////////////////////////////////////////////////
@@ -123,6 +128,7 @@ public class ViewCercaTitolAutor {
         frameVista.setMinimumSize(new Dimension(400, 175));
         frameVista.setPreferredSize(frameVista.getMinimumSize());
         frameVista.setResizable(false);
+        frameVista.setLocationRelativeTo(null);
     }
 
     /**

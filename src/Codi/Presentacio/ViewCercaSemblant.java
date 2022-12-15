@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Classe que implementa la vista de cerca semblant
+ *
+ * @author Judit Serna
+ */
 public class ViewCercaSemblant {
 
     ///////////////////////////////////////////////////////////
@@ -152,6 +157,7 @@ public class ViewCercaSemblant {
         frameVista.setMinimumSize(new Dimension(500, 225));
         frameVista.setPreferredSize(frameVista.getMinimumSize());
         frameVista.setResizable(false);
+        frameVista.setLocationRelativeTo(null);
     }
 
     /**

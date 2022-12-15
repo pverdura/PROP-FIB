@@ -7,6 +7,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
+/**
+ * Classe que implementa la vista de cerca prefix
+ *
+ * @author Judit Serna
+ */
 public class ViewCercaPrefix {
 
     ///////////////////////////////////////////////////////////
@@ -231,6 +236,7 @@ public class ViewCercaPrefix {
         frameVista.setMinimumSize(new Dimension(400, 475));
         frameVista.setPreferredSize(frameVista.getMinimumSize());
         frameVista.setResizable(false);
+        frameVista.setLocationRelativeTo(null);
     }
 
     /**

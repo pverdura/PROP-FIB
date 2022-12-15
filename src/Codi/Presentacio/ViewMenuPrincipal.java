@@ -11,28 +11,98 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Classe que gestiona la vista principal de l'aplicacio
+ * @author PauVi
+ */
 public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyListener {
 
+    /**
+     * Instancia que fa referencia a l'element JPanel de la vista
+     */
     private JPanel mainPanel;
+
+    /**
+     * Instancia que fa referencia a l'element JButton de la vista que al clicar mostrar tots els documents
+     */
     private JButton cleanButton;
+
+    /**
+     * Instancia que fa referencia a l'element JScrollPane de la vista on dintre seu mostra tots els documents
+     */
     private JScrollPane scroll;
+
+    /**
+     * Instancia que fa referencia a l'element JLabel de la vista que mostra informacio del que s'esta veient
+     */
     private JLabel infoLabel;
+
+    /**
+     * Instancies que fan referencia als element JMenuItem del menu de la vista relacionat amb documents i altres
+     */
     private JMenuItem miCreaDoc, miImportaDoc, miAjuda, miSortir;
+
+    /**
+     * Instancia que fa referencia a l'element JMenuItem del menu de la vista relacionat amb expressio booleana
+     */
     private JMenuItem miGestioBool;
+
+    /**
+     * Instancies que fan referencia als element JMenuItem del menu de la vista relacionat amb cercar documents
+     */
     private JMenuItem miCercaTitol, miCercaAutor, miCercaTitolAutor, miCercaPrefix, miCercaParaules, miCercaSemblant;
+
+    /**
+     * Instancies que fan referencia als element JMenuItem del menu de la vista relacionat amb ordenar documents
+     */
     private JMenuItem miOrdreAlfAsc, miOrdreAlfDesc, miOrdrePesAsc, miOrdrePesDesc;
+
+    /**
+     * Instancia JPopupMenu que serveix per mostrar un menu al clicar boto dret del ratoli sobre els documents mostrats
+     */
     private JPopupMenu rightClickMenu;
+
+    /**
+     * Instancies que fan referencia als elements JMenuItem del menu de tipus JPopupMenu
+     */
     private JMenuItem miExportar, miModificarDoc, miEliminarDoc;
 
+    /**
+     * Instancia que fa referencia a la classse CtrlPresentacio
+     */
     private final CtrlPresentacio ctrlPresentacio;
+
+    /**
+     * Instancia que fa referencia a la classse TipusOrdenacio per indicar com ordenar els documents mostrats
+     */
     private TipusOrdenacio tipus_ordenacio;
 
+    /**
+     /**
+     * Instancia que fa referencia a l'element JTable i que serveix per mostrar els documents separats en camps
+     */
     private JTable taula;
+
+    /**
+     * Instancia de la classe DefaultTableModel que serveix per mostrar els documents en l'atribut 'taula' de tipus JTable
+     */
     private DefaultTableModel dtm;
+
+    /**
+     * Variable que indica quina fila esta seleccionada de l'atribut 'taula' de tipus JTable
+     */
     private int fila_seleccionada;
+
+    /**
+     * Variable booleana que indica quan la tecla control esta sent clicada
+     */
     private Boolean control_selected;
 
 
+    /**
+     * Constructor
+     * @param ctrlPresentacio Control Presentacio de l'aplicacio
+     */
     public ViewMenuPrincipal(CtrlPresentacio ctrlPresentacio) {
 
         //Assignar presentacio i ordenacio per defecte
@@ -52,6 +122,9 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
         configurarPopMenu();
     }
 
+    /**
+     * Metode que crea els menus principals de l'aplicacio
+     */
     private void crearMenus() {
         JMenuBar barraMenu = new JMenuBar();
         setJMenuBar(barraMenu);
@@ -136,6 +209,10 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
         menuOrdre.add(miOrdrePesDesc);
     }
 
+    /**
+     * Metode que associa cada element interactiu amb una funcionalitat
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -211,7 +288,13 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
     }
 
 
-    //Metode per actualitzar els elements que es mostren per pantalla
+    /**
+     * Metode per actualitzar els documents a visualitzar i la informacio del atribut 'infoLabel'
+     * @param titolsAutors Llista dels titols i autors dels documents a mostrar
+     * @param pesos LLista dels pesos dels documents a mostrar
+     * @param extensios LLista de les extensions dels documents a mostrar
+     * @param info Text a mostrar per informar sobre que s'esta visualitzant dels documents
+     */
     public void actualitzarResultat(ArrayList<SimpleEntry<String,String>> titolsAutors, ArrayList<Integer> pesos, ArrayList<TipusExtensio> extensios, String info) {
 
         this.infoLabel.setText(info);
@@ -232,17 +315,24 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
         }
     }
 
-    //Metode per posar visible la vista
+    /**
+     * Metode per posar visible la vista
+     */
     public void ferVisible() {
         setSize(600, 600);
         setVisible(true);
     }
 
-    //Metode que tanca app
+    /**
+     * Metode per tancar la vista
+     */
     public void tancarVista() {
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
 
+    /**
+     * Metode que selecciona els fitxers que es volen importar a l'aplicacio
+     */
     private void seleccionarFitxersNav() {
         JFileChooser fc = new JFileChooser();
 
@@ -258,7 +348,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
 
         int seleccionat = fc.showOpenDialog(this);
 
-        //Comprobar si s han seleccionat els fitxers
+        //Comprovar si s han seleccionat els fitxers
         if (seleccionat == JFileChooser.APPROVE_OPTION) {
 
             //Obtenir fitxers seleccionats
@@ -271,6 +361,9 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
         }
     }
 
+    /**
+     * Metode que selecciona a quin directori es vol exportar el document seleccionat
+     */
     private void seleccionarDirNav() {
         //Crear File Chooser per seleccionar carpeta a exportar el doc seleccionat
         JFileChooser fc = new JFileChooser();
@@ -285,7 +378,9 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
         }
     }
 
-    //Metode per configurar la vista
+    /**
+     * Metode per configurar la vista
+     */
     private void configurar_vista() {
         setContentPane(this.mainPanel);
         setTitle("Menú Principal");
@@ -295,6 +390,9 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Metode per configurar l'atribut 'taula' que mostra en una JTable els documents
+     */
     private void configurar_taula_docs() {
         //Iniciar elements per carregar a la vista tots els documents guardats
         String[] header = new String[]{"Títol", "Autor", "Pes", "Extensió"};
@@ -322,6 +420,9 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
         });
     }
 
+    /**
+     * Metode que configurar l'atribut 'rightClickMenu' de la classe JPopupMenu i elements relacionats
+     */
     private void configurarPopMenu() {
         this.rightClickMenu = new JPopupMenu();
 
@@ -351,6 +452,9 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
         });
     }
 
+    /**
+     * Metode que elimina el document seleccionat de l'atribut 'taula' de tipus JTable
+     */
     private void eliminarDoc() {
         //Menu confirmacio per eliminar doc
         if (VistaDialeg.confirmDialog("Segur que vols eliminar el document?")) {
@@ -359,11 +463,18 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
         }
     }
 
+    /**
+     * Metode que modifica el document seleccionat de l'atribut 'taula' de tipus JTable
+     */
     private void modificarDoc() {
         ctrlPresentacio.obrirEditorDocuments(taula.getModel().getValueAt(fila_seleccionada, 0).toString(),
                 taula.getModel().getValueAt(fila_seleccionada, 1).toString(), false);
     }
 
+    /**
+     * Metode que assigna funcionalitats de l'aplicacio de forma alternativa (combinacio de tecles)
+     * @param e the event to be processed
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -378,12 +489,18 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
             eliminarDoc();
         }
     }
+
+    /**
+     * Metode que serveix per posar a 'false' l'atribut 'control_selected'
+     * @param e the event to be processed
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
             this.control_selected = false;
         }
     }
+
     @Override
     public void keyTyped(KeyEvent e) {}
 }

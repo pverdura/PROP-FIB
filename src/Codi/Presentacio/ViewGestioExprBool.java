@@ -5,20 +5,64 @@ import java.awt.event.*;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 
+
+/**
+ * Classe que gestiona la vista que gestiona les expressions booleanes de l'aplicacio
+ * @author PauVi
+ */
 public class ViewGestioExprBool extends JFrame implements ActionListener, KeyListener {
 
+    /**
+     * Instancia que fa referencia a l'element JPanel de la vista
+     */
     private JPanel boolPanel;
+
+    /**
+     * Instancia que fa referencia a l'element JButton de la vista que al clicar crea una expressio
+     */
     private JButton createButton;
+
+    /**
+     * Instancia que fa referencia a l'element JScrollPane de la vista on dintre seu mostra totes les expressions
+     */
     private JScrollPane scroll;
 
-
-    private JMenuItem miEliminar, miModificar, miCercar;
+    /**
+     * Instancia JPopupMenu que serveix per mostrar un menu al clicar boto dret del ratoli sobre les expressions mostrades
+     */
     private JPopupMenu rightClickMenu;
+
+    /**
+     * Instancies que fan referencia als elements JMenuItem del menu de tipus JPopupMenu
+     */
+    private JMenuItem miEliminar, miModificar, miCercar;
+
+    /**
+     /**
+     * Instancia que fa referencia a l'element JList i que serveix per mostrar les expressions
+     */
     private JList<String> llistaBool;
+
+    /**
+     * Instancia de la classe DefaultListModel que serveix per mostrar les expressions en l'atribut 'llistaBool' de tipus JList
+     */
     private DefaultListModel<String> dlm;
+
+    /**
+     * Instancia que fa referencia a la classse CtrlPresentacio
+     */
     private final CtrlPresentacio ctrlPresentacio;
+
+    /**
+     * Variable booleana que indica quan la tecla control esta sent clicada
+     */
     private boolean control_selected;
 
+
+    /**
+     * Constructor
+     * @param ctrlPresentacio Control Presentacio de l'aplicacio
+     */
     public ViewGestioExprBool(CtrlPresentacio ctrlPresentacio) {
         this.ctrlPresentacio = ctrlPresentacio;
         this.control_selected = false;
@@ -37,6 +81,10 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
         mostrarAllExpressions();
     }
 
+    /**
+     * Metode que associa cada element interactiu amb una funcionalitat
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -59,7 +107,9 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
         }
     }
 
-    //Metode per afegir les expressions booleanes a la vista
+    /**
+     * Metode per mostrar totes les expressions booleanes de l'aplicacio
+     */
     private void mostrarAllExpressions() {
         dlm.removeAllElements();
 
@@ -67,13 +117,17 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
         for (String e: expressions) dlm.addElement(e);
     }
 
-    //Metode per visualitzar vista
+    /**
+     * Metode per posar visible la vista
+     */
     public void ferVisible() {
         setSize(500, 500);
         setVisible(true);
     }
 
-    //Metode per configurar la vista
+    /**
+     * Metode per configurar la vista
+     */
     private void configurar_vista() {
         setContentPane(this.boolPanel);
         setTitle("Gestió d'Expressions Booleanes");
@@ -83,7 +137,9 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
     }
 
 
-    //Metode per configurar la llista que mostrara les expressions per pantalla
+    /**
+     * Metode per configurar la llista que mostra les expressions per pantalla
+     */
     private void configurar_llista_expressions() {
         //Inicialitzar llista de expressions booleanes
         this.dlm = new DefaultListModel<>();
@@ -103,7 +159,9 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
         });
     }
 
-    //Metode per configurar el menu del boto dret del ratoli
+    /**
+     * Metode que configurar l'atribut 'rightClickMenu' de la classe JPopupMenu i elements relacionats
+     */
     private void configure_pop_menu() {
         this.rightClickMenu = new JPopupMenu();
 
@@ -132,6 +190,9 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
         });
     }
 
+    /**
+     * Metode que crea una expressio booleana i l'afegeix a la llista 'llistaBool' de tipus JList
+     */
     private void crearExpressio() {
         Object[] options = {"Crear", "Sortir"};
         String input = VistaDialeg.inputDialog("Crear Expressió Booleana", "Valor", options);
@@ -145,6 +206,9 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
         }
     }
 
+    /**
+     * Metode que elimina la expressio booleana seleccionada de l'atribut 'llistaBool' de tipus JList
+     */
     private void eliminarExpressio() {
         if (!llistaBool.isSelectionEmpty()) {
             if (VistaDialeg.confirmDialog("Segur que vols eliminar la expressió")) {
@@ -155,6 +219,9 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
         }
     }
 
+    /**
+     * Metode que modifica l'expressio booleana seleccionada de l'atribut 'llistaBool' de tipus JList
+     */
     private void modificarExpressio() {
         if (!llistaBool.isSelectionEmpty()) {
             Object[] options = {"Modifica", "Sortir"};
@@ -171,6 +238,10 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
         }
     }
 
+    /**
+     * Metode que assigna funcionalitats de l'aplicacio de forma alternativa (combinacio de tecles)
+     * @param e the event to be processed
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -186,6 +257,10 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
         }
     }
 
+    /**
+     * Metode que serveix per posar a 'false' l'atribut 'control_selected'
+     * @param e the event to be processed
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_CONTROL) {

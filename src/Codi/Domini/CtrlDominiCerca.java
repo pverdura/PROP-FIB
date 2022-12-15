@@ -7,6 +7,11 @@ import Codi.Util.Trie;
 import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
 
+/**
+ * Classe per gestionar les cerques del control de domini
+ *
+ * @author Judit Serna
+ */
 public class CtrlDominiCerca {
 
     private int ord;    //ordenar ascendentment si val 1,
@@ -57,7 +62,7 @@ public class CtrlDominiCerca {
      * @return Llista, en l'ordre indicat, amb noms d'autor que tenen el prefix donat
      * @throws PrefixNoExisteixException Si no existeix cap autor que comenci amb el prefix donat
      */
-    public ArrayList<String> cercaPrefix(String prefix, Trie<String> autors, TipusOrdenacio ordre) throws PrefixNoExisteixException {
+    public ArrayList<String> cercaPrefix(String prefix, Trie autors, TipusOrdenacio ordre) throws PrefixNoExisteixException {
         return ordenarCercaSimple(CercaPrefix.cercaDoc(prefix, autors), ordre);
     }
 
