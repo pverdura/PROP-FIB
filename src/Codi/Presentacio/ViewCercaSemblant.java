@@ -21,7 +21,6 @@ public class ViewCercaSemblant {
     private JLabel labelNumDocs;
     private JSpinner numDocs;
     private JCheckBox totsDocs;
-
     private final CtrlPresentacio ctrlPresentacio;
 
     ///////////////////////////////////////////////////////////
@@ -53,7 +52,6 @@ public class ViewCercaSemblant {
         if (visible) frameVista.pack();
         frameVista.setVisible(visible);
     }
-
 
     ///////////////////////////////////////////////////////////
     ///                  MÈTODES PRIVATS                    ///
@@ -88,6 +86,7 @@ public class ViewCercaSemblant {
             else if (e.getExtendedKeyCode() == KeyEvent.VK_DOWN) numDocs.setValue(Math.max((int)numDocs.getValue()-1, 1));
         }
     }
+
     ////////////////////////// RESTA DE MÈTODES PRIVATS
 
     /**

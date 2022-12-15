@@ -18,7 +18,6 @@ public class ViewCercaTitolAutor {
     private JTextField omplirAutor;
     private JLabel labelTitol;
     private JLabel labelAutor;
-
     private final CtrlPresentacio ctrlPresentacio;
 
     ///////////////////////////////////////////////////////////
@@ -50,7 +49,6 @@ public class ViewCercaTitolAutor {
         frameVista.setVisible(visible);
     }
 
-
     ///////////////////////////////////////////////////////////
     ///                  MÈTODES PRIVATS                    ///
     ///////////////////////////////////////////////////////////
@@ -79,7 +77,6 @@ public class ViewCercaTitolAutor {
             else if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) cancelarButton.doClick();
         }
     }
-
 
     ////////////////////////// RESTA DE MÈTODES PRIVATS
 
@@ -113,7 +110,6 @@ public class ViewCercaTitolAutor {
         acceptarButton.setFocusable(false);
         cancelarButton.setFocusable(false);
     }
-
 
     /**
      * Configura la vista
@@ -155,7 +151,6 @@ public class ViewCercaTitolAutor {
         autorPanel.add(omplirAutor);
     }
 
-
     /**
      * Configura el panell amb els botons
      */
@@ -165,7 +160,6 @@ public class ViewCercaTitolAutor {
         buttonsPanel.add(cancelarButton, BorderLayout.WEST);
         buttonsPanel.add(acceptarButton, BorderLayout.EAST);
     }
-
 
     /**
      * Fa la cerca
