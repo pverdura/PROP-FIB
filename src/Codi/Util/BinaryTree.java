@@ -1,10 +1,29 @@
 package Codi.Util;
 
+/**
+ * Classe que representa un node de l'estructura de dades de la classe BinaryTree
+ * @author PauVi
+ */
 class Node {
+
+    /**
+     * Valor del node
+     */
     String value;
+
+    /**
+     * Node que representa el fill esquerre
+     */
     Node left;
+
+    /**
+     * Node que representa el fill dret
+     */
     Node right;
 
+    /**
+     * Constructor
+     */
     Node() {
         this.value = null;
         this.left = null;
@@ -12,26 +31,49 @@ class Node {
     }
 }
 
+/**
+ * Classe que representa l'estructura de dades (arbre binari) d'una expressio booleana
+ * @author PauVi
+ */
 public class BinaryTree {
 
+    /**
+     * Node arrel de l'estructura de dades
+     */
     private Node root;
 
+
+    /**
+     * Constructor
+     * @param expressio Contingut d'una expressio booleana
+     */
     public BinaryTree(String expressio) {
         this.root = new Node();
         insertar(this.root, expressio);
     }
 
+    /**
+     * Funcio que comprova si el contingut d'un document compleix tots els nodes en una cerca en postOrdre
+     * @param contingut Contingut d'un document
+     * @return Retorna el resultat sobre si el contingut del document compleix tots els nodes de l'estructura
+     */
     public boolean cerca(String contingut) {
         return cercaRec(this.root, contingut);
     }
 
+    /**
+     * Funcio recursiva per cercar en postordre i comprovar un contingut d'un document en un node
+     * @param node Node actual de la cerca en postordre
+     * @param contingut Contingut del document a comprovar
+     * @return Retorna el resultat de comprovar el contingut d'un document aplicant el valor del Node
+     */
     private boolean cercaRec(Node node, String contingut) {
 
         //CAS FULLA
         if (node.left == null && node.right == null) {
             char c = node.value.charAt(0);
 
-            //Comprobar si la fulla compleix l'expressio booleana segons el valor del node i tipus de valor
+            //Comprovar si la fulla compleix l'expressio booleana segons el valor del node i tipus de valor
             switch (c) {
                 case '"':
                     return contingut.contains(node.value.substring(1, node.value.length()-1));
@@ -61,6 +103,12 @@ public class BinaryTree {
         }
     }
 
+
+    /**
+     * Metode que inserta una expressio booleana en el format d'arbre binari
+     * @param node Node actual per afegir part de l'expressio booleana
+     * @param expressio Expressio Booleana que es vol transformar com a arbre binari
+     */
     private void insertar(Node node, String expressio) {
 
         //Insertar per ordre d'operadors de menys a més prioritats. ORDRE -> (| -> & -> ! -> () -> expressio sense operador)
@@ -88,7 +136,14 @@ public class BinaryTree {
     }
 
 
-    //Funció per assignar operador al node si es possible i dividir l'expressio en dos parts noves recursivament
+    /**
+     * Funció per assignar operador al node si es possible i dividir l'expressio en dos parts noves recursivament
+     * @param op Operador de l'expressio booleana a trobar
+     * @param node Node actual de l'arbre binari
+     * @param expressio Expressio Booleana que es vol transformar com a arbre binari
+     * @return Retorna si l'operador es troba dins l'expressio booleana
+     */
+    //
     private boolean insertarOP_i_dividir(char op, Node node, String expressio) {
         int l = expressio.length();
         int i = l-1;
@@ -137,7 +192,15 @@ public class BinaryTree {
         return false;
     }
 
-    //Funcio per ignorar sequencies de paraules dins de caracters especials i retorna el nou index
+
+    /**
+     * Funcio per ignorar sequencies de paraules dins de caracters especials (per exemple parentesis) i retorna el nou index
+     * @param cAbrir Caracter que obre una expressio
+     * @param cCerrar Caracter que tanca una expressio
+     * @param i Variable iterativa que representa la posicio actual del caracter d'una expressio
+     * @param expressio String que representa l'expressio booleana
+     * @return Retorna la nova posicio de la variable iterativa 'i'
+     */
     private int ignorar_seq(char cAbrir, char cCerrar, int i, String expressio) {
         int suma = 1;
         i--;

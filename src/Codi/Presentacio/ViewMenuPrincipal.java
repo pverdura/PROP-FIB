@@ -348,7 +348,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
 
         int seleccionat = fc.showOpenDialog(this);
 
-        //Comprobar si s han seleccionat els fitxers
+        //Comprovar si s han seleccionat els fitxers
         if (seleccionat == JFileChooser.APPROVE_OPTION) {
 
             //Obtenir fitxers seleccionats
