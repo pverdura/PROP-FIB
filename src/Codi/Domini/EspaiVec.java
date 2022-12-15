@@ -1,11 +1,15 @@
 package Codi.Domini;
 
-import Codi.Excepcions.ArrayDeParaulesBuitException;
-
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Classe que ens calcula els TF-IDF dels documents del sistema, i ens fa la cerca d'aquests (de mes rellevant a menys)
+ * 
+ * @author pol
+ * @since 15/12/2022
+ */
 public class EspaiVec {
 
     /**
@@ -16,23 +20,23 @@ public class EspaiVec {
      * @param DocumentsParaules Hi ha les paraules amb els identificadors dels documents on apareix
      * @return Retorna el calcul log_2(N/#DocsApareix) del conjunt de paraules del document D
      */
-    public static ArrayList<SimpleEntry<String,Double>> obteIDFparaules(ArrayList<String> paraules, int N,
-                                                                 HashMap<String,ArrayList<SimpleEntry<String,String>>> DocumentsParaules) {
-        // Array on guardem les paraules de l'array paraules i el nombre seu idf
+    public static ArrayList<SimpleEntry<String,Double>> obteIDFparaules(ArrayList<String> paraules, int N, 
+                                                                        HashMap<String,ArrayList<SimpleEntry<String,String>>> DocumentsParaules) {
+        // Array on guardem les paraules de l'array paraules i el nombre seu IDF
         ArrayList<SimpleEntry<String,Double>> paraulesIDF = new ArrayList<SimpleEntry<String,Double>>();
 
-        for (String p : paraules) {   // Afegim en l'array les paraules i el seu idf
+        for (String p : paraules) {   // Afegim en l'array creat les paraules i el seu IDF
             int aparicions = 0;
 
-            if (DocumentsParaules.containsKey(p)) { // Mirem si la paraula apaeix en algun docuement
+            if (DocumentsParaules.containsKey(p)) { // Mirem si la paraula apareix en algun document
                 aparicions = DocumentsParaules.get(p).size();
             }
 
             // Calculem log2(N/aparicions), se li suma 1, ja que es pot donar el cas que no aparegui en cap
             // i no es pot dividir entre 0
-            double idf = Math.log((double) N / (aparicions+1)) / Math.log(2);
+            double IDF = Math.log((double) N / (aparicions+1)) / Math.log(2);
 
-            SimpleEntry<String, Double> elem = new SimpleEntry<String, Double>(p, idf);
+            SimpleEntry<String, Double> elem = new SimpleEntry<String, Double>(p, IDF);
             paraulesIDF.add(elem);
         }
         return paraulesIDF;
@@ -47,31 +51,31 @@ public class EspaiVec {
      */
     public static Double calculaTF_IDF(ArrayList<SimpleEntry<String,Double>> paraulesIDF, Document DocCerca) {
         HashMap<String, Integer> paraulesDoc = DocCerca.getAparicions();    // Obtenim les paraules del document DocCerca
-        double tf_idf = 0;
+        double TF_IDF = 0;      // Indica el TF_IDF del document
         int numParaulesDoc = 0; // Nombre de paraules del document DocCerca
 
         for (String paraulaDoc : paraulesDoc.keySet()) {    // Contem el nombre total de paraules del document DocCerca
             numParaulesDoc += paraulesDoc.get(paraulaDoc);  // Sumem quants cops apareix la paraula en el document
         }
 
-        for (SimpleEntry<String,Double> p : paraulesIDF) {  // Calculem el tf_idf de les paraules
-            if(paraulesDoc.containsKey(p.getKey())) {       // Si el document conté la paraula p calculem el tf i la sumem
-                double tf = (double) paraulesDoc.get(p.getKey())/numParaulesDoc;    // Calculem (AparicionsPDoc/numParaulesDoc)
-                tf_idf += tf*p.getValue();  // Calculem SUMATORI(tf * idf)
+        for (SimpleEntry<String,Double> p : paraulesIDF) {  // Calculem el TF_IDF de les paraules
+            if(paraulesDoc.containsKey(p.getKey())) {       // Si el document conte la paraula p calculem el TF i la sumem
+                double TF = (double) paraulesDoc.get(p.getKey())/numParaulesDoc;    // Calculem (AparicionsPDoc/numParaulesDoc)
+                TF_IDF += TF*p.getValue();  // Calculem SUMATORI(TF * IDF)
             }
-            // Si no conté la paraula no cal sumar-ho ja que es sumaria 0 (0*x = 0)
+            // Si no conte la paraula no cal sumar-ho ja que es sumaria 0 (0*x = 0)
         }
-        return tf_idf;
+        return TF_IDF;
     }
 
     /**
-     * Cerca els k documents més rellevants a l'array paraules
+     * Cerca els k documents mes rellevants a l'array paraules
      *
      * @param k Indica el nombre de documents que volem obtenir
      * @param Documents Hi ha els documents del sistema
-     * @param paraules Aquest és l'array de paraules que s'utilitza per fer la cerca
+     * @param paraules Aquest es l'array de paraules que s'utilitza per fer la cerca
      * @param DocumentsParaules Hi ha es paraules amb els identificadors dels documents on apareix
-     * @return Retorna un llistat de k Documents (títol,autor) més rellevants a l'array paraules
+     * @return Retorna un llistat de k Documents (titol,autor) mes rellevants a l'array paraules
      */
     public static ArrayList<SimpleEntry<String,String>> cercaDoc(int k, HashMap<SimpleEntry<String,String>, Document> Documents,
                                                                  ArrayList<String> paraules, HashMap<String,ArrayList<SimpleEntry<String,String>>> DocumentsParaules) {
@@ -88,7 +92,7 @@ public class EspaiVec {
         // Iterem tots els Documents del sistema
         for (SimpleEntry<String, String> idDocument : Documents.keySet()) {
             Document DCons = Documents.get(idDocument);         // Obtenim el document X
-            double sembl = calculaTF_IDF(paraulesIDF, DCons);   // Calculem el tf-idf del document X
+            double sembl = calculaTF_IDF(paraulesIDF, DCons);   // Calculem el TF-IDF del document X
             SimpleEntry<SimpleEntry<String, String>, Double> elem = new SimpleEntry<SimpleEntry<String, String>, Double>(idDocument, sembl);
 
             if (primera) {
@@ -99,20 +103,20 @@ public class EspaiVec {
                 int n = semblants.size() - 1;
                 int idx = 0;
 
-                // Mirem que la posició que mirem estigui en l'array i que l'element de la posició idx tingui
+                // Mirem que la posicio que mirem estigui en l'array i que l'element de la posicio idx tingui
                 // una semblança major al document iterat
                 while (idx < n && semblants.get(idx).getValue() > sembl) {
                     ++idx;
                 }
 
                 semblants.add(idx, elem);
-                if (semblants.size() > k) {  // Si la longitud de l'array és més gran que k, treiem l'úlitm element de l'array
+                if (semblants.size() > k) {  // Si la longitud de l'array es mes gran que k, traiem l'ulitm element de l'array
                     semblants.remove(k);
                 }
             }
         }
 
-        // Treiem el TF-IDF de l'array obtingut
+        // Traiem el TF-IDF de l'array obtingut
         for (SimpleEntry<SimpleEntry<String, String>, Double> p : semblants) {
             docs.add(p.getKey());
         }
