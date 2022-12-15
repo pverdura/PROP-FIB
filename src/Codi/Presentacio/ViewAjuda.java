@@ -1,10 +1,11 @@
 package Codi.Presentacio;
 
 import javax.swing.*;
+import javax.swing.text.TextAction;
 import java.awt.*;
 import java.awt.event.*;
 
-public class ViewAjuda implements KeyListener {
+public class ViewAjuda {
     private JPanel panellSuperior;
     private JPanel panellInferior;
     private JButton tancar_button;
@@ -49,22 +50,21 @@ public class ViewAjuda implements KeyListener {
                 frame.setVisible(false);
             }
         });
+        frame.addKeyListener(new Tecla());
+        tancar_button.addKeyListener(new Tecla());
+        text_ajuda.addKeyListener(new Tecla());
     }
 
     public void ferVisible() {
         frame.setVisible(true);
     }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if(e.getExtendedKeyCode() == KeyEvent.VK_ENTER) {
-            frame.setVisible(false);
+    private class Tecla extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) {
+                frame.setVisible(false);
+            }
         }
     }
-
-    @Override
-    public void keyReleased(KeyEvent e) {}
-
-    @Override
-    public void keyTyped(KeyEvent e) {}
 }
