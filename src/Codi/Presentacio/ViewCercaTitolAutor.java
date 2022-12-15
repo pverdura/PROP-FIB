@@ -81,6 +81,9 @@ public class ViewCercaTitolAutor {
         omplirAutor = new JTextField();
         labelTitol = new JLabel("Títol: ");
         labelAutor = new JLabel("Autor: ");
+
+        acceptarButton.setFocusable(false);
+        cancelarButton.setFocusable(false);
     }
 
     private void configurarVista(){

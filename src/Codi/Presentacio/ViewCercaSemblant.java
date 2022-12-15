@@ -98,6 +98,7 @@ public class ViewCercaSemblant {
         numDocs.setFocusable(false);
         totsDocs.setFocusable(false);
         cancelarButton.setFocusable(false);
+        acceptarButton.setFocusable(false);
     }
 
     private void configurarVista(){

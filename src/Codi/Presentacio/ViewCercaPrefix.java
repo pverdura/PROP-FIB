@@ -164,6 +164,7 @@ public class ViewCercaPrefix {
         esborrarButton.setFocusable(false);
         totsAutors.setFocusable(false);
         mostraButton.setFocusable(false);
+        cercaButton.setFocusable(false);
     }
 
     private void configurarVista(){
