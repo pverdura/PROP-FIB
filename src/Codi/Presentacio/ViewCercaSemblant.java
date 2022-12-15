@@ -152,6 +152,7 @@ public class ViewCercaSemblant {
         frameVista.setMinimumSize(new Dimension(500, 225));
         frameVista.setPreferredSize(frameVista.getMinimumSize());
         frameVista.setResizable(false);
+        frameVista.setLocationRelativeTo(null);
     }
 
     /**

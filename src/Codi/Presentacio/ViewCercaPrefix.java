@@ -231,6 +231,7 @@ public class ViewCercaPrefix {
         frameVista.setMinimumSize(new Dimension(400, 475));
         frameVista.setPreferredSize(frameVista.getMinimumSize());
         frameVista.setResizable(false);
+        frameVista.setLocationRelativeTo(null);
     }
 
     /**

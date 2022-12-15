@@ -123,6 +123,7 @@ public class ViewCercaTitolAutor {
         frameVista.setMinimumSize(new Dimension(400, 175));
         frameVista.setPreferredSize(frameVista.getMinimumSize());
         frameVista.setResizable(false);
+        frameVista.setLocationRelativeTo(null);
     }
 
     /**
