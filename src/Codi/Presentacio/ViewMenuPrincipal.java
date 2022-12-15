@@ -143,7 +143,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
 
         //Aplicar funcionalitats associades als items del Menu principal
         if (source == miCreaDoc) {
-            //ctrlPresentacio.crearDocument();
+            ctrlPresentacio.obrirEditorDocuments(null,null, true);
 
         } else if (source == miImportaDoc) {
             seleccionarFitxersNav();
@@ -372,7 +372,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
             this.control_selected = true;
 
         } else if (control_selected && key == KeyEvent.VK_N) {
-            //ctrlPresentacio.crearDocument();
+            ctrlPresentacio.obrirEditorDocuments(null,null,true);
 
         } else if (key == KeyEvent.VK_DELETE && !taula.getSelectionModel().isSelectionEmpty()) {
             eliminarDoc();
