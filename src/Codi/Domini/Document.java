@@ -16,13 +16,13 @@ import java.util.Objects;
 
 public class Document {
     private String titol, autor, path, contingut;
+    private int pes;
+    private TipusExtensio tipusExtensio;
     private static ArrayList<String> stopWords;
+    private final HashMap<String, Integer> aparicions;
     private final static String signesDePuntuacio = "-_!\"$%&/()=|@#~€¬?¿¡'[]";
     private final static String[] extres = {"l'", "d'", "m'", "n'", "t'", "s'", "'l", "'ls", "'m", "'n", "'t", "'s",
-                                "-ho","-ne","-me","-te","-se","-los","-les", "-lo","-hi","-li"};
-    private TipusExtensio tipusExtensio;
-    private int pes;    //quantitat de caràcters
-    private final HashMap<String, Integer> aparicions;
+            "-ho","-ne","-me","-te","-se","-los","-les", "-lo","-hi","-li"};
 
     /**
      * Constructor d'un document buit
@@ -58,46 +58,6 @@ public class Document {
         this.path = path; this.tipusExtensio = tipusExtensio;
 
         this.setContingut(contingut);
-    }
-
-    /**
-     * Modifica el contingut del document
-     *
-     * @param contingut Nou contingut del document
-     */
-    public void setContingut (String contingut) {
-        this.contingut = contingut;
-        this.pes = this.contingut.length();
-        aparicions.clear();
-
-        this.comptarAparicions();
-    }
-
-    /**
-     * Obté el contingut del document
-     *
-     * @return El contingut del document
-     */
-    public String getContingut () {
-        return this.contingut;
-    }
-
-    /**
-     * Modifica les stop words de la classe Document
-     *
-     * @param s {@code ArrayList<String>} de les noves stop words
-     */
-    public static void setStopWords (ArrayList<String> s) {
-        Document.stopWords = s;
-    }
-
-    /**
-     *  Obté les stop words
-     *
-     * @return {@code ArrayList<String>} de les stop words
-     */
-    public static ArrayList<String> getStopWords () {
-        return Document.stopWords;
     }
 
     /**
@@ -137,6 +97,28 @@ public class Document {
     }
 
     /**
+     * Modifica el contingut del document
+     *
+     * @param contingut Nou contingut del document
+     */
+    public void setContingut (String contingut) {
+        this.contingut = contingut;
+        this.pes = this.contingut.length();
+        aparicions.clear();
+
+        this.comptarAparicions();
+    }
+
+    /**
+     * Obté el contingut del document
+     *
+     * @return El contingut del document
+     */
+    public String getContingut () {
+        return this.contingut;
+    }
+
+    /**
      * Modifica la path del document
      *
      * @param path Nova path del document
@@ -161,11 +143,11 @@ public class Document {
      */
     public void setExtensio (TipusExtensio tipusExtensio) {
         this.tipusExtensio = tipusExtensio;
-        String p = getPath();
+        String p = getPath().substring(0, getPath().length()-3);
 
-        if (tipusExtensio.equals(TipusExtensio.TXT)) p = p.substring(0, p.length()-3)+"txt";
-        else if (tipusExtensio.equals(TipusExtensio.XML)) p = p.substring(0, p.length()-3)+"xml";
-        else p = p.substring(0, p.length()-3)+"bol";
+        if (tipusExtensio.equals(TipusExtensio.TXT)) p = p + "txt";
+        else if (tipusExtensio.equals(TipusExtensio.XML)) p = p + "xml";
+        else p = p + "bol";
 
         setPath(p);
     }
@@ -186,6 +168,24 @@ public class Document {
      */
     public int getPes () {
         return this.pes;
+    }
+
+    /**
+     * Modifica les stop words de la classe Document
+     *
+     * @param s {@code ArrayList<String>} de les noves stop words
+     */
+    public static void setStopWords (ArrayList<String> s) {
+        Document.stopWords = s;
+    }
+
+    /**
+     *  Obté les stop words
+     *
+     * @return {@code ArrayList<String>} de les stop words
+     */
+    public static ArrayList<String> getStopWords () {
+        return Document.stopWords;
     }
 
     /**
@@ -232,7 +232,7 @@ public class Document {
     }
 
     /**
-     * Compta les aparicions de cada paraula al contingut del document     *
+     * Compta les aparicions de cada paraula al contingut del document
      * Cada paraula és tractada amb el mètode {@link #tractar(String) Tractar}, i no té en compte les stop words
      */
     private void comptarAparicions () {

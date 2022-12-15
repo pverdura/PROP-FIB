@@ -28,6 +28,7 @@ public class CtrlPresentacio {
     private ArrayList<String> resultatPrefix;
     private TipusCerca ultimaCerca;
     private TipusOrdenacio tipusOrdenacio;
+    private TipusOrdenacio tipusOrdenacioPrefix;
     private int idDocumentEditat;
     private String auxTitol;
     private String auxAutor;
@@ -35,7 +36,6 @@ public class CtrlPresentacio {
     private String auxExpr;
     private String auxParaules;
     private int k;
-    private TipusOrdenacio tipusOrdenacioPrefix;
     private String informacio;
 
     /**
@@ -516,7 +516,7 @@ public class CtrlPresentacio {
     /**
      * Obre un document
      *
-     * @return {@code true} si hi ha menys de 20 documents oberts
+     * @return {@code true} si hi ha menys de 20 documents oberts i el document no és obert
      */
     private boolean obrirDocument (String titol, String autor) {
         if (editors.size() < 20) {
@@ -565,8 +565,4 @@ public class CtrlPresentacio {
             this.cercaPrefix(auxPrefix, tipusOrdenacioPrefix, true);
         }
     }
-
-    //ESBORRAR
-    private void print (String s) {System.out.println(s);}
 }
-

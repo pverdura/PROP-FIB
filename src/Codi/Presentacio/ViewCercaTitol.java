@@ -8,8 +8,7 @@ public class ViewCercaTitol {
     private final CtrlPresentacio ctrlPresentacio;
     private JFrame frame;
     private JPanel panellSuperior, panellInferior;
-    private JButton btCancelar;
-    private JButton btAcceptar;
+    private JButton btCancelar, btAcceptar;
     private JTextField textTitol;
     private JLabel label;
 

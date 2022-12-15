@@ -6,6 +6,9 @@ import java.awt.event.*;
 
 public class ViewCercaTitolAutor {
 
+    ///////////////////////////////////////////////////////////
+    ///                     VARIABLES                       ///
+    ///////////////////////////////////////////////////////////
     private JFrame frameVista;
     private JPanel titolPanel, autorPanel;
     private JPanel buttonsPanel;
@@ -18,12 +21,28 @@ public class ViewCercaTitolAutor {
 
     private final CtrlPresentacio ctrlPresentacio;
 
-    /////////////////////////////// CONSTRUCTOR I MÈTODES PÚBLICS
+    ///////////////////////////////////////////////////////////
+    ///                      CONSTRUCTORA                   ///
+    ///////////////////////////////////////////////////////////
+
+    /**
+     * Creadora per defecte
+     * @param ctrlPresentacio Control presentació
+     */
     public ViewCercaTitolAutor (CtrlPresentacio ctrlPresentacio){
         this.ctrlPresentacio = ctrlPresentacio;
         inicialitza();
     }
 
+    ///////////////////////////////////////////////////////////
+    ///                  MÈTODES PÚBLICS                    ///
+    ///////////////////////////////////////////////////////////
+
+    /**
+     * Fa visible o invisible la vista
+     *
+     * @param visible Indica si ha de ser o no visible
+     */
     public void ferVisible(boolean visible){
         omplirTitol.setText("");
         omplirAutor.setText("");
@@ -32,25 +51,27 @@ public class ViewCercaTitolAutor {
     }
 
 
+    ///////////////////////////////////////////////////////////
+    ///                  MÈTODES PRIVATS                    ///
+    ///////////////////////////////////////////////////////////
+
     /////////////////////////// ASSIGNACIÓ DE LISTENERS
 
+    /**
+     * Assigna els listeners als components de la vista
+     */
     private void assignarListeners(){
-        acceptarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { ferCercaTitolAutor(); }
-        });
+        acceptarButton.addActionListener(e -> ferCercaTitolAutor());
 
         omplirAutor.addKeyListener(new Tecles());
         omplirTitol.addKeyListener(new Tecles());
         frameVista.addKeyListener(new Tecles());
-        cancelarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ferVisible(false);
-            }
-        });
+        cancelarButton.addActionListener(e -> ferVisible(false));
     }
 
+    /**
+     * Classe que implementa les dreceres de teclat per la vista
+     */
     private class Tecles extends KeyAdapter{
         @Override
         public void keyPressed(KeyEvent e) {
@@ -61,6 +82,10 @@ public class ViewCercaTitolAutor {
 
 
     ////////////////////////// RESTA DE MÈTODES PRIVATS
+
+    /**
+     * Inicialitza i configura la vista
+     */
     private void inicialitza() {
         inicialitzarComponents();
         configurarVista();
@@ -70,6 +95,9 @@ public class ViewCercaTitolAutor {
         assignarListeners();
     }
 
+    /**
+     * Inicialitza els components
+     */
     private void inicialitzarComponents(){
         frameVista = new JFrame("Cerca per Títol i Autor");
         titolPanel = new JPanel();
@@ -86,6 +114,10 @@ public class ViewCercaTitolAutor {
         cancelarButton.setFocusable(false);
     }
 
+
+    /**
+     * Configura la vista
+     */
     private void configurarVista(){
         frameVista.setLayout(new BorderLayout());
         frameVista.add(titolPanel, BorderLayout.NORTH);
@@ -97,6 +129,9 @@ public class ViewCercaTitolAutor {
         frameVista.setResizable(false);
     }
 
+    /**
+     * Configura el panell per escriure el títol
+     */
     private void configTitolPanel(){
         titolPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
@@ -107,6 +142,9 @@ public class ViewCercaTitolAutor {
         titolPanel.add(omplirTitol);
     }
 
+    /**
+     * Configura el panell per escriure l'autor
+     */
     private void configAutorPanel(){
         autorPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
@@ -117,6 +155,10 @@ public class ViewCercaTitolAutor {
         autorPanel.add(omplirAutor);
     }
 
+
+    /**
+     * Configura el panell amb els botons
+     */
     private void configButtonsPanel(){
         BorderLayout b = new BorderLayout();
         buttonsPanel.setLayout(b);
@@ -124,6 +166,10 @@ public class ViewCercaTitolAutor {
         buttonsPanel.add(acceptarButton, BorderLayout.EAST);
     }
 
+
+    /**
+     * Fa la cerca
+     */
     private void ferCercaTitolAutor(){
         String titol = omplirTitol.getText();
         String autor = omplirAutor.getText();

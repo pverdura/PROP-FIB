@@ -6,6 +6,9 @@ import java.util.HashMap;
 
 /**
  *  Classe que implementa la cerca de tots els documents existents
+ *
+ * @author Jordi Palomera
+ * @since 13-12-2022
  */
 
 public class CercaAllDocuments implements Cerca {
@@ -16,7 +19,6 @@ public class CercaAllDocuments implements Cerca {
      * @return {@code ArrayList<SimpleEntry<String, String>>} el resultat de la cerca
      */
     public static ArrayList<SimpleEntry<String, String>> cercaDoc (HashMap<SimpleEntry<String, String>, Document> documents) {
-
-        return new ArrayList<SimpleEntry<String, String>>(documents.keySet());
+        return new ArrayList<>(documents.keySet());
     }
 }

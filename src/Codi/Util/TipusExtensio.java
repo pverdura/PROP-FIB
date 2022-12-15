@@ -1,7 +1,10 @@
 package Codi.Util;
 
 /**
- * Tipus d'extensions que poden tenir els fitxers que empra el sistema
+ * Tipus d'extensions que poden tenir els fitxers que empra l'aplicació
+ *
+ * @author Jordi Palomera
+ * @since 13-12-2022
  */
 public enum TipusExtensio {
     /**

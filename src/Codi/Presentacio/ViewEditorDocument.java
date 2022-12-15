@@ -4,31 +4,23 @@ import Codi.Util.TipusExtensio;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.AbstractMap.SimpleEntry;
 
 public class ViewEditorDocument {
+    private final CtrlPresentacio ctrlPresentacio;
     private JFrame frame;
-    private JPanel panellSuperior;
-    private JPanel panellMig;
-    private JPanel panellInferior;
-    private JLabel labelTitol;
-    private JLabel labelAutor;
+    private JPanel panellSuperior, panellMig, panellInferior;
+    private JLabel labelTitol, labelAutor;
     private JButton btGuardar;
-    private JTextField textTitol;
-    private JTextField textAutor;
+    private JTextField textTitol, textAutor;
     private JTextArea textContingut;
     private JComboBox<String> tipusExtensio;
-    private final CtrlPresentacio ctrlPresentacio;
-    private String titol;
-    private String autor;
-    private String contingut;
+    private String titol, autor, contingut;
     private TipusExtensio tExtensio;
-    private final String[] extensions = {"TXT", "XML", "BOL"};
     private boolean documentNou;
+    private final String[] extensions = {"TXT", "XML", "BOL"};
 
     /**
      * Constructor per crear un document nou
@@ -78,6 +70,11 @@ public class ViewEditorDocument {
         frame.setVisible(visible);
     }
 
+    /**
+     * El document que la vista permet modificar ha estat eliminat
+     *
+     * @param id Nou identificador de la vista
+     */
     public void documentEliminat (int id) {
         this.titol = Integer.toString(id);
         this.autor = Integer.toString(id);
@@ -163,11 +160,14 @@ public class ViewEditorDocument {
     private void configurarPanellInferior () {
         textContingut.setText(contingut);
         textContingut.setMinimumSize(new Dimension(750, 450));
+
         JScrollPane scrollPane = new JScrollPane(textContingut);
         scrollPane.setPreferredSize(textContingut.getMinimumSize());
         scrollPane.setViewportView(textContingut);
+
         panellInferior.add(scrollPane, BorderLayout.CENTER);
         panellInferior.setMaximumSize(new Dimension(800, 450));
+
         frame.add(panellInferior, BorderLayout.SOUTH);
     }
 

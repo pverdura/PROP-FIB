@@ -2,6 +2,9 @@ package Codi.Util;
 
 /**
  * Tipus de cerca de documents que es poden fer
+ *
+ * @author Jordi Palomera
+ * @since 13-12-2022
  */
 public enum TipusCerca {
     /**
