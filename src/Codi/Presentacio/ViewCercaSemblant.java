@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Classe que implementa la vista de cerca semblant
+ *
+ * @author Judit Serna
+ */
 public class ViewCercaSemblant {
 
     ///////////////////////////////////////////////////////////

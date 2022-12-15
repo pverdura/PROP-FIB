@@ -6,6 +6,11 @@ import Codi.Util.Trie;
 
 import java.util.ArrayList;
 
+/**
+ * Classe que implementa la cerca d'autors per prefix
+ *
+ * @author Judit Serna
+ */
 public class CercaPrefix implements Cerca{
 
     /**

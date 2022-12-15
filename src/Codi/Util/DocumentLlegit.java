@@ -1,5 +1,10 @@
 package Codi.Util;
 
+/**
+ * Classe que representa un document llegit
+ *
+ * @author Judit Serna
+ */
 public class DocumentLlegit {
     private String titol;
     private String autor;
@@ -7,6 +12,9 @@ public class DocumentLlegit {
     private String contingut;
     private TipusExtensio extensio;
 
+    /**
+     * Creadora per defecte
+     */
     public DocumentLlegit(){
         titol = "";
         autor = "";
@@ -14,39 +22,89 @@ public class DocumentLlegit {
         path = "";
     }
 
+    /**
+     * Obte el titol del document llegit
+     *
+     * @return Retorna el titol del document llegit
+     */
     public String getTitol(){
         return titol;
     }
 
+    /**
+     * Obte l'autor del document llegit
+     *
+     * @return Retorna l'autor del document llegit
+     */
     public String getAutor(){
         return autor;
     }
 
+    /**
+     * Obte la path del document llegit
+     *
+     * @return Retorna la path del document llegit
+     */
     public String getPath(){
         return path;
     }
 
+    /**
+     * Obte el contingut del document llegit
+     *
+     * @return Retorna el contingut del document llegit
+     */
     public String getContingut(){
         return contingut;
     }
 
+    /**
+     * Obte l'exteniso del document llegit
+     *
+     * @return Retorna l'extensio del document llegit
+     */
     public TipusExtensio getExtensio(){ return extensio;}
 
-    public void setTitol(String s){
-        titol = s;
+    /**
+     * Modifica el títol del document
+     *
+     * @param titol Nou títol del document
+     */
+    public void setTitol(String titol){
+        this.titol = titol;
     }
 
-    public void setAutor(String s){
-        autor = s;
+    /**
+     * Modifica l'autor del document
+     *
+     * @param autor Nou autor del document
+     */
+    public void setAutor(String autor){
+        this.autor = autor;
     }
 
-    public void setPath(String s){
-        path = s;
+    /**
+     * Modifica la path del document
+     *
+     * @param path Nova path del document
+     */
+    public void setPath(String path){
+        this.path = path;
     }
 
-    public void setContingut(String s){
-        contingut = s;
+    /**
+     * Modifica el contingut del document
+     *
+     * @param contingut Nou contingut del document
+     */
+    public void setContingut(String contingut){
+        this.contingut = contingut;
     }
 
-    public void setExtensio(TipusExtensio e){ extensio = e; }
+    /**
+     * Modifica l'extensió i la path del document
+     *
+     * @param extensio Nova extensió del document
+     */
+    public void setExtensio(TipusExtensio extensio){ this.extensio = extensio; }
 }

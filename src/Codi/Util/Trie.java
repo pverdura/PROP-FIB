@@ -6,6 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.AbstractMap.SimpleEntry;
 
+/**
+ * Classe que implementa un Trie
+ *
+ * @author Judit Serna
+ */
 public class Trie {
 
     /**

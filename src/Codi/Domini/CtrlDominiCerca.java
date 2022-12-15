@@ -7,6 +7,11 @@ import Codi.Util.Trie;
 import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
 
+/**
+ * Classe per gestionar les cerques del control de domini
+ *
+ * @author Judit Serna
+ */
 public class CtrlDominiCerca {
 
     private int ord;    //ordenar ascendentment si val 1,

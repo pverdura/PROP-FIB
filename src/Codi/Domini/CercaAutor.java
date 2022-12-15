@@ -6,6 +6,11 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Classe que implementa la cerca de documents per l'autor
+ *
+ * @author Judit Serna
+ */
 public class CercaAutor implements Cerca{
 
     /**

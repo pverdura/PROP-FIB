@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Classe que implementa la vista de cerca titol i autor
+ *
+ * @author Judit Serna
+ */
 public class ViewCercaTitolAutor {
 
     ///////////////////////////////////////////////////////////

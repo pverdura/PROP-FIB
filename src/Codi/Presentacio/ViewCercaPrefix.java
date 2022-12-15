@@ -7,6 +7,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
+/**
+ * Classe que implementa la vista de cerca prefix
+ *
+ * @author Judit Serna
+ */
 public class ViewCercaPrefix {
 
     ///////////////////////////////////////////////////////////
