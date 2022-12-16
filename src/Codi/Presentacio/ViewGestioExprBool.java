@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 
 /**
- * Classe que gestiona la vista que gestiona les expressions booleanes de l'aplicacio
+ * Classe que gestiona la vista que organitza les expressions booleanes de l'aplicacio
  * @author PauVi
  */
 public class ViewGestioExprBool extends JFrame implements ActionListener, KeyListener {
