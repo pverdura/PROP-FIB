@@ -7,7 +7,7 @@ import java.util.AbstractMap.SimpleEntry;
  * Classe que gestiona diferents dialegs necessaris dins les vistes
  * @author PauVi
  */
-public class VistaDialeg {
+public class ViewDialeg {
 
 
     /**

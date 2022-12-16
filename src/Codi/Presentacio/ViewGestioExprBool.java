@@ -196,11 +196,11 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
      */
     private void crearExpressio() {
         Object[] options = {"Crear", "Sortir"};
-        String input = VistaDialeg.inputDialog("Crear Expressió Booleana", "Valor", options);
+        String input = ViewDialeg.inputDialog("Crear Expressió Booleana", "Valor", options);
 
         //Si input != null significa que s ha clicat boto crear en el dialeg
         if (input != null) {
-            if (VistaDialeg.confirmDialog("Segur que vols crear la expressió?")) {
+            if (ViewDialeg.confirmDialog("Segur que vols crear la expressió?")) {
                 ctrlPresentacio.crearExprBool(input);
                 mostrarAllExpressions();
             }
@@ -212,7 +212,7 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
      */
     private void eliminarExpressio() {
         if (!llistaBool.isSelectionEmpty()) {
-            if (VistaDialeg.confirmDialog("Segur que vols eliminar la expressió")) {
+            if (ViewDialeg.confirmDialog("Segur que vols eliminar la expressió")) {
                 //Eliminar expressio seleccionada
                 ctrlPresentacio.eliminarExprBool(llistaBool.getSelectedValue());
                 mostrarAllExpressions();
@@ -226,12 +226,12 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
     private void modificarExpressio() {
         if (!llistaBool.isSelectionEmpty()) {
             Object[] options = {"Modifica", "Sortir"};
-            SimpleEntry<String, String> inputs = VistaDialeg.twoInputDialog("Modificar Expressió Booleana", "Antic Valor",
+            SimpleEntry<String, String> inputs = ViewDialeg.twoInputDialog("Modificar Expressió Booleana", "Antic Valor",
                     "Nou Valor", llistaBool.getSelectedValue(), options);
 
             //Si input != null significa que s ha clicat boto modificar en el dialeg
             if (inputs != null) {
-                if (VistaDialeg.confirmDialog("Segur que vols modificar la expressió")) {
+                if (ViewDialeg.confirmDialog("Segur que vols modificar la expressió")) {
                     ctrlPresentacio.modificarExprBool(inputs.getKey(), inputs.getValue());
                     mostrarAllExpressions();
                 }

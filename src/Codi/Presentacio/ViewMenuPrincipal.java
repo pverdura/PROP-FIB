@@ -459,7 +459,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
      */
     private void eliminarDoc() {
         //Menu confirmacio per eliminar doc
-        if (VistaDialeg.confirmDialog("Segur que vols eliminar el document?")) {
+        if (ViewDialeg.confirmDialog("Segur que vols eliminar el document?")) {
             ctrlPresentacio.esborrarDocument(taula.getModel().getValueAt(fila_seleccionada, 0).toString(),
                     taula.getModel().getValueAt(fila_seleccionada, 1).toString());
         }

@@ -69,7 +69,7 @@ public class CtrlPresentacio {
         try {
             ctrlDomini.inicialitza();
         } catch (Exception e) {
-            VistaDialeg.errorDialog(e.toString());
+            ViewDialeg.errorDialog(e.toString());
         }
 
         viewMenuPrincipal.ferVisible();
@@ -97,7 +97,7 @@ public class CtrlPresentacio {
         try {
             ctrlDomini.creaExpressioBool(expr);
         }  catch (Exception e) {
-            VistaDialeg.errorDialog(e.toString());
+            ViewDialeg.errorDialog(e.toString());
         }
     }
 
@@ -111,7 +111,7 @@ public class CtrlPresentacio {
         try {
             ctrlDomini.modificaExpressioBool(exprAntiga, exprNova);
         } catch (Exception e) {
-            VistaDialeg.errorDialog(e.toString());
+            ViewDialeg.errorDialog(e.toString());
         }
     }
 
@@ -124,7 +124,7 @@ public class CtrlPresentacio {
         try {
             ctrlDomini.eliminaExpressioBool(expr);
         } catch (Exception e) {
-            VistaDialeg.errorDialog(e.toString());
+            ViewDialeg.errorDialog(e.toString());
         }
     }
 
@@ -177,7 +177,7 @@ public class CtrlPresentacio {
             ctrlDomini.importarDocuments(fitxers);
             this.actualitzarCerca();
         } catch (Exception e) {
-            VistaDialeg.errorDialog(e.toString());
+            ViewDialeg.errorDialog(e.toString());
         }
     }
 
@@ -192,7 +192,7 @@ public class CtrlPresentacio {
         try {
             ctrlDomini.exportarDocument(titol, autor, path);
         } catch (Exception e) {
-            VistaDialeg.errorDialog(e.toString());
+            ViewDialeg.errorDialog(e.toString());
         }
     }
 
@@ -215,7 +215,7 @@ public class CtrlPresentacio {
             }
             this.actualitzarCerca();
         } catch (Exception e) {
-            VistaDialeg.errorDialog(e.toString());
+            ViewDialeg.errorDialog(e.toString());
         }
     }
 
@@ -249,7 +249,7 @@ public class CtrlPresentacio {
                 editors.put(idNou, aux);
             }
         } catch (Exception e) {
-            VistaDialeg.errorDialog(e.toString());
+            ViewDialeg.errorDialog(e.toString());
         }
     }
 
@@ -267,7 +267,7 @@ public class CtrlPresentacio {
             this.ultimaCerca = TipusCerca.TOTS;
             enviarPrincipal();
         } catch (Exception e) {
-            VistaDialeg.errorDialog(e.toString());
+            ViewDialeg.errorDialog(e.toString());
         }
     }
 
@@ -284,7 +284,7 @@ public class CtrlPresentacio {
             this.ultimaCerca = TipusCerca.TITOL;
             enviarPrincipal();
         } catch (Exception e) {
-            VistaDialeg.errorDialog(e.toString());
+            ViewDialeg.errorDialog(e.toString());
         }
     }
 
@@ -301,7 +301,7 @@ public class CtrlPresentacio {
             this.ultimaCerca = TipusCerca.AUTOR;
             enviarPrincipal();
         } catch (Exception e) {
-            VistaDialeg.errorDialog(e.toString());
+            ViewDialeg.errorDialog(e.toString());
         }
     }
 
@@ -321,7 +321,7 @@ public class CtrlPresentacio {
             this.informacio = "Document de títol: "+this.auxTitol+" i autor: "+this.auxAutor;
             enviarPrincipal();
         } catch (Exception e) {
-            VistaDialeg.errorDialog(e.toString());
+            ViewDialeg.errorDialog(e.toString());
         }
     }
 
@@ -344,7 +344,7 @@ public class CtrlPresentacio {
                 this.tipusOrdenacioPrefix = to;
             }
         } catch (Exception e) {
-            VistaDialeg.errorDialog(e.toString());
+            ViewDialeg.errorDialog(e.toString());
         }
     }
 
@@ -365,7 +365,7 @@ public class CtrlPresentacio {
             this.informacio = "Els "+k+" documents més rellevants per les paraules "+this.auxParaules;
             enviarPrincipal();
         } catch (Exception e) {
-            VistaDialeg.errorDialog(e.toString());
+            ViewDialeg.errorDialog(e.toString());
         }
     }
 
@@ -388,7 +388,7 @@ public class CtrlPresentacio {
             this.informacio = "Els "+k+" documents més semblants al document de títol: "+this.auxTitol+" i autor: "+this.auxAutor;
             enviarPrincipal();
         } catch (Exception e) {
-            VistaDialeg.errorDialog(e.toString());
+            ViewDialeg.errorDialog(e.toString());
         }
     }
 
@@ -405,7 +405,7 @@ public class CtrlPresentacio {
             this.auxExpr = expr;
             enviarPrincipal();
         } catch (Exception e) {
-            VistaDialeg.errorDialog(e.toString());
+            ViewDialeg.errorDialog(e.toString());
         }
     }
 
@@ -527,13 +527,13 @@ public class CtrlPresentacio {
     private boolean obrirDocument (String titol, String autor) {
         if (editors.size() < 20) {
             if (editors.containsKey(new SimpleEntry<>(titol, autor))) {
-                VistaDialeg.messageDialog("Ja és obert", "El document de títol: "+titol+" i autor: "+autor+
+                ViewDialeg.messageDialog("Ja és obert", "El document de títol: "+titol+" i autor: "+autor+
                         "ja és obert en un editor");
                 return false;
             } else return true;
         }
         else {
-            VistaDialeg.messageDialog("Massa documents oberts", "Tens massa documents oberts. Tanca'n algun abans de continuar");
+            ViewDialeg.messageDialog("Massa documents oberts", "Tens massa documents oberts. Tanca'n algun abans de continuar");
             return false;
         }
     }

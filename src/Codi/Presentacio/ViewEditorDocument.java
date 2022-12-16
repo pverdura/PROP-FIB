@@ -266,7 +266,7 @@ public class ViewEditorDocument {
      * @param segur {@code true} si s'ha de desar obligatoriament, sense generar el dialeg
      */
     private void desarDocument (boolean segur) {
-        if (segur || VistaDialeg.confirmDialog("Segur que vols desar el document?")) {
+        if (segur || ViewDialeg.confirmDialog("Segur que vols desar el document?")) {
             SimpleEntry<String, String> idVell = new SimpleEntry<>(titol, autor);
             boolean m = modificat();
 
@@ -301,7 +301,7 @@ public class ViewEditorDocument {
      *  Tanca la vista
      */
     private void tancarVista () {
-        if (modificat() && VistaDialeg.confirmDialog("Hi ha canvis no guardats. Vols desar el document abans de tancar l'aplicació?")) {
+        if (modificat() && ViewDialeg.confirmDialog("Hi ha canvis no guardats. Vols desar el document abans de tancar l'aplicació?")) {
             desarDocument(true);
         }
         ctrlPresentacio.tancarDocument(titol, autor);
