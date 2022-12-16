@@ -8,6 +8,13 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.AbstractMap.SimpleEntry;
 
+/**
+ *  Classe que implementa l'editor de documents
+ *
+ * @author Jordi Palomera
+ * @since 13-12-2022
+ */
+
 public class ViewEditorDocument {
     private final CtrlPresentacio ctrlPresentacio;
     private JFrame frame;
@@ -21,11 +28,15 @@ public class ViewEditorDocument {
     private TipusExtensio tExtensio;
     private boolean documentNou;
     private final String[] extensions = {"TXT", "XML", "BOL"};
+    private JMenuBar barraMenu;
+    private JMenu menuFitxer;
+    private JMenuItem menuCrear, menuDesar, menuExportar, menuSortir;
+    private JScrollPane scrollPane;
 
     /**
      * Constructor per crear un document nou
      *
-     * @param cp Control presentació
+     * @param cp Control presentacio
      */
     public ViewEditorDocument (CtrlPresentacio cp, int id) {
         this.ctrlPresentacio = cp;
@@ -43,11 +54,11 @@ public class ViewEditorDocument {
     /**
      * Constructor per modificar un document
      *
-     * @param cp Control presentació
-     * @param titol Títol del document
+     * @param cp Control presentacio
+     * @param titol Titol del document
      * @param autor Autor del document
      * @param contingut Contingut del document
-     * @param te Tipus d'extensió del document
+     * @param te Tipus d'extensio del document
      */
     public ViewEditorDocument (CtrlPresentacio cp, String titol, String autor, String contingut, TipusExtensio te) {
         this.ctrlPresentacio = cp;
@@ -89,8 +100,9 @@ public class ViewEditorDocument {
      * Inicialitza i configura la vista
      */
     private void inicialitzar () {
-        inicializarComponents();
+        inicialitzarComponents();
         configurarVista();
+        configurarMenu();
         configurarPanellSuperior();
         configurarPanellMig();
         configurarPanellInferior();
@@ -100,8 +112,14 @@ public class ViewEditorDocument {
     /**
      * Inicialitza els components
      */
-    private void inicializarComponents () {
+    private void inicialitzarComponents () {
         frame = new JFrame("Editor de documents - "+titol);
+        barraMenu = new JMenuBar();
+        menuFitxer = new JMenu("Fitxer");
+        menuCrear = new JMenuItem("Crear");
+        menuDesar = new JMenuItem("Desar");
+        menuExportar = new JMenuItem("Exportar");
+        menuSortir = new JMenuItem("Sortir");
         panellSuperior = new JPanel();
         panellMig = new JPanel();
         panellInferior = new JPanel();
@@ -125,6 +143,18 @@ public class ViewEditorDocument {
         frame.setPreferredSize(frame.getMinimumSize());
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
+    }
+
+    /**
+     * Configura la barra de menu
+     */
+    private void configurarMenu () {
+        frame.setJMenuBar(barraMenu);
+        barraMenu.add(menuFitxer);
+        menuFitxer.add(menuCrear);
+        menuFitxer.add(menuDesar);
+        menuFitxer.add(menuExportar);
+        menuFitxer.add(menuSortir);
     }
 
     /**
@@ -161,9 +191,12 @@ public class ViewEditorDocument {
         textContingut.setText(contingut);
         textContingut.setMinimumSize(new Dimension(750, 450));
 
-        JScrollPane scrollPane = new JScrollPane(textContingut);
+        scrollPane = new JScrollPane(textContingut);
+        //scrollPane.getVerticalScrollBar().setValue(scrollPane.getVerticalScrollBar().getMinimum());
         scrollPane.setPreferredSize(textContingut.getMinimumSize());
         scrollPane.setViewportView(textContingut);
+        //scrollPane.getViewport().setViewPosition(new Point(0, 0));
+        scrollPane.getViewport().setViewPosition(new Point(0, scrollPane.getViewport().getHeight()));
 
         panellInferior.add(scrollPane, BorderLayout.CENTER);
         panellInferior.setMaximumSize(new Dimension(800, 450));
@@ -175,17 +208,19 @@ public class ViewEditorDocument {
      * Assigna els listeners als components de la vista
      */
     private void assignarListeners () {
-        btGuardar.addActionListener(e -> guardarDocument());
+        btGuardar.addActionListener(e -> desarDocument(false));
 
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                if (modificat() && VistaDialeg.confirmDialog("Hi ha canvis no guardats. Vols desar el document abans de tancar l'aplicació?")) {
-                    guardarDocument();
-                }
-                ctrlPresentacio.tancarDocument(titol, autor);
+                tancarVista();
             }
         });
+
+        menuCrear.addActionListener(e -> crearDocument());
+        menuDesar.addActionListener(e -> desarDocument(false));
+        menuExportar.addActionListener(e -> exportarDocument());
+        menuSortir.addActionListener(e -> tancarVista());
 
         frame.addKeyListener(new Tecles());
         textContingut.addKeyListener(new Tecles());
@@ -195,9 +230,9 @@ public class ViewEditorDocument {
     }
 
     /**
-     * Retorna el tipus d'extensió seleccionada
+     * Retorna el tipus d'extensio seleccionada
      *
-     * @return El tipus d'extensió seleccionada
+     * @return El tipus d'extensio seleccionada
      */
     private TipusExtensio getTipusExtensio () {
         String ext = (String) tipusExtensio.getSelectedItem();
@@ -207,9 +242,9 @@ public class ViewEditorDocument {
     }
 
     /**
-     * Modifica l'extensió del component visual
+     * Modifica l'extensio del component visual
      *
-     * @param te El nou tipus d'extensió
+     * @param te El nou tipus d'extensio
      */
     private void setExtensio (TipusExtensio te) {
         this.tExtensio = te;
@@ -219,10 +254,19 @@ public class ViewEditorDocument {
     }
 
     /**
-     * Guarda el document
+     *  Crea un nou document
      */
-    private void guardarDocument () {
-        if (VistaDialeg.confirmDialog("Segur que vols desar el document?")) {
+    private void crearDocument () {
+        ctrlPresentacio.obrirEditorDocuments(null, null, true);
+    }
+
+    /**
+     *  Desa el document
+     *
+     * @param segur {@code true} si s'ha de desar obligatoriament, sense generar el dialeg
+     */
+    private void desarDocument (boolean segur) {
+        if (segur || VistaDialeg.confirmDialog("Segur que vols desar el document?")) {
             SimpleEntry<String, String> idVell = new SimpleEntry<>(titol, autor);
             boolean m = modificat();
 
@@ -236,6 +280,32 @@ public class ViewEditorDocument {
             documentNou = false;
             frame.setTitle("Editor de documents - "+titol);
         }
+    }
+
+    /**
+     *  Exporta el document
+     */
+    private void exportarDocument () {
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fc.setAcceptAllFileFilterUsed(false);
+
+        int res = fc.showOpenDialog(frame);
+        if (res == JFileChooser.APPROVE_OPTION) {
+            desarDocument(true);
+            ctrlPresentacio.exportarDocument(this.titol, this.autor, fc.getSelectedFile());
+        }
+    }
+
+    /**
+     *  Tanca la vista
+     */
+    private void tancarVista () {
+        if (modificat() && VistaDialeg.confirmDialog("Hi ha canvis no guardats. Vols desar el document abans de tancar l'aplicació?")) {
+            desarDocument(true);
+        }
+        ctrlPresentacio.tancarDocument(titol, autor);
+        frame.dispose();
     }
 
     /**
@@ -255,8 +325,11 @@ public class ViewEditorDocument {
         private boolean control = false;
 
         /**
-         * Sobreescriptura del mètode de tecla premuda
+         * Sobreescriptura del metode de tecla premuda
          * Ctrl + S per desar el document
+         * Ctrl + N per crear un nou document
+         * Ctrl + E per exportar el document
+         * Ctrl + Q per sortir de l'editor
          *
          * @param e l'esdeveniment a ser processat
          */
@@ -265,12 +338,18 @@ public class ViewEditorDocument {
             if (e.getExtendedKeyCode() == KeyEvent.VK_CONTROL) {
                 control = true;
             } else if (e.getExtendedKeyCode() == KeyEvent.VK_S && control) {
-                guardarDocument();
+                desarDocument(false);
+            } else if (e.getExtendedKeyCode() == KeyEvent.VK_N && control) {
+                crearDocument();
+            } else if (e.getExtendedKeyCode() == KeyEvent.VK_E && control) {
+                exportarDocument();
+            } else if (e.getExtendedKeyCode() == KeyEvent.VK_Q && control) {
+                tancarVista();
             }
         }
 
         /**
-         * Sobreescriptura del mètode de tecla alliberada
+         * Sobreescriptura del metode de tecla alliberada
          *
          * @param e l'esdeveniment a ser processat
          */

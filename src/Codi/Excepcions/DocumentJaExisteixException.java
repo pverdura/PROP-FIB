@@ -1,5 +1,11 @@
 package Codi.Excepcions;
 
+/**
+ *  Excepcio que representa que s'intenta crear un document que ja existeix
+ *
+ * @author Jordi Palomera
+ * @since 13-12-2022
+ */
 public class DocumentJaExisteixException extends Exception {
     String titol, autor;
 

@@ -4,6 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ *  Classe que implementa la vista de cerca per paraules destacables
+ *
+ * @author Jordi Palomera
+ * @since 13-12-2022
+ */
+
 public class ViewCercaParaules {
     private final CtrlPresentacio ctrlPresentacio;
     private JFrame frame;
@@ -17,7 +24,7 @@ public class ViewCercaParaules {
     /**
      * Constructor
      *
-     * @param cp Control presentació
+     * @param cp Control presentacio
      */
     public ViewCercaParaules (CtrlPresentacio cp) {
         this.ctrlPresentacio = cp;
@@ -149,7 +156,7 @@ public class ViewCercaParaules {
     private class Tecles extends KeyAdapter {
 
         /**
-         * Sobreescriptura del mètode de tecla premuda
+         * Sobreescriptura del metode de tecla premuda
          * Enter per fer la cerca
          * Esc per tancar la vista
          * Fletxa amunt per augmentar el nombre de documents

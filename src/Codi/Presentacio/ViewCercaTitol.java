@@ -4,6 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ *  Classe que implementa la vista de cerca per titol
+ *
+ * @author Jordi Palomera
+ * @since 13-12-2022
+ */
+
 public class ViewCercaTitol {
     private final CtrlPresentacio ctrlPresentacio;
     private JFrame frame;
@@ -15,7 +22,7 @@ public class ViewCercaTitol {
     /**
      * Constructor
      *
-     * @param cp Control presentació
+     * @param cp Control presentacio
      */
     public ViewCercaTitol (CtrlPresentacio cp) {
         this.ctrlPresentacio = cp;
@@ -117,7 +124,7 @@ public class ViewCercaTitol {
          * Enter fa la cerca
          * Esc tanca la vista
          *
-         * @param e the event to be processed
+         * @param e l'esdeveniment a ser processat
          */
         @Override
         public void keyPressed(KeyEvent e) {

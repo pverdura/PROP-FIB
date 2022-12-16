@@ -10,6 +10,12 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ *  Classe que controla la capa de presentacio
+ *
+ *  @author Jordi Palomera
+ *  @since 13-12-2022
+ */
 public class CtrlPresentacio {
     private final CtrlDomini ctrlDomini;
     private final ViewMenuPrincipal viewMenuPrincipal;
@@ -57,7 +63,7 @@ public class CtrlPresentacio {
     }
 
     /**
-     * Inicialitza la capa de domini i les estructures de dades, i carrega la vista del menú principal
+     * Inicialitza la capa de domini i les estructures de dades, i carrega la vista del menu principal
      */
     public void init () {
         try {
@@ -72,7 +78,7 @@ public class CtrlPresentacio {
     }
 
     /**
-     * Tanca l'aplicació
+     * Tanca l'aplicacio
      */
     public void tancarAplicacio () {
         viewMenuPrincipal.tancarVista();
@@ -83,9 +89,9 @@ public class CtrlPresentacio {
     ///////////////////////////////////////////////////////////
 
     /**
-     * Crea una expressió booleana
+     * Crea una expressio booleana
      *
-     * @param expr Expressió booleana a crear
+     * @param expr Expressio booleana a crear
      */
     public void crearExprBool (String expr) {
         try {
@@ -96,10 +102,10 @@ public class CtrlPresentacio {
     }
 
     /**
-     * Modifica una expressió booleana
+     * Modifica una expressio booleana
      *
-     * @param exprAntiga Expressió booleana original
-     * @param exprNova Expressió booleana modificada
+     * @param exprAntiga Expressio booleana original
+     * @param exprNova Expressio booleana modificada
      */
     public void modificarExprBool (String exprAntiga, String exprNova) {
         try {
@@ -110,9 +116,9 @@ public class CtrlPresentacio {
     }
 
     /**
-     * Elimina una expressió booleana
+     * Elimina una expressio booleana
      *
-     * @param expr Expressió booleana a eliminar
+     * @param expr Expressio booleana a eliminar
      */
     public void eliminarExprBool (String expr) {
         try {
@@ -123,7 +129,7 @@ public class CtrlPresentacio {
     }
 
     /**
-     * Obté totes les expressions booleanes existents en forma d'{@code String}
+     * Obte totes les expressions booleanes existents en forma d'{@code String}
      *
      * @return {@code ArrayList<String>} de totes les expressions booleanes
      */
@@ -138,9 +144,9 @@ public class CtrlPresentacio {
     /**
      * Obre l'editor de documents, sigui per un document nou o per modificar-ne un
      *
-     * @param titol Títol del document. {@code null} si és un document nou
-     * @param autor Autor del document. {@code null} si és un document nou
-     * @param crear {@code true} si el document és nou
+     * @param titol Titol del document. {@code null} si es un document nou
+     * @param autor Autor del document. {@code null} si es un document nou
+     * @param crear {@code true} si el document es nou
      */
     public void obrirEditorDocuments (String titol, String autor, boolean crear) {
         if (crear) {
@@ -162,7 +168,7 @@ public class CtrlPresentacio {
     }
 
     /**
-     * Importa una sèrie de documents
+     * Importa una serie de documents
      *
      * @param fitxers {@code ArrayList<File>} dels fitxers que s'han d'importar
      */
@@ -178,9 +184,9 @@ public class CtrlPresentacio {
     /**
      * Exporta un document
      *
-     * @param titol Títol del document
+     * @param titol Titol del document
      * @param autor Autor del document
-     * @param path Destí del document
+     * @param path Desti del document
      */
     public void exportarDocument (String titol, String autor, File path) {
         try {
@@ -193,7 +199,7 @@ public class CtrlPresentacio {
     /**
      * Esborra un document
      *
-     * @param titol Títol del document
+     * @param titol Titol del document
      * @param autor Autor del document
      */
     public void esborrarDocument (String titol, String autor) {
@@ -216,11 +222,11 @@ public class CtrlPresentacio {
     /**
      * Guarda un document
      *
-     * @param nou {@code true} si el document és nou
+     * @param nou {@code true} si el document es nou
      * @param idVell Identificador antic del document
      * @param idNou Identificador nou del document
      * @param contingut Contingut nou del document
-     * @param te Tipus d'extensió nova del document
+     * @param te Tipus d'extensio nova del document
      */
     public void guardarDocument (boolean nou, boolean modificat, SimpleEntry<String, String> idVell, SimpleEntry<String, String> idNou, String contingut, TipusExtensio te) {
         try {
@@ -252,7 +258,7 @@ public class CtrlPresentacio {
     ///////////////////////////////////////////////////////////
 
     /**
-     * Mostra tots els documents existents al menú principal
+     * Mostra tots els documents existents al menu principal
      */
     public void mostrarDocuments () {
         try {
@@ -266,9 +272,9 @@ public class CtrlPresentacio {
     }
 
     /**
-     * Mostra el resultat de la cerca per títol al menú principal
+     * Mostra el resultat de la cerca per titol al menu principal
      *
-     * @param titol Títol a cercar
+     * @param titol Titol a cercar
      */
     public void cercaTitol (String titol) {
         try {
@@ -283,7 +289,7 @@ public class CtrlPresentacio {
     }
 
     /**
-     * Mostra el resultat de la cerca per autor al menú principal
+     * Mostra el resultat de la cerca per autor al menu principal
      *
      * @param autor Autor a cercar
      */
@@ -300,9 +306,9 @@ public class CtrlPresentacio {
     }
 
     /**
-     * Mostra el resultat de la cerca per títol i autor al menú principal
+     * Mostra el resultat de la cerca per titol i autor al menu principal
      *
-     * @param titol Títol del document a cercar
+     * @param titol Titol del document a cercar
      * @param autor Autor del document a cercar
      */
     public void cercaTitolAutor (String titol, String autor) {
@@ -323,8 +329,8 @@ public class CtrlPresentacio {
      * Mostra el resultat de la cerca per prefix a la vista de cerca prefix
      *
      * @param prefix Prefix a cercar
-     * @param to Tipus d'ordenació del resultat
-     * @param documentsModificats {@code true} si s'han modificat els documents de l'aplicació
+     * @param to Tipus d'ordenacio del resultat
+     * @param documentsModificats {@code true} si s'han modificat els documents de l'aplicacio
      */
     public void cercaPrefix (String prefix, TipusOrdenacio to, boolean documentsModificats) {
         try {
@@ -343,7 +349,7 @@ public class CtrlPresentacio {
     }
 
     /**
-     * Mostra el resultat de la cerca per paraules rellevants del contingut dels documents pel menú principal
+     * Mostra el resultat de la cerca per paraules rellevants del contingut dels documents pel meno principal
      *
      * @param paraules Paraules a cercar
      * @param k Nombre de documents a mostrar
@@ -364,9 +370,9 @@ public class CtrlPresentacio {
     }
 
     /**
-     * Mostra el resultat de la cerca per documents semblants pel menú principal
+     * Mostra el resultat de la cerca per documents semblants pel menu principal
      *
-     * @param titol Títol del document a comparar
+     * @param titol Titol del document a comparar
      * @param autor Autor del document a comparar
      * @param k Nombre de documents a mostrar
      * @param tots {@code true} si s'han de mostrar tots els documents
@@ -387,9 +393,9 @@ public class CtrlPresentacio {
     }
 
     /**
-     * Mostra el resultat de la cerca booleana pel menú principal
+     * Mostra el resultat de la cerca booleana pel menu principal
      *
-     * @param expr Expressió booleana
+     * @param expr Expressio booleana
      */
     public void cercaBooleana (String expr) {
         try {
@@ -404,9 +410,9 @@ public class CtrlPresentacio {
     }
 
     /**
-     * Ordena el resultat que es mostra pel menú principal
+     * Ordena el resultat que es mostra pel menu principal
      *
-     * @param to Tipus d'ordenació
+     * @param to Tipus d'ordenacio
      */
     public void ordenar (TipusOrdenacio to) {
         if (to != tipusOrdenacio) {
@@ -421,7 +427,7 @@ public class CtrlPresentacio {
     ///////////////////////////////////////////////////////////
 
     /**
-     * Obre la vista de cerca per títol
+     * Obre la vista de cerca per titol
      */
     public void obrirCercaTitol () {
         if (viewCercaTitol == null) viewCercaTitol = new ViewCercaTitol(this);
@@ -437,7 +443,7 @@ public class CtrlPresentacio {
     }
 
     /**
-     * Obre la vista de cerca per títol i autor
+     * Obre la vista de cerca per titol i autor
      */
     public void obrirCercaTitolAutor () {
         if (viewCercaTitolAutor == null) viewCercaTitolAutor = new ViewCercaTitolAutor(this);
@@ -469,7 +475,7 @@ public class CtrlPresentacio {
     }
 
     /**
-     * Obre la vista de gestió d'expressions booleanes
+     * Obre la vista de gestio d'expressions booleanes
      */
     public void obrirGestioExprBool () {
         if (viewGestioExprBool == null)
@@ -498,7 +504,7 @@ public class CtrlPresentacio {
     ///////////////////////////////////////////////////////////
 
     /**
-     * Envia els resultats al menú principal
+     * Envia els resultats al menu principal
      */
     private void enviarPrincipal () {
         resultatPrincipalPes.clear();
@@ -516,13 +522,13 @@ public class CtrlPresentacio {
     /**
      * Obre un document
      *
-     * @return {@code true} si hi ha menys de 20 documents oberts i el document no és obert
+     * @return {@code true} si hi ha menys de 20 documents oberts i el document no es obert
      */
     private boolean obrirDocument (String titol, String autor) {
         if (editors.size() < 20) {
             if (editors.containsKey(new SimpleEntry<>(titol, autor))) {
-                VistaDialeg.messageDialog("Ja és obert", "El document de títol: "+titol+" i autor: "+
-                        " ja és obert en un editor");
+                VistaDialeg.messageDialog("Ja és obert", "El document de títol: "+titol+" i autor: "+autor+
+                        "ja és obert en un editor");
                 return false;
             } else return true;
         }
@@ -533,7 +539,7 @@ public class CtrlPresentacio {
     }
 
     /**
-     * Actualitza el resultat del menú principal després de crear, modificar, importar o eliminar un document
+     * Actualitza el resultat del menu principal despres de crear, modificar, importar o eliminar un document
      */
     private void actualitzarCerca () {
         switch (ultimaCerca) {

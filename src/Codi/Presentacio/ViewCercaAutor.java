@@ -4,6 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ *  Classe que implementa la vista de cerca per autor
+ *
+ * @author Jordi Palomera
+ * @since 13-12-2022
+ */
 public class ViewCercaAutor {
     private final CtrlPresentacio ctrlPresentacio;
     private JFrame frame;
@@ -15,7 +21,7 @@ public class ViewCercaAutor {
     /**
      * Constructor
      *
-     * @param cp Control presentació
+     * @param cp Control presentacio
      */
     public ViewCercaAutor (CtrlPresentacio cp) {
         this.ctrlPresentacio = cp;
@@ -114,7 +120,7 @@ public class ViewCercaAutor {
     private class Tecles extends KeyAdapter {
 
         /**
-         * Sobreescriptura del mètode de tecla premuda
+         * Sobreescriptura del metode de tecla premuda
          * Enter fa la cerca
          * Esc tanca la vista
          *

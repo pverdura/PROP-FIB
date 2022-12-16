@@ -7,6 +7,11 @@ import java.io.*;
 
 import java.util.ArrayList;
 
+/**
+ * Classe que controla la capa de persistencia
+ *
+ * @author Judit Serna
+ */
 public class CtrlPersistencia {
 
     ///////////////////////////////////////////////////////////
@@ -115,9 +120,8 @@ public class CtrlPersistencia {
      * Llegeix les StopWords que estan guardades al Gestor de Documents
      *
      * @return {@code ArrayLis<String>} Retorna les StopWords guardades
-     * @throws FitxerNoCreatException Si no s'ha pogut crear el document on es guarden les StopWords
      */
-    public ArrayList<String> carregaStopWords() throws FitxerNoCreatException {
+    public ArrayList<String> carregaStopWords() {
         ArrayList<String> stopWords;
         stopWords = gestorDades.llegeixStopWords(pathStopWords);
         return stopWords;

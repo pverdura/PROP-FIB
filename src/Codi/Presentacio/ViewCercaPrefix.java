@@ -17,24 +17,100 @@ public class ViewCercaPrefix {
     ///////////////////////////////////////////////////////////
     ///                     VARIABLES                       ///
     ///////////////////////////////////////////////////////////
+
+    /**
+     * Vista on s’inclouen tots els elements de la finestra
+     */
     private JFrame frameVista;
+
+    /**
+     * Panell on hi ha l’etiqueta de Prefix:, el quadre de text omplirPrefix i el boto de cerca.
+     */
     private JPanel prefixPanel;
+
+    /**
+     * Panell on hi ha l’scroll i, a dins, el resCerca
+     */
     private JPanel resultatPanel;
+
+    /**
+     * Panell on hi ha els dos botons cancelarButton i acceptarButton
+     */
     private JPanel buttonsPanel;
+
+    /**
+     * Etiqueta del prefix
+     */
     private JLabel labelPrefix;
+
+    /**
+     * Quadre de text per escriure un prefix
+     */
     private JTextField omplirPrefix;
+
+    /**
+     *  Boto per esborrar el contingut de l’scroll
+     */
     private JButton esborrarButton;
+
+    /**
+     * Boto per fer la cerca i mostrar el resultat a resCerca en l'scroll
+     */
     private JButton cercaButton;
+
+    /**
+     * Boto per sortir de la vista
+     */
     private JButton cancelarButton;
+
+    /**
+     * Boto per ensenyar els documents d’un autor a la vista principal
+     */
     private JButton mostraButton;
+
+    /**
+     * Llista on es guarda el resultat de la cerca
+     */
     private JList<Object> resCerca;
+
+    /**
+     * ScrollPane que inclou el text de resCerca
+     */
     private JScrollPane scroll;
+
+    /**
+     * RadioButton per triar ordre alfabeticament ascdendent del resultat de la cerca
+     */
     private JRadioButton asc;
+
+    /**
+     * RadioButton per triar ordre alfabeticament descdendent del resultat de la cerca
+     */
     private JRadioButton des;
+
+    /**
+     * CheckBox per indicar que es vol veure tots els autors
+     */
     private JCheckBox totsAutors;
-    private boolean esborrar;       //indica si s'ha esborrat la cerca
-    private boolean tots;           //indica si s'estan ensenyant tots els autors
-    private int index;              //indica l'autor seleccionat
+
+    /**
+     * Per saber s’hi s’ha premut el boto esborrarButton
+     */
+    private boolean esborrar;
+
+    /**
+     * Per saber s’hi s’ha seleccionat el ChechBox totsAutors
+     */
+    private boolean tots;
+
+    /**
+     * Nombre per saber l’autor seleccionat a resCerca
+     */
+    private int index;
+
+    /**
+     * Instancia de la classe Control Presentacio
+     */
     private final CtrlPresentacio ctrlPresentacio;
 
     ///////////////////////////////////////////////////////////
@@ -64,6 +140,8 @@ public class ViewCercaPrefix {
         if (visible) frameVista.pack();
         frameVista.setVisible(visible);
         esborraCerca();
+        totsAutors.setEnabled(true);
+        totsAutors.doClick();
         asc.setSelected(true);
     }
 
@@ -77,7 +155,7 @@ public class ViewCercaPrefix {
     }
 
     /**
-     * Mètode per rebre les dades de la Cerca Prefix
+     * Metode per rebre les dades de la Cerca Prefix
      *
      * @param resultatCerca {@code ArrayList<String>} Resultat de la Cerca Prefix
      */
@@ -103,7 +181,7 @@ public class ViewCercaPrefix {
     ///                  MÈTODES PRIVATS                    ///
     ///////////////////////////////////////////////////////////
 
-    /////////////////////////// ASSIGNACIO DE LISTENERS
+    /////////////////////////// ASSIGNACIÓ DE LISTENERS
 
     /**
      * Assigna els listeners als components de la vista
