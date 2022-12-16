@@ -4,8 +4,6 @@ import Codi.Util.TipusExtensio;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.AbstractMap.SimpleEntry;
@@ -30,7 +28,6 @@ public class ViewEditorDocument {
     private TipusExtensio tExtensio;
     private boolean documentNou;
     private final String[] extensions = {"TXT", "XML", "BOL"};
-
     private JMenuBar barraMenu;
     private JMenu menuFitxer;
     private JMenuItem menuCrear, menuDesar, menuExportar, menuSortir;
@@ -216,30 +213,10 @@ public class ViewEditorDocument {
             }
         });
 
-        menuCrear.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                crearDocument();
-            }
-        });
-        menuDesar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                desarDocument(false);
-            }
-        });
-        menuExportar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                exportarDocument();
-            }
-        });
-        menuSortir.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                tancarVista();
-            }
-        });
+        menuCrear.addActionListener(e -> crearDocument());
+        menuDesar.addActionListener(e -> desarDocument(false));
+        menuExportar.addActionListener(e -> exportarDocument());
+        menuSortir.addActionListener(e -> tancarVista());
 
         frame.addKeyListener(new Tecles());
         textContingut.addKeyListener(new Tecles());
@@ -272,12 +249,17 @@ public class ViewEditorDocument {
         else tipusExtensio.setSelectedIndex(2);
     }
 
+    /**
+     *  Crea un nou document
+     */
     private void crearDocument () {
         ctrlPresentacio.obrirEditorDocuments(null, null, true);
     }
 
     /**
-     * Guarda el document
+     *  Desa el document
+     *
+     * @param segur {@code true} si s'ha de desar obligatoriament, sense generar el dialeg
      */
     private void desarDocument (boolean segur) {
         if (segur || VistaDialeg.confirmDialog("Segur que vols desar el document?")) {
@@ -296,6 +278,9 @@ public class ViewEditorDocument {
         }
     }
 
+    /**
+     *  Exporta el document
+     */
     private void exportarDocument () {
         desarDocument(true);
 
@@ -303,13 +288,15 @@ public class ViewEditorDocument {
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         fc.setAcceptAllFileFilterUsed(false);
 
-        //Obrir jFileChooser
         int res = fc.showOpenDialog(frame);
         if (res == JFileChooser.APPROVE_OPTION) {
             ctrlPresentacio.exportarDocument(this.titol, this.autor, fc.getSelectedFile());
         }
     }
 
+    /**
+     *  Tanca la vista
+     */
     private void tancarVista () {
         if (modificat() && VistaDialeg.confirmDialog("Hi ha canvis no guardats. Vols desar el document abans de tancar l'aplicació?")) {
             desarDocument(true);
