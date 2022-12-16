@@ -14,15 +14,61 @@ public class ViewCercaTitolAutor {
     ///////////////////////////////////////////////////////////
     ///                     VARIABLES                       ///
     ///////////////////////////////////////////////////////////
+
+    /**
+     * Vista on s’inclouen tots els elements de la finestra
+     */
     private JFrame frameVista;
-    private JPanel titolPanel, autorPanel;
+
+    /**
+     * Panell on hi ha l’etiqueta de Titol: i el quadre de text omplirTitol
+     */
+    private JPanel titolPanel;
+
+    /**
+     * Panell on hi ha l’etiqueta de Autor: i el quadre de text omplirAutor
+     */
+    private JPanel autorPanel;
+
+    /**
+     * Panell on hi ha els dos botons cancelarButton i acceptarButton
+     */
     private JPanel buttonsPanel;
+
+    /**
+     * Boto per realitzar la cerca
+     */
     private JButton acceptarButton;
+
+    /**
+     * Boto per sortir de la vista
+     */
     private JButton cancelarButton;
+
+    /**
+     * Quadre de text per escriure un titol
+     */
     private JTextField omplirTitol;
+
+    /**
+     * Quadre de text per escriure un autor
+     */
     private JTextField omplirAutor;
+
+    /**
+     * Etiqueta del titol
+     */
     private JLabel labelTitol;
+
+    /**
+     * Etiqueta de l'autor
+     */
     private JLabel labelAutor;
+
+    /**
+     * Instancia de la classe Control Presentacio
+     * Instancia de la classe Control Presentacio
+     */
     private final CtrlPresentacio ctrlPresentacio;
 
     ///////////////////////////////////////////////////////////
@@ -58,7 +104,7 @@ public class ViewCercaTitolAutor {
     ///                  MÈTODES PRIVATS                    ///
     ///////////////////////////////////////////////////////////
 
-    /////////////////////////// ASSIGNACIO DE LISTENERS
+    /////////////////////////// ASSIGNACIÓ DE LISTENERS
 
     /**
      * Assigna els listeners als components de la vista
