@@ -2,7 +2,6 @@ package Codi.Presentacio;
 
 /**
  * Classe que executa l'aplicacio
- *
  * @author PauVi
  */
 public class Main {

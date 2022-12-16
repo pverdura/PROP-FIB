@@ -108,6 +108,14 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
     }
 
     /**
+     * Metode per posar visible la vista
+     */
+    public void ferVisible() {
+        setSize(500, 500);
+        setVisible(true);
+    }
+
+    /**
      * Metode per mostrar totes les expressions booleanes de l'aplicacio
      */
     private void mostrarAllExpressions() {
@@ -117,13 +125,6 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
         for (String e: expressions) dlm.addElement(e);
     }
 
-    /**
-     * Metode per posar visible la vista
-     */
-    public void ferVisible() {
-        setSize(500, 500);
-        setVisible(true);
-    }
 
     /**
      * Metode per configurar la vista

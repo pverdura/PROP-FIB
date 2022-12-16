@@ -122,92 +122,6 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
         configurarPopMenu();
     }
 
-    /**
-     * Metode que crea els menus principals de l'aplicacio
-     */
-    private void crearMenus() {
-        JMenuBar barraMenu = new JMenuBar();
-        setJMenuBar(barraMenu);
-
-        //Afegir menu document
-        JMenu menuFitxer = new JMenu("Fitxer");
-        barraMenu.add(menuFitxer);
-
-        miCreaDoc = new JMenuItem("Crea");
-        miCreaDoc.addActionListener(this);
-        miImportaDoc = new JMenuItem("Importa");
-        miImportaDoc.addActionListener(this);
-        miAjuda = new JMenuItem("Ajuda");
-        miAjuda.addActionListener(this);
-        miSortir = new JMenuItem("Sortir");
-        miSortir.addActionListener(this);
-
-        menuFitxer.add(miCreaDoc);
-        menuFitxer.addSeparator();
-        menuFitxer.add(miImportaDoc);
-        menuFitxer.addSeparator();
-        menuFitxer.add(miAjuda);
-        menuFitxer.addSeparator();
-        menuFitxer.add(miSortir);
-
-        //Afegir menu expressio bool
-        JMenu menuBool = new JMenu("Expressió Bool");
-        barraMenu.add(menuBool);
-
-        miGestioBool = new JMenuItem("Gestionar expressions");
-        miGestioBool.addActionListener(this);
-        menuBool.add(miGestioBool);
-
-        //Afegir menu cerca
-        JMenu menuCerca = new JMenu("Cerca");
-        barraMenu.add(menuCerca);
-
-        miCercaAutor = new JMenuItem("Cerca Autor");
-        miCercaAutor.addActionListener(this);
-        miCercaTitol = new JMenuItem("Cerca Títol");
-        miCercaTitol.addActionListener(this);
-        miCercaTitolAutor = new JMenuItem("Cerca Títol i Autor");
-        miCercaTitolAutor.addActionListener(this);
-        miCercaParaules = new JMenuItem("Cerca Paraules");
-        miCercaParaules.addActionListener(this);
-        miCercaPrefix = new JMenuItem("Cerca Prefix");
-        miCercaPrefix.addActionListener(this);
-        miCercaSemblant = new JMenuItem("Cerca per Documents");
-        miCercaSemblant.addActionListener(this);
-
-        menuCerca.add(miCercaTitol);
-        menuCerca.addSeparator();
-        menuCerca.add(miCercaAutor);
-        menuCerca.addSeparator();
-        menuCerca.add(miCercaTitolAutor);
-        menuCerca.addSeparator();
-        menuCerca.add(miCercaPrefix);
-        menuCerca.addSeparator();
-        menuCerca.add(miCercaParaules);
-        menuCerca.addSeparator();
-        menuCerca.add(miCercaSemblant);
-
-        //Afegir menu ordre
-        JMenu menuOrdre = new JMenu("Ordre");
-        barraMenu.add(menuOrdre);
-
-        miOrdreAlfAsc = new JMenuItem("Alfabètic Ascendent");
-        miOrdreAlfAsc.addActionListener(this);
-        miOrdreAlfDesc = new JMenuItem("Alfabètic Descendent");
-        miOrdreAlfDesc.addActionListener(this);
-        miOrdrePesAsc = new JMenuItem("Pes Ascendent");
-        miOrdrePesAsc.addActionListener(this);
-        miOrdrePesDesc = new JMenuItem("Pes Descendent");
-        miOrdrePesDesc.addActionListener(this);
-
-        menuOrdre.add(miOrdreAlfAsc);
-        menuOrdre.addSeparator();
-        menuOrdre.add(miOrdreAlfDesc);
-        menuOrdre.addSeparator();
-        menuOrdre.add(miOrdrePesAsc);
-        menuOrdre.addSeparator();
-        menuOrdre.add(miOrdrePesDesc);
-    }
 
     /**
      * Metode que associa cada element interactiu amb una funcionalitat
@@ -329,6 +243,94 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
     public void tancarVista() {
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
+
+    /**
+     * Metode que crea els menus principals de l'aplicacio
+     */
+    private void crearMenus() {
+        JMenuBar barraMenu = new JMenuBar();
+        setJMenuBar(barraMenu);
+
+        //Afegir menu document
+        JMenu menuFitxer = new JMenu("Fitxer");
+        barraMenu.add(menuFitxer);
+
+        miCreaDoc = new JMenuItem("Crea");
+        miCreaDoc.addActionListener(this);
+        miImportaDoc = new JMenuItem("Importa");
+        miImportaDoc.addActionListener(this);
+        miAjuda = new JMenuItem("Ajuda");
+        miAjuda.addActionListener(this);
+        miSortir = new JMenuItem("Sortir");
+        miSortir.addActionListener(this);
+
+        menuFitxer.add(miCreaDoc);
+        menuFitxer.addSeparator();
+        menuFitxer.add(miImportaDoc);
+        menuFitxer.addSeparator();
+        menuFitxer.add(miAjuda);
+        menuFitxer.addSeparator();
+        menuFitxer.add(miSortir);
+
+        //Afegir menu expressio bool
+        JMenu menuBool = new JMenu("Expressió Bool");
+        barraMenu.add(menuBool);
+
+        miGestioBool = new JMenuItem("Gestionar expressions");
+        miGestioBool.addActionListener(this);
+        menuBool.add(miGestioBool);
+
+        //Afegir menu cerca
+        JMenu menuCerca = new JMenu("Cerca");
+        barraMenu.add(menuCerca);
+
+        miCercaAutor = new JMenuItem("Cerca Autor");
+        miCercaAutor.addActionListener(this);
+        miCercaTitol = new JMenuItem("Cerca Títol");
+        miCercaTitol.addActionListener(this);
+        miCercaTitolAutor = new JMenuItem("Cerca Títol i Autor");
+        miCercaTitolAutor.addActionListener(this);
+        miCercaParaules = new JMenuItem("Cerca Paraules");
+        miCercaParaules.addActionListener(this);
+        miCercaPrefix = new JMenuItem("Cerca Prefix");
+        miCercaPrefix.addActionListener(this);
+        miCercaSemblant = new JMenuItem("Cerca per Documents");
+        miCercaSemblant.addActionListener(this);
+
+        menuCerca.add(miCercaTitol);
+        menuCerca.addSeparator();
+        menuCerca.add(miCercaAutor);
+        menuCerca.addSeparator();
+        menuCerca.add(miCercaTitolAutor);
+        menuCerca.addSeparator();
+        menuCerca.add(miCercaPrefix);
+        menuCerca.addSeparator();
+        menuCerca.add(miCercaParaules);
+        menuCerca.addSeparator();
+        menuCerca.add(miCercaSemblant);
+
+        //Afegir menu ordre
+        JMenu menuOrdre = new JMenu("Ordre");
+        barraMenu.add(menuOrdre);
+
+        miOrdreAlfAsc = new JMenuItem("Alfabètic Ascendent");
+        miOrdreAlfAsc.addActionListener(this);
+        miOrdreAlfDesc = new JMenuItem("Alfabètic Descendent");
+        miOrdreAlfDesc.addActionListener(this);
+        miOrdrePesAsc = new JMenuItem("Pes Ascendent");
+        miOrdrePesAsc.addActionListener(this);
+        miOrdrePesDesc = new JMenuItem("Pes Descendent");
+        miOrdrePesDesc.addActionListener(this);
+
+        menuOrdre.add(miOrdreAlfAsc);
+        menuOrdre.addSeparator();
+        menuOrdre.add(miOrdreAlfDesc);
+        menuOrdre.addSeparator();
+        menuOrdre.add(miOrdrePesAsc);
+        menuOrdre.addSeparator();
+        menuOrdre.add(miOrdrePesDesc);
+    }
+
 
     /**
      * Metode que selecciona els fitxers que es volen importar a l'aplicacio
