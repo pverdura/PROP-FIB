@@ -68,7 +68,7 @@ public class ViewDialeg {
     }
 
     /**
-     * Metode que crea un dialeg per mostrar un error
+     * Metode estatic que crea un dialeg per mostrar un error
      * @param error Text que mostra el dialeg
      */
     public static void errorDialog(String error) {
@@ -78,7 +78,7 @@ public class ViewDialeg {
     }
 
     /**
-     * Metode que crea un dialeg per mostrar un missatge
+     * Metode estatic que crea un dialeg per mostrar un missatge
      * @param titol Titol del dialeg
      * @param missatge Text del missatge a mostrar
      */
@@ -88,7 +88,7 @@ public class ViewDialeg {
     }
 
     /**
-     * Funcio que crea un dialeg per confirmar si una accio es vol confirmar
+     * Funcio estatica que crea un dialeg per confirmar una accio
      * @param missatge Text del missatge que indicara quina accio es vol confirmar
      * @return Retorna un boolea que indica si es confirma l'accio o no
      */

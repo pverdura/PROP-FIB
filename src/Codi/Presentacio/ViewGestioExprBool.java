@@ -49,7 +49,7 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
     private DefaultListModel<String> dlm;
 
     /**
-     * Instancia que fa referencia a la classse CtrlPresentacio
+     * Instancia que fa referencia a la classe CtrlPresentacio
      */
     private final CtrlPresentacio ctrlPresentacio;
 
