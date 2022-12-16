@@ -1,5 +1,11 @@
 package Codi.Excepcions;
 
+/**
+ *  Excepcio que representa que s'intenta accedir a un document que no existeix
+ *
+ * @author Jordi Palomera
+ * @since 13-12-2022
+ */
 public class DocumentInexistentException extends NullPointerException {
     String titol, autor;
 

@@ -31,6 +31,7 @@ public class ViewEditorDocument {
     private JMenuBar barraMenu;
     private JMenu menuFitxer;
     private JMenuItem menuCrear, menuDesar, menuExportar, menuSortir;
+    private JScrollPane scrollPane;
 
     /**
      * Constructor per crear un document nou
@@ -190,7 +191,7 @@ public class ViewEditorDocument {
         textContingut.setText(contingut);
         textContingut.setMinimumSize(new Dimension(750, 450));
 
-        JScrollPane scrollPane = new JScrollPane(textContingut);
+        scrollPane = new JScrollPane(textContingut);
         scrollPane.setPreferredSize(textContingut.getMinimumSize());
         scrollPane.setViewportView(textContingut);
 
