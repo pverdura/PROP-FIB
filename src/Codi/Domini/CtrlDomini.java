@@ -262,7 +262,7 @@ public class CtrlDomini {
      * Obte el pes del document identificat per tiol i autor
      *
      * @param titol Indica el titol que identifica el document
-     * @param autor Indica l'autor que identifica el document @param titol
+     * @param autor Indica l'autor que identifica el document titol
      * @return Retorna el pes que te el document identificat per titol i autor
      * @throws DocumentInexistentException Si el document identificat per titol i autor no existeix
      */
@@ -304,7 +304,7 @@ public class CtrlDomini {
      * @return Retorna els documents que estan identificats amb el titol titol
      * @throws TitolNoExisteixException Si no hi ha cap document que tingui com a titol titol
      */
-    public ArrayList<SimpleEntry<String,String>> cercaTitol(String titol, TipusOrdenacio ord) throws TitolNoExisteixException{
+    public ArrayList<SimpleEntry<String,String>> cercaTitol(String titol, TipusOrdenacio ord) throws TitolNoExisteixException {
         return CDcer.cercaTitol(titol,TitolAutors,ord,Documents);
     }
 
@@ -368,7 +368,7 @@ public class CtrlDomini {
      * @param ord Indica l'ordre en que volem que ens retorni la consulta
      * @return Retorna tots els documents del sistema
      */
-    public ArrayList<SimpleEntry<String,String>> cercaAllDocuments(TipusOrdenacio ord){
+    public ArrayList<SimpleEntry<String,String>> cercaAllDocuments(TipusOrdenacio ord) {
         return CDcer.cercaAllDocuments(Documents,ord);
     }
 
@@ -414,15 +414,18 @@ public class CtrlDomini {
      *
      * @param expr Indica l'expressio booleana que guardarem en el sistema
      * @throws ExpressioBooleanaJaExistentException Si ja hi ha una expressio booleana formada per l'expressio expr
+     * @throws FitxerNoEliminatException Si s'ha intentat eliminar el fitxer on es guarden les expressions booleanes i no s'ha pogut
+     * @throws FitxerNoCreatException  Si s'ha intentat crear el fitxer on es guarden les expressions booleanes i no s'ha pogut
      */
     public void creaExpressioBool(String expr) throws ExpressioBooleanaJaExistentException, FitxerNoEliminatException,
             FitxerNoCreatException {
         // Guardem l'expressio en les nostes estructures de dades
         CDeb.creaExpressioBool(expr,ExpressionsBooleanes);
 
+        // Agafem les expressions en string i el posem en un array
         ArrayList<String> expressions = new ArrayList<String>(ExpressionsBooleanes.keySet());
 
-        // Guardem l'expressio en el sistema
+        // Guardem l'array fisicament
         CP.guardaExpressionsBooleanes(expressions);
     }
 
@@ -431,13 +434,18 @@ public class CtrlDomini {
      *
      * @param expr Indica l'expressio booleana que eliminem del sistema
      * @throws ExpressioBooleanaInexistentException Si no hi ha cap expressio booleana formada per l'expressio expr
+     * @throws FitxerNoEliminatException Si s'ha intentat eliminar el fitxer on es guarden les expressions booleanes i no s'ha pogut
+     * @throws FitxerNoCreatException  Si s'ha intentat crear el fitxer on es guarden les expressions booleanes i no s'ha pogut
      */
     public void eliminaExpressioBool(String expr) throws ExpressioBooleanaInexistentException, FitxerNoEliminatException,
             FitxerNoCreatException {
+        // Eliminem l'experssio de l'estructura de dades
         CDeb.eliminaExpressioBool(expr,ExpressionsBooleanes);
 
+        // Agafem les expressions en string i el posem en un array
         ArrayList<String> expressions = new ArrayList<String>(ExpressionsBooleanes.keySet());
 
+        // Guardem l'array fisicament
         CP.guardaExpressionsBooleanes(expressions);
     }
 
@@ -448,14 +456,18 @@ public class CtrlDomini {
      * @param exprNova Indica el nou valor que tindra l'expressio
      * @throws  ExpressioBooleanaInexistentException Si no hi ha cap expressio booleana formada per l'expressio expr
      * @throws ExpressioBooleanaJaExistentException Si ja hi ha una expressio booleana formada per l'expressio expr
+     * @throws FitxerNoEliminatException Si s'ha intentat eliminar el fitxer on es guarden les expressions booleanes i no s'ha pogut
+     * @throws FitxerNoCreatException  Si s'ha intentat crear el fitxer on es guarden les expressions booleanes i no s'ha pogut
      */
     public void modificaExpressioBool(String exprAnt, String exprNova) throws ExpressioBooleanaInexistentException,
             ExpressioBooleanaJaExistentException, FitxerNoEliminatException, FitxerNoCreatException {
         // Modifiquem l'expressio en les estructures de crtlDomini
         CDeb.modificaExpressioBool(exprAnt,exprNova,ExpressionsBooleanes);
 
+        // Agafem les expressions en string i el posem en un array
         ArrayList<String> expressions = new ArrayList<String>(ExpressionsBooleanes.keySet());
 
+        // Guardem l'array fisicament
         CP.guardaExpressionsBooleanes(expressions);
     }
 }

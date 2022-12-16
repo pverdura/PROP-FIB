@@ -100,7 +100,7 @@ public class ViewEditorDocument {
      * Inicialitza i configura la vista
      */
     private void inicialitzar () {
-        inicializarComponents();
+        inicialitzarComponents();
         configurarVista();
         configurarMenu();
         configurarPanellSuperior();
@@ -112,7 +112,7 @@ public class ViewEditorDocument {
     /**
      * Inicialitza els components
      */
-    private void inicializarComponents () {
+    private void inicialitzarComponents () {
         frame = new JFrame("Editor de documents - "+titol);
         barraMenu = new JMenuBar();
         menuFitxer = new JMenu("Fitxer");
@@ -192,8 +192,11 @@ public class ViewEditorDocument {
         textContingut.setMinimumSize(new Dimension(750, 450));
 
         scrollPane = new JScrollPane(textContingut);
+        //scrollPane.getVerticalScrollBar().setValue(scrollPane.getVerticalScrollBar().getMinimum());
         scrollPane.setPreferredSize(textContingut.getMinimumSize());
         scrollPane.setViewportView(textContingut);
+        //scrollPane.getViewport().setViewPosition(new Point(0, 0));
+        scrollPane.getViewport().setViewPosition(new Point(0, scrollPane.getViewport().getHeight()));
 
         panellInferior.add(scrollPane, BorderLayout.CENTER);
         panellInferior.setMaximumSize(new Dimension(800, 450));
@@ -283,14 +286,13 @@ public class ViewEditorDocument {
      *  Exporta el document
      */
     private void exportarDocument () {
-        desarDocument(true);
-
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         fc.setAcceptAllFileFilterUsed(false);
 
         int res = fc.showOpenDialog(frame);
         if (res == JFileChooser.APPROVE_OPTION) {
+            desarDocument(true);
             ctrlPresentacio.exportarDocument(this.titol, this.autor, fc.getSelectedFile());
         }
     }
@@ -327,7 +329,7 @@ public class ViewEditorDocument {
          * Ctrl + S per desar el document
          * Ctrl + N per crear un nou document
          * Ctrl + E per exportar el document
-         * Ctrl + Esc per sortir de l'editor
+         * Ctrl + Q per sortir de l'editor
          *
          * @param e l'esdeveniment a ser processat
          */
@@ -341,7 +343,7 @@ public class ViewEditorDocument {
                 crearDocument();
             } else if (e.getExtendedKeyCode() == KeyEvent.VK_E && control) {
                 exportarDocument();
-            } else if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE && control) {
+            } else if (e.getExtendedKeyCode() == KeyEvent.VK_Q && control) {
                 tancarVista();
             }
         }
