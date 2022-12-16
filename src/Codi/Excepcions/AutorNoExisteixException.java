@@ -1,5 +1,10 @@
 package Codi.Excepcions;
 
+/**
+ * Excepcio que representa que no existeix cap document amb un autor en concret
+ *
+ * @author Judit Serna
+ */
 public class AutorNoExisteixException extends NullPointerException {
     String autor;
 

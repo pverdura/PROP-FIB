@@ -1,5 +1,10 @@
 package Codi.Excepcions;
 
+/**
+ * Excepcio que representa que no existeix cap autor amb un prefix en concret
+ *
+ * @author Judit Serna
+ */
 public class PrefixNoExisteixException extends NullPointerException{
     String prefix;
 
