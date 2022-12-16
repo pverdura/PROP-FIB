@@ -100,7 +100,7 @@ public class ViewEditorDocument {
      * Inicialitza i configura la vista
      */
     private void inicialitzar () {
-        inicializarComponents();
+        inicialitzarComponents();
         configurarVista();
         configurarMenu();
         configurarPanellSuperior();
@@ -112,7 +112,7 @@ public class ViewEditorDocument {
     /**
      * Inicialitza els components
      */
-    private void inicializarComponents () {
+    private void inicialitzarComponents () {
         frame = new JFrame("Editor de documents - "+titol);
         barraMenu = new JMenuBar();
         menuFitxer = new JMenu("Fitxer");
