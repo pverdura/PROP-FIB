@@ -6,10 +6,30 @@ package Codi.Util;
  * @author Judit Serna
  */
 public class DocumentLlegit {
+
+    /**
+     * Indica el titol del document
+     */
     private String titol;
+
+    /**
+     * Indica el document de l’autor
+     */
     private String autor;
+
+    /**
+     * Indica la path del document
+     */
     private String path;
+
+    /**
+     * Indica el contingut del document
+     */
     private String contingut;
+
+    /**
+     * Indica l’extensió del document
+     */
     private TipusExtensio extensio;
 
     /**
