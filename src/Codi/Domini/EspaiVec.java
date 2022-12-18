@@ -8,8 +8,7 @@ import java.util.HashMap;
 /**
  * Classe que ens calcula els TF-IDF dels documents del sistema, i ens fa la cerca d'aquests (de mes rellevant a menys)
  * 
- * @author pol
- * @since 15/12/2022
+ * @author Pol Verdura
  */
 public class EspaiVec {
 

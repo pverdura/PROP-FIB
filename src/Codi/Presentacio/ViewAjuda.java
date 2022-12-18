@@ -7,8 +7,7 @@ import java.awt.event.*;
 /**
  * Vista que ajuda a l'usuari a com usar l'aplicacio
  *
- * @author pol
- * @since 15/12/2022
+ * @author Pol Verdura
  */
 public class ViewAjuda {
 

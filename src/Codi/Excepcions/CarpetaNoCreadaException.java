@@ -2,6 +2,11 @@ package Codi.Excepcions;
 
 import java.io.IOException;
 
+/**
+ * Excepcio que representa que el no s'ha pogut crear una carpeta en el path indicat
+ *
+ * @author Pol Verdura
+ */
 public class CarpetaNoCreadaException extends IOException {
     String path;
 

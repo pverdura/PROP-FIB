@@ -1,5 +1,10 @@
 package Codi.Excepcions;
 
+/**
+ * Excepcio que representa que el conjunt de paraules que s'utilitza per fer cerca Semblant o Paraules es buit
+ *
+ * @author Pol Verdura
+ */
 public class ArrayDeParaulesBuitException extends Exception {
 
     public ArrayDeParaulesBuitException() {

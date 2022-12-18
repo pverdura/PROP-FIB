@@ -2,6 +2,9 @@ package Codi.Excepcions;
 
 import java.io.IOException;
 
+/**
+ * Excepcio que representa que no s'ha pogut eliminar el fitxer del path indicat
+ */
 public class FitxerNoEliminatException extends IOException {
     String path;
 

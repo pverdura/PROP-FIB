@@ -12,8 +12,7 @@ import java.util.HashMap;
 /**
  * Classe que controla la capa de domini
  *
- * @author pol
- * @since 15/12/2022
+ * @author Pol Verdura
  */
 public class CtrlDomini {
 

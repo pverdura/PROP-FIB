@@ -11,8 +11,7 @@ import java.util.Set;
 /**
  * Classe que ens implementa la cerca dels documents mes rellevants respecte un document
  *
- * @author pol
- * @since 15/12/2022
+ * @author Pol Verdura
  */
 public class CercaSemblant implements Cerca {
 

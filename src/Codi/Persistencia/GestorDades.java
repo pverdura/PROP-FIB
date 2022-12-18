@@ -16,8 +16,7 @@ import java.util.Arrays;
 /**
  * Classe que llegeix i escriu documents, expressions booleanes i stop words en fitxers fisics
  *
- * @author pol
- * @since 15/12/2022
+ * @author Pol Verdura
  */
 public class GestorDades {
 

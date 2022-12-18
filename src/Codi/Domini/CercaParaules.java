@@ -10,8 +10,7 @@ import java.util.HashMap;
 /**
  * Classe que ens implementa la cerca dels documents mes rellevants respecte unes paraules
  * 
- * @author pol
- * @since 15/12/2022
+ * @author Pol Verdura
  */
 public class CercaParaules implements Cerca {
 
