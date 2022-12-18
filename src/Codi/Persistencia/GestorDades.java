@@ -29,7 +29,7 @@ public class GestorDades {
      * Crea un fitxer en el path indicat (nom inclos)
      *
      * @param path Indica el lloc on es crea el fitxer (nom inclos)
-     * @throws FitxerNoCreatException Si no s'ha pogut crear el fiter indicat en el path
+     * @throws FitxerNoCreatException Si no s'ha pogut crear el fitxer indicat en el path
      */
     public void creaFitxer(String path) throws FitxerNoCreatException {
         File F = new File(path);
@@ -147,8 +147,8 @@ public class GestorDades {
                     D.setTitol(linia.trim());
                 }
                 else {  // En aquestes linies hi ha el contingut
-                    if (num_linia == 3) contingut = linia;
-                    else contingut = contingut.concat("\n" + linia);
+                    if (num_linia == 2) contingut = linia;
+                    else contingut = contingut + "\n" + linia;
                 }
                 ++num_linia;
             }
@@ -246,7 +246,8 @@ public class GestorDades {
     }
 
     /**
-     * Escriu en el fitxer amb extensio .xml situat en el path, els parametres: titol, autor i contingut
+     * Guarda físicament en el fitxer del path passat per paràmetre el document amb les seves dades (títol, autor,
+     * contingut, extensió i path) en format XML.
      *
      * @param titol Indica el titol que identifica el document
      * @param autor Indica l'autor que identifica el document

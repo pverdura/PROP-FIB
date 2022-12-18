@@ -19,7 +19,7 @@ public class ViewAjuda {
     private JPanel panellSuperior;
     private JPanel panellInferior;
     private JButton tancar_button;
-    private JLabel text_ajuda;
+    private JTextArea text_ajuda;
     private JFrame frame;
 
 
@@ -28,7 +28,7 @@ public class ViewAjuda {
     ///////////////////////////////////////////////////////////
 
     /**
-     * Creadora per defecte
+     * Creadora que inicialitza la vista
      */
     public ViewAjuda() {
         inicialitzarComponents();
@@ -44,7 +44,7 @@ public class ViewAjuda {
         panellSuperior = new JPanel();
         panellInferior = new JPanel();
         tancar_button = new JButton("Tancar");
-        text_ajuda = new JLabel("AJUDA");
+        text_ajuda = new JTextArea("AJUDA");
     }
 
     /**
@@ -61,6 +61,8 @@ public class ViewAjuda {
         frame.setMinimumSize(new Dimension(400,400));
         frame.setPreferredSize(frame.getMinimumSize());
         frame.setLocationRelativeTo(null);
+
+        text_ajuda.setEditable(false);
     }
 
     /**
