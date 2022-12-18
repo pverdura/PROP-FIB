@@ -1,5 +1,6 @@
 package Codi.Domini;
 
+import javax.print.Doc;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +14,8 @@ import java.util.HashMap;
 public class EspaiVec {
 
     /**
-     * Calcula el IDF de cada paraula de l'array paraules
+     * Calcula el IDF de cada paraula de l'array paraules (la freqüencia inversa de lo comuna que és la paraula en el
+     * corpus: quan més freqüent -> menys IDF, quan menys freüent -> més IDF)
      *
      * @param paraules Array de paraules que s'utilitza per fer la cerca
      * @param N Indica el nombre de documents del sistema
@@ -81,10 +83,12 @@ public class EspaiVec {
                                                                  ArrayList<String> paraules, HashMap<String,ArrayList<SimpleEntry<String,String>>> DocumentsParaules) {
         int N = Documents.size();   // Nombre de documents del sistema
 
+        // Obtenim el IDF de les paraules introduides
         ArrayList<SimpleEntry<String,Double>> paraulesIDF = obteIDFparaules(paraules,N,DocumentsParaules);
 
         // Array on es posaran els identificadors dels documents que cerquem
         ArrayList<SimpleEntry<String, String>> docs = new ArrayList<SimpleEntry<String, String>>();
+
         // Guardem els documents amb el seu TF-IDF
         ArrayList<SimpleEntry<SimpleEntry<String, String>, Double>> semblants = new ArrayList<SimpleEntry<SimpleEntry<String, String>, Double>>();
         boolean primera = true;
@@ -95,6 +99,7 @@ public class EspaiVec {
             double sembl = calculaTF_IDF(paraulesIDF, DCons);   // Calculem el TF-IDF del document X
             SimpleEntry<SimpleEntry<String, String>, Double> elem = new SimpleEntry<SimpleEntry<String, String>, Double>(idDocument, sembl);
 
+            //System.out.println(">>>> titol: " + idDocument.getKey() + ", autor: " + idDocument.getValue() + ", TF-IDF: " + sembl);
             if (primera) {
                 semblants.add(elem);
                 primera = false;
@@ -105,7 +110,7 @@ public class EspaiVec {
 
                 // Mirem que la posicio que mirem estigui en l'array i que l'element de la posicio idx tingui
                 // una semblança major al document iterat
-                while (idx < n && semblants.get(idx).getValue() > sembl) {
+                while (idx <= n && semblants.get(idx).getValue() > sembl) {
                     ++idx;
                 }
 
@@ -115,12 +120,10 @@ public class EspaiVec {
                 }
             }
         }
-
         // Traiem el TF-IDF de l'array obtingut
         for (SimpleEntry<SimpleEntry<String, String>, Double> p : semblants) {
             docs.add(p.getKey());
         }
-
         return docs;
     }
 }
