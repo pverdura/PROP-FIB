@@ -292,7 +292,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
         miCercaTitolAutor.addActionListener(this);
         miCercaParaules = new JMenuItem("Cerca Paraules");
         miCercaParaules.addActionListener(this);
-        miCercaPrefix = new JMenuItem("Cerca Prefix");
+        miCercaPrefix = new JMenuItem("Cerca Autor per Prefix");
         miCercaPrefix.addActionListener(this);
         miCercaSemblant = new JMenuItem("Cerca per Documents");
         miCercaSemblant.addActionListener(this);
