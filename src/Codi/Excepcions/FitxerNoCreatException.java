@@ -2,6 +2,9 @@ package Codi.Excepcions;
 
 import java.io.IOException;
 
+/**
+ * Excepcio que representa que no s'ha pogut crear el fitxer en el path indicat
+ */
 public class FitxerNoCreatException extends IOException {
     String path;
 

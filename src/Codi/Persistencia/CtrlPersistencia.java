@@ -200,15 +200,13 @@ public class CtrlPersistencia {
         if(docs != null && docs.length != 0) {
             // Llegim tots els documents que estan en la carpeta situada en el path
             for (String doc : docs) {
-                if (!doc.equals("expressions.txt")) {
-                    DocumentLlegit D = gestorDades.llegeixDocument(path + "/" + doc);
-                    try {
-                        String[] s = doc.split("\\.");
-                        int n = Integer.parseInt(s[0]);
-                        if (n > numDocs) numDocs = n;
-                        if (D != null) documents.add(D);
-                    } catch (Exception e){}
-                }
+                DocumentLlegit D = gestorDades.llegeixDocument(path + "/" + doc);
+                try {
+                    String[] s = doc.split("\\.");
+                    int n = Integer.parseInt(s[0]);
+                    if (n > numDocs) numDocs = n;
+                    if (D != null) documents.add(D);
+                } catch (Exception e){}
             }
         }
         return documents;

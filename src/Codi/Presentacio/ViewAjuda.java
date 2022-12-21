@@ -7,8 +7,7 @@ import java.awt.event.*;
 /**
  * Vista que ajuda a l'usuari a com usar l'aplicacio
  *
- * @author pol
- * @since 15/12/2022
+ * @author Pol Verdura
  */
 public class ViewAjuda {
 
@@ -19,7 +18,8 @@ public class ViewAjuda {
     private JPanel panellSuperior;
     private JPanel panellInferior;
     private JButton tancar_button;
-    private JLabel text_ajuda;
+    private JTextArea text_ajuda;
+    private JScrollPane scroll;
     private JFrame frame;
 
 
@@ -28,7 +28,7 @@ public class ViewAjuda {
     ///////////////////////////////////////////////////////////
 
     /**
-     * Creadora per defecte
+     * Creadora que inicialitza la vista
      */
     public ViewAjuda() {
         inicialitzarComponents();
@@ -44,7 +44,17 @@ public class ViewAjuda {
         panellSuperior = new JPanel();
         panellInferior = new JPanel();
         tancar_button = new JButton("Tancar");
-        text_ajuda = new JLabel("AJUDA");
+        text_ajuda = new JTextArea(
+                "\tDRECERES DE TECLAT:\n" +
+                "Ctrl+S: Guarda un document\n" +
+                "Ctrl+N: Crea un nou document o expressió booleana\n" +
+                "Ctrl+E: Exporta un document\n" +
+                "Ctrl+Q: Tanca el gestor de documents\n" +
+                "ENTER: Fa la cerca\n" +
+                "UNDO: Elimina una expressio booleana o document" +
+                "ESC: Tanca la vista\n" +
+                "UP: Incrementa el nombre de documents que es vol cercar",20,30);
+        scroll = new JScrollPane(text_ajuda);
     }
 
     /**
@@ -55,12 +65,14 @@ public class ViewAjuda {
         frame.add(panellSuperior,BorderLayout.NORTH);
         frame.add(panellInferior,BorderLayout.SOUTH);
 
-        panellSuperior.add(text_ajuda,BorderLayout.CENTER);
+        panellSuperior.add(scroll,BorderLayout.CENTER);
         panellInferior.add(tancar_button,BorderLayout.SOUTH);
 
         frame.setMinimumSize(new Dimension(400,400));
         frame.setPreferredSize(frame.getMinimumSize());
         frame.setLocationRelativeTo(null);
+
+        text_ajuda.setEditable(false);
     }
 
     /**

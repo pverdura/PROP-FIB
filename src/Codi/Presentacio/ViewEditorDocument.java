@@ -192,10 +192,8 @@ public class ViewEditorDocument {
         textContingut.setMinimumSize(new Dimension(750, 450));
 
         scrollPane = new JScrollPane(textContingut);
-        //scrollPane.getVerticalScrollBar().setValue(scrollPane.getVerticalScrollBar().getMinimum());
         scrollPane.setPreferredSize(textContingut.getMinimumSize());
         scrollPane.setViewportView(textContingut);
-        //scrollPane.getViewport().setViewPosition(new Point(0, 0));
         scrollPane.getViewport().setViewPosition(new Point(0, scrollPane.getViewport().getHeight()));
 
         panellInferior.add(scrollPane, BorderLayout.CENTER);

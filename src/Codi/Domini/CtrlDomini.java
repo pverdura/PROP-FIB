@@ -12,8 +12,7 @@ import java.util.HashMap;
 /**
  * Classe que controla la capa de domini
  *
- * @author pol
- * @since 15/12/2022
+ * @author Pol Verdura
  */
 public class CtrlDomini {
 
@@ -21,12 +20,23 @@ public class CtrlDomini {
     ///                     ESTRUCTURES                     ///
     ///////////////////////////////////////////////////////////
 
-    private final HashMap<SimpleEntry<String,String>,Document> Documents;         // Estructura on es guarden els documents
-    private final Trie Autors;                                            // Estructura on es guarden els autors (serveix per trobar el prefix)
-    private final HashMap<String,ArrayList<String>> DocumentsAutor;               // Estructura on es guarden els titols dels documents creats per un autor
-    private final HashMap<String,ArrayList<String>> TitolAutors;                  // Estructura on es guarden els autors que han creat un document amb un titol en concret
-    private final HashMap<String,ArrayList<SimpleEntry<String,String>>> Paraules; // Estructura on es guarden els documents que contenen una paraula en concret
-    private final HashMap<String,ExpressioBooleana> ExpressionsBooleanes;         // Estructura on es guarden totes les expression booleanes
+    /** Estructura on es guarden els documents */
+    private final HashMap<SimpleEntry<String,String>,Document> Documents;
+
+    /** Estructura on es guarden els autors (serveix per trobar el prefix) */
+    private final Trie Autors;
+
+    /** Estructura on es guarden els titols dels documents creats per un autor */
+    private final HashMap<String,ArrayList<String>> DocumentsAutor;
+
+    /** Estructura on es guarden els autors que han creat un document amb un titol en concret */
+    private final HashMap<String,ArrayList<String>> TitolAutors;
+
+    /** Estructura on es guarden els documents que contenen una paraula en concret */
+    private final HashMap<String,ArrayList<SimpleEntry<String,String>>> Paraules;
+
+    /** Estructura on es guarden totes les expression booleanes */
+    private final HashMap<String,ExpressioBooleana> ExpressionsBooleanes;
 
     public HashMap<String,ArrayList<SimpleEntry<String,String>>> getParaules() {
         return Paraules;
@@ -126,10 +136,10 @@ public class CtrlDomini {
      *
      * @param titol Indica el titol que identifica el document que es vol exportar
      * @param autor Indica l'autor que identifica el document que es vol exportar
-     * @param file Hi ha el path del directori on anira el document exportat
+     * @param path Hi ha el path del directori on anira el document exportat
      * @throws FitxerNoCreatException Si s'ha intentat crear el document i no s'ha pogut
      */
-    public void exportarDocument(String titol, String autor, File file) throws FitxerNoCreatException {
+    public void exportarDocument(String titol, String autor, File path) throws FitxerNoCreatException {
         Document D = Documents.get(new SimpleEntry<String,String>(titol,autor));
         DocumentLlegit DL = new DocumentLlegit();
 
@@ -139,7 +149,7 @@ public class CtrlDomini {
         DL.setExtensio(D.getExtensio());
         DL.setContingut(D.getContingut());
         // El seu nom es el titol i autor que identifica el document (si no hi ha repetits en el directori path)
-        DL.setPath(file.getPath()+"/"+titol+"_"+autor+"."+D.getExtensio().toString().toLowerCase());
+        DL.setPath(path.getPath()+"/"+titol+"_"+autor+"."+D.getExtensio().toString().toLowerCase());
 
         // Exportem el document
         CP.exportarDocument(DL);
@@ -314,9 +324,9 @@ public class CtrlDomini {
      * @param prefix Indica el prefix que cercarem entre els autors del sistema
      * @param ord Indica l'ordre en que volem que es llistin els autors que cerquem
      * @return Retorna els autors que comencen per el prefix prefix
-     * @throws DocumentInexistentException Si no hi ha cap document que tingui un autor que comenci per prefix
+     * @throws PrefixNoExisteixException Si no hi ha cap document que tingui un autor que comenci pel prefix indicat
      */
-    public ArrayList<String> cercaPrefix(String prefix, TipusOrdenacio ord) throws DocumentInexistentException {
+    public ArrayList<String> cercaPrefix(String prefix, TipusOrdenacio ord) throws PrefixNoExisteixException {
         return CDcer.cercaPrefix(prefix,Autors,ord);
     }
 
