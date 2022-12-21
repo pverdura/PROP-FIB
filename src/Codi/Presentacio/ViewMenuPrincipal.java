@@ -89,11 +89,6 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
     private DefaultTableModel dtm;
 
     /**
-     * Variable que indica quina fila esta seleccionada de l'atribut 'taula' de tipus JTable
-     */
-    private int fila_seleccionada;
-
-    /**
      * Variable booleana que indica quan la tecla control esta sent clicada
      */
     private Boolean control_selected;
@@ -110,7 +105,8 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
         this.tipus_ordenacio = TipusOrdenacio.ALFABETIC_ASCENDENT;
         this.control_selected = false;
 
-        //Activar listener boto mostrar tot
+        //Configurar boto mostrar tot
+        this.cleanButton.setFocusable(false);
         this.cleanButton.addActionListener(this);
 
         //Configurar vista
@@ -375,6 +371,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
         //Obrir jFileChooser
         int res = fc.showOpenDialog(this);
         if (res == JFileChooser.APPROVE_OPTION) {
+            int fila_seleccionada = taula.getSelectedRow();
             ctrlPresentacio.exportarDocument(taula.getModel().getValueAt(fila_seleccionada,0).toString(),
                     taula.getModel().getValueAt(fila_seleccionada,1).toString(), fc.getSelectedFile());
         }
@@ -447,7 +444,6 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
         this.taula.addMouseListener(new MouseAdapter() {
             public void mouseReleased(MouseEvent e) {
                 if(e.isPopupTrigger() && !taula.getSelectionModel().isSelectionEmpty()) {
-                    fila_seleccionada = taula.getSelectedRow();
                     rightClickMenu.show(e.getComponent(), e.getX(), e.getY());
                 }
             }
@@ -460,6 +456,8 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
     private void eliminarDoc() {
         //Menu confirmacio per eliminar doc
         if (ViewDialeg.confirmDialog("Segur que vols eliminar el document?")) {
+
+            int fila_seleccionada = taula.getSelectedRow();
             ctrlPresentacio.esborrarDocument(taula.getModel().getValueAt(fila_seleccionada, 0).toString(),
                     taula.getModel().getValueAt(fila_seleccionada, 1).toString());
         }
@@ -469,6 +467,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
      * Metode que modifica el document seleccionat de l'atribut 'taula' de tipus JTable
      */
     private void modificarDoc() {
+        int fila_seleccionada = taula.getSelectedRow();
         ctrlPresentacio.obrirEditorDocuments(taula.getModel().getValueAt(fila_seleccionada, 0).toString(),
                 taula.getModel().getValueAt(fila_seleccionada, 1).toString(), false);
     }
