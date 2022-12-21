@@ -258,7 +258,7 @@ public class ViewCercaPrefix {
      * Inicialitza els components
      */
     private void inicialitzarComponents(){
-        frameVista = new JFrame("Cerca per Prefix");
+        frameVista = new JFrame("Cerca Autor per Prefix");
         prefixPanel = new JPanel();
         resultatPanel = new JPanel();
         buttonsPanel = new JPanel();
