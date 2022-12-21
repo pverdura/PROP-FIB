@@ -19,6 +19,7 @@ public class ViewAjuda {
     private JPanel panellInferior;
     private JButton tancar_button;
     private JTextArea text_ajuda;
+    private JScrollPane scroll;
     private JFrame frame;
 
 
@@ -51,7 +52,8 @@ public class ViewAjuda {
                 "· Ctrl+Q: Tanca el gestor de documents\n" +
                 "· ENTER: Fa la cerca\n" +
                 "· ESC: Tanca la vista\n" +
-                "· UP: Incrementa el nombre de documents que es vol cercar\n");
+                "· UP: Incrementa el nombre de documents que es vol cercar",20,30);
+        scroll = new JScrollPane(text_ajuda);
     }
 
     /**
@@ -62,7 +64,7 @@ public class ViewAjuda {
         frame.add(panellSuperior,BorderLayout.NORTH);
         frame.add(panellInferior,BorderLayout.SOUTH);
 
-        panellSuperior.add(text_ajuda,BorderLayout.CENTER);
+        panellSuperior.add(scroll,BorderLayout.CENTER);
         panellInferior.add(tancar_button,BorderLayout.SOUTH);
 
         frame.setMinimumSize(new Dimension(400,400));
