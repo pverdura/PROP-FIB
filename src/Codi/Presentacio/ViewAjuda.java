@@ -43,7 +43,15 @@ public class ViewAjuda {
         panellSuperior = new JPanel();
         panellInferior = new JPanel();
         tancar_button = new JButton("Tancar");
-        text_ajuda = new JTextArea("AJUDA");
+        text_ajuda = new JTextArea(
+                "\tDRECERES DE TECLAT:\n" +
+                "· Ctrl+S: Guarda un document\n" +
+                "· Ctrl+N: Crea un nou document\n" +
+                "· Ctrl+E: Exporta un document\n" +
+                "· Ctrl+Q: Tanca el gestor de documents\n" +
+                "· ENTER: Fa la cerca\n" +
+                "· ESC: Tanca la vista\n" +
+                "· UP: Incrementa el nombre de documents que es vol cercar\n");
     }
 
     /**
