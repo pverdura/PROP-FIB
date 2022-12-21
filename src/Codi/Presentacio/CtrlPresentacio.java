@@ -358,7 +358,7 @@ public class CtrlPresentacio {
     public void cercaParaules (String paraules, int k, boolean tots) {
         try {
             if (tots) k = ctrlDomini.getNombreDocuments();
-            resultatPrincipal = ctrlDomini.cercaParaules(paraules, k);
+            resultatPrincipal = ctrlDomini.cercaParaules(paraules.toLowerCase(), k);
             ultimaCerca = TipusCerca.PARAULES;
             this.auxParaules = paraules;
             this.k = k;
