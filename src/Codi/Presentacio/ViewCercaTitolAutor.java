@@ -147,7 +147,7 @@ public class ViewCercaTitolAutor {
      * Inicialitza els components
      */
     private void inicialitzarComponents(){
-        frameVista = new JFrame("Cerca per Títol i Autor");
+        frameVista = new JFrame("Cerca per per Títol i Autor");
         titolPanel = new JPanel();
         autorPanel = new JPanel();
         buttonsPanel = new JPanel();
