@@ -207,7 +207,6 @@ public class CtrlPersistencia {
                     if (n > numDocs) numDocs = n;
                     if (D != null) documents.add(D);
                 } catch (Exception e){}
-
             }
         }
         return documents;
