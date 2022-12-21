@@ -46,13 +46,14 @@ public class ViewAjuda {
         tancar_button = new JButton("Tancar");
         text_ajuda = new JTextArea(
                 "\tDRECERES DE TECLAT:\n" +
-                "· Ctrl+S: Guarda un document\n" +
-                "· Ctrl+N: Crea un nou document\n" +
-                "· Ctrl+E: Exporta un document\n" +
-                "· Ctrl+Q: Tanca el gestor de documents\n" +
-                "· ENTER: Fa la cerca\n" +
-                "· ESC: Tanca la vista\n" +
-                "· UP: Incrementa el nombre de documents que es vol cercar",20,30);
+                "Ctrl+S: Guarda un document\n" +
+                "Ctrl+N: Crea un nou document o expressió booleana\n" +
+                "Ctrl+E: Exporta un document\n" +
+                "Ctrl+Q: Tanca el gestor de documents\n" +
+                "ENTER: Fa la cerca\n" +
+                "UNDO: Elimina una expressio booleana o document" +
+                "ESC: Tanca la vista\n" +
+                "UP: Incrementa el nombre de documents que es vol cercar",20,30);
         scroll = new JScrollPane(text_ajuda);
     }
 
