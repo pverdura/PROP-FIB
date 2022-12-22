@@ -134,7 +134,7 @@ public class CtrlDominiDocument {
         }
 
         //autors trie
-        autors.esborrar(autorVell);
+        if (!documentsAutor.containsKey(autorVell)) autors.esborrar(autorVell);
         autors.afegir(autorNou);
 
         //paraules
