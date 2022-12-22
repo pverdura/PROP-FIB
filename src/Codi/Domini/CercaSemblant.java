@@ -67,7 +67,27 @@ public class CercaSemblant implements Cerca {
         // Obtenim el conjunt de paraules del contingut del document D
         ArrayList<String> paraules = obteContingut(D);
 
-        // Retornem la cerca
-        return EspaiVec.cercaDoc(k, Documents, paraules, DocumentsParaules);
+        ArrayList<SimpleEntry<String,String>> documents = EspaiVec.cercaDoc(k+1, Documents, paraules, DocumentsParaules);
+
+        // Ara mirem que no ens aparegui el document que hem posat a la cerca
+        int i = 0;
+
+        for(SimpleEntry<String,String> doc : documents) {
+            // Mirem que no obtinguem el document que estem cercant
+            if(D.getTitol().equals(doc.getKey()) && D.getAutor().equals(doc.getValue())) {
+                break;
+            }
+            ++i; // Incrementem el nombre d'iteracions
+        }
+
+        if(i == documents.size()) {
+            // Com no tenim el document consultat en l'array obtingut, eliminem l'úlim document de la llista
+            // (el menys semblant)
+            i = documents.size()-1;
+        }
+        documents.remove(i);
+
+         // Retornem la cerca
+        return documents;
     }
 }
