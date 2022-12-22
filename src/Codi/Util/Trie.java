@@ -22,7 +22,7 @@ public class Trie {
     }
 
     /**
-     * Node arrel a partir del qual es comença a crear el Trie
+     * Node arrel a partir del qual es comenca a crear el Trie
      */
     private final TrieNode arrel;
 
@@ -103,7 +103,7 @@ public class Trie {
     /**
      * Obte les paraules que comencen pel prefix
      *
-     * @param prefix Indica el prefix pel qual han de començar les paraules
+     * @param prefix Indica el prefix pel qual han de comencar les paraules
      * @return {@code ArrayList<String>} Retorna les paraules que comencen pel prefix
      */
     public ArrayList<String> getParaules(String prefix) {
@@ -118,7 +118,7 @@ public class Trie {
     /**
      * Obte les paraules a partir d'un node i el prefix
      *
-     * @param prefix Indica el prefix pel qual han de començar les paraules
+     * @param prefix Indica el prefix pel qual han de comencar les paraules
      * @param n Indica el node a partir del qual s'han d'obtenir les paraules
      * @param paraules {@code ArrayList<String>} Estructura on es guarden les paraules trobades
      */
