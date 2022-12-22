@@ -10,3 +10,5 @@ clean:
 	rm -f ./src/Codi/Presentacio/*.class
 	rm -f ./src/Codi/Domini/*.class
 	rm -f ./src/Codi/Persistencia/*.class
+	rm -f ./src/Codi/Util/*.class
+	rm -f ./src/Codi/Excepcions/*.class
