@@ -81,6 +81,12 @@ public class CtrlPresentacio {
      * Tanca l'aplicacio
      */
     public void tancarAplicacio () {
+        System.out.println("hola");
+        for (SimpleEntry<String, String> id : editors.keySet()) {
+            System.out.println(id.getKey());
+            editors.get(id).tancarVista();
+        }
+
         viewMenuPrincipal.tancarVista();
     }
 
@@ -528,7 +534,7 @@ public class CtrlPresentacio {
         if (editors.size() < 20) {
             if (editors.containsKey(new SimpleEntry<>(titol, autor))) {
                 ViewDialeg.messageDialog("Ja és obert", "El document de títol: "+titol+" i autor: "+autor+
-                        "ja és obert en un editor");
+                        " ja és obert en un editor");
                 return false;
             } else return true;
         }
