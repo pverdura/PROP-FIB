@@ -98,7 +98,6 @@ public class EspaiVec {
             double sembl = calculaTF_IDF(paraulesIDF, DCons);   // Calculem el TF-IDF del document X
             SimpleEntry<SimpleEntry<String, String>, Double> elem = new SimpleEntry<SimpleEntry<String, String>, Double>(idDocument, sembl);
 
-            //System.out.println(">>>> titol: " + idDocument.getKey() + ", autor: " + idDocument.getValue() + ", TF-IDF: " + sembl);
             if (primera) {
                 semblants.add(elem);
                 primera = false;
