@@ -392,7 +392,7 @@ public class CtrlPresentacio {
             this.auxTitol = titol;
             this.auxAutor = autor;
             this.k = k;
-            this.informacio = "Els "+k+" documents més semblants al document de títol: "+this.auxTitol+" i autor: "+this.auxAutor;
+            this.informacio = "Els "+(k-1)+" documents més semblants al document de títol: "+this.auxTitol+" i autor: "+this.auxAutor;
             enviarPrincipal();
         } catch (Exception e) {
             ViewDialeg.errorDialog(e.toString());
