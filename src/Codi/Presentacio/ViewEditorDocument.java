@@ -358,7 +358,6 @@ public class ViewEditorDocument {
         @Override
         public void keyReleased(KeyEvent e) {
             if (e.getExtendedKeyCode() == KeyEvent.VK_CONTROL) {
-                System.out.println("hola");
                 control = false;
             }
         }
