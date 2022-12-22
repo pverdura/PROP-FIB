@@ -37,6 +37,7 @@ public class ViewEditorDocument {
      * Constructor per crear un document nou
      *
      * @param cp Control presentacio
+     * @param id Identificador de la vista
      */
     public ViewEditorDocument (CtrlPresentacio cp, int id) {
         this.ctrlPresentacio = cp;

@@ -229,6 +229,7 @@ public class CtrlPresentacio {
      * Guarda un document
      *
      * @param nou {@code true} si el document es nou
+     * @param modificat {@code true} si el document s'ha modificat
      * @param idVell Identificador antic del document
      * @param idNou Identificador nou del document
      * @param contingut Contingut nou del document
@@ -498,7 +499,10 @@ public class CtrlPresentacio {
     }
 
     /**
-     * Una vista d'editor documents ha estat tancada
+     * La vista del document especificat ha estat tancada
+     *
+     * @param titol Titol del document tancat
+     * @param autor Autor del document tancat
      */
     public void tancarDocument (String titol, String autor) {
         editors.remove(new SimpleEntry<>(titol, autor));

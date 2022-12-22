@@ -73,7 +73,7 @@ public class CtrlDominiDocument {
      * @param documentsAutor Estructura de dades {@code HashMap<String, ArrayList<String>>} dels documents que ha creat cada autor
      * @param autors Estructura de dades {@code Trie<String>} dels autors
      * @param titolAutors Estructura de dades dels {@code HashMap<String, ArrayList<String>>} autors que han creat un document de cada titol
-     * @param paraules Estructura de dades {HashMap<String, ArrayList<SimpleEntry<String, String>>>} de quins documents contenen cada paraula
+     * @param paraules Estructura de dades {@code HashMap<String, ArrayList<SimpleEntry<String, String>>>} de quins documents contenen cada paraula
      * @throws DocumentJaExisteixException si ja existeix un document amb l'identificador nou
      * @throws DocumentInexistentException si no existeix cap document amb l'identificador vell
      */
@@ -158,7 +158,7 @@ public class CtrlDominiDocument {
      * @param autors Estructura de dades {@code Trie<String>} dels autors
      * @param documentsAutor Estructura de dades {@code HashMap<String, ArrayList<String>>} dels documents que ha creat cada autor
      * @param titolAutors Estructura de dades dels {@code HashMap<String, ArrayList<String>>} autors que han creat un document de cada titol
-     * @param paraules Estructura de dades {HashMap<String, ArrayList<SimpleEntry<String, String>>>} de quins documents contenen cada paraula
+     * @param paraules Estructura de dades {@code HashMap<String, ArrayList<SimpleEntry<String, String>>>} de quins documents contenen cada paraula
      * @throws DocumentJaExisteixException si ja existeix un document amb el titol i l'autor del {@code DocumentLlegit}
      */
     public void llegirDocument (DocumentLlegit doc, HashMap<SimpleEntry<String, String>, Document> documents,
@@ -179,7 +179,7 @@ public class CtrlDominiDocument {
      * @param autors Estructura de dades {@code Trie<String>} dels autors
      * @param documentsAutor Estructura de dades {@code HashMap<String, ArrayList<String>>} dels documents que ha creat cada autor
      * @param titolAutors Estructura de dades dels {@code HashMap<String, ArrayList<String>>} autors que han creat un document de cada titol
-     * @param paraules Estructura de dades {HashMap<String, ArrayList<SimpleEntry<String, String>>>} de quins documents contenen cada paraula
+     * @param paraules Estructura de dades {@code HashMap<String, ArrayList<SimpleEntry<String, String>>>} de quins documents contenen cada paraula
      * @throws DocumentInexistentException si el document que s'intenta eliminar no existeix
      */
     public void eliminaDocument (String titol, String autor, HashMap<SimpleEntry<String, String>, Document> documents,
@@ -221,7 +221,7 @@ public class CtrlDominiDocument {
      * @param autor Autor del document
      * @param contingut Nou contingut del document
      * @param documents Estructura de dades {@code HashMap<SimpleEntry<String, String>>} dels documents
-     * @param paraules Estructura de dades {HashMap<String, ArrayList<SimpleEntry<String, String>>>} de quins documents contenen cada paraula
+     * @param paraules Estructura de dades {@code HashMap<String, ArrayList<SimpleEntry<String, String>>>} de quins documents contenen cada paraula
      * @throws DocumentInexistentException si el document el contingut del qual s'intenta modificar no existeix
      */
     public void setContingut (String titol, String autor, String contingut, HashMap<SimpleEntry<String, String>, Document> documents,
@@ -344,8 +344,8 @@ public class CtrlDominiDocument {
     /**
      * Obte el pes d'un document
      *
-     * @param titol
-     * @param autor
+     * @param titol Títol del document
+     * @param autor Autor del document
      * @param documents Estructura de dades {@code HashMap<SimpleEntry<String, String>>} dels documents
      * @return El pes (quantitat de caracters) d'un document
      * @throws DocumentInexistentException si el document el pes del qual s'intenta obtenir no existeix
