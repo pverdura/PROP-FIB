@@ -13,7 +13,7 @@ public class DocumentLlegit {
     private String titol;
 
     /**
-     * Indica el document de l’autor
+     * Indica l’autor del document
      */
     private String autor;
 
@@ -28,7 +28,7 @@ public class DocumentLlegit {
     private String contingut;
 
     /**
-     * Indica l’extensió del document
+     * Indica l’extensio del document
      */
     private TipusExtensio extensio;
 
@@ -86,9 +86,9 @@ public class DocumentLlegit {
     public TipusExtensio getExtensio(){ return extensio;}
 
     /**
-     * Modifica el títol del document
+     * Modifica el titol del document
      *
-     * @param titol Nou títol del document
+     * @param titol Nou titol del document
      */
     public void setTitol(String titol){
         this.titol = titol;
@@ -122,9 +122,9 @@ public class DocumentLlegit {
     }
 
     /**
-     * Modifica l'extensió i la path del document
+     * Modifica l'extensio i la path del document
      *
-     * @param extensio Nova extensió del document
+     * @param extensio Nova extensio del document
      */
     public void setExtensio(TipusExtensio extensio){ this.extensio = extensio; }
 }

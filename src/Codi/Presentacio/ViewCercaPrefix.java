@@ -24,7 +24,7 @@ public class ViewCercaPrefix {
     private JFrame frameVista;
 
     /**
-     * Panell on hi ha l’etiqueta de Prefix:, el quadre de text omplirPrefix i el boto de cerca.
+     * Panell on hi ha l’etiqueta de Prefix:, el quadre de text omplirPrefix i el boto cercaButton.
      */
     private JPanel prefixPanel;
 
@@ -146,9 +146,9 @@ public class ViewCercaPrefix {
     }
 
     /**
-     * Indica si la vista és visible
+     * Indica si la vista es visible
      *
-     * @return {@code Boolean} Retorna true si és visible, false altrament
+     * @return {@code Boolean} Retorna true si es visible, false altrament
      */
     public Boolean esVisible(){
         return frameVista.isVisible();

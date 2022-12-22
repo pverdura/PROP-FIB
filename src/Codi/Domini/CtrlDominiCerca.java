@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
 
 /**
- * Classe per gestionar les cerques del control de domini
+ * Classe per gestionar les cerques de la capa de domini
  *
  * @author Judit Serna
  */
@@ -25,13 +25,13 @@ public class CtrlDominiCerca {
     }
 
     /**
-     * Cerca tots els títols dels documents d'un autor
+     * Cerca tots els titols dels documents d'un autor
      *
      * @param autor Indica el nom de l'autor dels documents a cercar
-     * @param autorsTitols Estructura de dades on cada autor té un llistat dels títols
+     * @param autorsTitols Estructura de dades on cada autor te un llistat dels titols
      * @param ordre Indica l'ordre amb el qual es vol ordenar el resultat
      * @param documents Estructura on estan guardats tots els documents
-     * @return Llista, amb l'ordre indicat, dels títols dels documents de l'autor indicat
+     * @return {@code ArrayList<SimpleEntry<String,String>>} Llista, amb l'ordre indicat, de parells titol-autor que identifiquen els documents que tenen per autor l'indicat
      * @throws AutorNoExisteixException Si l'autor indicat no existeix
      */
     public ArrayList<SimpleEntry<String,String>> cercaAutor(String autor, HashMap<String, ArrayList<String>> autorsTitols, TipusOrdenacio ordre, HashMap<SimpleEntry<String,String>, Document> documents) throws AutorNoExisteixException{
@@ -39,14 +39,14 @@ public class CtrlDominiCerca {
     }
 
     /**
-     * Cerca tots els autors que tenen un docuemnt amb un títol donat
+     * Cerca tots els documents que tenen un cert titol
      *
-     * @param titol Indica el nom del títol dels documents dels quals en volem trobar l'autor
-     * @param titolsAutors Estructura de dades on cada títol té un llistat dels autors
+     * @param titol Indica el nom del titol dels documents a cercar
+     * @param titolsAutors Estructura de dades on cada titol te un llistat dels autors
      * @param ordre Indica l'ordre amb el qual es vol ordenar el resultat
      * @param documents Estructura on estan guardats tots els documents
-     * @return Llista, amb l'ordre indicat, dels autors que tenen documents amb el títol indicat
-     * @throws TitolNoExisteixException Si el títol indicat no existeix
+     * @return {@code ArrayList<SimpleEntry<String,String>>} Llista, amb l'ordre indicat, de parells titol-autor que identifiquen els documents que tenen per titol l'indicat
+     * @throws TitolNoExisteixException Si el titol indicat no existeix
      */
     public ArrayList<SimpleEntry<String, String>> cercaTitol(String titol,  HashMap<String, ArrayList<String>> titolsAutors, TipusOrdenacio ordre, HashMap<SimpleEntry<String,String>, Document> documents) throws TitolNoExisteixException{
         return ordenarCerca(CercaTitol.cercaDoc(titol, titolsAutors), ordre, documents);
@@ -59,7 +59,7 @@ public class CtrlDominiCerca {
      * @param prefix Indica el prefix pel qual han de començar els noms dels autors
      * @param autors Estructura on estan guardats tots els noms dels autors de tots els documents
      * @param ordre Indica l'ordre amb el qual es vol ordenar el resultat
-     * @return Llista, en l'ordre indicat, amb noms d'autor que tenen el prefix donat
+     * @return {@code ArrayList<String>} Llista, en l'ordre indicat, amb noms d'autors que tenen el prefix donat
      * @throws PrefixNoExisteixException Si no existeix cap autor que comenci amb el prefix donat
      */
     public ArrayList<String> cercaPrefix(String prefix, Trie autors, TipusOrdenacio ordre) throws PrefixNoExisteixException {
@@ -67,15 +67,15 @@ public class CtrlDominiCerca {
     }
 
     /**
-     * Cerca els k documents més semblants al document identificat per titol i autor
+     * Cerca els k documents mes semblants al document identificat per titol i autor
      *
-     * @param titol Indica el títol del document
+     * @param titol Indica el titol del document
      * @param autor Indica el nom de l'autor del document
      * @param k Indica el nombre de documents que volem obtenir
-     * @param paraulesDocuments Estructura de dades on cada paraula té una llista dels documents on apareix
+     * @param paraulesDocuments Estructura de dades on cada paraula te una llista dels documents on apareix
      * @param documents Estructura on estan guardats tots els documents
-     * @return Llista dels k documents més semblants al document identificat per titol i autor
-     * @throws ArrayDeParaulesBuitException Si el contingut del document identificat per titol i autor és buit
+     * @return {@code ArrayList<SimpleEntry<String, String>} Llista de parells titol-autor que identifiquen els k documents mes semblants al document identificat per titol i autor
+     * @throws ArrayDeParaulesBuitException Si el contingut del document identificat per titol i autor es buit
      * @throws NombreMassaPetitDocumentsException Si k <= 0
      */
     public ArrayList<SimpleEntry<String, String>> cercaSemblant(String titol, String autor, int k, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraulesDocuments,
@@ -86,14 +86,14 @@ public class CtrlDominiCerca {
     }
 
     /**
-     * Cerca els k documents més rellevants a l'array paraules
+     * Cerca els k documents mes rellevants a l'array paraules
      *
      * @param paraules Indica les paraules que utilitzarem per fer la cerca
      * @param k Indica el nombre de documents que volem obtenir
-     * @param paraulesDocuments Estructura de dades on cada paraula té una llista dels documents on apareix
+     * @param paraulesDocuments Estructura de dades on cada paraula te una llista dels documents on apareix
      * @param documents Estructura on estan guardats tots els documents
-     * @return Llista dels k documents més rellevants a l'array paraules
-     * @throws ArrayDeParaulesBuitException Si l'array de paraules és buit
+     * @return {@code ArrayList<SimpleEntry<String, String>} Llista de parells titol-autor que identifiquen els k documents mes rellevants a l'array paraules
+     * @throws ArrayDeParaulesBuitException Si l'array de paraules es buit
      * @throws NombreMassaPetitDocumentsException Si k <= 0
      */
     public ArrayList<SimpleEntry<String, String>> cercaParaules(String paraules, int k, HashMap<String,ArrayList<SimpleEntry<String,String>>> paraulesDocuments,
@@ -104,14 +104,14 @@ public class CtrlDominiCerca {
     }
 
     /**
-     * Cerca dels documents que satisfan una expressió booleana
+     * Cerca dels documents que satisfan una expressio booleana
      *
-     * @param expressio Indica l'expressió booleana que s'ha de satisfer
+     * @param expressio Indica l'expressio booleana que s'ha de satisfer
      * @param documents Estructura on estan guardats tots els documents
      * @param ExpressionsBooleanes Estructura on estan guardades totes les expressions booleanes
      * @param ordre Indica l'ordre amb el qual es vol ordenar el resultat
-     * @return Llista, amb l'ordre indicat, dels documents que satidfan l'expresssió booleana donada
-     * @throws ExpressioBooleanaInexistentException Si no existeix l'expressió booleana donada
+     * @return {@code ArrayList<SimpleEntry<String, String>} Llista, amb l'ordre indicat, de parells titol-autor que identifiquen els documents que satidfan l'expresssio booleana donada
+     * @throws ExpressioBooleanaInexistentException Si no existeix l'expressio booleana donada
      */
     public ArrayList<SimpleEntry<String, String>> cercaBooleana(String expressio,
                                                                 HashMap<SimpleEntry<String,String>,Document> documents,HashMap<String,ExpressioBooleana> ExpressionsBooleanes ,TipusOrdenacio ordre) throws ExpressioBooleanaInexistentException {
@@ -124,7 +124,7 @@ public class CtrlDominiCerca {
      *
      * @param documents Estructura on estan guardats tots els documents
      * @param ordre Indica l'ordre amb el qual es vol ordenar el resultat
-     * @return Llista, amb l'ordre indicat, de tots els documents en l'ordre indicat
+     * @return {@code ArrayList<SimpleEntry<String, String>} Llista, amb l'ordre indicat, de parells titol-autor que identifiquen tots els documents
      */
     public ArrayList<SimpleEntry<String,String>> cercaAllDocuments (HashMap<AbstractMap.SimpleEntry<String, String>, Document> documents, TipusOrdenacio ordre){
         return ordenarCerca(CercaAllDocuments.cercaDoc(documents), ordre, documents);
@@ -135,7 +135,7 @@ public class CtrlDominiCerca {
      *
      * @param ExpressionsBooleanes Estructura on estan guardades totes les expressions booleanes
      * @param ordre Indica l'ordre amb el qual es vol ordenar el resultat
-     * @return Llista, amb l'ordre indicat, de totes les expressions booleanes
+     * @return {@code ArrayList<String>} Llista, amb l'ordre indicat, de totes les expressions booleanes
      */
     public ArrayList<String> cercaAllExpressionsBool (HashMap<String,ExpressioBooleana> ExpressionsBooleanes, TipusOrdenacio ordre){
         return ordenarCercaSimple(CercaAllExpressionsBool.cercaDoc(ExpressionsBooleanes), ordre);
@@ -172,7 +172,7 @@ public class CtrlDominiCerca {
     }
 
     /**
-     * Ordena alfabèticament ascendent el resultat d'una cerca
+     * Ordena alfabeticament ascendent el resultat d'una cerca
      *
      * @param cerca Llista del resultat d'una cerca que es vol ordenar
      */
@@ -183,7 +183,7 @@ public class CtrlDominiCerca {
     }
 
     /**
-     * Ordena alfabèticament descendent el resultat d'una cerca
+     * Ordena alfabeticament descendent el resultat d'una cerca
      *
      * @param cerca Llista del resultat d'una cerca que es vol ordenar
      */
@@ -193,11 +193,11 @@ public class CtrlDominiCerca {
     }
 
     /**
-     * Ordena la cerca per pes ascendent, i en cas de ser iguals, alfabèticament ascendent
+     * Ordena la cerca per pes ascendent, i en cas de ser iguals, alfabeticament ascendent
      *
      * @param cerca Llista del resultat d'una cerca que es vol ordenar
      * @param documents Estructura on estan guardats tots els documents
-     * @return La cerca donada ordenada segons l'ordre indicat
+     * @return {@code ArrayList<SimpleEntry<String, String>>} El parametre cerca ordenat per pes ascendent
      */
     private ArrayList<SimpleEntry<String, String>> ordrePesAscendent(ArrayList<SimpleEntry<String, String>> cerca, HashMap<SimpleEntry<String,String>, Document> documents){
         ArrayList<SimpleEntry<SimpleEntry<String,String>, Integer>> docs = new ArrayList<>();
@@ -217,11 +217,11 @@ public class CtrlDominiCerca {
     }
 
     /**
-     * Ordena la cerca per pes descendent, i en cas de ser iguals, alfabèticament descendent
+     * Ordena la cerca per pes descendent, i en cas de ser iguals, alfabeticament descendent
      *
      * @param cerca Llista del resultat d'una cerca que es vol ordenar
      * @param documents Estructura on estan guardats tots els documents
-     * @return La cerca donada ordenada segons l'ordre indicat
+     * @return {@code ArrayList<SimpleEntry<String, String>>} El parametre cerca ordenat per pes descendent
      */
     private ArrayList<SimpleEntry<String, String>> ordrePesDescendent(ArrayList<SimpleEntry<String, String>> cerca, HashMap<SimpleEntry<String,String>, Document> documents){
         ArrayList<SimpleEntry<SimpleEntry<String,String>, Integer>> docs = new ArrayList<>();
@@ -241,7 +241,7 @@ public class CtrlDominiCerca {
     }
 
     /**
-     * Ordena alfabèticament ascendent la cerca donada
+     * Ordena alfabeticament ascendent la cerca donada
      *
      * @param cerca Llista del resultat d'una cerca que es vol ordenar
      */
@@ -251,7 +251,7 @@ public class CtrlDominiCerca {
     }
 
     /**
-     * Ordena alfabèticament descendent la cerca donada
+     * Ordena alfabeticament descendent la cerca donada
      *
      * @param cerca Llista del resultat d'una cerca que es vol ordenar
      */
@@ -262,8 +262,8 @@ public class CtrlDominiCerca {
 
     /**
      * Comparador per ordenar dos strings
-     * Si ord és 1, es vol ascendent
-     * Si ord és -1, es vol descendent
+     * Si ord es 1, es vol ascendent
+     * Si ord es -1, es vol descendent
      */
     private final Comparator<String> ordreSimple = new Comparator<>() {
         public int compare(String o1, String o2) {
@@ -283,9 +283,8 @@ public class CtrlDominiCerca {
     };
 
     /**
-     *
-     * Ordena alfabèticament ascendent si ret és 1
-     * Ordena alfabèticament descendent si ret és -1
+     * Ordena alfabeticament ascendent si ret es 1
+     * Ordena alfabeticament descendent si ret es -1
      */
     private int ordena (SimpleEntry<String,String> p1,SimpleEntry<String,String> p2, int ret){
         String s1 = p1.getKey().toLowerCase();
@@ -327,9 +326,9 @@ public class CtrlDominiCerca {
 
 
     /**
-     * Comparador per ordenar alfabèticament dos SimpleEntry<String, String>
-     * Si ord és 1, es vol ascendent
-     * Si ord és -1, es vol descendent
+     * Comparador per ordenar alfabeticament dos SimpleEntry<String, String>
+     * Si ord es 1, es vol ascendent
+     * Si ord es -1, es vol descendent
      */
     private final Comparator<SimpleEntry<String,String>> ordreAlf = new Comparator<>() {
         @Override
@@ -340,8 +339,8 @@ public class CtrlDominiCerca {
 
     /**
      * Comparador per ordenar pel pes dels documents donats dos identificadors SimpleEntry<String, String>
-     * Si ord és 1, es vol ascendent
-     * Si ord és -1, es vol descendent
+     * Si ord es 1, es vol ascendent
+     * Si ord es -1, es vol descendent
      */
     private final Comparator<SimpleEntry<SimpleEntry<String, String>, Integer>> ordrePes = new Comparator<>() {
         @Override

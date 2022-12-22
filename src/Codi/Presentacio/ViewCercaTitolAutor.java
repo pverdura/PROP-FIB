@@ -26,7 +26,7 @@ public class ViewCercaTitolAutor {
     private JPanel titolPanel;
 
     /**
-     * Panell on hi ha l’etiqueta de Autor: i el quadre de text omplirAutor
+     * Panell on hi ha l’etiqueta d'Autor: i el quadre de text omplirAutor
      */
     private JPanel autorPanel;
 
@@ -66,7 +66,6 @@ public class ViewCercaTitolAutor {
     private JLabel labelAutor;
 
     /**
-     * Instancia de la classe Control Presentacio
      * Instancia de la classe Control Presentacio
      */
     private final CtrlPresentacio ctrlPresentacio;

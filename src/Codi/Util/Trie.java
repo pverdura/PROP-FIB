@@ -65,7 +65,7 @@ public class Trie {
      * Comprova si el Trie conte una paraula
      *
      * @param paraula Indica la paraula que es vol trobar
-     * @return  {@code boolean} Retorna true si el trie conte la paraula, false altrament
+     * @return  {@code boolean} Retorna true si el Trie conte la paraula, false altrament
      */
     public boolean conteParaula(String paraula) {
         TrieNode actual = arrel;
@@ -85,7 +85,7 @@ public class Trie {
      * Comprova si el Trie conte un prefix
      *
      * @param prefix Indica el prefix que es vol trobar
-     * @return  {@code boolean} Retorna true si el trie conte el prefix, false altrament
+     * @return  {@code boolean} Retorna true si el Trie conte el prefix, false altrament
      */
     private   SimpleEntry<Boolean, TrieNode> contePrefix(String prefix){
         TrieNode actual = arrel;
@@ -116,7 +116,7 @@ public class Trie {
     }
 
     /**
-     * Obté les paraules a partir d'un node i el prefix
+     * Obte les paraules a partir d'un node i el prefix
      *
      * @param prefix Indica el prefix pel qual han de començar les paraules
      * @param n Indica el node a partir del qual s'han d'obtenir les paraules

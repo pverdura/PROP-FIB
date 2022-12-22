@@ -26,7 +26,7 @@ public class ViewCercaSemblant {
     private JPanel titolPanel;
 
     /**
-     * Panell on hi ha l’etiqueta de Autor: i el quadre de text omplirAutor
+     * Panell on hi ha l’etiqueta d'Autor: i el quadre de text omplirAutor
      */
     private JPanel autorPanel;
 

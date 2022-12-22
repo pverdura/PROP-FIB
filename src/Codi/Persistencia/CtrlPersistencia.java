@@ -103,7 +103,7 @@ public class CtrlPersistencia {
     /**
      * Llegeix les expressions booleanes guardades en el Gestor de Documents en la carpeta Documents
      *
-     * @return {@code ArrayLis<String>} Retorna les expressions booleanes guardades en el Gestor de Documents
+     * @return {@code ArrayList<String>} Retorna les expressions booleanes guardades en el Gestor de Documents
      * @throws FitxerNoCreatException Si no s'ha creat el document on es guarden les expressions
      */
     public ArrayList<String> carregaExpressionsBooleanes() throws FitxerNoCreatException {
@@ -119,7 +119,7 @@ public class CtrlPersistencia {
     /**
      * Llegeix les StopWords que estan guardades al Gestor de Documents
      *
-     * @return {@code ArrayLis<String>} Retorna les StopWords guardades
+     * @return {@code ArrayList<String>} Retorna les StopWords guardades
      */
     public ArrayList<String> carregaStopWords() {
         ArrayList<String> stopWords;
@@ -151,7 +151,7 @@ public class CtrlPersistencia {
     /**
      * Guarda les expressions booleanes en el Gestor de Documents en la carpeta Documents
      *
-             * @param expressions {@code ArrayList<String> expressions} Indica les expressions a guardar
+     * @param expressions {@code ArrayList<String> expressions} Indica les expressions a guardar
      * @throws FitxerNoEliminatException Si no s'ha pogut eliminar el document on es guarden les expressions booleanes
      * @throws FitxerNoCreatException Si no s'ha pogut guardar el document amb les expressions booleanes
      */
@@ -162,7 +162,7 @@ public class CtrlPersistencia {
     /**
      * Retorna una nova path per a guardar un nou document
      *
-     * @return {@code String} Retorna la següent path que es pot utilitzar
+     * @return {@code String} Retorna la seguent path que es pot utilitzar
      */
     public String getNovaPath(){
         return path + "/" + ++numDocs + ".bol";

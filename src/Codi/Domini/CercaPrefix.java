@@ -18,7 +18,7 @@ public class CercaPrefix implements Cerca{
      *
      * @param prefix Indica el prefix pel qual han de començar els noms dels autors
      * @param autors Estructura on estan guardats tots els noms dels autors de tots els documents
-     * @return Llista amb noms d'autor que tenen el prefix donat
+     * @return {@code ArrayList<String>} Llista amb noms d'autors que tenen el prefix donat
      * @throws PrefixNoExisteixException Si no existeix cap autor que comenci amb el prefix donat
      */
     public static ArrayList<String> cercaDoc(String prefix, Trie autors) throws PrefixNoExisteixException {
