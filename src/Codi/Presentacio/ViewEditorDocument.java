@@ -298,7 +298,7 @@ public class ViewEditorDocument {
     /**
      *  Tanca la vista
      */
-    private void tancarVista () {
+    public void tancarVista () {
         if (modificat() && ViewDialeg.confirmDialog("Hi ha canvis no guardats. Vols desar el document abans de tancar l'aplicació?")) {
             desarDocument(true);
         }
@@ -337,12 +337,16 @@ public class ViewEditorDocument {
                 control = true;
             } else if (e.getExtendedKeyCode() == KeyEvent.VK_S && control) {
                 desarDocument(false);
+                control = false;
             } else if (e.getExtendedKeyCode() == KeyEvent.VK_N && control) {
                 crearDocument();
+                control = false;
             } else if (e.getExtendedKeyCode() == KeyEvent.VK_E && control) {
                 exportarDocument();
+                control = false;
             } else if (e.getExtendedKeyCode() == KeyEvent.VK_Q && control) {
                 tancarVista();
+                control = false;
             }
         }
 
@@ -354,6 +358,7 @@ public class ViewEditorDocument {
         @Override
         public void keyReleased(KeyEvent e) {
             if (e.getExtendedKeyCode() == KeyEvent.VK_CONTROL) {
+                System.out.println("hola");
                 control = false;
             }
         }
