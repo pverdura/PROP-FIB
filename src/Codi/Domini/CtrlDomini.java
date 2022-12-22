@@ -38,18 +38,31 @@ public class CtrlDomini {
     /** Estructura on es guarden totes les expression booleanes */
     private final HashMap<String,ExpressioBooleana> ExpressionsBooleanes;
 
+    /** Getter de l'atribut Documents
+     *
+      * @return Retorna un hash map on la clau es una paraula el valor un array de parelles de titols i autors que
+     *  identifiquen els documents on apareix
+     */
     public HashMap<String,ArrayList<SimpleEntry<String,String>>> getParaules() {
         return Paraules;
     }
+
 
     ///////////////////////////////////////////////////////////
     ///                     AGREGACIONS                     ///
     ///////////////////////////////////////////////////////////
 
-    private final CtrlDominiExprBool CDeb;    // Agregacio del controlador d'expressio booleana
-    private final CtrlDominiDocument CDdoc;   // Agregacio del controlador de document
-    private final CtrlDominiCerca CDcer;      // Agregacio del controlador de cerca
-    private final CtrlPersistencia CP;        // Agregacio del controladaor de persistencia
+    /** Agregacio del controlador d'expressio booleana */
+    private final CtrlDominiExprBool CDeb;
+
+    /** Agregacio del controlador de document */
+    private final CtrlDominiDocument CDdoc;
+
+    /** Agregacio del controlador de cerca */
+    private final CtrlDominiCerca CDcer;
+
+    /* Agregacio del controladaor de persistencia */
+    private final CtrlPersistencia CP;
 
 
     ///////////////////////////////////////////////////////////
