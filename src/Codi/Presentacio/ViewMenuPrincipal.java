@@ -5,6 +5,7 @@ import Codi.Util.TipusOrdenacio;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.util.AbstractMap.SimpleEntry;
@@ -13,6 +14,7 @@ import java.util.Arrays;
 
 /**
  * Classe que gestiona la vista principal de l'aplicacio
+ *
  * @author PauVi
  */
 public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyListener {
@@ -78,7 +80,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
     private TipusOrdenacio tipus_ordenacio;
 
     /**
-     /**
+     * /**
      * Instancia que fa referencia a l'element JTable i que serveix per mostrar els documents separats en camps
      */
     private JTable taula;
@@ -96,9 +98,10 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
 
     /**
      * Constructor
+     *
      * @param ctrlPresentacio Control Presentacio de l'aplicacio
      */
-    public ViewMenuPrincipal(CtrlPresentacio ctrlPresentacio) {
+    public ViewMenuPrincipal (CtrlPresentacio ctrlPresentacio) {
 
         //Assignar presentacio i ordenacio per defecte
         this.ctrlPresentacio = ctrlPresentacio;
@@ -121,6 +124,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
 
     /**
      * Metode que associa cada element interactiu amb una funcionalitat
+     *
      * @param e the event to be processed
      */
     @Override
@@ -130,7 +134,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
 
         //Aplicar funcionalitats associades als items del Menu principal
         if (source == miCreaDoc) {
-            ctrlPresentacio.obrirEditorDocuments(null,null, true);
+            ctrlPresentacio.obrirEditorDocuments(null, null, true);
 
         } else if (source == miImportaDoc) {
             seleccionarFitxersNav();
@@ -200,25 +204,26 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
 
     /**
      * Metode per actualitzar els documents a visualitzar i la informacio del atribut 'infoLabel'
+     *
      * @param titolsAutors Llista dels titols i autors dels documents a mostrar
-     * @param pesos LLista dels pesos dels documents a mostrar
-     * @param extensios LLista de les extensions dels documents a mostrar
-     * @param info Text a mostrar per informar sobre que s'esta visualitzant dels documents
+     * @param pesos        LLista dels pesos dels documents a mostrar
+     * @param extensios    LLista de les extensions dels documents a mostrar
+     * @param info         Text a mostrar per informar sobre que s'esta visualitzant dels documents
      */
-    public void actualitzarResultat(ArrayList<SimpleEntry<String,String>> titolsAutors, ArrayList<Integer> pesos, ArrayList<TipusExtensio> extensios, String info) {
+    public void actualitzarResultat(ArrayList<SimpleEntry<String, String>> titolsAutors, ArrayList<Integer> pesos, ArrayList<TipusExtensio> extensios, String info) {
 
         this.infoLabel.setText(info);
 
         //Eliminar els antics elements visibles
         int size_row = dtm.getRowCount();
         if (size_row > 0) {
-            for (int i = size_row-1; i > -1; i--) dtm.removeRow(i);
+            for (int i = size_row - 1; i > -1; i--) dtm.removeRow(i);
         }
 
         //Afegir els nous elements a visualitzar
         int size = titolsAutors.size();
         for (int i = 0; i < size; i++) {
-            dtm.addRow(new Object[]{ titolsAutors.get(i).getKey(),
+            dtm.addRow(new Object[]{titolsAutors.get(i).getKey(),
                     titolsAutors.get(i).getValue(),
                     String.valueOf(pesos.get(i)),
                     String.valueOf(extensios.get(i))});
@@ -372,8 +377,8 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
         int res = fc.showOpenDialog(this);
         if (res == JFileChooser.APPROVE_OPTION) {
             int fila_seleccionada = taula.getSelectedRow();
-            ctrlPresentacio.exportarDocument(taula.getModel().getValueAt(fila_seleccionada,0).toString(),
-                    taula.getModel().getValueAt(fila_seleccionada,1).toString(), fc.getSelectedFile());
+            ctrlPresentacio.exportarDocument(taula.getModel().getValueAt(fila_seleccionada, 0).toString(),
+                    taula.getModel().getValueAt(fila_seleccionada, 1).toString(), fc.getSelectedFile());
         }
     }
 
@@ -395,7 +400,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
     private void configurar_taula_docs() {
         //Iniciar elements per carregar a la vista tots els documents guardats
         String[] header = new String[]{"Títol", "Autor", "Pes", "Extensió"};
-        this.dtm = new DefaultTableModel(null, header)  {
+        this.dtm = new DefaultTableModel(null, header) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -409,10 +414,10 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
         this.taula.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.scroll.setViewportView(this.taula);
 
-        this.taula.addMouseListener(new MouseAdapter(){
+        this.taula.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e){
-                if(e.getSource() == taula && !taula.getSelectionModel().isSelectionEmpty() && e.getClickCount()==2 ) {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getSource() == taula && !taula.getSelectionModel().isSelectionEmpty() && e.getClickCount() == 2) {
                     modificarDoc();
                 }
             }
@@ -443,7 +448,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
         //Afegir listener a la taula per mostrar popup menu
         this.taula.addMouseListener(new MouseAdapter() {
             public void mouseReleased(MouseEvent e) {
-                if(e.isPopupTrigger() && !taula.getSelectionModel().isSelectionEmpty()) {
+                if (e.isPopupTrigger() && !taula.getSelectionModel().isSelectionEmpty()) {
                     rightClickMenu.show(e.getComponent(), e.getX(), e.getY());
                 }
             }
@@ -474,6 +479,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
 
     /**
      * Metode que assigna funcionalitats de l'aplicacio de forma alternativa (combinacio de tecles)
+     *
      * @param e the event to be processed
      */
     @Override
@@ -484,7 +490,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
             this.control_selected = true;
 
         } else if (control_selected && key == KeyEvent.VK_N) {
-            ctrlPresentacio.obrirEditorDocuments(null,null,true);
+            ctrlPresentacio.obrirEditorDocuments(null, null, true);
 
         } else if (key == KeyEvent.VK_DELETE && !taula.getSelectionModel().isSelectionEmpty()) {
             eliminarDoc();
@@ -493,6 +499,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
 
     /**
      * Metode que serveix per posar a 'false' l'atribut 'control_selected'
+     *
      * @param e the event to be processed
      */
     @Override
@@ -503,5 +510,7 @@ public class ViewMenuPrincipal extends JFrame implements ActionListener, KeyList
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) {
+    }
+
 }

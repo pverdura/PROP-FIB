@@ -1,6 +1,7 @@
 package Codi.Presentacio;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 
 /**
  * Classe que gestiona la vista que organitza les expressions booleanes de l'aplicacio
+ *
  * @author PauVi
  */
 public class ViewGestioExprBool extends JFrame implements ActionListener, KeyListener {
@@ -38,7 +40,7 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
     private JMenuItem miEliminar, miModificar, miCercar;
 
     /**
-     /**
+     * /**
      * Instancia que fa referencia a l'element JList i que serveix per mostrar les expressions
      */
     private JList<String> llistaBool;
@@ -61,6 +63,7 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
 
     /**
      * Constructor
+     *
      * @param ctrlPresentacio Control Presentacio de l'aplicacio
      */
     public ViewGestioExprBool(CtrlPresentacio ctrlPresentacio) {
@@ -83,6 +86,7 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
 
     /**
      * Metode que associa cada element interactiu amb una funcionalitat
+     *
      * @param e the event to be processed
      */
     @Override
@@ -94,13 +98,12 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
         if (source == createButton) {
             crearExpressio();
 
-        }else if (source == miEliminar) {
+        } else if (source == miEliminar) {
             eliminarExpressio();
 
         } else if (source == miModificar) {
             modificarExpressio();
-        }
-        else if (source == miCercar) {
+        } else if (source == miCercar) {
             if (!llistaBool.isSelectionEmpty()) {
                 ctrlPresentacio.cercaBooleana(llistaBool.getSelectedValue());
             }
@@ -122,7 +125,7 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
         dlm.removeAllElements();
 
         ArrayList<String> expressions = ctrlPresentacio.getExpressionsBooleanes();
-        for (String e: expressions) dlm.addElement(e);
+        for (String e : expressions) dlm.addElement(e);
     }
 
 
@@ -150,10 +153,10 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
         this.llistaBool.setSelectedIndex(0);
         this.scroll.setViewportView(this.llistaBool);
 
-        this.llistaBool.addMouseListener(new MouseAdapter(){
+        this.llistaBool.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e){
-                if(e.getSource() == llistaBool && !llistaBool.isSelectionEmpty() && e.getClickCount()==2 ) {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getSource() == llistaBool && !llistaBool.isSelectionEmpty() && e.getClickCount() == 2) {
                     modificarExpressio();
                 }
             }
@@ -183,7 +186,7 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
         //Afegir listener a la llista per mostrar popup menu
         this.llistaBool.addMouseListener(new MouseAdapter() {
             public void mouseReleased(MouseEvent e) {
-                if(e.isPopupTrigger()) {
+                if (e.isPopupTrigger()) {
                     llistaBool.setSelectedIndex(llistaBool.locationToIndex(e.getPoint()));
                     rightClickMenu.show(e.getComponent(), e.getX(), e.getY());
                 }
@@ -241,6 +244,7 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
 
     /**
      * Metode que assigna funcionalitats de l'aplicacio de forma alternativa (combinacio de tecles)
+     *
      * @param e the event to be processed
      */
     @Override
@@ -260,6 +264,7 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
 
     /**
      * Metode que serveix per posar a 'false' l'atribut 'control_selected'
+     *
      * @param e the event to be processed
      */
     @Override
@@ -270,7 +275,9 @@ public class ViewGestioExprBool extends JFrame implements ActionListener, KeyLis
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) {
+    }
+
 }
 
 
