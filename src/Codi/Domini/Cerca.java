@@ -1,7 +1,7 @@
 package Codi.Domini;
 
 /**
- *  Interfície de les classes de cerca
+ *  Interficie de les classes de cerca
  */
 public interface Cerca {
     /**

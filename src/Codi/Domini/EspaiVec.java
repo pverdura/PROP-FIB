@@ -13,7 +13,7 @@ public class EspaiVec {
 
     /**
      * Calcula el IDF de cada paraula de l'array paraules (la frequencia inversa de lo comuna que es la paraula en el
-     * corpus: quan mes freqüent -> menys IDF, quan menys frequent -> mes IDF)
+     * corpus: quan mes frequent -> menys IDF, quan menys frequent -> mes IDF)
      *
      * @param paraules Array de paraules que s'utilitza per fer la cerca
      * @param N Indica el nombre de documents del sistema

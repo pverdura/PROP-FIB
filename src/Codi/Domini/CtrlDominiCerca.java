@@ -120,7 +120,7 @@ public class CtrlDominiCerca {
     }
 
     /**
-     * Cerca de tots els docuemnts
+     * Cerca de tots els documents
      *
      * @param documents Estructura on estan guardats tots els documents
      * @param ordre Indica l'ordre amb el qual es vol ordenar el resultat

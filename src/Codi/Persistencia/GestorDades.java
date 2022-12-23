@@ -535,7 +535,7 @@ public class GestorDades {
      * @param expressions Indica l'array amb les expressions booleanes
      * @param path Indica en quin fitxer es guarden les expressions booleanes
      * @throws FitxerNoCreatException Si s'ha intentat crear el fitxer indicat en el path i no s'ha pogut
-     * @throws FitxerNoCreatException Si s'ha intentat eliminar el fitxer indicat en el path i no s'ha pogut
+     * @throws FitxerNoEliminatException Si s'ha intentat eliminar el fitxer indicat en el path i no s'ha pogut
      */
     public void guardaExpressionsBooleanes(ArrayList<String> expressions, String path) throws FitxerNoCreatException,
             FitxerNoEliminatException {
