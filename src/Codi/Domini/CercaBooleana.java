@@ -7,12 +7,13 @@ import java.util.Map;
 
 /**
  * Classe que gestiona les cerques d'una expressio booleana
+ *
  * @author PauVi
  */
 public class CercaBooleana implements Cerca {
 
     /**
-     * Funció que realitza una cerca dels documents aplicant una expressio booleana
+     * Funcio que realitza una cerca dels documents aplicant una expressio booleana
      * @param expressio Expressio booleana que realitza la cerca
      * @param docs Documents a cercar si compleixen l'expressio booleana
      * @return Retorna ArrayList dels documents que compleixen l'expressio booleana

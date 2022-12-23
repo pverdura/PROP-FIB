@@ -2,13 +2,14 @@ package Codi.Presentacio;
 
 /**
  * Classe que executa l'aplicacio
+ *
  * @author PauVi
  */
 public class Main {
 
     /**
-     * Obre l'aplicació creant un control de presentacio que sera inicialitzat
-     * @param args
+     * Obre l'aplicacio creant un control de presentacio que sera inicialitzat
+     * @param args Arguments
      */
     public static void main(String[] args) {
 
