@@ -6,9 +6,11 @@ import Codi.Util.TipusExtensio;
 import Codi.Util.TipusOrdenacio;
 
 import java.io.File;
+import java.security.KeyStore;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  *  Classe que controla la capa de presentacio
@@ -81,13 +83,8 @@ public class CtrlPresentacio {
      * Tanca l'aplicacio
      */
     public void tancarAplicacio () {
-        System.out.println("hola");
-        for (SimpleEntry<String, String> id : editors.keySet()) {
-            System.out.println(id.getKey());
-            editors.get(id).tancarVista();
-        }
-
         viewMenuPrincipal.tancarVista();
+        System.exit(0);
     }
 
     ///////////////////////////////////////////////////////////
